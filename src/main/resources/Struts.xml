@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <!--<constant name="struts.objectFactory" value="spring"></constant>-->
+    <!--&lt;!&ndash; 扫描struts2的注解 还有一个默认是扫描以Action结尾的-->
+      <!--如果需要修改的话我们可以配置-->
+    <!--<constant name="struts.convention.action.suffix" value="Action"/> &ndash;&gt;-->
+    <!--<constant name="struts.convention.package.locators.basePackage" value="cn"/>-->
+    <!--<constant name="struts.convention.package.locators" value="cn"/>-->
+    <!--&lt;!&ndash; struts2默认是不扫描我们tomcar加载的类 所以我们要将类加载器改为false &ndash;&gt;-->
+    <!--<constant name="struts.convention.exclude.parentClassLoader" value="false" />-->
+
+    <!--&lt;!&ndash;<package name="default" namespace="/" extends="struts-default">&ndash;&gt;-->
+        <!--&lt;!&ndash;<action name="Login" class="LoginAction">&ndash;&gt;-->
+            <!--&lt;!&ndash;<result name="success">/success.jsp</result>&ndash;&gt;-->
+            <!--&lt;!&ndash;<result name="login">/index.jsp</result>&ndash;&gt;-->
+        <!--&lt;!&ndash;</action>&ndash;&gt;-->
+    <!--&lt;!&ndash;</package>&ndash;&gt;-->
+
+    <constant name="struts.devMode" value="true"/>
+
+
+    <package name="default" extends="struts-default">
+        <action name="hello" class="com.movie.Action.HelloAction" method="execute">
+            <result name="success">/WEB-INF/jsp/hello.jsp</result>
+        </action>
+
+
+    </package>
+
+
+</struts>
