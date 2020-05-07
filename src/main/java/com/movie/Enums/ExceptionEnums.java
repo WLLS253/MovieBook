@@ -1,7 +1,7 @@
 package com.movie.Enums;
 
 public enum ExceptionEnums {
-    UNKNOW_ERRPR(-1,"未知错误异常"),
+    UNKNOW_ERROR(-1,"未知错误异常"),
     DEL_SUCCESS(0,"删除成功"),
     UNFIND_Player_ERROR(2,"用户不存在"),
     UNFIND_ITEM_ERROR(3,"道具不存在"),
@@ -14,7 +14,8 @@ public enum ExceptionEnums {
     POST_DESIGN_ERROE(10,"岗位不存在"),
     PROJECT_ERROR(11,"项目不存在"),
     JOB_ID_ERROR(12,"岗位没有绑定"),
-    UNFIND_DATA_ERROR(13,"数据项不存在")
+    UNFIND_DATA_ERROR(13,"数据项不存在"),
+    ADD_ERROR(14,"添加失败")
     ;
 
     private  Integer code;

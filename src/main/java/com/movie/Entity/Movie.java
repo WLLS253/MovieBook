@@ -1,5 +1,6 @@
 package com.movie.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.Setter;
 import javax.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -26,7 +29,8 @@ public class Movie extends BaseEntity {
     private String brief;
 
     @Column(name = "release_time", nullable = true)
-    private Timestamp releaseTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date releaseTime;
 
 
     @ManyToMany
@@ -37,6 +41,8 @@ public class Movie extends BaseEntity {
     )
     private List<Staff>staffList;
 
+
+    @JsonIgnore
     @ManyToMany(mappedBy = "movieList")
     private List<User>userList;
 
@@ -47,4 +53,25 @@ public class Movie extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "tag_id",referencedColumnName = "id")
     )
     private  List<Tag>tagList;
+
+    public Movie() {
+        this.staffList = new ArrayList<>();
+        this.userList = new ArrayList<>();
+        this.tagList = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "score=" + score +
+                ", brief='" + brief + '\'' +
+                ", releaseTime=" + releaseTime +
+                ", staffList=" + staffList +
+                ", userList=" + userList +
+                ", tagList=" + tagList +
+                ", id=" + id +
+                ", createdTime=" + createdTime +
+                ", updatedTime=" + updatedTime +
+                '}';
+    }
 }

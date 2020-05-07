@@ -4,6 +4,9 @@ package com.movie.Entity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -13,13 +16,7 @@ import java.util.Date;
 @Getter
 @EqualsAndHashCode
 @Entity
-@Table(name = "buy")
-public class Buy {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "bigint", nullable = false)
-    protected Long id;
+public class Buy extends BaseEntity {
 
 
 
@@ -30,14 +27,21 @@ public class Buy {
     @Column(name = "state", nullable = false, length = 20)
     private String state;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "ticket_id")
+    @OneToOne
     private Ticket ticket;
 
 
-
+    @Override
+    public String toString() {
+        return "Buy{" +
+                "id=" + id +
+                ", purchaseDate=" + purchaseDate +
+                ", state='" + state + '\'' +
+//                ", user=" + user +
+//                ", ticket=" + ticket +
+                '}';
+    }
 }

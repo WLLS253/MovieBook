@@ -35,4 +35,19 @@ public class Hall extends BaseEntity {
     @ManyToOne(targetEntity = Cinema.class)
     private  Cinema cinema;
 
+
+    @Override
+    public String toString() {
+        return "Hall{" +
+                "col=" + col +
+                ", row=" + row +
+                ", hallType='" + hallType + '\'' +
+                ", layout='" + layout + '\'' +
+                ", hallName='" + hallName + '\'' +
+                ", cinema=" + cinema +
+                ", id=" + id +
+                ", createdTime=" + createdTime +
+                ", updatedTime=" + updatedTime +
+                '}';
+    }
 }

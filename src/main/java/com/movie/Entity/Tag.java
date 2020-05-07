@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -22,4 +23,8 @@ public class Tag extends  BaseEntity {
     @ManyToMany(mappedBy = "tagList")
     private List<Movie>movieList;
 
+
+    public Tag() {
+        this.movieList = new ArrayList<>();
+    }
 }

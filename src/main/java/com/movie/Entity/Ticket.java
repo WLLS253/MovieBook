@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -16,7 +17,7 @@ public class Ticket extends  BaseEntity {
 
 
     @Column(name = "avaliable", nullable = true)
-    private Byte avaliable;
+    private boolean avaliable;
 
 
     @Column(name = "ticket_row", nullable = true)
@@ -31,12 +32,26 @@ public class Ticket extends  BaseEntity {
     private Schedual schedual;
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "buy",
-            joinColumns = @JoinColumn(name = "ticket_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id")
-    )
-    private List<User>userList;
+    @ManyToOne(targetEntity = User.class)
+//    @JoinTable(
+//            name = "buy",
+//            joinColumns = @JoinColumn(name = "ticket_id",referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id")
+//    )
+    private User user;
 
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "avaliable=" + avaliable +
+                ", ticketRow=" + ticketRow +
+                ", ticketCol=" + ticketCol +
+                ", price=" + price +
+                ", schedual=" + schedual +
+                ", user=" + user +
+                ", id=" + id +
+                ", createdTime=" + createdTime +
+                ", updatedTime=" + updatedTime +
+                '}';
+    }
 }

@@ -8,10 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface AssessorRepository extends JpaRepository<Assessor,Long> {
-
-
-
-
     List<Assessor>findByAssessorName(String name);
 
 }

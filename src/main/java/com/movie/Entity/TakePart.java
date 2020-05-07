@@ -4,6 +4,7 @@ package com.movie.Entity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -26,10 +27,12 @@ public class TakePart {
     private String role;
 
     @ManyToOne
+    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
     @ManyToOne
+    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "staff_id")
     private Staff staff;
 }

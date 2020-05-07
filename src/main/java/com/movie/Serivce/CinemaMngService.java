@@ -5,6 +5,7 @@ import com.movie.Entity.Cinema;
 import com.movie.Entity.CinemaMng;
 import com.movie.Repository.CinemaMngRepository;
 import com.movie.Repository.CinemaRepository;
+import com.movie.Result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +21,13 @@ public class CinemaMngService {
     private CinemaMngRepository cinemaMngRepository;
 
 
-    public  void addCinema(Cinema cinema){
+    public Cinema addCinema(Cinema cinema){
         try {
-            cinemaRepository.save(cinema);
+            return cinemaRepository.save(cinema);
+
         }catch (Exception e){
             e.printStackTrace();
+            return null;
         }
     }
 

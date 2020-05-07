@@ -5,10 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,8 +36,11 @@ public class User extends  BaseEntity {
     private List<Movie>movieList;
 
 
-    @ManyToMany(mappedBy = "userList")
-    private  List<Ticket>ticketList;
+//    @OneToMany(mappedBy = "user")
+//    private  List<Ticket>ticketList;
 
-
+    public User() {
+        this.movieList = new ArrayList<>();
+//        this.ticketList = new ArrayList<>();
+    }
 }

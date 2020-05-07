@@ -36,22 +36,20 @@ public class CinemaService {
     @Autowired
     private ScheudalRepository scheudalRepository;
 
-    public  void addCinemaHall(String cinemaName, Hall hall){
+    public  Hall addCinemaHall(String cinemaName, Hall hall){
         List<Cinema >cinemaList=cinemaRepository.findByCinemaName(cinemaName);
         Cinema cinema;
         if(cinemaList.size()>0){
             cinema=cinemaList.get(0);
             hall.setCinema(cinema);
-            hallRepository.save(hall);
+            System.out.println(hall);
+            return  hallRepository.save(hall);
         }else {
-            /**
-             * 处理方法
-             */
-            System.out.println(Util.failure(ExceptionEnums.UNFIND_DATA_ERROR));
+            return  null;
         }
     }
 
-    public  void addSchedule(Long movieId,Long hallId,Long cinemaId,String startTime,String endTime,Double price,String description) throws ParseException {
+    public  Schedual addSchedule(Long movieId,Long hallId,Long cinemaId,String startTime,String endTime,Double price,String description) throws ParseException {
 
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date start=simpleDateFormat.parse(startTime);
@@ -68,7 +66,7 @@ public class CinemaService {
         schedual.setPrice(price);
         schedual.setStartDate(start);
 
-        scheudalRepository.save(schedual);
+         return  scheudalRepository.save(schedual);
     }
 
 
