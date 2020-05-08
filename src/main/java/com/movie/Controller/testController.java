@@ -54,7 +54,6 @@ public class testController {
 
     @PostMapping(value = "/test/find")
     public Result find(@RequestParam("name") String name){
-
         List<Assessor>assessorList=assessorRepository.findByAssessorName(name);
         System.out.println(name);
         System.out.println(assessorList);

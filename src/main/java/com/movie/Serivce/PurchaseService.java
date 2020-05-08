@@ -19,8 +19,11 @@ import javax.xml.ws.ServiceMode;
 import java.util.Date;
 import java.util.List;
 
+
+
 @Service
 public class PurchaseService {
+
 
     @Autowired
     private UserRepository userRepository;
@@ -33,8 +36,6 @@ public class PurchaseService {
 
     @Autowired
     private BuyRepository buyRepository;
-
-
 
     //@Transactional(rollbackFor = {RuntimeException.class})
     public JSONObject  purchase(Integer row, Integer col, Double price, Long userId, Long schedualId){
@@ -58,6 +59,8 @@ public class PurchaseService {
 //        user.setTicketList(tickets);
 //        userRepository.save(user);
 //
+
+
         Buy buy=new Buy();
         Date date=new Date();
         buy.setPurchaseDate(date);
@@ -80,7 +83,6 @@ public class PurchaseService {
         jsonObject.put("row",row);
         jsonObject.put("col",col);
         jsonObject.put("price",price);
-
         return jsonObject;
 
     }

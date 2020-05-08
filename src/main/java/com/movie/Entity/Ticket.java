@@ -40,6 +40,7 @@ public class Ticket extends  BaseEntity {
 //    )
     private User user;
 
+
     @Override
     public String toString() {
         return "Ticket{" +

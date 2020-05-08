@@ -64,6 +64,7 @@ public class CinemaController {
         }
     }
 
+
     @DeleteMapping(value = "cinema/delete")
     public  Result deleteCinema(@RequestParam("cinemaId")Long cinemaId){
         try {
@@ -76,6 +77,7 @@ public class CinemaController {
 
     }
 
+
     @PostMapping(value = "/cinemaMng/add")
     public Result addCinemaMng(CinemaMng cinemaMng){
         try {
@@ -87,6 +89,7 @@ public class CinemaController {
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
 
     @PostMapping(value = "/cinemaHall/add")
     public Result addCinemaHall(@RequestParam("cinemaName")String cinameName, Hall hall){
