@@ -26,17 +26,19 @@ public class Ticket extends  BaseEntity {
     @Column(name = "ticket_col", nullable = true)
     private Integer ticketCol;
 
+    private Double price;
+
     @ManyToOne
     private Schedual schedual;
 
 
-//    @ManyToOne(targetEntity = User.class)
-////    @JoinTable(
+    @ManyToOne(targetEntity = User.class)
+//    @JoinTable(
 ////            name = "buy",
 ////            joinColumns = @JoinColumn(name = "ticket_id",referencedColumnName = "id"),
 ////            inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id")
 ////    )
-//    private User user;
+    private User user;
 
 
     @Override

@@ -33,6 +33,13 @@ public class Movie extends BaseEntity {
     private Date releaseTime;
 
 
+    private  String showImage;
+
+
+    @OneToMany(targetEntity = Figure.class)
+    private  List<Figure>figureList;
+
+
     @ManyToMany
     @JoinTable(
             name = "takepart",

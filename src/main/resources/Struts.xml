@@ -17,7 +17,7 @@
     <!--&lt;!&ndash;<package name="default" namespace="/" extends="struts-default">&ndash;&gt;-->
         <!--&lt;!&ndash;<action name="Login" class="LoginAction">&ndash;&gt;-->
             <!--&lt;!&ndash;<result name="success">/success.jsp</result>&ndash;&gt;-->
-            <!--&lt;!&ndash;<result name="login">/index.jsp</result>&ndash;&gt;-->
+            <!--&lt;!&ndash;<result name="login">/index1.jsp</result>&ndash;&gt;-->
         <!--&lt;!&ndash;</action>&ndash;&gt;-->
     <!--&lt;!&ndash;</package>&ndash;&gt;-->
 

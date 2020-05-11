@@ -15,9 +15,12 @@ spring:
       ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+
+
   mvc:
     view:
-      prefix: /HTML/
+      prefix: classpath:/templates/
       suffix: .html
 
 volunteer:

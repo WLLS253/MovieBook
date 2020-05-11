@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Setter
 @Getter
@@ -27,5 +29,8 @@ public class Cinema extends  BaseEntity {
 
     private String cinemaDescription;
 
+
+    @OneToMany(targetEntity = Figure.class)
+    private List<Figure>figureList;
 
 }

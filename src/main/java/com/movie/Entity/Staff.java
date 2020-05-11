@@ -25,6 +25,9 @@ public class Staff extends  BaseEntity {
     private String staffBrief;
 
 
+    private String showImage;
+
+
     @ManyToMany(mappedBy = "staffList")
     private List<Movie>movieList;
 

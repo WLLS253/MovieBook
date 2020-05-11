@@ -19,8 +19,6 @@ import java.util.List;
 @Entity
 public class Schedual extends BaseEntity {
 
-
-
     @Column(name = "price", nullable = true, precision = 3)
     private Double price;
 
@@ -34,6 +32,7 @@ public class Schedual extends BaseEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
+
 
     @Column(name = "sched_description", nullable = true, length = 400)
     private String schedDescription;

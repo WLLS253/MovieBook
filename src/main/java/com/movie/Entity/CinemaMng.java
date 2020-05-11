@@ -40,4 +40,9 @@ public class CinemaMng extends BaseEntity{
     @ManyToOne(targetEntity = Cinema.class)
     private  Cinema cinema;
 
+    private  String showImage;
+
+
+
+
 }
