@@ -28,6 +28,9 @@ public class User extends  BaseEntity {
 
     private String userPhone;
 
+    private String showimage;
+
+
     @ManyToMany
     @JoinTable(
             name = "comment",
@@ -35,6 +38,7 @@ public class User extends  BaseEntity {
             inverseJoinColumns =@JoinColumn(name = "movie_id",referencedColumnName = "id")
     )
     private List<Movie>movieList;
+
 
 
 //    @OneToMany(mappedBy = "user")
@@ -110,6 +114,14 @@ public class User extends  BaseEntity {
         return str;
     }
 
+    public String getShowimage() {
+        return showimage;
+    }
+
+    public void setShowimage(String showimage) {
+        this.showimage = showimage;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -124,4 +136,6 @@ public class User extends  BaseEntity {
                 ", updatedTime=" + updatedTime +
                 '}';
     }
+
+
 }

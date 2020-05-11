@@ -14,11 +14,13 @@ import java.util.Random;
 
 @Service
 public class UploadSerivce {
+
     public  final static Logger logger= LoggerFactory.getLogger(UploadSerivce.class);
 
     //图片存放根路径
     @Value("${file.rootPath}")
     private String ROOT_PATH;
+
     //图片存放根目录下的子目录
     @Value("${file.sonPath}")
     private String SON_PATH;
@@ -28,13 +30,12 @@ public class UploadSerivce {
     private String POST;
 
 
-
-
     public String upImageFire(MultipartFile file){
-
         if (file.isEmpty()) {
             throw new NullPointerException("文件为空");
         }
+
+
         // 设置文件上传后的路径
         String filePath = ROOT_PATH + SON_PATH;
         // 获取文件名后缀名

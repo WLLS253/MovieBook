@@ -17,23 +17,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MovieController {
 
+
     @Autowired
     private StaffRepository staffRepository;
+
 
     @Autowired
     private TakePartRepository takePartRepository;
 
+
+
     @Autowired
     private MovieRepository movieRepository;
+
 
     @Autowired
     private CommentRepository commentRepository;
 
+
     @Autowired
     private UserRepository userRepository;
 
+
     @Autowired
     private TagRepository tagRepository;
+
 
     @Autowired
     private MovieService movieService;
@@ -71,7 +79,6 @@ public class MovieController {
         }
     }
 
-
     @PostMapping(value = "tag/add")
     public  Result addTag(@RequestParam("tagName")String tagName){
         try {
@@ -84,7 +91,6 @@ public class MovieController {
         }
     }
 
-
     @GetMapping(value = "movie/getCommentList")
     public Result getMovieCommentList(@RequestParam("movieId")Long movieId){
         try {
@@ -94,9 +100,6 @@ public class MovieController {
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
-
-
-
 
 
 }

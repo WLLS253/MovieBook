@@ -5,6 +5,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.convention.annotation.Action;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class StrutsTestController extends ActionSupport {
@@ -28,10 +29,10 @@ public class StrutsTestController extends ActionSupport {
         this.password = password;
     }
 
-    @RequestMapping(value = "/index")
+    @RequestMapping(value = "/index",method = RequestMethod.GET)
     public  String index(){
         System.out.println("asfvsfdddfsad");
-        return "index" ;
+        return "test." ;
     }
 
     @RequestMapping(value = "/test1")
