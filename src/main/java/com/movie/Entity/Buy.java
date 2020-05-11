@@ -11,6 +11,7 @@ import org.hibernate.annotations.CascadeType;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -27,11 +28,13 @@ public class Buy extends BaseEntity {
     @Column(name = "state", nullable = false, length = 20)
     private String state;
 
-    @OneToOne
+    @ManyToOne
     private User user;
 
-    @OneToOne
-    private Ticket ticket;
+    //一次购买可以买多张票
+    @ManyToMany
+    @JoinTable(name = "buy_tickets", joinColumns = @JoinColumn(name = "buy_id"), inverseJoinColumns = @JoinColumn(name = "ticket_id"))
+    private List<Ticket> tickets;
 
 
     @Override

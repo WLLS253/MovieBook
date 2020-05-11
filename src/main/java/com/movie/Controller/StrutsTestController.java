@@ -1,9 +1,12 @@
 package com.movie.Controller;
 
 
+import com.movie.Result.Result;
+import com.movie.Util.Util;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.convention.annotation.Action;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -28,18 +31,18 @@ public class StrutsTestController extends ActionSupport {
         this.password = password;
     }
 
-    @RequestMapping(value = "/index")
+    @RequestMapping(value = "/index.html")
     public  String index(){
         System.out.println("asfvsfdddfsad");
         return "index" ;
     }
 
-    @RequestMapping(value = "/test1")
+    @RequestMapping(value = "/test2.html")
     public  String test(){
-
         System.out.println("+++++++++++++++++++++++++++++");
-        return "test";
+        return "test2";
     }
+
 
 
     @Action(value = "test")

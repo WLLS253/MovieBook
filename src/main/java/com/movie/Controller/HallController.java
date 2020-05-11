@@ -50,18 +50,5 @@ public class HallController  {
         }
     }
 
-    @PostMapping(value = "ticket/add")
-    public  Result addTicket(@RequestParam("row") Integer row, @RequestParam("col") Integer col, @RequestParam("price") Double price,
-                             @RequestParam("userId") Long userId,@RequestParam("sche") Long schedualId)
-    {
 
-        try {
-            JSONObject json=purchaseService.purchase(row,col,price,userId,schedualId);
-            return Util.success(json);
-        }catch (Exception e){
-            e.printStackTrace();
-            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
-        }
-
-    }
 }

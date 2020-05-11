@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+    <!--<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>-->
+    <!--<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>-->
+    <script src="/js/vue.js"></script>
+    <script src="/js/axios.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>网站列表</h1>
+    <h1> 杂项 </h1>
+    <a href="./test2.html"> 跳转测试 </a>
+
+
+    <h1> get表格 </h1>
+
+    <h2> 结算信息 get </h2>
+    <button v-on:click="checkOut()">staff add</button>
+
+    <h1> post表格 </h1>
+
+    <h2> staff add</h2>
+    <p>staff姓名：</p>
+    <input v-model="staff_info.staffName" placeholder="staff姓名">
+    <p>staff简介：</p>
+    <input v-model="staff_info.staffBrief" placeholder="staff简介">
+    <button v-on:click="addStaff()">staff add</button>
+
+
+    <h2> cinema  add</h2>
+    <p>cinemaName：</p>
+    <input v-model="cinema_info.cinemaName" placeholder="cinemaName">
+    <p>location：</p>
+    <input v-model="cinema_info.location" placeholder="location">
+    <p>phone：</p>
+    <input v-model="cinema_info.phone" placeholder="phone">
+    <p>grade：</p>
+    <input v-model="cinema_info.grade" placeholder="grade">
+    {{ cinema_info.grade }}
+    <p>cinemaDescription：</p>
+    <input v-model="cinema_info.cinemaDescription" placeholder="cinemaDescription">
+    <button v-on:click="addCinema()">cinema add</button>
+
+
+
+
+    <button v-on:click="tester()">teee add</button>
+    <button v-on:click="confirm()">confirm</button>
+
+</div>
+<script type = "text/javascript">
+    new Vue({
+        el: '#app',
+        data:{
+            staff_info:{
+                staffName:null,
+                staffBrief:null,
+            },
+            cinema_info:{
+                cinemaName:null,
+                location:null,
+                phone:null,
+                grade:null,
+                cinemaDescription:null,
+            },
+        },
+        methods:{
+            addStaff:function(){
+                // 按 URLSearchParams 方式的话是 application/x-www-form-urlencoded
+                    // 否则 将会被 自动  json 化
+                const params = new URLSearchParams();
+                params.append('staffBrief', this.staff_info.staffBrief);
+                params.append('staffName', this.staff_info.staffName);
+                axios.post("http://localhost:8081/staff/add",params)
+                    .then(response => {console.log(response)
+                        console.log(this.staff_info)
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            addCinema(){
+                const params = new URLSearchParams();
+                for (let key in this.cinema_info){
+                    params.append(key,this.cinema_info[key])
+                }
+                axios.post("http://localhost:8081/cinema/add",params)
+                    .then(response => {console.log(response)
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            checkOut(){
+                const params = new URLSearchParams();
+                params.append('ticket_infos', JSON.stringify([{row:1,col:1},{row:1,col:2},{row:1,col:3},{row:1,col:4}]));
+                // axios.post("http://localhost:8081/purchase/checkOut",params)
+                //     .then(response => {console.log(response)
+                //     })
+                //     .catch(function (error) { // 请求失败处理
+                //         console.log(error);
+                //     });
+                axios.post("http://localhost:8081/purchase/checkOut",{'ticket_infos':[{row:1,col:1},{row:1,col:2},{row:1,col:3},{row:1,col:4}]})
+                    .then(response => {console.log(response)
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            tester(){
+
+                axios.post("http://localhost:8081/purchase/buy",{"price":100.0,"schedualId":1,"userId":1,"ticket_ids":[1,3]}).then(r=>{
+                    console.log(r)
+                })
+            },
+        },
+        mounted () {
+            axios.post('http://localhost:8081/moive/fliter',{start_year:2018,
+                end_year:2019,
+                tags:["搞笑"]})
+                .then(response => {console.log(response)})
+        .catch(function (error) { // 请求失败处理
+                console.log(error);
+            });
+        },
+
+    })
+</script>
+</body>
+</html>

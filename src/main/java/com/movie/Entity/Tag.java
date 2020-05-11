@@ -1,6 +1,7 @@
 package com.movie.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,7 @@ public class Tag extends  BaseEntity {
     @Column(name = "tag_name", nullable = true, length = 20)
     private String tagName;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "tagList")
     private List<Movie>movieList;
 

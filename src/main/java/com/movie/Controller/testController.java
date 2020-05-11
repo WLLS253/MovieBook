@@ -77,7 +77,10 @@ public class testController {
         return Util.success(movieRepository.save(movie1));
     }
 
-
+    @GetMapping(value = "/test/ggget")
+    public Result tmse(){
+        return Util.success(1);
+    }
 
 
 }

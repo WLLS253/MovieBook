@@ -3,7 +3,7 @@ package com.movie.Controller;
 
 import com.movie.Entity.CinemaMng;
 import com.movie.Enums.ExceptionEnums;
-import com.movie.Repository.AccessorRepository;
+import com.movie.Repository.AssessorRepository;
 import com.movie.Repository.CinemaMngRepository;
 import com.movie.Repository.UserRepository;
 import com.movie.Result.Result;
@@ -26,7 +26,7 @@ public class LoginController {
     private CinemaMngRepository cinemaMngRepository;
 
     @Autowired
-    private AccessorRepository accessorRepository;
+    private AssessorRepository  accessorRepository;
 
 //    @PostMapping(value = "user/login")
 //    public Result userLogin(@RequestParam("userName")String username,@RequestParam("password")String password){

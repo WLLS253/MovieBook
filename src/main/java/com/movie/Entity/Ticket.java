@@ -26,33 +26,35 @@ public class Ticket extends  BaseEntity {
     @Column(name = "ticket_col", nullable = true)
     private Integer ticketCol;
 
-    private Double price;
-
-    @OneToOne
+    @ManyToOne
     private Schedual schedual;
 
 
-    @ManyToOne(targetEntity = User.class)
-//    @JoinTable(
-//            name = "buy",
-//            joinColumns = @JoinColumn(name = "ticket_id",referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id")
-//    )
-    private User user;
+//    @ManyToOne(targetEntity = User.class)
+////    @JoinTable(
+////            name = "buy",
+////            joinColumns = @JoinColumn(name = "ticket_id",referencedColumnName = "id"),
+////            inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id")
+////    )
+//    private User user;
 
 
     @Override
     public String toString() {
         return "Ticket{" +
+                ", id=" + id +
                 "avaliable=" + avaliable +
                 ", ticketRow=" + ticketRow +
                 ", ticketCol=" + ticketCol +
-                ", price=" + price +
-                ", schedual=" + schedual +
-                ", user=" + user +
-                ", id=" + id +
-                ", createdTime=" + createdTime +
-                ", updatedTime=" + updatedTime +
                 '}';
+    }
+
+    public Ticket(){}
+    public Ticket(Schedual schedual,Integer row,Integer col,boolean avaliable){
+        Hall hall = schedual.getHall();
+        this.setSchedual(schedual);
+        this.setTicketRow(row);
+        this.setTicketCol(col);
+        this.setAvaliable(avaliable);
     }
 }

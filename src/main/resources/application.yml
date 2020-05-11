@@ -5,8 +5,8 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test3?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
-    username: root
+    url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+    username: BlueBurger
     password: 123456
 
 
@@ -17,8 +17,8 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   mvc:
     view:
-      prefix: /WEB-INF/jsp/
-      suffix: .jsp
+      prefix: /HTML/
+      suffix: .html
 
 volunteer:
   credit: 100

@@ -52,7 +52,7 @@ public class Movie extends BaseEntity {
             joinColumns = @JoinColumn(name = "movie_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id",referencedColumnName = "id")
     )
-    private  List<Tag>tagList;
+    private  List<Tag> tagList;
 
     public Movie() {
         this.staffList = new ArrayList<>();

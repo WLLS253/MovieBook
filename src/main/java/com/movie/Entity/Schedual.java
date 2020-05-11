@@ -1,6 +1,7 @@
 package com.movie.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -36,6 +38,7 @@ public class Schedual extends BaseEntity {
     @Column(name = "sched_description", nullable = true, length = 400)
     private String schedDescription;
 
+
     @ManyToOne(targetEntity = Cinema.class)
     private  Cinema cinema;
 
@@ -44,5 +47,11 @@ public class Schedual extends BaseEntity {
 
     @ManyToOne(targetEntity = Hall.class)
     private  Hall hall;
+
+
+    @JsonIgnore
+    @OneToMany(targetEntity = Ticket.class)
+    @JoinColumn(name = "schedual_id")
+    public List<Ticket> ticketList;
 
 }

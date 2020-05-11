@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.movie.Entity.Comment;
 import com.movie.Entity.Movie;
+import com.movie.Entity.Tag;
 import com.movie.Repository.CommentRepository;
 import com.movie.Repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,4 +42,10 @@ public class MovieService {
         return  jsonObject;
     }
 
+    public JSONObject filterMovies(int year_start, int year_end, List<String> tags){
+        JSONObject jsonObject = new JSONObject();
+        System.out.println(movieRepository.filterMovies(tags,year_start,year_end));
+        return jsonObject;
+    }
 }
+
