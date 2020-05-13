@@ -39,7 +39,7 @@ public class StrutsTestController extends ActionSupport {
         return "/xdq/xdq_cinema_arrangements" ;
     }
 
-    @RequestMapping(value = "/{htmlname}.html")
+    @RequestMapping(value = "/{htmlname}.html$")
     public String getPage(@PathVariable(name = "htmlname") String html_name) {
         return html_name;
     }

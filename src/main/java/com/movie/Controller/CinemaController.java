@@ -8,6 +8,7 @@ import com.movie.Entity.Schedual;
 import com.movie.Enums.ExceptionEnums;
 import com.movie.Repository.CinemaMngRepository;
 import com.movie.Repository.CinemaRepository;
+import com.movie.Repository.ScheudalRepository;
 import com.movie.Result.Result;
 import com.movie.Serivce.CinemaMngService;
 import com.movie.Serivce.CinemaService;
@@ -33,6 +34,8 @@ public class CinemaController {
     private CinemaMngService cinemaMngService;
     @Autowired
     private CinemaRepository cinemaRepository;
+    @Autowired
+    private ScheudalRepository scheudalRepository;
 
     @Autowired
     private  CinemaMngRepository cinemaMngRepository;
@@ -117,7 +120,7 @@ public class CinemaController {
     @PostMapping(value = "shedule/add")
     public  Result addSchedule(@RequestParam("movieId")Long movieId,@RequestParam("hallId")Long hallId,
                                @RequestParam("cinemaId")Long cinemaId,@RequestParam("start")String stratTime,@RequestParam("end")String endTime,
-                               @RequestParam("price")Double price,@RequestParam("descirbe")String description)
+                               @RequestParam("price")Double price,@RequestParam("describe")String description)
     {
 
         try {
@@ -129,6 +132,19 @@ public class CinemaController {
             return  Util.failure(ExceptionEnums.ADD_ERROR);
         }
     }
+
+    @GetMapping(value = "cinema/getScheduals")
+    public Result getScheduals(@RequestParam("cinema_id")Long cinema_id){
+        try {
+            Cinema c =  cinemaRepository.findById(cinema_id).get();
+            return Util.success(scheudalRepository.findAllByCinema(c));
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Util.failure(ExceptionEnums.ADD_ERROR);
+        }
+    }
+
+
 
 
 

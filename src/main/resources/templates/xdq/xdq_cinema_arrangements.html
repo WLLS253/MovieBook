@@ -539,7 +539,7 @@
             },
         },
         mounted () {
-            axios.get('cinema/getScheduals')
+            axios.get('cinema/getScheduals?cinema_id=1')
                 .then(response => {console.log(response)})
                 .catch(function (error) { // 请求失败处理
                     console.log(error);
