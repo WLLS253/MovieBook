@@ -21,7 +21,7 @@ spring:
   mvc:
     view:
       prefix: classpath:/templates/
-      suffix: .html
+      suffix: .jsp
 
 volunteer:
   credit: 100

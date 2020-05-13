@@ -16,6 +16,7 @@ import java.time.Year;
 import java.util.Date;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class MovieController {
 
@@ -101,35 +102,6 @@ public class MovieController {
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
-
-    @PostMapping(value = "moive/fliter")
-    public Result filterMovies(@RequestBody FilterSetting filter_setting){
-        try {
-            System.out.println(filter_setting);
-            return Util.success(movieService.filterMovies(filter_setting.start_year,filter_setting.end_year,filter_setting.tags));
-        }catch (Exception e){
-            e.printStackTrace();
-            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
-        }
-    }
-
-
-    // requestBody classes
-    @Data
-    private static class FilterSetting{
-        // 上映年份区间
-        int start_year;
-        int end_year;
-
-        // 选择的 tags
-        List<String> tags;
-
-        @Override
-        public String toString() {
-            return "start_year"+start_year+" end_year"+end_year+" tags"+tags;
-        }
-    }
-
 
 
 }

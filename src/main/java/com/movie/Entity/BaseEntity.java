@@ -56,6 +56,9 @@ public abstract class BaseEntity implements Serializable {
         this.updatedTime = updatedTime;
     }
 
+    //获取相关性检索的时候使用的字符串
+    public String getSearchName(){ return toString();}
+
     @PreUpdate
     private void doPreUpdate() {
         updatedTime = new Date();

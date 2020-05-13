@@ -141,6 +141,8 @@ public class CinemaController {
 
 
 
+
+
 //    @PostMapping(value = "schedual/add")
 //    private
 

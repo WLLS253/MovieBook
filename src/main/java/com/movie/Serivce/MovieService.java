@@ -42,10 +42,6 @@ public class MovieService {
         return  jsonObject;
     }
 
-    public JSONObject filterMovies(int year_start, int year_end, List<String> tags){
-        JSONObject jsonObject = new JSONObject();
-        System.out.println(movieRepository.filterMovies(tags,year_start,year_end));
-        return jsonObject;
-    }
+
 }
 

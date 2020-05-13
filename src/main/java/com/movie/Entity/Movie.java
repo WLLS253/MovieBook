@@ -28,6 +28,9 @@ public class Movie extends BaseEntity {
     @Column(name = "brief", nullable = true, length = 400)
     private String brief;
 
+    @Column(name = "name", nullable = true, length = 400)
+    private String name;
+
     @Column(name = "release_time", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date releaseTime;
@@ -39,7 +42,12 @@ public class Movie extends BaseEntity {
     @OneToMany(targetEntity = Figure.class)
     private  List<Figure>figureList;
 
+    @Override
+    public String getSearchName() {
+        return this.getName();
+    }
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "takepart",
@@ -53,6 +61,7 @@ public class Movie extends BaseEntity {
     @ManyToMany(mappedBy = "movieList")
     private List<User>userList;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name ="mark",

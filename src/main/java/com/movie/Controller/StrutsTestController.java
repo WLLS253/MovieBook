@@ -7,6 +7,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.convention.annotation.Action;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,14 +36,21 @@ public class StrutsTestController extends ActionSupport {
     @RequestMapping(value = "/index.html")
     public  String index(){
         System.out.println("asfvsfdddfsad");
-        return "index" ;
+        return "/xdq/xdq_cinema_arrangements" ;
+    }
+
+    @RequestMapping(value = "/{htmlname}.html")
+    public String getPage(@PathVariable(name = "htmlname") String html_name) {
+        return html_name;
     }
 
     @RequestMapping(value = "/test2.html")
-    public  String test(){
+    public String test(){
         System.out.println("+++++++++++++++++++++++++++++");
         return "test2";
     }
+
+
 
 
 

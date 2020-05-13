@@ -29,6 +29,10 @@ public class Cinema extends  BaseEntity {
 
     private String cinemaDescription;
 
+    @Override
+    public String getSearchName() {
+        return this.getCinemaName();
+    }
 
     @OneToMany(targetEntity = Figure.class)
     private List<Figure>figureList;
