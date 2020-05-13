@@ -36,10 +36,15 @@ public class StrutsTestController extends ActionSupport {
     @RequestMapping(value = "/index.html")
     public  String index(){
         System.out.println("asfvsfdddfsad");
-        return "/xdq/xdq_cinema_arrangements" ;
+        return "index" ;
     }
 
-    @RequestMapping(value = "/{htmlname}.html$")
+    @RequestMapping(value = "/mng/{htmlname}.html")
+    public  String getMngPage(@PathVariable(name = "htmlname") String html_name) {
+        return "xdq/"+html_name;
+    }
+
+    @RequestMapping(value = "/{htmlname}.html/")
     public String getPage(@PathVariable(name = "htmlname") String html_name) {
         return html_name;
     }
