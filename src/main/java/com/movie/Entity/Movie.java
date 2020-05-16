@@ -36,6 +36,12 @@ public class Movie extends BaseEntity {
     private Date releaseTime;
 
 
+    private  String language;
+
+    private  String country;
+
+    private String duration;
+
     private  String showImage;
 
 

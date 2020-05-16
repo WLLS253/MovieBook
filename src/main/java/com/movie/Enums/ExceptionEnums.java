@@ -15,7 +15,8 @@ public enum ExceptionEnums {
     PROJECT_ERROR(11,"项目不存在"),
     JOB_ID_ERROR(12,"岗位没有绑定"),
     UNFIND_DATA_ERROR(13,"数据项不存在"),
-    ADD_ERROR(14,"添加失败")
+    ADD_ERROR(14,"添加失败"),
+    AUTHOR_EEOR(15,"权限不够")
     ;
 
     private  Integer code;

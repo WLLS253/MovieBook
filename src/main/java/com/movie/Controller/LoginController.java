@@ -4,6 +4,8 @@ package com.movie.Controller;
 import com.movie.Entity.CinemaMng;
 import com.movie.Entity.User;
 import com.movie.Enums.ExceptionEnums;
+import com.movie.Enums.Role;
+import com.movie.Plugins.SysLog;
 import com.movie.Repository.AssessorRepository;
 import com.movie.Repository.CinemaMngRepository;
 import com.movie.Repository.UserRepository;
@@ -44,6 +46,8 @@ public class LoginController {
     @Autowired
     private UploadSerivce uploadSerivce;
 
+
+    @SysLog(value = "user登录")
     @PostMapping(value = "user/login")
     public Result userLogin(@RequestParam("username")String username, @RequestParam("password")String password, HttpServletResponse response){
         try{
@@ -54,6 +58,7 @@ public class LoginController {
                     String token=tokenService.generateToken(user.getId().toString());
                     response.setHeader("isLogin", "true");
                     response.setHeader("token", token);
+                    response.setHeader("type", String.valueOf(Role.User));
                     cookieService.writeCookie(response,"id",user.getId().toString());
                     return  Util.success(user);
                 }else {
@@ -80,6 +85,7 @@ public class LoginController {
 //                    String token=tokenService.generateToken((cinemaMng.getId()));
                     response.setHeader("isLogin", "true");
                     response.setHeader("token", "mng");
+                    response.setHeader("type", String.valueOf(Role.CinemaMng));
                     cookieService.writeCookie(response,"id",cinemaMng.getId().toString());
                     return  Util.success(cinemaMng);
                 }else {
@@ -95,6 +101,7 @@ public class LoginController {
         }
     }
 
+    @SysLog(value = "user注册")
     @PostMapping(value = "user/sign")
     public  Result userSign(@RequestParam(value = "usersex",required = false)String sex, @RequestParam("username")String name, @RequestParam("password")String password,
                             @RequestParam(value = "email",required = false)String email, @RequestParam(value = "phone",required = false)String phone, @RequestParam(value = "image",required = false)MultipartFile file,HttpServletResponse response){
@@ -113,6 +120,7 @@ public class LoginController {
             String token=tokenService.generateToken(result.getId().toString());
             response.setHeader("isLogin","true");
             response.setHeader("token",token);
+            response.setHeader("type", String.valueOf(Role.User));
             cookieService.writeCookie(response,"id",result.getId().toString());
             return  Util.success(userRepository.save(user));
         }catch (Exception e){
