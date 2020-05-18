@@ -44,6 +44,8 @@ public class Movie extends BaseEntity {
 
     private  String showImage;
 
+    private  String state;
+
 
     @OneToMany(targetEntity = Figure.class)
     private  List<Figure>figureList;

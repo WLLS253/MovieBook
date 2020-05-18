@@ -1,6 +1,8 @@
 package com.movie.Aspect;
 
 
+import com.movie.Enums.ExceptionEnums;
+import com.movie.Exception.AuthorException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -16,11 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 
 @Aspect
 @Component
-public class AuthorAspect {
+public class SysAspect {
 
-    public  final static Logger logger= LoggerFactory.getLogger(AuthorAspect.class);
+    public  final static Logger logger= LoggerFactory.getLogger(SysAspect.class);
 
-    @Pointcut("execution(public * com.movie.Controller.RouterController.*(..))")
+    @Pointcut("execution(public * com.movie.Controller.RouterController.getSysPage(..))")
     public  void logMng(){
     }
 
@@ -33,14 +35,15 @@ public class AuthorAspect {
         Cookie[] cookies = request.getCookies();
         String type=request.getHeader("type");
 
-
 //        if (type==null||type.equals("User")||type.equals()){
 //            throw new
 //        }
+
+        if(type==null||(!type.equals("SystemMng"))){
+            throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_Sys);
+
+        }
     }
-
-
-
 
 
 

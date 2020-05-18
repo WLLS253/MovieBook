@@ -22,7 +22,7 @@ public class PurchaseController {
     PurchaseService purchaseService;
 
     @GetMapping("purchase/seatInfo")
-    public Result getSeatInfo(@RequestParam("schedualId")Long schedualId){
+    public Result getSeatInfo(@RequestParam(value = "schedualId")Long schedualId){
         try {
             return Util.success(purchaseService.getSeatInfo(schedualId));
         }catch (Exception e){
