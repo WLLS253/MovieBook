@@ -45,6 +45,7 @@ public class SearchController {
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
     @PostMapping(value="movie/directorFilter")
     public Result filterMovies(@RequestParam("role") String role,@RequestParam("name") String name){
         try {
@@ -89,13 +90,11 @@ public class SearchController {
         // 上映年份区间
         int start_year;
         int end_year;
-
         //搜索关键字
         String key_string;
-
-
         // 选择的 tags
         List<String> tags;
+
 
         @Override
         public String toString() {

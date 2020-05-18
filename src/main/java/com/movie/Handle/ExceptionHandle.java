@@ -1,8 +1,10 @@
 package com.movie.Handle;
 
 
+import com.movie.Exception.AuthorException;
 import com.movie.Exception.LoginException;
 import com.movie.Result.Result;
+import com.movie.Serivce.URLService;
 import com.movie.Util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,22 +16,34 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ExceptionHandle {
 
 
-    private final static Logger logger = LoggerFactory.getLogger(Exception.class);
+    private final static Logger logger = LoggerFactory.getLogger(ExceptionHandle.class);
+
+    @ExceptionHandler(value = AuthorException.class)
+    public String Exceptionhand(AuthorException e){
+      AuthorException authorException=e;
+      logger.info("权限异常{}" ,authorException.getCode());
+      switch (authorException.getCode()){
+          case 16:
+              return "xdq/index_xdq_new";
+          case 17:
+               return "lqw/index";
+          case 15:
+              return "index";
+          default:
+              return "index";
+      }
+    }
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public Result Exceptionhand(Exception e){
-
         if(e instanceof LoginException){
             LoginException loginException =(LoginException) e;
             return Util.failure(loginException.getCode(), loginException.getMessage());
-        }
-        else {
+        }else {
             logger.info("系统异常{}",e);
             return Util.failure(-1,"未知错误");
         }
-
-
     }
 
 

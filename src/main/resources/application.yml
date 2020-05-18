@@ -6,7 +6,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
-    username: BlueBurger
+    username: root
     password: 123456
 
 
@@ -21,7 +21,7 @@ spring:
   mvc:
     view:
       prefix: classpath:/templates/
-      suffix: .jsp
+      suffix: .html
 
 volunteer:
   credit: 100
