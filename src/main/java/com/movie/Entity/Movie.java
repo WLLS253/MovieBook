@@ -20,8 +20,6 @@ import java.util.List;
 @Entity
 public class Movie extends BaseEntity {
 
-
-
     @Column(name = "score", nullable = true, precision = 1)
     private Double score;
 
@@ -35,7 +33,6 @@ public class Movie extends BaseEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date releaseTime;
 
-
     private  String language;
 
     private  String country;
@@ -45,7 +42,6 @@ public class Movie extends BaseEntity {
     private  String showImage;
 
     private  String state;
-
 
     @OneToMany(targetEntity = Figure.class)
     private  List<Figure>figureList;

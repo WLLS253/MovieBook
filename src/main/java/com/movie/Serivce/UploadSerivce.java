@@ -35,7 +35,6 @@ public class UploadSerivce {
             throw new NullPointerException("文件为空");
         }
 
-
         // 设置文件上传后的路径
         String filePath = ROOT_PATH + SON_PATH;
         // 获取文件名后缀名

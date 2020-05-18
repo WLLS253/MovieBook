@@ -28,21 +28,20 @@ public class RouterController {
         return "lqw/index";
     }
 
+
     @RequestMapping(value = "/mng/{htmlname}.html")
     public  String getMngPage(@PathVariable(name = "htmlname") String html_name) {
-        return "xdq/"+html_name;
+        return "mng/"+html_name;
     }
-
 
     @RequestMapping(value = "/user/{htmlname}.html")
     public  String getUserPage(@PathVariable(name = "htmlname") String html_name) {
-        return "zhw/"+html_name;
+        return "user/"+html_name;
     }
 
-
-    @RequestMapping(value = "/Sys/{htmlname}.html")
+    @RequestMapping(value = "/sys/{htmlname}.html")
     public  String getSysPage(@PathVariable(name = "htmlname") String html_name) {
-        return "lqw/"+html_name;
+        return "sys/"+html_name;
     }
 
     @RequestMapping("/toLogin")
