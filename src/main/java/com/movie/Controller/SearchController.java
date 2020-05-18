@@ -55,10 +55,23 @@ public class SearchController {
         }
     }
 
+    // 按照  关键字获取电影院信息
     @PostMapping(value = "cinema/cinemaFliter")
     public Result filterCinemas(@RequestParam("cinema_name") String cinema_names){
         try {
             return Util.success(searchService.filterCinema(cinema_names));
+        }catch (Exception e){
+            e.printStackTrace();
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+    // 按照电影 来找到所有正在上映该电影院的电影
+    @PostMapping(value = "cinema/movieCinemas")
+    public Result filterCinemas(Long movie_id){
+        try {
+
+            return Util.success();
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);

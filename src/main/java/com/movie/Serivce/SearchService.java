@@ -54,6 +54,7 @@ public class SearchService {
         return jsonObject;
     }
 
+    // 按照员工 职位和姓名来 过滤电影
     public JSONObject filterMovies(String role ,String name){
         JSONObject jsonObject = new JSONObject();
         List<Movie> flitered_movies  = movieRepository.filterMovies(role,name);
@@ -62,12 +63,20 @@ public class SearchService {
     }
 
 
+    // 根据名称关键字来过滤 电影院
     public JSONObject filterCinema(String keyString){
         String[] keys = keyString.split(" +");
         //TODO cienma的地区问题
         List<Cinema> cinemas = cinemaRepository.findAll();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("cinemas",getFilterResultsByKeys(cinemas,keys));
+        return jsonObject;
+    }
+
+    // 通过moive 来获取所有正在上映该电影的 电影院
+    public JSONObject  filterCinema(Long movie_id){
+        Cinema cinema = cinemaRepository.findById(movie_id).get();
+        JSONObject jsonObject = new JSONObject();
         return jsonObject;
     }
 
@@ -84,6 +93,7 @@ public class SearchService {
             if(relativeness!=0)
                 sortedMap.put(relativeness,entity);
         }
+
         return new ArrayList<>((Collection<T>)sortedMap.values());
     }
 
@@ -94,7 +104,7 @@ public class SearchService {
     private int calRelativeness(String tar_str,String[] keys){
         int relativeness = 0;
         for (String key:keys) {
-            if(tar_str.indexOf(key)!=-1){
+            if(tar_str.contains(key)){
                 relativeness += 1;
             }
         }

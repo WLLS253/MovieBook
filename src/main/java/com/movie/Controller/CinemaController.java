@@ -1,10 +1,9 @@
 package com.movie.Controller;
 
 
-import com.movie.Entity.Cinema;
-import com.movie.Entity.CinemaMng;
-import com.movie.Entity.Hall;
-import com.movie.Entity.Schedual;
+
+import antlr.collections.impl.LList;
+import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
 import com.movie.Repository.CinemaMngRepository;
 import com.movie.Repository.CinemaRepository;
@@ -17,6 +16,9 @@ import com.sun.org.apache.regexp.internal.RE;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.awt.*;
+import java.util.List;
 
 /**
  * 处理跨域@CrossOrigin现在可以先不用加
@@ -41,11 +43,20 @@ public class CinemaController {
     private  CinemaMngRepository cinemaMngRepository;
 
     @PostMapping(value = "/cinema/add")
-    public Result addCinema(Cinema cinema){
+    public Result addCinema(String cinemaName,
+                            String location,
+                            String phone,
+                            Integer grade,
+                            String cinemaDescription){
         try {
 
             Cinema cinema1=new Cinema();
-            return Util.success(cinemaRepository.save(cinema));
+            cinema1.setCinemaName(cinemaName);
+            cinema1.setLocation(location);
+            cinema1.setPhone(phone);
+            cinema1.setGrade(grade);
+            cinema1.setCinemaDescription(cinemaDescription);
+            return Util.success(cinemaRepository.save(cinema1));
         }catch (Exception e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -53,15 +64,14 @@ public class CinemaController {
     }
 
     @PutMapping(value = "cinema/update")
-    public Result updateCinema(Cinema cinema){
+    public Result updateCinema(Long cinema_id,String cinemaName,String location,String phone,String cinemaDescription,int grade){
         try {
-            Long id=cinema.getId();
-            Cinema temp=cinemaRepository.findById(id).get();
-            temp.setCinemaDescription(cinema.getCinemaDescription());
-            temp.setCinemaName(cinema.getCinemaName());
-            temp.setLocation(cinema.getLocation());
-            temp.setPhone(cinema.getPhone());
-            temp.setGrade(cinema.getGrade());
+            Cinema temp=cinemaRepository.findById(cinema_id).get();
+            temp.setCinemaDescription(cinemaDescription);
+            temp.setCinemaName(cinemaName);
+            temp.setLocation(location);
+            temp.setPhone(phone);
+            temp.setGrade(grade);
             return  Util.success(cinemaRepository.save(temp));
         }catch (Exception e){
             e.printStackTrace();
@@ -84,11 +94,20 @@ public class CinemaController {
 
 
     @PostMapping(value = "/cinemaMng/add")
-    public Result addCinemaMng(CinemaMng cinemaMng){
+    public Result addCinemaMng(Long cinema_id, int prio,String mng_phone,String mng_username,
+        String mng_email,
+        String mng_password,
+        String mng_sex){
         try {
             CinemaMng cinemaMng1=new CinemaMng();
-            cinemaMng1=cinemaMng;
-            return Util.success(cinemaMngRepository.save(cinemaMng));
+            cinemaMng1.setCinema(cinemaRepository.findById(cinema_id).get());
+            cinemaMng1.setPrio(prio);
+            cinemaMng1.setMngPhone(mng_phone);
+            cinemaMng1.setMngUsername(mng_username);
+            cinemaMng1.setMngEmail(mng_email);
+            cinemaMng1.setMngSex(mng_sex);
+            cinemaMng1.setMngPassword(mng_password);
+            return Util.success(cinemaMngRepository.save(cinemaMng1));
         }catch (Exception e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);

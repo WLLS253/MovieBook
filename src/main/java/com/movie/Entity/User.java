@@ -90,13 +90,6 @@ public class User extends  BaseEntity {
         this.userPhone = userPhone;
     }
 
-    public List<Movie> getMovieList() {
-        return movieList;
-    }
-
-    public void setMovieList(List<Movie> movieList) {
-        this.movieList = movieList;
-    }
 
 
     public boolean checkPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {

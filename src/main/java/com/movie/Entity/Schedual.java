@@ -37,6 +37,11 @@ public class Schedual extends BaseEntity {
     @Column(name = "sched_description", nullable = true, length = 400)
     private String schedDescription;
 
+    //该 日程安排的 状态
+        // normal 正常， dated 过期， deprecated 弃用
+    @Column(name="state",nullable = true,length = 20)
+    private String state;
+
 
     @ManyToOne(targetEntity = Cinema.class)
     private  Cinema cinema;

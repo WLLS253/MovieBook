@@ -64,18 +64,18 @@ public class PurchaseService {
 
     //购买结算页面
 
-    public JSONObject checkOut(Long schedual_id,JSONArray select_seat_infos){
+    public JSONObject checkOut(Long schedual_id,List<int[]> row_col){
         Schedual schedual = scheudalRepository.findById(schedual_id).get();
-        int selected_size =  select_seat_infos.size();
+        int selected_size =  row_col.size();
         boolean success = true;
         if(selected_size == 0){
             return null; // 返回空
         }
         JSONArray ticket_infos = new JSONArray();
         for (int i=0;i<selected_size;i++){
-            JSONObject seat_info = (JSONObject) select_seat_infos.get(i);
-            int row =(int)seat_info.get("row");
-            int col =(int)seat_info.get("col");
+            int[] seat_info = row_col.get(i);
+            int row =(int)seat_info[0];
+            int col =(int)seat_info[1];
             Ticket ticket = findTicketBySeat(schedual,row,col); //select_seat_info.get(i);
             if(ticket==null){
                 ticket =new Ticket();
@@ -99,6 +99,9 @@ public class PurchaseService {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("ticket_infos",ticket_infos);
         jsonObject.put("success",success);
+        if(!success){
+            jsonObject.put("msg","结算失败，请重新选票");
+        }
         jsonObject.put("price",success?calTotalPrice(schedual,selected_size):null);
 
         return  jsonObject;
@@ -190,8 +193,8 @@ public class PurchaseService {
             }
             buyRepository.save(buy);
             ticketRepository.saveAll(tickets);
+            //TODO 退款状态等等的枚举
             jsonObject.put("msg","退款成功");
-
         }else{
             jsonObject.put("msg","只能在电影开始"+hour_limit+"小时之前退票");
         }

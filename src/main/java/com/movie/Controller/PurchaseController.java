@@ -33,11 +33,10 @@ public class PurchaseController {
 
     //结算界面
     @PostMapping("purchase/checkOut")
-    public Result checkOut(@RequestParam("ticket_infos")String ticket_infos_string){
+    public Result checkOut(@RequestBody Ticket_info ticket_infos){
         try {
-            System.out.println(ticket_infos_string);
-            JSONArray ticket_infos = JSONArray.parseArray(ticket_infos_string);
-            return Util.success(purchaseService.checkOut((long)1,ticket_infos));
+//            JSONArray ticket_infos = JSONArray.parseArray(ticket_infos_string);
+            return Util.success(purchaseService.checkOut(ticket_infos.schedualId,ticket_infos.row_col));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -63,7 +62,7 @@ public class PurchaseController {
     @PostMapping(value = "purchase/refund")
     public Result refund(@RequestParam("buy_id") Long buy_id){
         try {
-            return Util.success();
+            return Util.success(purchaseService.refund(buy_id));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -78,6 +77,12 @@ public class PurchaseController {
         Long userId;
         Long schedualId;
         List<Long> ticket_ids;
+    }
+
+    @Data
+    private static class Ticket_info{
+        Long schedualId;
+        List<int[]> row_col;
     }
 
 }
