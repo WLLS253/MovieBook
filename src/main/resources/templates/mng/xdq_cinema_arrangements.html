@@ -460,42 +460,42 @@
                         console.log(movie_id);
                         const params = new URLSearchParams();
 
-                        //
-                        // params.append('cinemaId', cinema_id);
-                        // params.append('describe', description);
-                        // params.append('end', end_date);
-                        // params.append('hallId', hall_id);
-                        // params.append('movieId', movie_id);
-                        // params.append('price', price);
-                        // params.append('start', start_date);
-                        //
-                        // axios.post("http://localhost:8081/shedule/add",params)
-                        //     .then(response => {console.log(response)
-                        //         console.log(this.schedual)
-                        //     })
-                        //     .catch(function (error) { // 请求失败处理
-                        //         console.log(error);
-                        //     });
 
-                        let param = new FormData();
-                        var file = this.$content.find("#logo")[0].files;
-                        param.append("cover_img",file[0])
-                        let config = {
-                            //添加请求头
-                            headers: { "Content-Type": "multipart/form-data" },
-                            //添加上传进度监听事件
-                            onUploadProgress: e => {
-                                var completeProgress = ((e.loaded / e.total * 100) | 0) + "%";
-                                this.progress = completeProgress;
-                            }
-                        };
-                        axios.post("http://localhost:8081/movie/add", param,config)
+                        params.append('cinemaId', cinema_id);
+                        params.append('describe', description);
+                        params.append('end', end_date);
+                        params.append('hallId', hall_id);
+                        params.append('movieId', movie_id);
+                        params.append('price', price);
+                        params.append('start', start_date);
+
+                        axios.post("http://localhost:8081/shedule/add",params)
                             .then(response => {console.log(response)
                                 console.log(this.schedual)
                             })
                             .catch(function (error) { // 请求失败处理
                                 console.log(error);
                             });
+
+                        // let param = new FormData();
+                        // var file = this.$content.find("#logo")[0].files;
+                        // param.append("cover_img",file[0])
+                        // let config = {
+                        //     //添加请求头
+                        //     headers: { "Content-Type": "multipart/form-data" },
+                        //     //添加上传进度监听事件
+                        //     onUploadProgress: e => {
+                        //         var completeProgress = ((e.loaded / e.total * 100) | 0) + "%";
+                        //         this.progress = completeProgress;
+                        //     }
+                        // };
+                        // axios.post("http://localhost:8081/movie/add", param,config)
+                        //     .then(response => {console.log(response)
+                        //         console.log(this.schedual)
+                        //     })
+                        //     .catch(function (error) { // 请求失败处理
+                        //         console.log(error);
+                        //     });
 
                         if(!name){
                             $.alert('请您输入影片名称');

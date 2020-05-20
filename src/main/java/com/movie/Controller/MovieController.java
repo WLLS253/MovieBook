@@ -8,6 +8,7 @@ import com.movie.Result.Result;
 import com.movie.Serivce.MovieService;
 import com.movie.Serivce.UploadSerivce;
 import com.movie.Util.Util;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -149,23 +151,22 @@ public class MovieController {
         }
     }
 
-    // 电影的主页信息
-    @PostMapping(value = "movie/add")
-    public Result addMovie(Double score,
-                           String brief,
-                           String name,
-                           Date releaseTime,
-                           String language,
-                           String country,
-                            MultipartFile cover_img){
-        try {
-
-            return Util.success();
-        }catch (Exception e){
-            e.printStackTrace();
-            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
-        }
-    }
+//    @PostMapping(value = "movie/add")
+//    public Result addMovie(Double score,
+//                           String brief,
+//                           String name,
+//                           Date releaseTime,
+//                           String language,
+//                           String country,
+//                            MultipartFile cover_img){
+//        try {
+//
+//            return Util.success();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+//        }
+//    }
 
 
 
@@ -191,7 +192,7 @@ public class MovieController {
         //目前状态
         private  String state;
         //其他图片
-        private  List<MultipartFile>figureList;
+        private List<MultipartFile> figureList;
 
 
         @Override

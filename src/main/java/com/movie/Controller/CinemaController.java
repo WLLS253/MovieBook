@@ -1,12 +1,9 @@
 package com.movie.Controller;
 
 
-<<<<<<< HEAD
 
 import antlr.collections.impl.LList;
-=======
 import com.alibaba.fastjson.JSONObject;
->>>>>>> c5b8b8d5112f51c0d356404f0c1e7443b9eab671
 import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
 import com.movie.Repository.CinemaMngRepository;
@@ -52,6 +49,9 @@ public class CinemaController {
 
     @Autowired
     private  CinemaMngRepository cinemaMngRepository;
+
+    @Autowired
+    private UploadSerivce uploadSerivce;
 
     @PostMapping(value = "/cinema/add")
     public Result addCinema(String cinemaName,
