@@ -1,6 +1,7 @@
 package com.movie.Serivce;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
@@ -93,6 +94,29 @@ public class CinemaService {
         cinema.setFigureList(figures);
 
         return cinemaRepository.save(cinema);
+    }
+
+
+    public  JSONObject getStaff(Staff staff){
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("staff_id",staff.getId());
+        jsonObject.put("name",staff.getStaffName());
+        jsonObject.put("brief",staff.getStaffBrief());
+        jsonObject.put("image",staff.getShowImage());
+        JSONArray jsonArray=new JSONArray();
+        List<Movie>movieList=staff.getMovieList();
+
+        for (Movie movie : movieList) {
+            JSONObject temp=new JSONObject();
+            temp.put("movie_id",movie.getId());
+            temp.put("name",movie.getName());
+            temp.put("image",movie.getShowImage());
+            temp.put("score",movie.getScore());
+            temp.put("brief",movie.getBrief());
+            jsonArray.add(temp);
+        }
+        jsonObject.put("movieList",jsonArray);
+        return  jsonObject;
     }
 
 

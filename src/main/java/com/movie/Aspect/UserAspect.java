@@ -33,6 +33,7 @@ public class UserAspect {
         ServletRequestAttributes attributes=(ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request =attributes.getRequest();
 
+
         Cookie[] cookies = request.getCookies();
         String type=request.getHeader("type");
 

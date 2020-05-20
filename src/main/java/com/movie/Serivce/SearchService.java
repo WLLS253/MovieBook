@@ -232,7 +232,7 @@ public class SearchService {
 //                j++;k++;
 //                next[j] = k;
 //            }
-//            else k = next[k];//此语句是这段代码最反人类的地方，如果你一下子就能看懂，那么请允许我称呼你一声大神！
+//            else k = next[k];
 //        }
 //    }
 //    int KMP(String s,String t)
