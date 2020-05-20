@@ -12,11 +12,9 @@ import com.movie.Serivce.SearchService;
 import com.movie.Util.Util;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -35,16 +33,37 @@ public class SearchController {
 //        }
 //    }
 
-    @PostMapping(value = "moive/tagFliter")
+    @PostMapping(value = "moive/Fliter/brief")
     public Result filterMovies(@RequestBody FilterSetting filter_setting){
         try {
-            System.out.println(filter_setting);
-            return Util.success(searchService.filterMovies(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags));
+            return Util.success(searchService.filterMoviesBrief(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags,filter_setting.date,filter_setting.state,filter_setting.cinema_name));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+    @GetMapping(value = "moive/getHotMovies")
+    public Result getHotMovies(){
+        try {
+            return Util.success(searchService.getHotMovies());
+        }catch (Exception e){
+            e.printStackTrace();
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+    // 返回电影搜索页面下需求的所有该电影相关的信息
+    @PostMapping(value = "moive/Fliter/details")
+    public Result filterMoviesDetails(@RequestBody FilterSetting filter_setting){
+        try {
+            System.out.println(filter_setting);
+            return Util.success(searchService.filterMoviesDetail(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags,filter_setting.date,filter_setting.state,filter_setting.cinema_name));
+        }catch (Exception e){
+            e.printStackTrace();
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
 
     @PostMapping(value="movie/directorFilter")
     public Result filterMovies(@RequestParam("role") String role,@RequestParam("name") String name){
@@ -71,8 +90,7 @@ public class SearchController {
     @PostMapping(value = "cinema/movieCinemas")
     public Result filterCinemas(Long movie_id){
         try {
-
-            return Util.success();
+            return Util.success(searchService.filterCinema(movie_id));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -84,16 +102,28 @@ public class SearchController {
 
 
 
+
     // requestBody classes
     @Data
     private static class FilterSetting{
         // 上映年份区间
-        int start_year;
-        int end_year;
+        Integer start_year;
+        Integer end_year;
+
         //搜索关键字
         String key_string;
         // 选择的 tags
         List<String> tags;
+
+        //日程的日期
+        Date date;
+
+        //电影的 状态
+        String state;
+
+        // 影院名称
+        String cinema_name;
+
 
 
         @Override

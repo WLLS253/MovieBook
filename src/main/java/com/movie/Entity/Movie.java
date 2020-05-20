@@ -58,12 +58,16 @@ public class Movie extends BaseEntity {
             joinColumns = @JoinColumn(name = "movie_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "staff_id",referencedColumnName = "id")
     )
-    private List<Staff>staffList;
+//    @OneToMany(targetEntity = TakePart.class)
+//    @JoinColumn(name = "movie_id")
+    private List<Staff> staffList;
+
+
 
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "movieList")
-    private List<User>userList;
+    @ManyToMany(mappedBy = "commentedMovies")
+    private List<User> userList;
 
     @JsonIgnore
     @ManyToMany
@@ -86,7 +90,7 @@ public class Movie extends BaseEntity {
                 "score=" + score +
                 ", brief='" + brief + '\'' +
                 ", releaseTime=" + releaseTime +
-                ", staffList=" + staffList +
+                ", staffList=" + staffList+
                 ", userList=" + userList +
                 ", tagList=" + tagList +
                 ", id=" + id +

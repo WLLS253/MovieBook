@@ -25,10 +25,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "user/getMovieList")
+    @GetMapping(value = "user/getCommentedMovies")
     public Result getUserMovieList(@RequestParam("userId")Long userId){
         try {
-            return Util.success(userService.getUserMovieList(userId));
+            return Util.success(userService.getUserCommentedMovies(userId));
         }catch (Exception e){
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }

@@ -1,24 +1,27 @@
 package com.movie.Serivce;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonObject;
-import com.movie.Entity.BaseEntity;
-import com.movie.Entity.Cinema;
-import com.movie.Entity.Movie;
-import com.movie.Repository.CinemaRepository;
-import com.movie.Repository.MovieRepository;
-import com.movie.Repository.TagRepository;
-import com.movie.Repository.UserRepository;
+import com.movie.Entity.*;
+import com.movie.Repository.*;
+import io.swagger.models.auth.In;
 import org.apache.commons.collections.SequencedHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.HTMLDocument;
 import java.util.*;
 
 @Service
 public class SearchService {
+
+    private List<String> null_tags = new ArrayList<String>(){{
+        add("null");
+    } };
+
     @Autowired
     private MovieRepository movieRepository;
 
@@ -31,28 +34,66 @@ public class SearchService {
     @Autowired
     private CinemaRepository cinemaRepository;
 
+    @Autowired
+    private TakePartRepository takePartRepository;
 
-    public JSONObject filterMovies(int year_start, int year_end,String keyString,List<String> tags){
-        String[] keys = keyString.split(" +"); // 空格分离得到所有的 关键字
+    @Autowired
+    private CommentRepository commentRepository;
+
+
+    public JSONObject filterMoviesBrief(Integer start_year,
+                                   Integer end_year,
+                                          String key_string,
+                                          List<String> tags,
+                                          Date date,
+                                          String state,
+                                          String cinema_name) {
         JSONObject jsonObject = new JSONObject();
-        List<Movie> flitered_movies;
-        if(keyString.isEmpty())
-            if(tags.size() == 0) {
-                flitered_movies =  movieRepository.filterMovies(year_start,year_end);
-            }else{
-                flitered_movies = movieRepository.filterMovies(tags,year_start,year_end);
-            }
-        else{
-            if(tags.size() == 0) {
-                flitered_movies =  getFilterResultsByKeys(movieRepository.filterMovies(year_start,year_end),keys) ;
-            }else{
-                flitered_movies = getFilterResultsByKeys(movieRepository.filterMovies(tags,year_start,year_end),keys) ;
-            }
-        }
-
+        List<Movie> flitered_movies= getFliteredMovies(start_year,end_year,key_string,tags,date,state,cinema_name);
         jsonObject.put("movies",flitered_movies);
         return jsonObject;
     }
+
+    public JSONObject filterMoviesDetail(Integer start_year,
+                                        Integer end_year,
+                                        String key_string,
+                                        List<String> tags,
+                                        Date date,
+                                        String state,
+                                        String cinema_name) {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray movie_infos = new JSONArray();
+
+        List<Movie> filtered_movies= getFliteredMovies(start_year,end_year,key_string,tags,date,state,cinema_name);
+
+
+        for (Movie m:filtered_movies) {
+            JSONObject movie_info = new JSONObject();
+            List<TakePart> takeParts = takePartRepository.findAllByMovie(m);
+            JSONArray staffs = new JSONArray();
+            for (TakePart t:takeParts) {
+                JSONObject staff_json = new JSONObject();
+                Staff s = t.getStaff();
+                staff_json.put("id",s.getId());
+                staff_json.put("name",s.getStaffName());
+                staff_json.put("role",t.getRole());
+                staffs.add(staff_json);
+            }
+            movie_info.put("staffs",staffs);
+            movie_info.put("movie_id",m.getId());
+            movie_info.put("country",m.getCountry());
+            movie_info.put("release_time",m.getReleaseTime());
+            movie_info.put("score",m.getScore());
+            movie_info.put("cover_pic",m.getShowImage());
+            movie_info.put("tags",m.getTagList());
+            movie_info.put("comments_num",commentRepository.findByMovie(m).size());
+            movie_info.put("pic_num",m.getFigureList().size());
+            movie_infos.add(movie_info);
+        }
+        jsonObject.put("movie_infos",movie_infos);
+        return jsonObject;
+    }
+
 
     // 按照员工 职位和姓名来 过滤电影
     public JSONObject filterMovies(String role ,String name){
@@ -75,11 +116,78 @@ public class SearchService {
 
     // 通过moive 来获取所有正在上映该电影的 电影院
     public JSONObject  filterCinema(Long movie_id){
-        Cinema cinema = cinemaRepository.findById(movie_id).get();
         JSONObject jsonObject = new JSONObject();
+        JSONObject cinArrs  = new JSONObject();
+        Cinema cinema = cinemaRepository.findById(movie_id).get();
+        List<Object[]> cin_sches = cinemaRepository.getOnShowCinemas(movie_id);
+//        Map<Long,Map<String,Object>> cin_info_map = new HashMap<>();
+        for (Object[] row:cin_sches) {
+            if(cinArrs.containsKey(row[0].toString())){
+                JSONObject sche_info = new JSONObject();
+                sche_info.put("sched_id",row[2]);
+                sche_info.put("start_date",row[3]);
+                JSONObject info =(JSONObject) cinArrs.get(row[0].toString());
+                JSONArray sche_breifs =  (JSONArray)info.get("sched_infos");
+                sche_breifs.add(sche_info);
+            }else{
+                JSONObject infos = new JSONObject();
+                JSONArray sched_infos = new JSONArray();
+                JSONObject sche_info = new JSONObject();
+                sche_info.put("sched_id",row[2]);
+                sche_info.put("start_date",row[3]);
+                sched_infos.add(sche_info);
+                infos.put("cinema_name",row[1]);
+                infos.put("cinema_id",row[0]);
+                infos.put("sched_infos",sched_infos);
+                cinArrs.put((String) row[0].toString(),infos);
+            }
+        }
+//        for (Object[] row:cin_sches) {
+//            if(cin_info_map.containsKey(row[0].toString())) {
+//
+//            }else{
+//
+//            }
+//        }
+        jsonObject.put("cinema_infos",cinArrs);
+
         return jsonObject;
     }
 
+
+    // 获取热映电影
+    public JSONObject getHotMovies(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("movies",movieRepository.getLimitMoviesByState("on",0,5));
+        return jsonObject;
+    }
+
+    //按照某种算法重排 对应的 cinema 序列
+//    private JSONArray arrangeCinema(JSONObject cin_infos){
+//        Iterator it =  cin_infos.entrySet().iterator();
+//        while(it.hasNext()){
+//            Map.Entry cin_info = (Map.Entry)it.next();
+//            JSONObject info =  (JSONObject)cin_info.getValue();
+//        }
+//    }
+
+    // 获取过滤后的 电影列表
+        // 而返回的 具体JSONObject 格式将由对应的调用方法决定
+    private List<Movie> getFliteredMovies(Integer start_year,
+                                          Integer end_year,
+            String key_string,
+            List<String> tags,
+            Date date,
+            String state,
+            String cinema_name){
+        tags = tags==null?null_tags:tags;
+        List<Movie> movies =movieRepository.filterMovies(start_year,end_year,tags,date,state,cinema_name);
+        if(key_string == null)
+            return  movies;
+        String[] keys = key_string.split(" +");
+        return getFilterResultsByKeys(movies,keys );
+
+    }
 
     // 按照关键字的相关性排序 entities
     private <T extends BaseEntity> List<T> getFilterResultsByKeys(List<T> entities, String[] keys){

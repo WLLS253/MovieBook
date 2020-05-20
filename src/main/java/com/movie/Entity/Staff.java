@@ -1,6 +1,7 @@
 package com.movie.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,10 +29,11 @@ public class Staff extends  BaseEntity {
     private String showImage;
 
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "staffList")
     private List<Movie>movieList;
 
     public Staff() {
-        this.movieList=new ArrayList<>();
+//        this.movieList=new ArrayList<>();
     }
 }

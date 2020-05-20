@@ -1,0 +1,6 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 800;
+  src: local('Open Sans ExtraBold Italic'), local('OpenSans-ExtraBoldItalic'), url(http://fonts.gstatic.com/s/opensans/v17/memnYaGs126MiZpBA-UFUKW-U9hrIqWxjaPX.woff) format('woff');
+}

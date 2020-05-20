@@ -31,13 +31,15 @@ public class User extends  BaseEntity {
     private String showimage;
 
 
+
+
     @ManyToMany
     @JoinTable(
             name = "comment",
             joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
             inverseJoinColumns =@JoinColumn(name = "movie_id",referencedColumnName = "id")
     )
-    private List<Movie>movieList;
+    private List<Movie> commentedMovies;
 
 
 
@@ -45,8 +47,7 @@ public class User extends  BaseEntity {
 //    private  List<Ticket>ticketList;
 
     public User() {
-        this.movieList = new ArrayList<>();
-//        this.ticketList = new ArrayList<>();
+        this.commentedMovies = new ArrayList<>();
     }
 
 
@@ -89,6 +90,13 @@ public class User extends  BaseEntity {
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
     }
+    public List<Movie> getCommentedMovies() {
+        return commentedMovies;
+    }
+
+    public void setCommentedMovies(List<Movie> commentedMovies) {
+        this.commentedMovies = commentedMovies;
+    }
 
 
 
@@ -123,7 +131,7 @@ public class User extends  BaseEntity {
                 ", userEmail='" + userEmail + '\'' +
                 ", username='" + username + '\'' +
                 ", userPhone='" + userPhone + '\'' +
-                ", movieList=" + movieList +
+                ", commentedMovies=" + commentedMovies +
                 ", id=" + id +
                 ", createdTime=" + createdTime +
                 ", updatedTime=" + updatedTime +

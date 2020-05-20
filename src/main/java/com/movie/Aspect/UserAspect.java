@@ -36,9 +36,10 @@ public class UserAspect {
         Cookie[] cookies = request.getCookies();
         String type=request.getHeader("type");
 
-        if(!(type==null||type.equals("Visitor")||type.equals("User"))){
-            throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_User);
-        }
+        //TODO 前端權限檢查
+//        if(!(type==null||type.equals("Visitor")||type.equals("User"))){
+//            throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_User);
+//        }
     }
 
 }

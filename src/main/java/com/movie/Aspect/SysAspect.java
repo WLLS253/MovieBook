@@ -39,10 +39,10 @@ public class SysAspect {
 //            throw new
 //        }
 
-        if(type==null||(!type.equals("SystemMng"))){
-            throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_Sys);
-
-        }
+//        if(type==null||(!type.equals("SystemMng"))){
+//            throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_Sys);
+//
+//        }
     }
 
 

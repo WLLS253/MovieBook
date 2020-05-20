@@ -1,0 +1,574 @@
+<!doctype html>
+<html> 
+<head>
+	<!-- Basic Page Needs -->
+        <meta charset="utf-8">
+        <title>AMovie - Movie page</title>
+        <meta name="description" content="A Template by Gozha.net">
+        <meta name="keywords" content="HTML, CSS, JavaScript">
+        <meta name="author" content="Gozha.net">
+    
+    <!-- Mobile Specific Metas-->
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="telephone=no" name="format-detection">
+    
+    <!-- Fonts -->
+         <!-- Font awesome - icon font -->
+      <link href="css/font-awesome.css" rel="stylesheet">
+      <!-- Roboto -->
+      <link href='css/css.css' rel='stylesheet' type='text/css'>
+      <!-- Open Sans -->
+      <link href='css/css(1).css' rel='stylesheet' type='text/css'>
+    
+    <!-- Stylesheets -->
+        <!-- jQuery UI -->
+        <link href="css/jquery-ui.css" rel="stylesheet">
+
+        <!-- Mobile menu -->
+        <link href="css/gozha-nav.css" rel="stylesheet" />
+        <!-- Select -->
+        <link href="css/external/jquery.selectbox.css" rel="stylesheet" /> 
+        <!-- Swiper slider -->
+        <link href="css/external/idangerous.swiper.css" rel="stylesheet" />
+        <!-- Magnific-popup -->
+        <link href="css/external/magnific-popup.css" rel="stylesheet" />
+
+    
+        <!-- Custom -->
+        <link href="css/style.css?v=1" rel="stylesheet" />
+
+        <!-- Modernizr --> 
+        <script src="js/external/modernizr.custom.js"></script>
+
+        <script src="js/external/vue.js"></script>
+
+        <script src="js/external/axios.js"></script>
+
+        <script>
+            
+        </script>
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries --> 
+    <!--[if lt IE 9]> 
+    	<script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script> 
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>		
+    <![endif]-->
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Banner -->
+        <!-- <div class="banner-top">
+            <img alt='top banner' src="http://placehold.it/1600x90">
+        </div> -->
+
+        <!-- Header section -->
+        <header class="header-wrapper">
+            <div class="container">
+                <!-- Logo link-->
+                <a href='index.html' class="logo">
+                    <img alt='logo' src="images/logo.png">
+                </a>
+                
+                <!-- Main website navigation-->
+                <nav id="navigation-box">
+                    <!-- Toggle for mobile menu mode -->
+                    <a href="#" id="navigation-toggle">
+                        <span class="menu-icon">
+                            <span class="icon-toggle" role="button" aria-label="Toggle Navigation">
+                              <span class="lines"></span>
+                            </span>
+                        </span>
+                    </a>
+                    
+                    <!-- Link navigation -->
+                    <ul id="navigation">
+                        <li>
+                            <span class="sub-nav-toggle plus"></span>
+                            <a href="index.html">首页</a>
+                        </li>
+                        <li>
+                            <span class="sub-nav-toggle plus"></span>
+                            <a href="cinema-list.html">影院</a>
+                        </li>
+                        <li>
+                            <span class="sub-nav-toggle plus"></span>
+                            <a href="news-full.html">新闻</a>
+                        </li>
+                        <li>
+                            <span class="sub-nav-toggle plus"></span>
+                            <a href="movie-list-full.html">电影</a>
+                               <ul class="mega-menu container">
+                                    <li class="col-md-3 mega-menu__coloum">
+                                        <h4 class="mega-menu__heading">正在热映</h4>
+                                         <ul class="mega-menu__list">
+                                            <li class="mega-menu__nav-item"><a href="#">星际穿越</a></li>
+                                            <li class="mega-menu__nav-item"><a href="#">银翼杀手</a></li>
+                                            <li class="mega-menu__nav-item"><a href="#">这个杀手不太冷</a></li>
+                                            <li class="mega-menu__nav-item"><a href="#">爱乐之城</a></li>
+                                            <li class="mega-menu__nav-item"><a href="#">火星救援</a></li>
+                                            <li class="mega-menu__nav-item"><a href="#">爆裂鼓手</a></li>
+                                          </ul>
+                                      </li>
+                                        
+                                      <li class="col-md-3 mega-menu__coloum mega-menu__coloum--outheading">
+                                          <ul class="mega-menu__list">
+                                            <li class="mega-menu__nav-item"><a href="#">战斗天使：阿丽塔</a></li>
+                                            <li class="mega-menu__nav-item"><a href="#">驴得水</a></li>
+                                            <li class="mega-menu__nav-item"><a href="#">南方车站的聚会</a></li>
+                                          </ul>
+                                      </li>
+                                      
+                                      <li class="col-md-3 mega-menu__coloum">
+                                        <h4 class="mega-menu__heading">即将上映</h4>
+                                          <ul class="mega-menu__list">
+                                            <li class="mega-menu__nav-item"><a href="#">复仇者联盟：终局之战</a></li>
+                                            <li class="mega-menu__nav-item"><a href="#">婚姻故事</a></li>
+                                            <li class="mega-menu__nav-item"><a href="#">爱尔兰人</a></li>
+                                            <li class="mega-menu__nav-item"><a href="#">寄生虫</a></li>
+                                            <li class="mega-menu__nav-item"><a href="#">好莱坞往事</a></li>
+                                            <li class="mega-menu__nav-item"><a href="#">少年的你</a></li>
+                                          </ul>
+                                      </li>
+                                    
+                                      <li class="col-md-3 mega-menu__coloum mega-menu__coloum--outheading">
+                                          <ul class="mega-menu__list">
+                                            <li class="mega-menu__nav-item"><a href="#">邪不压正</a></li>
+                                            <li class="mega-menu__nav-item"><a href="#">燃烧女子的肖像</a></li>
+                                            <li class="mega-menu__nav-item"><a href="#">小丑</a></li>
+                                          </ul>
+                                      </li>
+                               </ul>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <!-- Additional header buttons / Auth and direct link to booking-->
+                <div class="control-panel">
+                    <a href="#" class="btn btn--sign login-window">login</a>
+                    <a href="book1.html" class="btn btn-md btn--warning btn--book login-window">订票</a>
+                </div>
+
+            </div>
+        </header>
+        
+        <!-- Search bar -->
+        <div class="search-wrapper">
+            <div class="container container--add">
+                <form id='search-form' method='get' class="search">
+                    <input type="text" class="search__field" placeholder="输入您想看的电影">
+                    <!-- <select name="sorting_item" id="search-sort" class="search__sort" tabindex="0">
+                        <option value="1" selected='selected'>按名称</option>
+                        <option value="2">按年份</option>
+                        <option value="4">By title</option>
+                        <option value="5">By year</option>
+                    </select> -->
+                    <button type='submit' class="btn btn-md btn--danger search__button">寻找</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Main content -->
+        <section class="container">
+            <div class="col-sm-12">
+                <div class="movie">
+                    <h2 class="page-heading">星际穿越</h2>
+                    
+                    <div class="movie__info">
+                        <div class="col-sm-4 col-md-3 movie-mobile">
+                            <div class="movie__images">
+                                <span class="movie__rating">5.0</span>
+                                <img alt='' src="images/movie/1/post.jpg">
+                            </div>
+                            <div class="movie__rate">你的评分: <div id='score' class="score"></div></div>
+                        </div>
+
+                        <div class="col-sm-8 col-md-9">
+                            <p class="movie__time">169 分钟</p>
+
+                            <p class="movie__option"><strong>国家： </strong><a href="#">美国</a></p>
+                            <p class="movie__option"><strong>类型：</strong><a href="#">剧情｜科幻｜动作</a></p>
+                            <p class="movie__option"><strong>上映日期；</strong>03-23</p>
+                            <p class="movie__option"><strong>导演：</strong><a href="#">克里斯托弗·诺兰</a></p>
+                            <p class="movie__option"><strong>演员：</strong><a href="#">马修·麦康纳 </a>, <a href="#">安妮·海瑟薇 </a>, <a href="#">杰西卡·查斯坦 </a>, <a href="#">卡西·阿弗莱克 </a>, <a href="#">迈克尔·凯恩 </a>...</a></p>
+                            <p class="movie__option"><strong>剧情简介：</strong>近未来的地球黄沙遍野，小麦、秋葵等基础农作物相继因枯萎病灭绝，人类不再像从前那样仰望星空，放纵想象力和灵感的迸发，而是每日在沙尘暴的肆虐下倒数着所剩不多的光景。在家务农的前NASA宇航员库珀（马修·麦康纳 Matthew McConaughey 饰）接连在女儿墨菲（麦肯吉·弗依 Mackenzie Foy 饰）的书房发现奇怪的重力场现象，随即得知在某个未知区域内前NASA成员仍秘密进行一个拯救人类的计划。多年以前土星附近出现神秘虫洞，NASA借机将数名宇航员派遣到遥远的星系寻找适合居住的星球。在布兰德教授（迈克尔·凯恩 Michael Caine 饰）的劝说下，库珀忍痛告别了女儿，和其他三名专家教授女儿艾米莉亚·布兰德（安妮·海瑟薇 Anne Hathaway 饰）、罗米利（大卫·吉雅西 David Gyasi 饰）、多伊尔（韦斯·本特利 Wes Bentley 饰）搭乘宇宙飞船前往目前已知的最有希望的三颗星球考察。<br>他们穿越遥远的星系银河，感受了一小时七年光阴的沧海桑田，窥见了未知星球和黑洞的壮伟与神秘。在浩瀚宇宙的绝望而孤独角落，总有一份超越了时空的笃定情怀将他们紧紧相连……</p>
+
+
+                            <div class="movie__btns movie__btns--full">
+                                <a href="book1.html" class="btn btn-md btn--warning">订票</a>
+                                <a href="#" class="watchlist">加入心愿清单</a>
+                            </div>
+
+                            <div class="share">
+                                <span class="share__marker">分享: </span>
+                                <div class="addthis_toolbox addthis_default_style ">
+                                    <a href='#' class="social__variant fa fa-weibo"></a>
+                                    <a href='#' class="social__variant fa fa-qq"></a>
+                                    <a href='#' class="social__variant fa fa-wechat"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="clearfix"></div>
+                    
+                    <h2 class="page-heading">剧照 &amp; 预告片</h2>
+                    
+                    <div class="movie__media">
+                        <div class="movie__media-switch">
+                            <a href="#" class="watchlist list--photo" data-filter='media-photo'>234 张图片</a>
+                            <a href="#" class="watchlist list--video" data-filter='media-video'>10 个视频</a>
+                        </div>
+
+                        <div class="swiper-container">
+                          <div class="swiper-wrapper">
+                              <!--First Slide-->
+                              <div class="swiper-slide media-video">
+                                <a href='https://youtu.be/-Gq5uxY_frk' class="movie__media-item ">
+                                     <img alt='' src="http://placehold.it/400x240">
+                                </a>
+                              </div>
+                              
+                              <!--Second Slide-->
+                              <div class="swiper-slide media-video">
+                                <a href='https://www.youtube.com/watch?v=Kb3ykVYvT4U' class="movie__media-item">
+                                    <img alt='' src="http://placehold.it/400x240">
+                                </a>
+                              </div>
+                              
+                              <!--Third Slide-->
+                              <div class="swiper-slide media-photo"> 
+                                    <a href='images/movie/1/b1.jpg' class="movie__media-item">
+                                        <img alt='' src="images/movie/1/s1.jpg">
+                                     </a>
+                              </div>
+
+                              <!--Four Slide-->
+                              <div class="swiper-slide media-photo"> 
+                                <a href='images/movie/1/b2.jpg' class="movie__media-item">
+                                    <img alt='' src="images/movie/1/s2.jpg">
+                                 </a>
+                              </div>
+
+                              <!--Slide-->
+                              <div class="swiper-slide media-photo"> 
+                                <a href='images/movie/1/b3.jpg' class="movie__media-item">
+                                    <img alt='' src="images/movie/1/s3.jpg">
+                                 </a>
+                              </div>
+
+                              <!--Slide-->
+                              <div class="swiper-slide media-photo"> 
+                                <a href='images/movie/1/b4.jpg' class="movie__media-item">
+                                    <img alt='' src="images/movie/1/s4.jpg">
+                                 </a>
+                              </div>
+
+                              <!--First Slide-->
+                              <div class="swiper-slide media-video">
+                                <a href='https://www.youtube.com/watch?v=Y5AehBA3IsE' class="movie__media-item ">
+                                     <img alt='' src="http://placehold.it/400x240">
+                                </a>
+                              </div>
+                              
+                              <!--Second Slide-->
+                              <div class="swiper-slide media-video">
+                                <a href='https://www.youtube.com/watch?v=Kb3ykVYvT4U' class="movie__media-item">
+                                    <img alt='' src="http://placehold.it/400x240">
+                                </a>
+                              </div>
+
+                              <!--Slide-->
+                              <div class="swiper-slide media-photo"> 
+                                <a href='images/movie/1/b5.jpg' class="movie__media-item">
+                                    <img alt='' src="images/movie/1/s5.jpg">
+                                 </a>
+                              </div>
+
+                              <!--Slide-->
+                              <div class="swiper-slide media-photo"> 
+                                <a href='images/movie/1/b1.jpg' class="movie__media-item">
+                                    <img alt='' src="images/movie/1/s1.jpg">
+                                 </a>
+                              </div>
+                        
+                          </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <h2 class="page-heading">排片情况</h2>
+                <div class="choose-container">
+                    <div class="datepicker">
+                      <span class="datepicker__marker"><i class="fa fa-calendar"></i>日期</span>
+                      <input type="text" id="datepicker" value='02/04/2020' class="datepicker__input">
+                    </div>
+
+                    <a href="#" id="map-switch" class="watchlist watchlist--map watchlist--map-full"><span class="show-map">在地图上显示</span><span  class="show-time">展示排片表</span></a>
+                    
+                    <div class="clearfix"></div>
+
+                    <div class="time-select">
+                        <div class="time-select__group group--first">
+                            <div class="col-sm-4">
+                                <p class="time-select__place">万达影城CBD店</p>
+                            </div>
+                            <ul class="col-sm-8 items-wrap">
+                                <li class="time-select__item" data-time='09:40'>09:40</li>
+                                <li class="time-select__item" data-time='13:45'>13:45</li>
+                                <li class="time-select__item active" data-time='15:45'>15:45</li>
+                                <li class="time-select__item" data-time='19:50'>19:50</li>
+                                <li class="time-select__item" data-time='21:50'>21:50</li>
+                            </ul>
+                        </div>
+ 
+                        <div class="time-select__group">
+                            <div class="col-sm-4">
+                                <p class="time-select__place">耀莱国际影城五棵松店</p>
+                            </div>
+                            <ul class="col-sm-8 items-wrap">
+                                <li class="time-select__item" data-time='10:45'>10:45</li>
+                                <li class="time-select__item" data-time='16:00'>16:00</li>
+                                <li class="time-select__item" data-time='19:00'>19:00</li>
+                                <li class="time-select__item" data-time='21:15'>21:15</li>
+                                <li class="time-select__item" data-time='23:00'>23:00</li>
+                            </ul>
+                        </div>
+ 
+                        <div class="time-select__group">
+                            <div class="col-sm-4">
+                                <p class="time-select__place">中国电影资料馆</p>
+                            </div>
+                            <ul class="col-sm-8 items-wrap">
+                                <li class="time-select__item" data-time='09:00'>09:00</li>
+                                <li class="time-select__item" data-time='11:00'>11:00</li>
+                                <li class="time-select__item" data-time='13:00'>13:00</li>
+                                <li class="time-select__item" data-time='15:00'>15:00</li>
+                                <li class="time-select__item" data-time='17:00'>17:00</li>
+                                <li class="time-select__item" data-time='19:0'>19:00</li>
+                                <li class="time-select__item" data-time='21:0'>21:00</li>
+                                <li class="time-select__item" data-time='23:0'>23:00</li>
+                                <li class="time-select__item" data-time='01:0'>01:00</li>
+                            </ul>
+                        </div>
+ 
+                        <div class="time-select__group">
+                            <div class="col-sm-4">
+                                <p class="time-select__place">金逸影城朝阳大悦城店</p>
+                            </div>
+                            <ul class="col-sm-8 items-wrap">
+                                <li class="time-select__item" data-time='10:45'>10:45</li>
+                                <li class="time-select__item" data-time='16:00'>16:00</li>
+                                <li class="time-select__item" data-time='19:00'>19:00</li>
+                                <li class="time-select__item" data-time='21:15'>21:15</li>
+                                <li class="time-select__item" data-time='23:00'>23:00</li>
+                            </ul>
+                        </div>
+ 
+                        <div class="time-select__group group--last">
+                            <div class="col-sm-4">
+                                <p class="time-select__place">当代MOMA百老汇电影中心</p>
+                            </div>
+                            <ul class="col-sm-8 items-wrap">
+                                <li class="time-select__item" data-time='17:45'>17:45</li>
+                                <li class="time-select__item" data-time='21:30'>21:30</li>
+                                <li class="time-select__item" data-time='02:20'>02:20</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- hiden maps with multiple locator-->
+                    <div  class="map">
+                        <div id='cimenas-map'></div> 
+                    </div>
+
+                    <h2 class="page-heading">评论 (15)</h2>
+
+                    <div class="comment-wrapper">
+                        <form id="comment-form" class="comment-form" method='post'>
+                            <textarea class="comment-form__text" placeholder='在这里填上你的想法'></textarea>
+                            <button type='submit' class="btn btn-md btn--danger comment-form__btn">发布评论</button>
+                        </form>
+
+                        <div class="comment-sets">
+
+                        <div class="comment">
+                            <div class="comment__images">
+                                <img alt='' src="images/users/1/pic.jpg">
+                            </div>
+
+                            <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>张三</a>
+                            <p class="comment__date">今天 | 03:04</p>
+                            <p class="comment__message">对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。</p>
+                            <a href='#' class="comment__reply">回复</a>
+                        </div>
+
+                        <div class="comment">
+                            <div class="comment__images">
+                                <img alt='' src="images/users/1/pic.jpg">
+                            </div>
+
+                            <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>张三</a>
+                            <p class="comment__date">今天 | 03:04</p>
+                            <p class="comment__message">对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。</p>
+                            <a href='#' class="comment__reply">回复</a>
+                        </div>
+
+                        <div class="comment comment--answer">
+                            <div class="comment__images">
+                                <img alt='' src="images/users/1/pic.jpg">
+                            </div>
+
+                            <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>张三</a>
+                            <p class="comment__date">今天 | 03:04</p>
+                            <p class="comment__message">对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。</p>
+                            <a href='#' class="comment__reply">回复</a>
+                        </div>
+
+                        <div class="comment comment--last">
+                            <div class="comment__images">
+                                <img alt='' src="images/users/1/pic.jpg">
+                            </div>
+
+                            <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>张三</a>
+                            <p class="comment__date">今天 | 03:04</p>
+                            <p class="comment__message">对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。</p>
+                            <a href='#' class="comment__reply">回复</a>
+                        </div>
+
+                        <div id='hide-comments' class="hide-comments">
+                            <div class="comment">
+                                <div class="comment__images">
+                                    <img alt='' src="images/users/1/pic.jpg">
+                                </div>
+    
+                                <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>张三</a>
+                                <p class="comment__date">今天 | 03:04</p>
+                                <p class="comment__message">对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。</p>
+                                <a href='#' class="comment__reply">回复</a>
+                            </div>
+
+                            <div class="comment">
+                                <div class="comment__images">
+                                    <img alt='' src="images/users/1/pic.jpg">
+                                </div>
+    
+                                <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>张三</a>
+                                <p class="comment__date">今天 | 03:04</p>
+                                <p class="comment__message">对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。对我的后代行业规范员工与各服一个u法国月份姑爷官方也辜负恶意功夫个u风格u恶妇得到和北海道和好的环境呃呃不计成本和机会不测。</p>
+                                <a href='#' class="comment__reply">回复</a>
+                            </div>
+                        </div>
+
+                        <div class="comment-more">
+                            <a href="#" class="watchlist">显示更多</a>
+                        </div>
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        
+        <div class="clearfix"></div>
+
+        <footer class="footer-wrapper">
+            <section class="container">
+                <div class="col-xs-12 col-md-12">
+                    <div class="footer-info" style="text-align: center;">                      
+                        <div class="clearfix"></div>
+                        <p class="copy">&copy; A.Movie, 2020. All rights reserved.</p>
+                    </div>
+                </div>
+            </section>
+        </footer>
+    </div>
+
+    <!-- open/close -->
+        <div class="overlay overlay-hugeinc">
+            
+            <section class="container">
+
+                <div class="col-sm-4 col-sm-offset-4">
+                    <button type="button" class="overlay-close">Close</button>
+                    <form id="login-form" class="login" method='get' novalidate=''>
+                        <p class="login__title">sign in <br><span class="login-edition">welcome to A.Movie</span></p>
+
+                        <div class="social social--colored">
+                                <a href='#' class="social__variant fa fa-facebook"></a>
+                                <a href='#' class="social__variant fa fa-twitter"></a>
+                                <a href='#' class="social__variant fa fa-tumblr"></a>
+                        </div>
+
+                        <p class="login__tracker">or</p>
+                        
+                        <div class="field-wrap">
+                        <input type='email' placeholder='Email' name='user-email' class="login__input">
+                        <input type='password' placeholder='Password' name='user-password' class="login__input">
+
+                        <input type='checkbox' id='#informed' class='login__check styled'>
+                        <label for='#informed' class='login__check-info'>remember me</label>
+                         </div>
+                        
+                        <div class="login__control">
+                            <button type='submit' class="btn btn-md btn--warning btn--wider">sign in</button>
+                            <a href="#" class="login__tracker form__tracker">Forgot password?</a>
+                        </div>
+                    </form>
+                </div>
+
+            </section>
+        </div>
+
+	<!-- JavaScript-->
+        <!-- jQuery 1.9.1--> 
+        <script src="js/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/external/jquery-1.10.1.min.js"><\/script>')</script>
+        <!-- Migrate --> 
+        <script src="js/external/jquery-migrate-1.2.1.min.js"></script>
+        <!-- jQuery UI -->
+        <script src="js/jquery-ui.js"></script>
+        <!-- Bootstrap 3--> 
+        <script src="js/external/bootstrap.min.js"></script>
+
+        <!-- Mobile menu -->
+        <script src="js/jquery.mobile.menu.js"></script>
+         <!-- Select -->
+        <script src="js/external/jquery.selectbox-0.2.min.js"></script>
+
+        <!-- Stars rate -->
+        <script src="js/external/jquery.raty.js"></script>
+        <!-- Swiper slider -->
+        <script src="js/external/idangerous.swiper.min.js"></script>
+        <!-- Magnific-popup -->
+        <script src="js/external/jquery.magnific-popup.min.js"></script> 
+
+        <!--*** Google map  ***-->
+        <script src="https://maps.google.com/maps/api/js?sensor=true"></script> 
+        <!--*** Google map infobox  ***-->
+        <script src="js/external/infobox.js"></script> 
+
+        <!-- Share buttons -->
+        <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-525fd5e9061e7ef0"></script>
+
+        <!-- Form element -->
+        <script src="js/external/form-element.js"></script>
+        <!-- Form validation -->
+        <script src="js/form.js"></script>
+
+        <!-- Custom -->
+        <script src="js/custom.js"></script>
+		
+		<script type="text/javascript">
+            $(document).ready(function() {
+                init_MoviePage();
+                init_MoviePageFull();
+            });
+		</script>
+
+</body>
+</html>

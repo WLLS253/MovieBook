@@ -1,8 +1,11 @@
 package com.movie.Repository;
 
+import com.movie.Entity.Movie;
 import com.movie.Entity.TakePart;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TakePartRepository extends JpaRepository<TakePart,Long> {
+import java.util.List;
 
+public interface TakePartRepository extends JpaRepository<TakePart,Long> {
+    public List<TakePart> findAllByMovie(Movie movie);
 }

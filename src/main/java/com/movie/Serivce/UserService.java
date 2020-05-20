@@ -22,9 +22,9 @@ public class UserService {
     private MovieRepository movieRepository;
 
 
-    public JSONObject getUserMovieList(Long userId){
+    public JSONObject getUserCommentedMovies(Long userId){
         User user=userRepository.findById(userId).get();
-        List<Movie>movieList=user.getMovieList();
+        List<Movie>movieList=user.getCommentedMovies();
 
         JSONObject jsonObject=new JSONObject();
         JSONArray movieArray=new JSONArray();
