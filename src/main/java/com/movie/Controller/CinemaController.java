@@ -61,22 +61,20 @@ public class CinemaController {
                             String phone,
                             Integer grade,
                             String cinemaDescription,
-                            List<MultipartFile> imgs){
-        try {
-
-        try {
-            Cinema cinema1=new Cinema();
-            cinema1.setCinemaName(cinemaName);
-            cinema1.setLocation(location);
-            cinema1.setPhone(phone);
-            cinema1.setGrade(grade);
-            cinema1.setCinemaDescription(cinemaDescription);
-            cinema1.setCover_img_url(uploadSerivce.upImageFire(imgs.get(0)));
-            return Util.success(cinemaRepository.save(cinema1));
-        }catch (Exception e){
-            e.printStackTrace();
-            return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
-        }
+                            List<MultipartFile> imgs) {
+            try {
+                Cinema cinema1 = new Cinema();
+                cinema1.setCinemaName(cinemaName);
+                cinema1.setLocation(location);
+                cinema1.setPhone(phone);
+                cinema1.setGrade(grade);
+                cinema1.setCinemaDescription(cinemaDescription);
+                cinema1.setCover_img_url(uploadSerivce.upImageFire(imgs.get(0)));
+                return Util.success(cinemaRepository.save(cinema1));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+            }
     }
     /*
     @PostMapping(value = "cinema/add")
