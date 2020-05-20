@@ -36,4 +36,18 @@ public class Staff extends  BaseEntity {
     public Staff() {
 //        this.movieList=new ArrayList<>();
     }
+
+    public void  updateObject(Object o) {
+        Staff staff = (Staff) o;
+        if(staff.staffName!=null){
+            staffName=staff.staffName;
+        }
+        if( staff.staffBrief!=null){
+            staffBrief=staff.staffBrief;
+        }
+        if(staff.showImage!=null){
+            showImage=staff.showImage;
+        }
+
+    }
 }

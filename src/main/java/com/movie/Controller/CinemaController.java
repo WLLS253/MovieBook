@@ -164,7 +164,6 @@ public class CinemaController {
                  * 待完善
                  */
             }
-
         }catch (Exception e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);

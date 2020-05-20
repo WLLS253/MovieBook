@@ -5,6 +5,7 @@ import com.movie.Enums.Role;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
@@ -33,6 +34,7 @@ public class MyLogger {
     private String method;
 
     @Column(nullable = false, updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 

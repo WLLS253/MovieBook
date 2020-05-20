@@ -5,6 +5,7 @@ import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
 import com.movie.Repository.*;
 import com.movie.Result.Result;
+import com.movie.Serivce.CinemaService;
 import com.movie.Serivce.MovieService;
 import com.movie.Serivce.UploadSerivce;
 import com.movie.Util.Util;
@@ -60,6 +61,9 @@ public class MovieController {
     @Autowired
     private FigureRepository figureRepository;
 
+    @Autowired
+    private CinemaService cinemaService;
+
     @PostMapping(value = "movie/add")
     public Result addMovie(MovieInformation movieInformation) throws ParseException {
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -86,14 +90,29 @@ public class MovieController {
         return Util.success(movieRepository.save(movie1));
     }
 
-
     @PostMapping(value = "staff/add")
     public Result addStaff(@RequestParam("staffName")String name,@RequestParam("staffBrief")String brief){
         try {
             Staff staff=new Staff();
             staff.setStaffBrief(brief);
             staff.setStaffName(name);
-            return Util.success(staffRepository.save(staff));
+            return Util.success(cinemaService.getStaff(staffRepository.save(staff)));
+        }catch (Exception e){
+            e.printStackTrace();
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+    @PutMapping(value = "staff/update")
+    public Result UpdateStaff(@RequestParam("id")Long id,@RequestParam("staffName")String name,@RequestParam("staffBrief")String brief,@RequestParam("showImage")MultipartFile image){
+        try {
+            String showImage=uploadSerivce.upImageFire(image);
+            Staff staff=staffRepository.findById(id).get();
+            staff.setStaffName(name);
+            staff.setStaffBrief(brief);
+            uploadSerivce.deleteimage(staff.getShowImage());
+            staff.setShowImage(showImage);
+            return Util.success(cinemaService.getStaff(staffRepository.save(staff)));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);

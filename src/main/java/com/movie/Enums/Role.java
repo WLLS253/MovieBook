@@ -4,7 +4,7 @@ public enum  Role {
     User("User"),
     CinemaMng("CinemaMng"),
     SystemMng("SystemMng"),
-    Vistor("Visitor")
+    Vistor("Vistor")
     ;
 
     private String role;
