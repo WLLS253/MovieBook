@@ -59,8 +59,8 @@ public class CinemaController {
                             String phone,
                             Integer grade,
                             String cinemaDescription){
-        try {
 
+        try {
             Cinema cinema1=new Cinema();
             cinema1.setCinemaName(cinemaName);
             cinema1.setLocation(location);
@@ -73,17 +73,29 @@ public class CinemaController {
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
-
-    @PutMapping(value = "cinema/update")
-    public Result updateCinema(Long cinema_id,String cinemaName,String location,String phone,String cinemaDescription,int grade){
+    /*
+    @PostMapping(value = "cinema/add")
+    public Result addCinema(Cinema_Infor cinema_infor){
         try {
-            Cinema temp=cinemaRepository.findById(cinema_id).get();
-            temp.setCinemaDescription(cinemaDescription);
-            temp.setCinemaName(cinemaName);
-            temp.setLocation(location);
-            temp.setPhone(phone);
-            temp.setGrade(grade);
-            return  Util.success(cinemaRepository.save(temp));
+            Cinema cinema=new Cinema();
+            return Util.success(cinemaService.addJsonCinema(cinema,cinema_infor.cinemaName,cinema_infor.location,cinema_infor.phone,cinema_infor.grade,cinema_infor.cinemaDescription,cinema_infor.figureList));
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+     */
+    @PutMapping(value = "cinema/update")
+    public Result updateCinema(Cinema_Infor cinema_infor){
+        try {
+            List<Cinema>cinemas=cinemaRepository.findByCinemaName(cinema_infor.cinemaName);
+            if(cinemas.size()==0){
+                return  Util.failure(ExceptionEnums.UNFIND_DATA_ERROR);
+            }else {
+                Cinema cinema=cinemas.get(0);
+                return Util.success(cinemaService.addJsonCinema(cinema,cinema_infor.cinemaName,cinema_infor.location,cinema_infor.phone,cinema_infor.grade,cinema_infor.cinemaDescription,cinema_infor.figureList));
+            }
+
         }catch (Exception e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -104,21 +116,16 @@ public class CinemaController {
     }
 
 
-    @PostMapping(value = "/cinemaMng/add")
-    public Result addCinemaMng(Long cinema_id, int prio,String mng_phone,String mng_username,
-        String mng_email,
-        String mng_password,
-        String mng_sex){
+    @PostMapping(value = "cinemaMng/add")
+    public Result addCinemaMng(CinemaMng cinemaMng,@RequestParam(value = "cinema_id",required = false)Long cinema_id,@RequestParam(value = "image",required = false)MultipartFile image){
         try {
-            CinemaMng cinemaMng1=new CinemaMng();
-            cinemaMng1.setCinema(cinemaRepository.findById(cinema_id).get());
-            cinemaMng1.setPrio(prio);
-            cinemaMng1.setMngPhone(mng_phone);
-            cinemaMng1.setMngUsername(mng_username);
-            cinemaMng1.setMngEmail(mng_email);
-            cinemaMng1.setMngSex(mng_sex);
-            cinemaMng1.setMngPassword(mng_password);
-            return Util.success(cinemaMngRepository.save(cinemaMng1));
+            String showImage=uploadSerivce.upImageFire(image);
+            CinemaMng cinemaMng1=cinemaMng;
+            Cinema cinema=cinemaRepository.findById(cinema_id).get();
+            cinemaMng1.setCinema(cinema);
+            cinemaMng1.setShowImage(showImage);
+            JSONObject jsonObject=cinemaMngService.getCinemaMngJson(cinemaMngRepository.save(cinemaMng1));
+            return Util.success(jsonObject);
         }catch (Exception e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -199,8 +206,6 @@ public class CinemaController {
     }
 
 
-
-
     @Data
     private static class Cinema_Infor{
 
@@ -216,7 +221,6 @@ public class CinemaController {
         private String cinemaDescription;
 
         private List<MultipartFile>figureList;
-
     }
 
 
