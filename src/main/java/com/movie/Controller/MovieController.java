@@ -6,13 +6,18 @@ import com.movie.Enums.ExceptionEnums;
 import com.movie.Repository.*;
 import com.movie.Result.Result;
 import com.movie.Serivce.MovieService;
+import com.movie.Serivce.UploadSerivce;
 import com.movie.Util.Util;
 import com.sun.org.apache.regexp.internal.RE;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,6 +53,39 @@ public class MovieController {
 
     @Autowired
     private MovieService movieService;
+
+
+    @Autowired
+    private UploadSerivce uploadSerivce;
+
+    @Autowired
+    private FigureRepository figureRepository;
+
+    @PostMapping(value = "movie/add")
+    public Result addMovie(MovieInformation movieInformation) throws ParseException {
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date releaseTime=simpleDateFormat.parse(movieInformation.releaseTime);
+        Movie movie1=new Movie();
+        movie1.setBrief(movieInformation.brief);
+        movie1.setCountry(movieInformation.country);
+        movie1.setDuration(movieInformation.brief);
+        movie1.setReleaseTime(releaseTime);
+        movie1.setLanguage(movieInformation.language);
+        movie1.setState(movieInformation.state);
+        movie1.setName(movieInformation.name);
+        String showImage=uploadSerivce.upImageFire(movieInformation.showImage);
+        movie1.setShowImage(showImage);
+        List<Figure>figureList=new ArrayList<>();
+        for (MultipartFile multipartFile : movieInformation.figureList) {
+            Figure figure=new Figure();
+            String url=uploadSerivce.upImageFire(multipartFile);
+            figure.setImageurl(url);
+            figureList.add(figure);
+            figureRepository.save(figure);
+        }
+        movie1.setFigureList(figureList);
+        return Util.success(movieRepository.save(movie1));
+    }
 
 
     @PostMapping(value = "staff/add")
@@ -103,5 +141,43 @@ public class MovieController {
         }
     }
 
+
+    @Data
+    private static class MovieInformation{
+        //简介
+        private String brief;
+        //名字
+        private String name;
+        //上映时间
+        private String releaseTime;
+
+        private  String language;
+
+        private  String country;
+        //电影时长
+        private String duration;
+
+        private  MultipartFile showImage;
+        //目前状态
+        private  String state;
+        //其他图片
+        private  List<MultipartFile>figureList;
+
+
+        @Override
+        public String toString() {
+            return "MovieInformation{" +
+                    "brief='" + brief + '\'' +
+                    ", name='" + name + '\'' +
+                    ", releaseTime=" + releaseTime +
+                    ", language='" + language + '\'' +
+                    ", country='" + country + '\'' +
+                    ", duration='" + duration + '\'' +
+                    ", showImage='" + showImage + '\'' +
+                    ", state='" + state + '\'' +
+                    ", figureList=" + figureList +
+                    '}';
+        }
+    }
 
 }

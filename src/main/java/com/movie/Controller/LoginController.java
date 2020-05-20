@@ -106,7 +106,6 @@ public class LoginController {
     public  Result userSign(@RequestParam(value = "usersex",required = false)String sex, @RequestParam("username")String name, @RequestParam("password")String password,
                             @RequestParam(value = "email",required = false)String email, @RequestParam(value = "phone",required = false)String phone, @RequestParam(value = "image",required = false)MultipartFile file,HttpServletResponse response){
 
-
         try {
             User user=new User();
             user.setUsername(name);

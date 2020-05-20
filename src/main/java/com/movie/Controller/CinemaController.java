@@ -1,22 +1,27 @@
 package com.movie.Controller;
 
 
-import com.movie.Entity.Cinema;
-import com.movie.Entity.CinemaMng;
-import com.movie.Entity.Hall;
-import com.movie.Entity.Schedual;
+import com.alibaba.fastjson.JSONObject;
+import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
 import com.movie.Repository.CinemaMngRepository;
 import com.movie.Repository.CinemaRepository;
+import com.movie.Repository.FigureRepository;
 import com.movie.Repository.ScheudalRepository;
 import com.movie.Result.Result;
 import com.movie.Serivce.CinemaMngService;
 import com.movie.Serivce.CinemaService;
+import com.movie.Serivce.UploadSerivce;
 import com.movie.Util.Util;
 import com.sun.org.apache.regexp.internal.RE;
 import io.swagger.annotations.Api;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 处理跨域@CrossOrigin现在可以先不用加
@@ -40,12 +45,17 @@ public class CinemaController {
     @Autowired
     private  CinemaMngRepository cinemaMngRepository;
 
-    @PostMapping(value = "/cinema/add")
-    public Result addCinema(Cinema cinema){
-        try {
+    @Autowired
+    private UploadSerivce uploadSerivce;
 
-            Cinema cinema1=new Cinema();
-            return Util.success(cinemaRepository.save(cinema));
+    @Autowired
+    private FigureRepository figureRepository;
+
+    @PostMapping(value = "cinema/add")
+    public Result addCinema(Cinema_Infor cinema_infor){
+        try {
+            Cinema cinema=new Cinema();
+            return Util.success(cinemaService.addJsonCinema(cinema,cinema_infor.cinemaName,cinema_infor.location,cinema_infor.phone,cinema_infor.grade,cinema_infor.cinemaDescription,cinema_infor.figureList));
         }catch (Exception e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -53,16 +63,16 @@ public class CinemaController {
     }
 
     @PutMapping(value = "cinema/update")
-    public Result updateCinema(Cinema cinema){
+    public Result updateCinema(Cinema_Infor cinema_infor){
         try {
-            Long id=cinema.getId();
-            Cinema temp=cinemaRepository.findById(id).get();
-            temp.setCinemaDescription(cinema.getCinemaDescription());
-            temp.setCinemaName(cinema.getCinemaName());
-            temp.setLocation(cinema.getLocation());
-            temp.setPhone(cinema.getPhone());
-            temp.setGrade(cinema.getGrade());
-            return  Util.success(cinemaRepository.save(temp));
+            List<Cinema>cinemas=cinemaRepository.findByCinemaName(cinema_infor.cinemaName);
+            if(cinemas.size()==0){
+                return  Util.failure(ExceptionEnums.UNFIND_DATA_ERROR);
+            }else {
+                Cinema cinema=cinemas.get(0);
+                return Util.success(cinemaService.addJsonCinema(cinema,cinema_infor.cinemaName,cinema_infor.location,cinema_infor.phone,cinema_infor.grade,cinema_infor.cinemaDescription,cinema_infor.figureList));
+            }
+
         }catch (Exception e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -83,12 +93,41 @@ public class CinemaController {
     }
 
 
-    @PostMapping(value = "/cinemaMng/add")
-    public Result addCinemaMng(CinemaMng cinemaMng){
+    @PostMapping(value = "cinemaMng/add")
+    public Result addCinemaMng(CinemaMng cinemaMng,@RequestParam(value = "cinema_id",required = false)Long cinema_id,@RequestParam(value = "image",required = false)MultipartFile image){
         try {
-            CinemaMng cinemaMng1=new CinemaMng();
-            cinemaMng1=cinemaMng;
-            return Util.success(cinemaMngRepository.save(cinemaMng));
+            String showImage=uploadSerivce.upImageFire(image);
+            CinemaMng cinemaMng1=cinemaMng;
+            Cinema cinema=cinemaRepository.findById(cinema_id).get();
+            cinemaMng1.setCinema(cinema);
+            cinemaMng1.setShowImage(showImage);
+            JSONObject jsonObject=cinemaMngService.getCinemaMngJson(cinemaMngRepository.save(cinemaMng1));
+            return Util.success(jsonObject);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+    @PutMapping(value = "cinemaMng/update")
+    public  Result updateCinemaMng(CinemaMng cinemaMng,@RequestParam(value = "image",required = false)MultipartFile image){
+        try {
+            CinemaMng cinemaMng1;
+
+            List<CinemaMng>cinemaMngs=cinemaMngRepository.findByMngUsername(cinemaMng.getMngUsername());
+            if(cinemaMngs.size()>0){
+                cinemaMng1=cinemaMngs.get(0);
+
+                String showImage=uploadSerivce.upImageFire(image);
+                uploadSerivce.deleteimage(cinemaMng1.getShowImage());
+                cinemaMng1.setShowImage(showImage);
+
+                JSONObject jsonObject=cinemaMngService.updateCinemaMng(cinemaMng1,cinemaMng);
+                return  Util.success(jsonObject);
+            }else {
+                return Util.failure(ExceptionEnums.UNFIND_DATA_ERROR);
+            }
+
         }catch (Exception e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -96,7 +135,7 @@ public class CinemaController {
     }
 
 
-    @PostMapping(value = "/cinemaHall/add")
+    @PostMapping(value = "cinemaHall/add")
     public Result addCinemaHall(@RequestParam("cinemaName")String cinameName, Hall hall){
         try {
 
@@ -145,6 +184,25 @@ public class CinemaController {
     }
 
 
+
+
+    @Data
+    private static class Cinema_Infor{
+
+
+        private String cinemaName;
+
+        private String location;
+
+        private String phone;
+
+        private Integer grade;
+
+        private String cinemaDescription;
+
+        private List<MultipartFile>figureList;
+
+    }
 
 
 

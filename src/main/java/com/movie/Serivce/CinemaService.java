@@ -1,19 +1,19 @@
 package com.movie.Serivce;
 
 
-import com.movie.Entity.Cinema;
-import com.movie.Entity.Hall;
-import com.movie.Entity.Movie;
-import com.movie.Entity.Schedual;
+import com.alibaba.fastjson.JSONObject;
+import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
 import com.movie.Repository.*;
 import com.movie.Util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.origin.OriginTrackedValue;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +35,12 @@ public class CinemaService {
 
     @Autowired
     private ScheudalRepository scheudalRepository;
+
+    @Autowired
+    private  UploadSerivce uploadSerivce;
+
+    @Autowired
+    private  FigureRepository figureRepository;
 
     public  Hall addCinemaHall(String cinemaName, Hall hall){
         List<Cinema >cinemaList=cinemaRepository.findByCinemaName(cinemaName);
@@ -69,6 +75,25 @@ public class CinemaService {
          return  scheudalRepository.save(schedual);
     }
 
+    public Cinema addJsonCinema( Cinema cinema,String cinemaName, String location, String phone, Integer grade, String cinemaDescription, List<MultipartFile>figureList){
+
+        cinema.setGrade(grade);
+        cinema.setPhone(phone);
+        cinema.setCinemaName(cinemaName);
+        cinema.setCinemaDescription(cinemaDescription);
+        cinema.setLocation(location);
+        List<Figure>figures=new ArrayList<>();
+        for (MultipartFile multipartFile : figureList) {
+            Figure figure=new Figure();
+            String url=uploadSerivce.upImageFire(multipartFile);
+            figure.setImageurl(url);
+            figures.add(figure);
+            figureRepository.save(figure);
+        }
+        cinema.setFigureList(figures);
+
+        return cinemaRepository.save(cinema);
+    }
 
 
 }
