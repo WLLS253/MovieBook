@@ -549,14 +549,6 @@
                 el: "#app",
                 data: {
                     user_info: {
-                        // username: null,
-                        // password: null,
-                        // gender: null,
-                        // email: null,
-                        // phonenumber: null,
-                        // priority: null,
-                        // related_cinema_id: null,
-
                         username: 'user1',
                         password: 'Goodluck',
                         gender: '男',
@@ -565,17 +557,9 @@
                         priority: 1,
                         related_cinema_id: '00001',
                     },
-                    users: [
-                        {
-                            username: 'user1',
-                            password: 'Goodluck',
-                            gender: '男',
-                            email: 'good@foxmail.com',
-                            phonenumber: '1818982398',
-                            priority: 1,
-                            related_cinema_id: '00001',
-                        }
-                    ]
+                    users: [],
+                    pageSize :20,
+                    pageNum:1,
                 },
                 methods: {
                     addUser: function () {
@@ -589,23 +573,20 @@
                         params.append('prio', this.user_info.priority)
                         params.append('cinema_id', this.user_info.related_cinema_id)
 
-                        this.users.push(
-                            {
-                                username: this.user_info.username,
-                                password: this.user_info.password,
-                                gender: this.user_info.gender,
-                                email: this.user_info.email,
-                                phonenumber: this.user_info.phonenumber,
-                                priority: this.user_info.priority,
-                                related_cinema_id: this.user_info.related_cinema_id,
-                            }
-                        );
-
-
                         axios.post("http://localhost:8081/cinemaMng/add", params)
                             .then(response => {
-                                console.log(response)
-                                console.log(this.staff_info)
+                                var data  = response.data.data;
+                                this.users.push(
+                                    {
+                                        username: data.mngUsername,
+                                        password: data.mngPassword,
+                                        gender: data.mngSex,
+                                        email: data.mngEmail,
+                                        phonenumber: data.mngPhone,
+                                        priority: data.prio,
+                                        related_cinema_id: data.cinema.id,
+                                    }
+                                );
                             })
                             .catch(function (error) { // 请求失败处理
                                 console.log(error);
@@ -613,8 +594,25 @@
                     },
                 },
                 mounted() {
-                    axios.get('http://localhost:8081/test/ggget')
-                        .then(response => { console.log(response) })
+                    const params = new URLSearchParams();
+                    params.append("pageSize",this.pageSize);
+                    params.append("pageNumber",this.pageNum);
+                    axios.get('http://localhost:8081/cinemaMng/getList')
+                        .then(response => {
+                            let cinemaMngs = response.data.data.cinemaMngs;
+                            for (var mng of cinemaMngs){
+                                this.users.push({
+                                    username: mng.mngUsername,
+                                    password: mng.mngPassword,
+                                    gender: mng.mngSex,
+                                    email: mng.mngEmail,
+                                    phonenumber: mng.mngPhone,
+                                    priority: mng.prio,
+                                    related_cinema_id: mng.cinema.id,
+                                })
+                            }
+
+                        })
                         .catch(function (error) { // 请求失败处理
                             console.log(error);
                         });

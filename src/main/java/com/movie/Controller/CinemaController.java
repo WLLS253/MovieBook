@@ -19,6 +19,8 @@ import com.sun.org.apache.regexp.internal.RE;
 import io.swagger.annotations.Api;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -58,7 +60,8 @@ public class CinemaController {
                             String location,
                             String phone,
                             Integer grade,
-                            String cinemaDescription){
+                            String cinemaDescription,
+                            List<MultipartFile> imgs){
         try {
 
             Cinema cinema1=new Cinema();
@@ -67,6 +70,7 @@ public class CinemaController {
             cinema1.setPhone(phone);
             cinema1.setGrade(grade);
             cinema1.setCinemaDescription(cinemaDescription);
+            cinema1.setCover_img_url(uploadSerivce.upImageFire(imgs.get(0)));
             return Util.success(cinemaRepository.save(cinema1));
         }catch (Exception e){
             e.printStackTrace();
@@ -90,6 +94,19 @@ public class CinemaController {
         }
     }
 
+    @GetMapping(value = "/cinema/getList")
+    public Result getCinemas(Pageable pageable) {
+        try {
+            Page<Cinema> cinemaMngs = cinemaRepository.findAll(pageable);
+            List<Cinema> cinemaList =  cinemaMngs.getContent();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("cinemas",cinemaList);
+            return Util.success(jsonObject);
+        }catch (Exception e){
+            return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
 
     @DeleteMapping(value = "cinema/delete")
     public  Result deleteCinema(@RequestParam("cinemaId")Long cinemaId){
@@ -101,6 +118,19 @@ public class CinemaController {
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
 
+    }
+
+    @GetMapping(value = "/cinemaMng/getList")
+    public Result getCinemaMngs(Pageable pageable) {
+        try {
+            Page<CinemaMng> cinemaMngs = cinemaMngRepository.findAll(pageable);
+            List<CinemaMng> cinemaMngList =  cinemaMngs.getContent();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("cinemaMngs",cinemaMngList);
+            return Util.success(jsonObject);
+        }catch (Exception e){
+            return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
     }
 
 

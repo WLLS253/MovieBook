@@ -144,6 +144,7 @@ public class MovieController {
     @GetMapping(value = "movie/movieDetails")
     public Result getMovieDetail(long movie_id){
         try {
+
             return Util.success(movieService.getMovieComments(movie_id));
         }catch (Exception e){
             e.printStackTrace();

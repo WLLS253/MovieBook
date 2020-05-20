@@ -37,8 +37,8 @@
 
 </head>
 
-<body class="animsition">
-    <div class="page-wrapper">
+<body  class="animsition">
+    <div id="app" class="page-wrapper">
         <!-- HEADER MOBILE-->
         <header class="header-mobile d-block d-lg-none">
             <div class="header-mobile__bar">
@@ -258,7 +258,7 @@
             <!-- END HEADER DESKTOP-->
 
             <!-- MAIN CONTENT-->
-            <div id="app">
+            <div >
                 <div class="main-content">
                     <div class="section__content section__content--p30">
                         <div class="container-fluid">
@@ -330,6 +330,9 @@
                                                     </td>
                                                     <td width="30%">
                                                         {{cinema.cinemadescription}}
+                                                    </td>
+                                                    <td width="30%">
+                                                        <img src={{cinema.img_url}} >
                                                     </td>
                                                     <tr class="spacer"></tr>
                                                 </tr>
@@ -413,20 +416,20 @@
 
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="text-input" class=" form-control-label">影院描述</label>
+                                        <label for="file-input"  class=" form-control-label">影院描述</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input v-model="cinema_info.cinemadescription" type="text" id="text-input"
+                                        <input  id="file-input" v-model="cinema_info.cinemadescription" type="text"
                                             name="text-input" placeholder="请输入影院描述 " class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="file-input" class=" form-control-label">影院照片</label>
+                                        <label for="img_files" class=" form-control-label">影院照片</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input v-model="cinema_info.cinemafigure" type="file" id="file-input"
+                                        <input id="img_files" type="file"
                                             name="file-input" class="form-control-file">
                                     </div>
                                 </div>
@@ -485,7 +488,7 @@
             data: {
                 currentSort: 'name',
                 currentSortDir: 'asc',
-                pageSize: 3,
+                pageSize: 20,
                 currentPage: 1,
 
                 cinema_info: {
@@ -494,7 +497,7 @@
                     phone: '0931-5369999 ',
                     grade: '5',
                     cinemadescription: ' 温馨提示：观看特殊影片 ',
-                    cinemafigure: null,
+                    img_url: null,
                     // cinemaname: null,
                     // location: null,
                     // phone: null,
@@ -502,82 +505,105 @@
                     // cinemadescription: null,
                 },
                 cinemas: [
-                    {
-                        cinemaname: '兰州万达广场店',
-                        location: '兰州市城关区天水北路68号万达广场4楼',
-                        phone: '0931-5369999 ',
-                        grade: '5',
-                        cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    },
-                    {
-                        cinemaname: '北京万达广场店',
-                        location: '兰州市城关区天水北路68号万达广场4楼',
-                        phone: '0931-5369999 ',
-                        grade: '5',
-                        cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    },
-                    {
-                        cinemaname: '西安万达广场店',
-                        location: '兰州市城关区天水北路68号万达广场4楼',
-                        phone: '0931-5369999 ',
-                        grade: '5',
-                        cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    },
-                    {
-                        cinemaname: '山东万达广场店',
-                        location: '兰州市城关区天水北路68号万达广场4楼',
-                        phone: '0931-5369999 ',
-                        grade: '5',
-                        cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    },
-                    {
-                        cinemaname: '湖北万达广场店',
-                        location: '兰州市城关区天水北路68号万达广场4楼',
-                        phone: '0931-5369999 ',
-                        grade: '5',
-                        cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    },
-                    {
-                        cinemaname: '贵州万达广场店',
-                        location: '兰州市城关区天水北路68号万达广场4楼',
-                        phone: '0931-5369999 ',
-                        grade: '5',
-                        cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    },
-                    {
-                        cinemaname: '兰州万达广场店',
-                        location: '兰州市城关区天水北路68号万达广场4楼',
-                        phone: '0931-5369999 ',
-                        grade: '5',
-                        cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    },
-                    {
-                        cinemaname: '兰州万达广场店',
-                        location: '兰州市城关区天水北路68号万达广场4楼',
-                        phone: '0931-5369999 ',
-                        grade: '5',
-                        cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    },
-                    {
-                        cinemaname: '兰州万达广场店',
-                        location: '兰州市城关区天水北路68号万达广场4楼',
-                        phone: '0931-5369999 ',
-                        grade: '5',
-                        cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    },
+                    // {
+                    //     cinemaname: '兰州万达广场店',
+                    //     location: '兰州市城关区天水北路68号万达广场4楼',
+                    //     phone: '0931-5369999 ',
+                    //     grade: '5',
+                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
+                    // },
+                    // {
+                    //     cinemaname: '北京万达广场店',
+                    //     location: '兰州市城关区天水北路68号万达广场4楼',
+                    //     phone: '0931-5369999 ',
+                    //     grade: '5',
+                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
+                    // },
+                    // {
+                    //     cinemaname: '西安万达广场店',
+                    //     location: '兰州市城关区天水北路68号万达广场4楼',
+                    //     phone: '0931-5369999 ',
+                    //     grade: '5',
+                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
+                    // },
+                    // {
+                    //     cinemaname: '山东万达广场店',
+                    //     location: '兰州市城关区天水北路68号万达广场4楼',
+                    //     phone: '0931-5369999 ',
+                    //     grade: '5',
+                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
+                    // },
+                    // {
+                    //     cinemaname: '湖北万达广场店',
+                    //     location: '兰州市城关区天水北路68号万达广场4楼',
+                    //     phone: '0931-5369999 ',
+                    //     grade: '5',
+                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
+                    // },
+                    // {
+                    //     cinemaname: '贵州万达广场店',
+                    //     location: '兰州市城关区天水北路68号万达广场4楼',
+                    //     phone: '0931-5369999 ',
+                    //     grade: '5',
+                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
+                    // },
+                    // {
+                    //     cinemaname: '兰州万达广场店',
+                    //     location: '兰州市城关区天水北路68号万达广场4楼',
+                    //     phone: '0931-5369999 ',
+                    //     grade: '5',
+                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
+                    // },
+                    // {
+                    //     cinemaname: '兰州万达广场店',
+                    //     location: '兰州市城关区天水北路68号万达广场4楼',
+                    //     phone: '0931-5369999 ',
+                    //     grade: '5',
+                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
+                    // },
+                    // {
+                    //     cinemaname: '兰州万达广场店',
+                    //     location: '兰州市城关区天水北路68号万达广场4楼',
+                    //     phone: '0931-5369999 ',
+                    //     grade: '5',
+                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
+                    // },
                 ]
             },
+            mounted:function(){
+                const params = new URLSearchParams();
+                params.append('pageNumber', this.currentPage);
+                params.append('pageSize', this.pageSize);
+                axios.get("http://localhost:8081/cinema/getList", params)
+                    .then(response => {console.log(response)
+                        let data = response.data.data;
+                        for (var c of data.cinemas){
+                            this.cinemas.push({
+                                cinemaname: c.cinemaName,
+                                location: c.location,
+                                phone: c.phone,
+                                grade: c.grade,
+                                cinemadescription: c.cinemaDescription,
+                                img_url:c.cover_img_url,
+                            })
+                        }
 
-            created: function () {
-                fetch('https://api.myjson.com/bins/s9lux')
-                    .then(res => res.json())
-                    .then(res => {
-                        this.cinemas = res;
                     })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
             },
+            // created: function () {
+            //     fetch('https://api.myjson.com/bins/s9lux')
+            //         .then(res => res.json())
+            //         .then(res => {
+            //             this.cinemas = res;
+            //         })
+            // },
             methods: {
                 addCinema() {
                     const params = new URLSearchParams();
+
 
                     params.append('cinemaDescription', this.cinema_info.cinemadescription);
                     params.append('cinemaName', this.cinema_info.cinemaname);
@@ -585,21 +611,53 @@
                     params.append('location', this.cinema_info.location)
                     params.append('phone', this.cinema_info.phone)
 
-                    this.cinemas.push({
-                        cinemaname: this.cinema_info.cinemaname,
-                        location: this.cinema_info.location,
-                        phone: this.cinema_info.phone,
-                        grade: this.cinema_info.grade,
-                        cinemadescription: this.cinema_info.cinemadescription,
-                    })
 
-                    axios.post("http://localhost:8081/cinema/add", params)
-                        .then(response => {
-                            console.log(response)
+                    let param = new FormData();
+                    var files = document.getElementById("img_files").files;
+                    for (let i = 0; i < files.length; i++) {
+                        param.append("imgs",files[i])
+                    }
+
+                    param.append('cinemaDescription', this.cinema_info.cinemadescription);
+                    param.append('cinemaName', this.cinema_info.cinemaname);
+                    param.append('grade', this.cinema_info.grade)
+                    param.append('location', this.cinema_info.location)
+                    param.append('phone', this.cinema_info.phone)
+                    let config = {
+                        //添加请求头
+                        headers: { "Content-Type": "multipart/form-data" },
+                        //添加上传进度监听事件
+                        onUploadProgress: e => {
+                            var completeProgress = ((e.loaded / e.total * 100) | 0) + "%";
+                            this.progress = completeProgress;
+                        }
+                    };
+
+                    axios.post("http://localhost:8081/cinema/add", param,config)
+                        .then(response => {console.log(response)
+                            let data = response.data.data;
+                            this.cinemas.push({
+                                cinemaname: this.cinema_info.cinemaname,
+                                location: this.cinema_info.location,
+                                phone: this.cinema_info.phone,
+                                grade: this.cinema_info.grade,
+                                cinemadescription: this.cinema_info.cinemadescription,
+                                img_url:data.cover_img_url,
+                            })
                         })
                         .catch(function (error) { // 请求失败处理
                             console.log(error);
                         });
+
+
+                    //
+                    // axios.post("http://localhost:8081/cinema/add", params)
+                    //     .then(response => {
+                    //         console.log(response)
+                    //     })
+                    //     .catch(function (error) { // 请求失败处理
+                    //         console.log(error);
+                    //     });
                 },
                 sort: function (s) {
                     //if s == current sort, reverse

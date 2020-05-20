@@ -29,6 +29,7 @@ public class Cinema extends  BaseEntity {
     private Integer grade;
 
     private String cinemaDescription;
+    private String cover_img_url;
 
     @Override
     public String getSearchName() {
