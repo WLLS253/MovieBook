@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -37,4 +38,8 @@ public class Cinema extends  BaseEntity {
     @OneToMany(targetEntity = Figure.class)
     private List<Figure>figureList;
 
+
+    public Cinema() {
+        this.figureList = new ArrayList<>();
+    }
 }

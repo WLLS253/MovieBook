@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import java.util.List;
+import java.util.Objects;
 
 
 @Setter
@@ -43,6 +44,30 @@ public class CinemaMng extends BaseEntity{
     private  String showImage;
 
 
+    public void  updateObject(Object o) {
+         CinemaMng cinemaMng = (CinemaMng) o;
+         if(cinemaMng.mngPhone!=null){
+             mngPhone=cinemaMng.mngPhone;
+         }
+         if( cinemaMng.prio!=null){
+             prio=cinemaMng.prio;
+         }
+         if(cinemaMng.mngUsername!=null){
+             mngUsername=cinemaMng.mngUsername;
+         }
+         if(cinemaMng.mngEmail!=null){
+             mngEmail=cinemaMng.mngEmail;
+         }
+         if(cinemaMng.mngPassword!=null){
+         mngPassword=cinemaMng.mngPassword;
+        }
+        if(cinemaMng.mngSex!=null){
+            mngSex=cinemaMng.mngSex;
+        }
+        if(cinemaMng.showImage!=null){
+            showImage=cinemaMng.showImage;
+        }
+    }
 
 
 }
