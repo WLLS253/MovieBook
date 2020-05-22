@@ -79,7 +79,10 @@ public class SearchService {
                 staff_json.put("role",t.getRole());
                 staffs.add(staff_json);
             }
+
             movie_info.put("staffs",staffs);
+            movie_info.put("movie_name",m.getName());
+            movie_info.put("duration",m.getDuration());
             movie_info.put("movie_id",m.getId());
             movie_info.put("country",m.getCountry());
             movie_info.put("release_time",m.getReleaseTime());
