@@ -4,15 +4,16 @@ package com.movie.Serivce;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.movie.Entity.Comment;
-import com.movie.Entity.Movie;
-import com.movie.Entity.Tag;
+import com.movie.Entity.*;
 import com.movie.Repository.CommentRepository;
 import com.movie.Repository.MovieRepository;
+import com.movie.Repository.TakePartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import org.springframework.data.domain.Pageable;
 import java.util.Date;
 import java.util.List;
 
@@ -24,26 +25,36 @@ public class MovieService {
 
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private TakePartRepository takePartRepository;
 
     @Autowired
     private MovieRepository movieRepository;
+
+
     @Autowired
     private UploadSerivce uploadSerivce;
 
 
-    public JSONObject getMovieComments(Long movieId){
 
-        Movie movie=movieRepository.findById(movieId).get();
-        List<Comment>commentList=commentRepository.findByMovie(movie);
 
+    public JSONObject getMovieComments(Long movieId, Pageable pageable){
+        Page<Comment> commentPage=commentRepository.getAllByMovieOrderByCreatedTime(movieId,pageable);
+        List<Comment> commentList = commentPage.getContent();
         JSONObject jsonObject=new JSONObject();
         JSONArray commentArray=new JSONArray();
 
         for (Comment comment : commentList) {
             JSONObject temp=new JSONObject();
+            JSONObject userInfo = new JSONObject();
+            User u = comment.getUser();
             temp.put("cotent",comment.getContent());
+            temp.put("date",comment.getCreatedTime());
             temp.put("title",comment.getTitle());
-            temp.put("userName",comment.getUser().getUsername());
+            userInfo.put("userName",u.getUsername());
+            userInfo.put("avatar",u.getShowimage());
+            userInfo.put("user_id",u.getId());
+            temp.put("user_info",userInfo);
             commentArray.add(temp);
         }
         jsonObject.put("comments",commentArray);
@@ -53,6 +64,9 @@ public class MovieService {
     public JSONObject getMovieDetail(Long movie_id){
         JSONObject jsonObject=new JSONObject();
         Movie movie=movieRepository.findById(movie_id).get();
+        JSONArray staffs = getTakePartInfos(movie_id);
+        jsonObject.put("movie_info",movie);
+        jsonObject.put("staff_info",staffs);
         return  jsonObject;
 
     }
@@ -78,6 +92,22 @@ public class MovieService {
         movieRepository.save(m);
         jsonObject.put("movie",m);
         return jsonObject;
+    }
+
+
+    public JSONArray getTakePartInfos(Long movie_id){
+        List<TakePart> takeParts = takePartRepository.findAllByMovie_Id(movie_id);
+        JSONArray staffs = new JSONArray();
+        for (TakePart t:takeParts) {
+            JSONObject staff_json = new JSONObject();
+            Staff s = t.getStaff();
+            staff_json.put("id",s.getId());
+            staff_json.put("name",s.getStaffName());
+            staff_json.put("role",t.getRole());
+            staff_json.put("img",s.getShowImage());
+            staffs.add(staff_json);
+        }
+        return  staffs;
     }
 
 //    public JSONObject getMovieBreifInfos(String state){

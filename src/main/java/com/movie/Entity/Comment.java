@@ -7,13 +7,14 @@ import lombok.Setter;
 import sun.plugin2.message.PrintAppletMessage;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 @Entity
 @Table(name = "comment")
-public class Comment {
+public class Comment extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +30,7 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
 
 
 

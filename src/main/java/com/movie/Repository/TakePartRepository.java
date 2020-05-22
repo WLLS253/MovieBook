@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TakePartRepository extends JpaRepository<TakePart,Long> {
-    public List<TakePart> findAllByMovie(Movie movie);
+    public List<TakePart> findAllByMovie_Id(Long movie_id);
 }

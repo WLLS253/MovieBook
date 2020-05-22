@@ -12,8 +12,10 @@ import com.movie.Serivce.SearchService;
 import com.movie.Util.Util;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.domain.Pageable;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +38,8 @@ public class SearchController {
     @PostMapping(value = "moive/Fliter/brief")
     public Result filterMovies(@RequestBody FilterSetting filter_setting){
         try {
-            return Util.success(searchService.filterMoviesBrief(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags,filter_setting.date,filter_setting.state,filter_setting.cinema_name));
+            Pageable p = PageRequest.of(filter_setting.pageNumber,filter_setting.pageSize);
+            return Util.success(searchService.filterMoviesBrief(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags,filter_setting.date,filter_setting.state,filter_setting.cinema_name,p));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -56,8 +59,9 @@ public class SearchController {
     @PostMapping(value = "moive/Fliter/details")
     public Result filterMoviesDetails(@RequestBody FilterSetting filter_setting){
         try {
+            Pageable p = PageRequest.of(filter_setting.pageNumber,filter_setting.pageSize);
             System.out.println(filter_setting);
-            return Util.success(searchService.filterMoviesDetail(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags,filter_setting.date,filter_setting.state,filter_setting.cinema_name));
+            return Util.success(searchService.filterMoviesDetail(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags,filter_setting.date,filter_setting.state,filter_setting.cinema_name,p));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -86,16 +90,6 @@ public class SearchController {
         }
     }
 
-    // 按照电影 来找到所有正在上映该电影院的电影
-    @PostMapping(value = "cinema/movieCinemas")
-    public Result filterCinemas(Long movie_id){
-        try {
-            return Util.success(searchService.filterCinema(movie_id));
-        }catch (Exception e){
-            e.printStackTrace();
-            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
-        }
-    }
 
 
 
@@ -124,7 +118,8 @@ public class SearchController {
         // 影院名称
         String cinema_name;
 
-
+        int pageNumber;
+        int pageSize;
 
         @Override
         public String toString() {

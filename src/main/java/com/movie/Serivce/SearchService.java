@@ -10,6 +10,8 @@ import com.movie.Repository.*;
 import io.swagger.models.auth.In;
 import org.apache.commons.collections.SequencedHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.HTMLDocument;
@@ -40,6 +42,9 @@ public class SearchService {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private MovieService movieService;
+
 
     public JSONObject filterMoviesBrief(Integer start_year,
                                    Integer end_year,
@@ -47,39 +52,29 @@ public class SearchService {
                                           List<String> tags,
                                           Date date,
                                           String state,
-                                          String cinema_name) {
+                                          String cinema_name,Pageable pageable) {
         JSONObject jsonObject = new JSONObject();
-        List<Movie> flitered_movies= getFliteredMovies(start_year,end_year,key_string,tags,date,state,cinema_name);
+        List<Movie> flitered_movies= getFliteredMovies(start_year,end_year,key_string,tags,date,state,cinema_name,pageable);
         jsonObject.put("movies",flitered_movies);
         return jsonObject;
     }
 
     public JSONObject filterMoviesDetail(Integer start_year,
-                                        Integer end_year,
-                                        String key_string,
-                                        List<String> tags,
-                                        Date date,
-                                        String state,
-                                        String cinema_name) {
+                                         Integer end_year,
+                                         String key_string,
+                                         List<String> tags,
+                                         Date date,
+                                         String state,
+                                         String cinema_name, Pageable pageable) {
         JSONObject jsonObject = new JSONObject();
         JSONArray movie_infos = new JSONArray();
 
-        List<Movie> filtered_movies= getFliteredMovies(start_year,end_year,key_string,tags,date,state,cinema_name);
+        List<Movie> filtered_movies= getFliteredMovies(start_year,end_year,key_string,tags,date,state,cinema_name,pageable);
 
 
         for (Movie m:filtered_movies) {
             JSONObject movie_info = new JSONObject();
-            List<TakePart> takeParts = takePartRepository.findAllByMovie(m);
-            JSONArray staffs = new JSONArray();
-            for (TakePart t:takeParts) {
-                JSONObject staff_json = new JSONObject();
-                Staff s = t.getStaff();
-                staff_json.put("id",s.getId());
-                staff_json.put("name",s.getStaffName());
-                staff_json.put("role",t.getRole());
-                staffs.add(staff_json);
-            }
-
+            JSONArray staffs = movieService.getTakePartInfos(m.getId());
             movie_info.put("staffs",staffs);
             movie_info.put("movie_name",m.getName());
             movie_info.put("duration",m.getDuration());
@@ -117,45 +112,6 @@ public class SearchService {
         return jsonObject;
     }
 
-    // 通过moive 来获取所有正在上映该电影的 电影院
-    public JSONObject  filterCinema(Long movie_id){
-        JSONObject jsonObject = new JSONObject();
-        JSONObject cinArrs  = new JSONObject();
-        Cinema cinema = cinemaRepository.findById(movie_id).get();
-        List<Object[]> cin_sches = cinemaRepository.getOnShowCinemas(movie_id);
-//        Map<Long,Map<String,Object>> cin_info_map = new HashMap<>();
-        for (Object[] row:cin_sches) {
-            if(cinArrs.containsKey(row[0].toString())){
-                JSONObject sche_info = new JSONObject();
-                sche_info.put("sched_id",row[2]);
-                sche_info.put("start_date",row[3]);
-                JSONObject info =(JSONObject) cinArrs.get(row[0].toString());
-                JSONArray sche_breifs =  (JSONArray)info.get("sched_infos");
-                sche_breifs.add(sche_info);
-            }else{
-                JSONObject infos = new JSONObject();
-                JSONArray sched_infos = new JSONArray();
-                JSONObject sche_info = new JSONObject();
-                sche_info.put("sched_id",row[2]);
-                sche_info.put("start_date",row[3]);
-                sched_infos.add(sche_info);
-                infos.put("cinema_name",row[1]);
-                infos.put("cinema_id",row[0]);
-                infos.put("sched_infos",sched_infos);
-                cinArrs.put((String) row[0].toString(),infos);
-            }
-        }
-//        for (Object[] row:cin_sches) {
-//            if(cin_info_map.containsKey(row[0].toString())) {
-//
-//            }else{
-//
-//            }
-//        }
-        jsonObject.put("cinema_infos",cinArrs);
-
-        return jsonObject;
-    }
 
 
     // 获取热映电影
@@ -182,13 +138,13 @@ public class SearchService {
             List<String> tags,
             Date date,
             String state,
-            String cinema_name){
+            String cinema_name,Pageable pageable){
         tags = tags==null?null_tags:tags;
-        List<Movie> movies =movieRepository.filterMovies(start_year,end_year,tags,date,state,cinema_name);
+        Page<Movie> movies =movieRepository.filterMovies(start_year,end_year,tags,date,state,cinema_name,pageable);
         if(key_string == null)
-            return  movies;
+            return  movies.getContent();
         String[] keys = key_string.split(" +");
-        return getFilterResultsByKeys(movies,keys );
+        return getFilterResultsByKeys(movies.getContent(),keys );
 
     }
 

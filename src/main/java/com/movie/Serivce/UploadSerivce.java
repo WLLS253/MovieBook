@@ -29,6 +29,9 @@ public class UploadSerivce {
     //获取主机端口
     private String POST;
 
+    @Value("${file.fileServer}")
+    public static String uploadServer;
+
 
     public String upImageFire(MultipartFile file){
         if (file.isEmpty()) {

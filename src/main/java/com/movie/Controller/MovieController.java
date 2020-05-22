@@ -11,6 +11,9 @@ import com.movie.Serivce.UploadSerivce;
 import com.movie.Util.Util;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -150,9 +153,11 @@ public class MovieController {
     }
 
     @GetMapping(value = "movie/getCommentList")
-    public Result getMovieCommentList(@RequestParam("movieId")Long movieId){
+    public Result getMovieCommentList(@RequestParam("movieId")Long movieId,int pageSize,int pageNumber){
         try {
-            return Util.success(movieService.getMovieComments(movieId));
+            Sort s = Sort.by(Sort.Direction.ASC,"createdTime");
+            Pageable p = PageRequest.of(pageNumber,pageSize,s);
+            return Util.success(movieService.getMovieComments(movieId,p));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -163,8 +168,7 @@ public class MovieController {
     @GetMapping(value = "movie/movieDetails")
     public Result getMovieDetail(long movie_id){
         try {
-
-            return Util.success(movieService.getMovieComments(movie_id));
+            return Util.success(movieService.getMovieDetail(movie_id));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);

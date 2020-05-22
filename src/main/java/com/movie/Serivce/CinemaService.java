@@ -76,6 +76,39 @@ public class CinemaService {
          return  scheudalRepository.save(schedual);
     }
 
+    // 通过moive 来获取所有正在上映该电影的 电影院
+    public JSONObject  movieScheduals(Long movie_id){
+        JSONObject jsonObject = new JSONObject();
+        JSONObject cinArrs  = new JSONObject();
+
+        List<Object[]> cin_sches = cinemaRepository.getOnShowCinemas(movie_id);
+        for (Object[] row:cin_sches) {
+            if(cinArrs.containsKey(row[0].toString())){
+                JSONObject sche_info = new JSONObject();
+                sche_info.put("sched_id",row[2]);
+                sche_info.put("start_date",row[3]);
+                JSONObject info =(JSONObject) cinArrs.get(row[0].toString());
+                JSONArray sche_breifs =  (JSONArray)info.get("sched_infos");
+                sche_breifs.add(sche_info);
+            }else{
+                JSONObject infos = new JSONObject();
+                JSONArray sched_infos = new JSONArray();
+                JSONObject sche_info = new JSONObject();
+                sche_info.put("sched_id",row[2]);
+                sche_info.put("start_date",row[3]);
+                sched_infos.add(sche_info);
+                infos.put("cinema_name",row[1]);
+                infos.put("cinema_id",row[0]);
+                infos.put("sched_infos",sched_infos);
+                cinArrs.put((String) row[0].toString(),infos);
+            }
+        }
+        jsonObject.put("cinema_infos",cinArrs);
+
+        return jsonObject;
+    }
+
+
     public Cinema addJsonCinema( Cinema cinema,String cinemaName, String location, String phone, Integer grade, String cinemaDescription, List<MultipartFile>figureList){
 
         cinema.setGrade(grade);

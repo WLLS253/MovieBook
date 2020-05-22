@@ -1,6 +1,7 @@
 package com.movie.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.movie.Plugins.UserPasswordEncrypt;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,7 +33,7 @@ public class User extends  BaseEntity {
 
 
 
-
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "comment",

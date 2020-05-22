@@ -161,6 +161,18 @@ public class CinemaController {
         }
     }
 
+    // 按照电影 来找到所有正在上映该电影院的电影
+    @GetMapping(value = "cinema/movieScheduals")
+    public Result getSchedualsbyId(Long movie_id){
+        try {
+            return Util.success(cinemaService.movieScheduals(movie_id));
+        }catch (Exception e){
+            e.printStackTrace();
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+
     @PutMapping(value = "cinemaMng/update")
     public  Result updateCinemaMng(CinemaMng cinemaMng,@RequestParam(value = "image",required = false)MultipartFile image){
         try {

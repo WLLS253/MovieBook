@@ -1,6 +1,7 @@
 package com.movie.Entity;
 
 
+import com.movie.Serivce.UploadSerivce;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,6 +39,12 @@ public class Cinema extends  BaseEntity {
 
     @OneToMany(targetEntity = Figure.class)
     private List<Figure>figureList;
+
+/*    public String getCover_img_url(){
+        String[] strs= this.cover_img_url.split("/");
+        return UploadSerivce.uploadServer+ strs[strs.length-1];
+    }*/
+
 
 
     public Cinema() {
