@@ -21,7 +21,6 @@ public class UserController {
     @Autowired
     private MovieRepository movieRepository;
 
-
     @Autowired
     private UserService userService;
 

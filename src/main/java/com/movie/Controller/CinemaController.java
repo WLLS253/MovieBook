@@ -62,7 +62,6 @@ public class CinemaController {
                             Integer grade,
                             String cinemaDescription,
                             List<MultipartFile> imgs){
-        try {
 
         try {
             Cinema cinema1=new Cinema();
@@ -239,6 +238,8 @@ public class CinemaController {
 
     @Data
     private static class Cinema_Infor{
+
+        private Long cinemaId;
 
 
         private String cinemaName;

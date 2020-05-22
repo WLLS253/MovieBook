@@ -26,12 +26,12 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        Contact contact = new Contact("团队名", "www.my.com", "my@my.com");
+        Contact contact = new Contact("MovieBook", "www.xxxx.com", "xxxxx.com");
         return new ApiInfoBuilder()
-                .title("文档标题")
+                .title("MovieBook后端接口文档")
                 .description("文档描述")
                 .contact(contact)   // 联系方式
-                .version("1.1.0")  // 版本
+                .version("3.2.0")  // 版本
                 .build();
     }
 
