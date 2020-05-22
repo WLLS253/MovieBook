@@ -40,7 +40,6 @@ public class MngAspect {
 //            throw new
 //        }
 
-
 //        if(type==null||(!type.equals("CinemaMng"))){
 //            throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_Mng);
 //        }
