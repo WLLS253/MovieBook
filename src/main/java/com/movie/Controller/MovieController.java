@@ -67,6 +67,7 @@ public class MovieController {
     @Autowired
     private CinemaService cinemaService;
 
+
     @PostMapping(value = "movie/add")
     public Result addMovie(MovieInformation movieInformation) throws ParseException {
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -79,9 +80,11 @@ public class MovieController {
         movie1.setLanguage(movieInformation.language);
         movie1.setState(movieInformation.state);
         movie1.setName(movieInformation.name);
+
         String showImage=uploadSerivce.upImageFire(movieInformation.showImage);
         movie1.setShowImage(showImage);
         List<Figure>figureList=new ArrayList<>();
+
         for (MultipartFile multipartFile : movieInformation.figureList) {
             Figure figure=new Figure();
             String url=uploadSerivce.upImageFire(multipartFile);
@@ -89,6 +92,7 @@ public class MovieController {
             figureList.add(figure);
             figureRepository.save(figure);
         }
+
         movie1.setFigureList(figureList);
         return Util.success(movieRepository.save(movie1));
     }
@@ -175,6 +179,18 @@ public class MovieController {
         }
     }
 
+//
+//    @GetMapping(value = "movie/movieUpdate")
+//    public Result getMovieDetail(Moive m){
+//        try {
+//            return Util.success(movieService.getMovieDetail(movie_id));
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+//        }
+//    }
+
+
 //    @PostMapping(value = "movie/add")
 //    public Result addMovie(Double score,
 //                           String brief,
@@ -215,8 +231,12 @@ public class MovieController {
         private  MultipartFile showImage;
         //目前状态
         private  String state;
+
+
+
         //其他图片
         private List<MultipartFile> figureList;
+
 
 
         @Override
@@ -234,5 +254,8 @@ public class MovieController {
                     '}';
         }
     }
+
+
+
 
 }

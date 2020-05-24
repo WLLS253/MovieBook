@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import java.awt.*;
@@ -81,14 +82,14 @@ public class CinemaController {
     @PostMapping(value = "cinema/add")
     public Result addCinema(Cinema_Infor cinema_infor){
         try {
-            Cinema cinema=new Cinema();
-            return Util.success(cinemaService.addJsonCinema(cinema,cinema_infor.cinemaName,cinema_infor.location,cinema_infor.phone,cinema_infor.grade,cinema_infor.cinemaDescription,cinema_infor.figureList));
+            return Util.success(cinemaService.addJsonCinema(cinema,cinema_infor.cinemaName,ci
+            Cinema cinema=new Cinema();nema_infor.location,cinema_infor.phone,cinema_infor.grade,cinema_infor.cinemaDescription,cinema_infor.figureList));
         }catch (Exception e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
-    }
-     */
+    }*/
+
     @PutMapping(value = "cinema/update")
     public Result updateCinema(Cinema_Infor cinema_infor){
         try {
@@ -99,7 +100,6 @@ public class CinemaController {
                 Cinema cinema=cinemas.get(0);
                 return Util.success(cinemaService.addJsonCinema(cinema,cinema_infor.cinemaName,cinema_infor.location,cinema_infor.phone,cinema_infor.grade,cinema_infor.cinemaDescription,cinema_infor.figureList));
             }
-
         }catch (Exception e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -164,9 +164,9 @@ public class CinemaController {
 
     // 按照电影 来找到所有正在上映该电影院的电影
     @GetMapping(value = "cinema/movieScheduals")
-    public Result getSchedualsbyId(Long movie_id){
+    public Result getSchedualsbyId(Long movie_id,Date date){
         try {
-            return Util.success(cinemaService.movieScheduals(movie_id));
+            return Util.success(cinemaService.movieScheduals(movie_id,date));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);

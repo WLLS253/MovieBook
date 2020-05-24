@@ -8,6 +8,7 @@ import com.movie.Entity.*;
 import com.movie.Repository.CommentRepository;
 import com.movie.Repository.MovieRepository;
 import com.movie.Repository.TakePartRepository;
+import com.movie.Util.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,7 @@ public class MovieService {
             commentArray.add(temp);
         }
         jsonObject.put("comments",commentArray);
+        jsonObject.put("pageInfo",PageHelper.getPageInfoWithoutContent(commentPage));
         return  jsonObject;
     }
 
@@ -65,7 +67,9 @@ public class MovieService {
         JSONObject jsonObject=new JSONObject();
         Movie movie=movieRepository.findById(movie_id).get();
         JSONArray staffs = getTakePartInfos(movie_id);
+
         jsonObject.put("movie_info",movie);
+        jsonObject.put("tags_info",movie.getTagList());
         jsonObject.put("staff_info",staffs);
         return  jsonObject;
 

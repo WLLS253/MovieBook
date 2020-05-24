@@ -39,6 +39,7 @@ public class SearchController {
     public Result filterMovies(@RequestBody FilterSetting filter_setting){
         try {
             Pageable p = PageRequest.of(filter_setting.pageNumber,filter_setting.pageSize);
+
             return Util.success(searchService.filterMoviesBrief(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags,filter_setting.date,filter_setting.state,filter_setting.cinema_name,p));
         }catch (Exception e){
             e.printStackTrace();

@@ -36,12 +36,12 @@ public interface    MovieRepository extends JpaRepository<Movie,Long> {
             "(?1 is null or ?2 is null or year(m.release_time) between ?1 and ?2) and " +
             "(?5 is null or m.state = ?5) and "+
             "(?4 is null or day(?4)= day(s.start_date))")
-    Page<Movie> filterMovies(Integer start_year,
+    List<Movie> filterMovies(Integer start_year,
                              Integer end_year,
                              List<String> tags,
                              Date date,
                              String state,
-                             String cinema_name, Pageable pageable);
+                             String cinema_name);
 
     @Query(nativeQuery = true,value = "SELECT m.* FROM movie m JOIN takepart t ON m.id=t.movie_id Join staff s ON s.id = t.staff_id where t.role=:role and s.staff_name = :staff_name;")
     List<Movie> filterMovies(@Param("role") String role ,@Param("staff_name") String staff_name);

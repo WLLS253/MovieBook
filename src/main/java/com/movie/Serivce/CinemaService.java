@@ -77,11 +77,11 @@ public class CinemaService {
     }
 
     // 通过moive 来获取所有正在上映该电影的 电影院
-    public JSONObject  movieScheduals(Long movie_id){
+    public JSONObject  movieScheduals(Long movie_id,Date date){
         JSONObject jsonObject = new JSONObject();
         JSONObject cinArrs  = new JSONObject();
 
-        List<Object[]> cin_sches = cinemaRepository.getOnShowCinemas(movie_id);
+        List<Object[]> cin_sches = cinemaRepository.getOnShowCinemas(movie_id,date);
         for (Object[] row:cin_sches) {
             if(cinArrs.containsKey(row[0].toString())){
                 JSONObject sche_info = new JSONObject();

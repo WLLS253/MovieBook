@@ -1,21 +1,19 @@
 package com.movie.Serivce;
 
 
-import com.alibaba.fastjson.JSON;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonObject;
 import com.movie.Entity.*;
 import com.movie.Repository.*;
-import io.swagger.models.auth.In;
-import org.apache.commons.collections.SequencedHashMap;
+import com.movie.Util.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.HTMLDocument;
 import java.util.*;
+
 
 @Service
 public class SearchService {
@@ -68,11 +66,11 @@ public class SearchService {
                                          String cinema_name, Pageable pageable) {
         JSONObject jsonObject = new JSONObject();
         JSONArray movie_infos = new JSONArray();
-
         List<Movie> filtered_movies= getFliteredMovies(start_year,end_year,key_string,tags,date,state,cinema_name,pageable);
+        Page<Movie> m_ps  = PageHelper.List2Page(filtered_movies,pageable);
+        List<Movie> paged_movies = m_ps.getContent();
 
-
-        for (Movie m:filtered_movies) {
+        for (Movie m:paged_movies ) {
             JSONObject movie_info = new JSONObject();
             JSONArray staffs = movieService.getTakePartInfos(m.getId());
             movie_info.put("staffs",staffs);
@@ -89,6 +87,8 @@ public class SearchService {
             movie_infos.add(movie_info);
         }
         jsonObject.put("movie_infos",movie_infos);
+        JSONObject page_info = PageHelper.getPageInfoWithoutContent(m_ps);
+        jsonObject.put("pageInfo",page_info);
         return jsonObject;
     }
 
@@ -140,11 +140,11 @@ public class SearchService {
             String state,
             String cinema_name,Pageable pageable){
         tags = tags==null?null_tags:tags;
-        Page<Movie> movies =movieRepository.filterMovies(start_year,end_year,tags,date,state,cinema_name,pageable);
+        List<Movie> movies =movieRepository.filterMovies(start_year,end_year,tags,date,state,cinema_name);
         if(key_string == null)
-            return  movies.getContent();
+            return  movies;
         String[] keys = key_string.split(" +");
-        return getFilterResultsByKeys(movies.getContent(),keys );
+        return getFilterResultsByKeys(movies,keys);
 
     }
 
