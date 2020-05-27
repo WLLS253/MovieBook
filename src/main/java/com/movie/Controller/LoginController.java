@@ -1,6 +1,7 @@
 package com.movie.Controller;
 
 
+import com.movie.Entity.Assessor;
 import com.movie.Entity.CinemaMng;
 import com.movie.Entity.User;
 import com.movie.Enums.ExceptionEnums;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import sun.text.normalizer.UTF16;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.spec.ECField;
 import java.util.List;
@@ -46,10 +48,13 @@ public class LoginController {
     @Autowired
     private UploadSerivce uploadSerivce;
 
+    @Autowired
+    private AssessorRepository assessorRepository;
+
 
     @SysLog(value = "user登录")
     @PostMapping(value = "user/login")
-    public Result userLogin(@RequestParam("username")String username, @RequestParam("password")String password, HttpServletResponse response){
+    public Result userLogin(@RequestParam("username")String username, @RequestParam("password")String password, HttpServletResponse response,HttpServletRequest request){
         try{
             List<User>userList=userRepository.findByUsername(username);
             if(userList.size()>0){
@@ -59,6 +64,10 @@ public class LoginController {
                     response.setHeader("isLogin", "true");
                     response.setHeader("token", token);
                     response.setHeader("type", String.valueOf(Role.User));
+                    System.out.println(request.getSession().getId());
+                    System.out.println(request.getSession().getMaxInactiveInterval());
+//                    request.getSession().setMaxInactiveInterval(10);
+//                    System.out.println(request.getSession().getCreationTime());
                     cookieService.writeCookie(response,"id",user.getId().toString());
                     return  Util.success(user);
                 }else {
@@ -76,7 +85,7 @@ public class LoginController {
 
 
     @PostMapping(value = "cinemaMng/login")
-    public Result cinemaMngLogin(@RequestParam("mngName")String name, @RequestParam("password")String password, HttpServletResponse response){
+    public Result cinemaMngLogin(@RequestParam("mngName")String name, @RequestParam("password")String password, HttpServletResponse response, HttpServletRequest request){
         try{
             List<CinemaMng>cinemaMngs=cinemaMngRepository.findByMngUsername(name);
             if(cinemaMngs.size()>0){
@@ -86,6 +95,7 @@ public class LoginController {
                     response.setHeader("isLogin", "true");
                     response.setHeader("token", "mng");
                     response.setHeader("type", String.valueOf(Role.CinemaMng));
+
                     cookieService.writeCookie(response,"id",cinemaMng.getId().toString());
                     return  Util.success(cinemaMng);
                 }else {
@@ -113,8 +123,10 @@ public class LoginController {
             user.setUserEmail(email);
             user.setUserSex(sex);
             user.setUserPhone(phone);
-            String image=uploadSerivce.upImageFire(file);
-            user.setShowimage(image);
+            if(file!=null){
+                String image=uploadSerivce.upImageFire(file);
+                user.setShowimage(image);
+            }
             User result=userRepository.save(user);
             String token=tokenService.generateToken(result.getId().toString());
             response.setHeader("isLogin","true");
@@ -127,5 +139,49 @@ public class LoginController {
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
+    @PostMapping(value = "sys/login")
+    public Result sysLogin(@RequestParam("sysName")String name, @RequestParam("password")String password, HttpServletResponse response, HttpServletRequest request){
+        try{
+            List<Assessor>assessors=accessorRepository.findByAssessorName(name);
+            if(assessors.size()>0){
+                Assessor assessor=assessors.get(0);
+                if(assessor.checkPassword(password)){
+                    response.setHeader("isLogin", "true");
+                    response.setHeader("token", "sys");
+                    response.setHeader("type", String.valueOf(Role.SystemMng));
+                    request.getSession().setAttribute("id",assessor.getId());
+                    cookieService.writeCookie(response,"id",assessor.getId().toString());
+                    return  Util.success(assessor);
+                }else {
+                    return  Util.failure(ExceptionEnums.PASSWORD_ERROR);
+                }
+            }else {
+                return  Util.failure(ExceptionEnums.UNFIND_Player_ERROR);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return Util.failure(ExceptionEnums.PASSWORD_ERROR);
+        }
+    }
+
+    @SysLog(value = "Sys添加")
+    @PostMapping(value = "sys/add")
+    public  Result Sysadd(Assessor assessor, @RequestParam(value = "image",required = false)MultipartFile file,HttpServletResponse response){
+        try {
+            if(file!=null){
+                String image=uploadSerivce.upImageFire(file);
+                assessor.setShowImage(image);
+            }
+            Assessor result=assessorRepository.save(assessor);
+            response.setHeader("type", String.valueOf(Role.SystemMng));
+            cookieService.writeCookie(response,"id",result.getId().toString());
+            return  Util.success(result);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
 
 }

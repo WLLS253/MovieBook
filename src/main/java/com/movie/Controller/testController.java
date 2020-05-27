@@ -19,8 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import java.util.zip.CheckedOutputStream;
+
 
 
 @CrossOrigin
@@ -32,6 +35,7 @@ public class testController {
 
     @Autowired
     private MovieRepository movieRepository;
+
     @Autowired
     private UploadSerivce uploadSerivce;
 
@@ -41,16 +45,17 @@ public class testController {
     @Autowired
     private CommentRepository commentRepository;
 
+
     @PostMapping(value = "/test/add")
-    public Result add(@RequestParam("name") String name,@RequestParam("pass")String pass){
+    public Result add(@RequestParam("name") String name,@RequestParam("pass")String pass) throws InvalidKeySpecException, NoSuchAlgorithmException {
 
         Assessor assessor=new Assessor();
         assessor.setAssessorPassword(pass);
         assessor.setAssessorName(name);
 
         return Util.success(assessorRepository.save(assessor));
-    }
 
+    }
 
     @PostMapping(value = "/test/find")
     public Result find(@RequestParam("name") String name){
@@ -60,6 +65,7 @@ public class testController {
         return Util.success(111);
     }
 
+
     @PostMapping(value = "test/user/add")
     public Result addUser(@RequestParam("name")String name){
 
@@ -68,6 +74,8 @@ public class testController {
         System.out.println(user);
         return Util.success(userRepository.save(user));
     }
+
+
     @PostMapping(value = "test/movie/add")
     public Result addMovie(Movie movie){
         Movie movie1=new Movie();
