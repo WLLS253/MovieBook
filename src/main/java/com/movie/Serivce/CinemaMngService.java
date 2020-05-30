@@ -55,6 +55,7 @@ public class CinemaMngService {
 
     public JSONObject   updateCinemaMng(CinemaMng cinemaMng1,CinemaMng cinemaMng2){
         cinemaMng1.updateObject(cinemaMng2);
+        cinemaMngRepository.save(cinemaMng1);
         return  getCinemaMngJson(cinemaMng1);
     }
 
