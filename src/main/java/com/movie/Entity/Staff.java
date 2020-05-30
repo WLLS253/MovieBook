@@ -34,7 +34,7 @@ public class Staff extends  BaseEntity {
     private List<Movie>movieList;
 
     public Staff() {
-//        this.movieList=new ArrayList<>();
+        this.movieList=new ArrayList<>();
     }
 
     public void  updateObject(Object o) {
