@@ -167,7 +167,7 @@ public class LoginController {
 
     @SysLog(value = "Sys添加")
     @PostMapping(value = "sys/add")
-    public  Result Sysadd(Assessor assessor, @RequestParam(value = "image",required = false)MultipartFile file,HttpServletResponse response){
+    public  Result SysAdd(Assessor assessor, @RequestParam(value = "image",required = false)MultipartFile file,HttpServletResponse response){
         try {
             if(file!=null){
                 String image=uploadSerivce.upImageFire(file);

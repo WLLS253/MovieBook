@@ -33,6 +33,7 @@ public class Staff extends  BaseEntity {
     @ManyToMany(mappedBy = "staffList")
     private List<Movie>movieList;
 
+
     public Staff() {
         this.movieList=new ArrayList<>();
     }
