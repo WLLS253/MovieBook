@@ -81,19 +81,23 @@ public class MovieController {
         movie1.setState(movieInformation.state);
         movie1.setName(movieInformation.name);
 
-        String showImage=uploadSerivce.upImageFire(movieInformation.showImage);
-        movie1.setShowImage(showImage);
-        List<Figure>figureList=new ArrayList<>();
-
-        for (MultipartFile multipartFile : movieInformation.figureList) {
-            Figure figure=new Figure();
-            String url=uploadSerivce.upImageFire(multipartFile);
-            figure.setImageurl(url);
-            figureList.add(figure);
-            figureRepository.save(figure);
+        if(movieInformation.showImage!=null){
+            String showImage=uploadSerivce.upImageFire(movieInformation.showImage);
+            movie1.setShowImage(showImage);
         }
 
-        movie1.setFigureList(figureList);
+        if(movieInformation.figureList!=null){
+            List<Figure>figureList=new ArrayList<>();
+            for (MultipartFile multipartFile : movieInformation.figureList) {
+                Figure figure=new Figure();
+                String url=uploadSerivce.upImageFire(multipartFile);
+                figure.setImageurl(url);
+                figureList.add(figure);
+                figureRepository.save(figure);
+            }
+            movie1.setFigureList(figureList);
+        }
+
         return Util.success(movieRepository.save(movie1));
     }
 

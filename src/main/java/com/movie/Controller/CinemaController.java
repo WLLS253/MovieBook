@@ -152,11 +152,14 @@ public class CinemaController {
     @PostMapping(value = "cinemaMng/add")
     public Result addCinemaMng(CinemaMng cinemaMng,@RequestParam(value = "cinema_id",required = false)Long cinema_id,@RequestParam(value = "image",required = false)MultipartFile image){
         try {
-            String showImage=uploadSerivce.upImageFire(image);
+
             CinemaMng cinemaMng1=cinemaMng;
             Cinema cinema=cinemaRepository.findById(cinema_id).get();
             cinemaMng1.setCinema(cinema);
-            cinemaMng1.setShowImage(showImage);
+            if(image!=null){
+                String showImage=uploadSerivce.upImageFire(image);
+                cinemaMng1.setShowImage(showImage);
+            }
             JSONObject jsonObject=cinemaMngService.getCinemaMngJson(cinemaMngRepository.save(cinemaMng1));
             return Util.success(jsonObject);
         }catch (Exception e){
@@ -186,16 +189,16 @@ public class CinemaController {
             if(cinemaMngs.size()>0){
                 cinemaMng1=cinemaMngs.get(0);
 
-                String showImage=uploadSerivce.upImageFire(image);
-                uploadSerivce.deleteimage(cinemaMng1.getShowImage());
-                cinemaMng1.setShowImage(showImage);
-
+                if(image!=null){
+                    String showImage=uploadSerivce.upImageFire(image);
+                    uploadSerivce.deleteimage(cinemaMng1.getShowImage());
+                    cinemaMng1.setShowImage(showImage);
+                }
                 JSONObject jsonObject=cinemaMngService.updateCinemaMng(cinemaMng1,cinemaMng);
                 return  Util.success(jsonObject);
             }else {
                 return Util.failure(ExceptionEnums.UNFIND_DATA_ERROR);
             }
-
         }catch (Exception e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);

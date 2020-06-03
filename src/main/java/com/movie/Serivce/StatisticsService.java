@@ -19,6 +19,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.springframework.scheduling.annotation.Scheduled;
+
+import java.security.PublicKey;
+import java.text.ParseException;
+import java.util.function.LongSupplier;
+
+
 @Service
 public class StatisticsService {
     @Autowired
@@ -136,6 +143,46 @@ public class StatisticsService {
         return jsonObject;
     }
 
+
+
+    public  static  Long IndexVisitor=Long.valueOf(0);
+
+
+    public  Integer getCountBuyDate(String state,String date) throws ParseException {
+
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd ");
+        Date dateAfter=simpleDateFormat.parse(date);
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(dateAfter);
+        calendar.add(Calendar.DATE,1);
+        Date dateBefore=calendar.getTime();
+        Integer sum=buyRepository.countAllByStateAndPurchaseDateBeforeAndPurchaseDateAfter(state,dateBefore,dateAfter);
+        //System.out.println(sum);
+        return  sum;
+    }
+
+
+    public  Integer getCountScheDate(String date) throws ParseException {
+
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd ");
+        Date dateAfter=simpleDateFormat.parse(date);
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(dateAfter);
+        calendar.add(Calendar.DATE,1);
+        Date dateBefore=calendar.getTime();
+        Integer sum=scheudalRepository.countAllByStartDateAfterAndStartDateBefore(dateAfter,dateBefore);
+        //System.out.println(sum);
+        return  sum;
+    }
+    public Long addIndexVisitor(){
+        IndexVisitor++;
+        return  IndexVisitor;
+    }
+
+    @Scheduled(cron = "0 0 0 * * *")
+    public void TimeFix(){
+        IndexVisitor=Long.valueOf(0);
+    }
 
 
 }

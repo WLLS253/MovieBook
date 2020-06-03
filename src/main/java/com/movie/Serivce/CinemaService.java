@@ -116,15 +116,18 @@ public class CinemaService {
         cinema.setCinemaName(cinemaName);
         cinema.setCinemaDescription(cinemaDescription);
         cinema.setLocation(location);
-        List<Figure>figures=new ArrayList<>();
-        for (MultipartFile multipartFile : figureList) {
-            Figure figure=new Figure();
-            String url=uploadSerivce.upImageFire(multipartFile);
-            figure.setImageurl(url);
-            figures.add(figure);
-            figureRepository.save(figure);
+        if(figureList.size()>0){
+            List<Figure>figures=new ArrayList<>();
+            for (MultipartFile multipartFile : figureList) {
+                Figure figure=new Figure();
+                String url=uploadSerivce.upImageFire(multipartFile);
+                figure.setImageurl(url);
+                figures.add(figure);
+                figureRepository.save(figure);
+            }
+            cinema.setFigureList(figures);
         }
-        cinema.setFigureList(figures);
+
 
         return cinemaRepository.save(cinema);
     }

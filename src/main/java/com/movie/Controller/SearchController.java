@@ -91,13 +91,6 @@ public class SearchController {
         }
     }
 
-
-
-
-
-
-
-
     // requestBody classes
     @Data
     private static class FilterSetting{
@@ -115,7 +108,6 @@ public class SearchController {
 
         //电影的 状态
         String state;
-
         // 影院名称
         String cinema_name;
 

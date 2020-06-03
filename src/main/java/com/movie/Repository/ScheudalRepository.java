@@ -15,4 +15,6 @@ public interface ScheudalRepository extends JpaRepository<Schedual,Long> {
 
     @Query(nativeQuery = true,value = "select s.* from schedual s where s.cinema_id = ?1 and date(s.end_date) between ?2 and ?3 and (s.state ='paid' or s.state ='done')  in ?4 order by s.end_date")
     public List<Schedual> findAllByCinemaSchedualsByEndDate(long c_id,String start_date,String end_date);
+
+    int countAllByStartDateAfterAndStartDateBefore(Date after,Date before);
 }

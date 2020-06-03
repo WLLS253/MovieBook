@@ -15,9 +15,8 @@ public class RouterController {
 
     @RequestMapping({"/","/index"})
     public String index(){
-        return "index";
+        return "user/"+"index";
     }
-
     @RequestMapping({"/mng","/mng/index"})
     public String mngIndex(){
         return "mng/index_xdq_new";
@@ -26,6 +25,13 @@ public class RouterController {
     @RequestMapping({"/sys","/sys/index"})
     public String sysIndex(){
         return "sys/index";
+    }
+
+    @RequestMapping({"/user","/user/index"})
+    public String userIndex(){
+
+        System.out.println("asdsdadad");
+        return "user/index";
     }
 
 
