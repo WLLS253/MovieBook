@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.zip.CheckedOutputStream;
 
@@ -79,7 +80,8 @@ public class testController {
 
     @GetMapping(value = "/test/ggget")
     public Result tmse(){
-        return Util.success(1);
+
+        return Util.success(userRepository.findById((long)1).get());
     }
 
 

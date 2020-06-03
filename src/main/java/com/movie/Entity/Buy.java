@@ -1,6 +1,7 @@
 package com.movie.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,12 @@ public class Buy extends BaseEntity {
 
     @Column(name = "state", nullable = false, length = 20)
     private String state;
+
+    private Double price;
+
+    @JsonIgnore
+    @ManyToOne
+    private Schedual schedual;
 
     @ManyToOne
     private User user;

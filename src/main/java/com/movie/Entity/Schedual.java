@@ -58,4 +58,9 @@ public class Schedual extends BaseEntity {
     @JoinColumn(name = "schedual_id")
     public List<Ticket> ticketList;
 
+    @JsonIgnore
+    @OneToMany(targetEntity = Buy.class)
+    @JoinColumn(name = "schedual_id")
+    public List<Buy> buyList;
+
 }

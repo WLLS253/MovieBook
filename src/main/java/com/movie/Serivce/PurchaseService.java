@@ -56,8 +56,9 @@ public class PurchaseService {
             }
         }
         JSONObject jsonObject=new JSONObject();
-        jsonObject.put("hall_info",hall);
+//        jsonObject.put("hall_info",hall);
         jsonObject.put("seat_info",seat_info);
+        jsonObject.put("schedual_info",schedual);
         return  jsonObject;
     }
 
@@ -122,6 +123,11 @@ public class PurchaseService {
         User user=userRepository.findById(userId).get();
         List<Ticket> purchased_tickets= ticketRepository.findAllById(ticket_ids);
         JSONObject jsonObject = new JSONObject();
+        if(purchased_tickets.size() != ticket_ids.size()){
+            jsonObject.put("msg","还未进行结算，无法购买");
+            return jsonObject;
+        }
+
 
 
         //核对价格 ，如果不对则 说明价格中途发生了改变
@@ -130,15 +136,16 @@ public class PurchaseService {
             jsonObject.put("msg","票价发生变动，请重新购买");
             return jsonObject;
         }
-
-        boolean success = true;
+        if(schedual.getState() == "dated"){
+            jsonObject.put("msg","该场次已结束");
+            return jsonObject;
+        }
 
         JSONArray purchased_ticket_infos = new JSONArray();
         for (Ticket t: purchased_tickets) {
             int row = t.getTicketRow();
             int col = t.getTicketCol();
             if(!t.isAvaliable()){
-                success = false;
                 jsonObject.put("msg",row+"行" + col +"列的座位已被购买，请重新选择座位");
                 return jsonObject;
             }else{
@@ -156,6 +163,8 @@ public class PurchaseService {
         buy.setState(States.Buy_State.Ready.name());
         buy.setTickets(purchased_tickets);
         buy.setUser(user);
+        buy.setPrice(price);
+        buy.setSchedual(schedual);
         buyRepository.save(buy);
         ticketRepository.saveAll(purchased_tickets);
 
@@ -213,5 +222,20 @@ public class PurchaseService {
             }
         }
         return ticket;
+    }
+
+    private boolean isBuyable(Schedual s,List<Ticket> tickets){
+        String schedualState = s.getState();
+        if(schedualState == "dated"){
+            return false;
+        }
+        for (Ticket ticket:tickets ) {
+            if(ticket.isAvaliable()){
+                continue;
+            }else{
+                return false;
+            }
+        }
+        return true;
     }
 }

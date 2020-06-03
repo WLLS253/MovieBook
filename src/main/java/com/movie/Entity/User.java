@@ -33,13 +33,14 @@ public class User extends  BaseEntity {
 
 
 
-    @JsonIgnore
+
     @ManyToMany
     @JoinTable(
             name = "comment",
             joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
             inverseJoinColumns =@JoinColumn(name = "movie_id",referencedColumnName = "id")
     )
+    @JsonIgnore
     private List<Movie> commentedMovies;
 
 
@@ -91,6 +92,8 @@ public class User extends  BaseEntity {
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
     }
+
+
     public List<Movie> getCommentedMovies() {
         return commentedMovies;
     }
@@ -124,20 +127,20 @@ public class User extends  BaseEntity {
         this.showimage = showimage;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userSex='" + userSex + '\'' +
-                ", password='" + password + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                ", username='" + username + '\'' +
-                ", userPhone='" + userPhone + '\'' +
-                ", commentedMovies=" + commentedMovies +
-                ", id=" + id +
-                ", createdTime=" + createdTime +
-                ", updatedTime=" + updatedTime +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "userSex='" + userSex + '\'' +
+//                ", password='" + password + '\'' +
+//                ", userEmail='" + userEmail + '\'' +
+//                ", username='" + username + '\'' +
+//                ", userPhone='" + userPhone + '\'' +
+//                ", commentedMovies=" + commentedMovies +
+//                ", id=" + id +
+//                ", createdTime=" + createdTime +
+//                ", updatedTime=" + updatedTime +
+//                '}';
+//    }
 
 
 }

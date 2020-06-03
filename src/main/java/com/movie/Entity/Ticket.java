@@ -1,5 +1,6 @@
 package com.movie.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,17 +29,18 @@ public class Ticket extends  BaseEntity {
 
     private Double price;
 
+    @JsonIgnore
     @ManyToOne
     private Schedual schedual;
 
 
-    @ManyToOne(targetEntity = User.class)
+    //@ManyToOne(targetEntity = User.class)
 //    @JoinTable(
 ////            name = "buy",
 ////            joinColumns = @JoinColumn(name = "ticket_id",referencedColumnName = "id"),
 ////            inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id")
 ////    )
-    private User user;
+    //private User user;
 
 
     @Override

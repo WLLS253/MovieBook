@@ -14,6 +14,7 @@ import com.movie.Result.Result;
 import com.movie.Serivce.CinemaMngService;
 import com.movie.Serivce.CinemaService;
 import com.movie.Serivce.UploadSerivce;
+import com.movie.Util.PageHelper;
 import com.movie.Util.Util;
 import com.sun.org.apache.regexp.internal.RE;
 import io.swagger.annotations.Api;
@@ -113,6 +114,8 @@ public class CinemaController {
             List<Cinema> cinemaList =  cinemaMngs.getContent();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("cinemas",cinemaList);
+            JSONObject page_info = PageHelper.getPageInfoWithoutContent(cinemaMngs);
+            jsonObject.put("pageInfo",page_info);
             return Util.success(jsonObject);
         }catch (Exception e){
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
