@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
+import com.movie.Plugins.SysLog;
 import com.movie.Repository.HallRepository;
 import com.movie.Repository.ScheudalRepository;
 import com.movie.Repository.TicketRepository;
@@ -42,6 +43,8 @@ public class HallController  {
     @Autowired
     private  CinemaService cinemaService;
 
+
+    @SysLog(value = "选择电影票")
     @GetMapping(value = "ticket/choose")
     public Result result(@RequestParam("schedualId")Long schedualId){
         try {
@@ -60,6 +63,7 @@ public class HallController  {
     }
 
 
+    @SysLog(value = "更新影厅")
     @PutMapping(value = "cinemaHall/update")
     public Result updateCinemaHall(@RequestParam("cinemaId")Long cinemaId, Hall_infor hall_infor){
         try {
@@ -77,6 +81,7 @@ public class HallController  {
         }
     }
 
+    @SysLog(value = "删除影厅")
     @DeleteMapping(value = "cinemaHall/del")
     public Result delHall(@RequestParam("hallId")Long id){
         try {

@@ -2,6 +2,7 @@ package com.movie.Controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.movie.Enums.ExceptionEnums;
+import com.movie.Plugins.SysLog;
 import com.movie.Plugins.UserStatisticsListener;
 import com.movie.Result.Result;
 import com.movie.Serivce.StatisticsService;
@@ -19,6 +20,8 @@ public class SysStatisticsController {
     @Autowired
     private StatisticsService statisticsService;
 
+
+    @SysLog(value = "获取系统统计信息")
     @PostMapping(value = "user/statistics")
     public Result getUserCurrent(){
         try {

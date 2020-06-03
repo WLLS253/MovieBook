@@ -6,6 +6,7 @@ import antlr.collections.impl.LList;
 import com.alibaba.fastjson.JSONObject;
 import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
+import com.movie.Plugins.SysLog;
 import com.movie.Repository.CinemaMngRepository;
 import com.movie.Repository.CinemaRepository;
 import com.movie.Repository.FigureRepository;
@@ -57,6 +58,7 @@ public class CinemaController {
     @Autowired
     private UploadSerivce uploadSerivce;
 
+    @SysLog(value = "添加电影院")
     @PostMapping(value = "/cinema/add")
     public Result addCinema(String cinemaName,
                             String location,
@@ -91,6 +93,7 @@ public class CinemaController {
         }
     }*/
 
+    @SysLog(value = "更新电影院")
     @PutMapping(value = "cinema/update")
     public Result updateCinema(Cinema_Infor cinema_infor){
         try {
@@ -107,6 +110,7 @@ public class CinemaController {
         }
     }
 
+    @SysLog(value = "获取电影院列表")
     @GetMapping(value = "/cinema/getList")
     public Result getCinemas(Pageable pageable) {
         try {
@@ -123,6 +127,7 @@ public class CinemaController {
     }
 
 
+    @SysLog(value = "删除电影院")
     @DeleteMapping(value = "cinema/delete")
     public  Result deleteCinema(@RequestParam("cinemaId")Long cinemaId){
         try {
@@ -135,6 +140,7 @@ public class CinemaController {
 
     }
 
+    @SysLog(value = "获取影院管理员列表")
     @GetMapping(value = "/cinemaMng/getList")
     public Result getCinemaMngs(Pageable pageable) {
         try {
@@ -149,6 +155,7 @@ public class CinemaController {
     }
 
 
+    @SysLog(value = "新增影院管理员")
     @PostMapping(value = "cinemaMng/add")
     public Result addCinemaMng(CinemaMng cinemaMng,@RequestParam(value = "cinema_id",required = false)Long cinema_id,@RequestParam(value = "image",required = false)MultipartFile image){
         try {
@@ -169,6 +176,7 @@ public class CinemaController {
     }
 
     // 按照电影 来找到所有正在上映该电影院的电影
+    @SysLog(value = "按照电影获取影院正在上映电影")
     @GetMapping(value = "cinema/movieScheduals")
     public Result getSchedualsbyId(Long movie_id,Date date){
         try {
@@ -180,6 +188,7 @@ public class CinemaController {
     }
 
 
+    @SysLog(value = "影院管理员信息更新")
     @PutMapping(value = "cinemaMng/update")
     public  Result updateCinemaMng(CinemaMng cinemaMng,@RequestParam(value = "image",required = false)MultipartFile image){
         try {
@@ -206,6 +215,7 @@ public class CinemaController {
     }
 
 
+    @SysLog(value = "新增影厅")
     @PostMapping(value = "cinemaHall/add")
     public Result addCinemaHall(@RequestParam("cinemaName")String cinameName, Hall hall){
         try {
@@ -226,6 +236,7 @@ public class CinemaController {
     }
 
 
+    @SysLog(value = "新增排片")
     @PostMapping(value = "shedule/add")
     public  Result addSchedule(@RequestParam("movieId")Long movieId,@RequestParam("hallId")Long hallId,
                                @RequestParam("cinemaId")Long cinemaId,@RequestParam("start")String stratTime,@RequestParam("end")String endTime,
@@ -242,6 +253,7 @@ public class CinemaController {
         }
     }
 
+    @SysLog(value = "获取电影排片")
     @GetMapping(value = "cinema/getScheduals")
     public Result getScheduals(@RequestParam("cinema_id")Long cinema_id){
         try {
