@@ -1,6 +1,5 @@
 package com.movie.Controller;
 
-
 import com.alibaba.fastjson.JSONObject;
 import com.movie.Enums.ExceptionEnums;
 import com.movie.Plugins.UserStatisticsListener;
@@ -10,14 +9,12 @@ import com.movie.Util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 public class SysStatisticsController {
-
 
     @Autowired
     private StatisticsService statisticsService;

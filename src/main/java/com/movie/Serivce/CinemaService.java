@@ -156,4 +156,22 @@ public class CinemaService {
     }
 
 
+    public Hall updateHall(Long hadllId,Hall hall,List<MultipartFile>figureList){
+        Hall hallOri=hallRepository.findById(hadllId).get();
+        hallOri.updateObject(hall);
+        List<Figure>figures=hallOri.getFigureList();
+        if(figureList.size()>0){
+            for (MultipartFile multipartFile : figureList) {
+                String image=uploadSerivce.upImageFire(multipartFile);
+                Figure figure=new Figure();
+                figure.setImageurl(image);
+                figures.add(figure);
+            }
+        }
+        hallOri.setFigureList(figures);
+        hallRepository.save(hallOri);
+        return hallOri;
+    }
+
+
 }

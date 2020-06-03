@@ -3,19 +3,25 @@ package com.movie.Controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.movie.Entity.Schedual;
-import com.movie.Entity.Ticket;
+import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
 import com.movie.Repository.HallRepository;
 import com.movie.Repository.ScheudalRepository;
 import com.movie.Repository.TicketRepository;
 import com.movie.Result.Result;
+import com.movie.Serivce.CinemaService;
 import com.movie.Serivce.PurchaseService;
 import com.movie.Util.Util;
 import com.sun.org.apache.regexp.internal.RE;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.swing.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -33,6 +39,9 @@ public class HallController  {
     @Autowired
     private PurchaseService purchaseService;
 
+    @Autowired
+    private  CinemaService cinemaService;
+
     @GetMapping(value = "ticket/choose")
     public Result result(@RequestParam("schedualId")Long schedualId){
         try {
@@ -48,6 +57,55 @@ public class HallController  {
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
+    }
+
+
+    @PutMapping(value = "cinemaHall/update")
+    public Result updateCinemaHall(@RequestParam("cinemaId")Long cinemaId, Hall_infor hall_infor){
+        try {
+            Hall hall_info=new Hall();
+            hall_info.setCol(hall_infor.col);
+            hall_info.setRow(hall_infor.row);
+            hall_info.setHallName(hall_infor.hallName);
+            hall_info.setHallType(hall_infor.hallType);
+            hall_info.setLayout(hall_infor.layout);
+            Hall hall=cinemaService.updateHall(hall_infor.hallId,hall_info,hall_infor.figureList);
+            return  Util.success(hall);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+    @DeleteMapping(value = "cinemaHall/del")
+    public Result delHall(@RequestParam("hallId")Long id){
+        try {
+            hallRepository.deleteById(id);
+            return  Util.success(ExceptionEnums.DEL_SUCCESS);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+
+
+    @Data
+    private  static class  Hall_infor{
+
+        private  Long hallId;
+
+        private Integer col;
+
+        private Integer row;
+
+        private String hallType;
+
+        private String layout;
+
+        private String hallName;
+
+        private List<MultipartFile>figureList;
     }
 
 

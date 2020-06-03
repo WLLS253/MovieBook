@@ -15,6 +15,7 @@ import com.movie.Serivce.CookieService;
 import com.movie.Serivce.TokenService;
 import com.movie.Serivce.UploadSerivce;
 import com.movie.Util.Util;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -169,10 +170,14 @@ public class LoginController {
     @PostMapping(value = "sys/add")
     public  Result SysAdd(Assessor assessor, @RequestParam(value = "image",required = false)MultipartFile file,HttpServletResponse response){
         try {
+            //Assessor assessor=new Assessor();
             if(file!=null){
                 String image=uploadSerivce.upImageFire(file);
                 assessor.setShowImage(image);
             }
+//            assessor.setAssessorName(sys_info.assessorName);
+//            assessor.setPhone(sys_info.assessorName);
+//            assessor.setAssessorPassword(sys_info.assessorPassword);
             Assessor result=assessorRepository.save(assessor);
             response.setHeader("type", String.valueOf(Role.SystemMng));
             cookieService.writeCookie(response,"id",result.getId().toString());
@@ -182,6 +187,23 @@ public class LoginController {
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
+    @Data
+    private static class Sys_Info{
+
+        private  String assessorName;
+
+        private String assessorPassword;
+
+        private  String showImage;
+
+        private String phone;
+
+    }
+
+
+
+
 
 
 }

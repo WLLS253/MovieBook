@@ -56,4 +56,25 @@ public class Hall extends BaseEntity {
                 ", updatedTime=" + updatedTime +
                 '}';
     }
+
+
+    public void  updateObject(Object o) {
+        Hall hall = (Hall) o;
+        if(hall.hallName!=null){
+            hallName=hall.hallName;
+        }
+        if( hall.hallType!=null){
+            hallType=hall.hallType;
+        }
+        if(hall.row!=null){
+            row=hall.row;
+        }
+        if(hall.col!=null){
+            col=hall.col;
+        }
+        if(hall.layout!=null){
+            layout=hall.layout;
+        }
+
+    }
 }
