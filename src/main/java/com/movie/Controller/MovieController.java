@@ -131,13 +131,18 @@ public class MovieController {
     }
 
     @PostMapping(value = "comment/add")
-    public  Result addComment(@RequestParam("userId")Long userId,@RequestParam("movieId")Long movieId,@RequestParam("content")String content,@RequestParam("title")String title){
+    public  Result addComment(@RequestParam("userId")Long userId,@RequestParam("movieId")Long movieId,@RequestParam(value = "content",required = false)String content,@RequestParam(value = "title",required = false)String title){
         try {
             User user=userRepository.findById(userId).get();
             Movie movie=movieRepository.findById(movieId).get();
             Comment comment=new Comment();
-            comment.setContent(content);
-            comment.setTitle(title);
+
+            if(content!=null){
+                comment.setContent(content);
+            }
+            if(title!=null){
+                comment.setTitle(title);
+            }
             comment.setUser(user);
             comment.setMovie(movie);
             comment=commentRepository.save(comment);
@@ -147,6 +152,7 @@ public class MovieController {
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
 
     @PostMapping(value = "tag/add")
     public  Result addTag(@RequestParam("tagName")String tagName){
@@ -182,6 +188,19 @@ public class MovieController {
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
+    @DeleteMapping(value = "movie/del")
+    public  Result delMovie(@RequestParam("movieId")Long movieId){
+        try {
+            movieRepository.deleteById(movieId);
+            return  Util.success(ExceptionEnums.DEL_SUCCESS);
+        }catch (Exception e){
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+
+
 
 //
 //    @GetMapping(value = "movie/movieUpdate")

@@ -32,6 +32,7 @@ public class SysStatisticsController {
             statisticsService.addIndexVisitor();
             jsonObject.put("stat",StatisticsService.IndexVisitor);
             jsonObject.put("Schedule",statisticsService.getCountScheDate(date));
+            jsonObject.put("Table1",statisticsService.getCountTicketsByWeek(date));
             return Util.success(jsonObject);
         }catch ( Exception e){
             e.printStackTrace();

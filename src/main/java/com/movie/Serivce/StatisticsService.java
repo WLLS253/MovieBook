@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -41,6 +38,7 @@ public class StatisticsService {
 
         return  jsonObject;
     }
+
     public JSONObject getBuyStatisticsByYears(Long cinema_id,int start_year,int end_year){
         JSONObject jsonObject = new JSONObject();
 //        int year_diff = end_year - start_year + 1;
@@ -174,15 +172,45 @@ public class StatisticsService {
         //System.out.println(sum);
         return  sum;
     }
+
+
     public Long addIndexVisitor(){
         IndexVisitor++;
         return  IndexVisitor;
     }
 
+    public  JSONObject  getCountTicketsByWeek(String date) throws ParseException {
+        JSONObject jsonObject=new JSONObject();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd ");
+        Date date1=simpleDateFormat.parse(date);
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(date1);
+        calendar.add(Calendar.DAY_OF_WEEK,-1);
+        List<Integer>Counts=new ArrayList<>();
+        List<Integer>ScheCount=new ArrayList<>();
+        JSONArray jsonArray=new JSONArray();
+        for(int i=0;i<7;i++) {
+            calendar.add(Calendar.DATE,1);
+            Date date2=calendar.getTime();
+            String dateStr=simpleDateFormat.format(date2);
+            Counts.add(getCountBuyDate("Done",dateStr));
+            ScheCount.add(getCountScheDate(dateStr));
+        }
+        jsonObject.put("TicketList",Counts);
+        jsonObject.put("ScheList",ScheCount);
+
+        return  jsonObject;
+    }
+
+
+
+
     @Scheduled(cron = "0 0 0 * * *")
     public void TimeFix(){
         IndexVisitor=Long.valueOf(0);
     }
+
+
 
 
 }

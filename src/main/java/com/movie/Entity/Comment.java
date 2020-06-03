@@ -16,6 +16,7 @@ import java.util.Date;
 @Table(name = "comment")
 public class Comment extends BaseEntity{
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "bigint", nullable = false)
@@ -30,9 +31,6 @@ public class Comment extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-
-
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
