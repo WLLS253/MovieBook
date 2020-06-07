@@ -114,12 +114,15 @@ public class LoggerAspect {
         System.out.println(sysLog.getRole());
 
         Cookie[] cookies=request.getCookies();
-       if(cookies.length>0){
-           for (Cookie cookie : cookies) {
-               if(cookie.getName().equals("id"))
-                   sysLog.setUserId(cookie.getValue());
-           }
-       }
+        if(cookies!=null){
+            if(cookies.length>0){
+                for (Cookie cookie : cookies) {
+                    if(cookie.getName().equals("id"))
+                        sysLog.setUserId(cookie.getValue());
+                }
+            }
+        }
+
         System.out.println(sysLog);
         System.out.println(sysLog.getParams().length());
         //调用service保存SysLog实体类到数据库

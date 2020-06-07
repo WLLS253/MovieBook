@@ -215,7 +215,7 @@ public class CinemaController {
     }
 
 
-    @SysLog(value = "新增影厅")
+    //@SysLog(value = "新增影厅")
     @PostMapping(value = "cinemaHall/add")
     public Result addCinemaHall(@RequestParam("cinemaName")String cinameName, Hall hall){
         try {
@@ -252,6 +252,56 @@ public class CinemaController {
             return  Util.failure(ExceptionEnums.ADD_ERROR);
         }
     }
+
+
+    @SysLog(value = "简单删除排片")
+    @DeleteMapping(value = "schedual/delEasy")
+    public Result delSchedualEasy(@RequestParam("sche_id")Long sche_id){
+        try {
+                scheudalRepository.deleteById(sche_id);
+                return  Util.success(ExceptionEnums.DEL_SUCCESS);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+
+    @SysLog(value = "验证删除排片")
+    @DeleteMapping(value = "schedual/del")
+    public Result delSchedual(@RequestParam("sche_id")Long sche_id,@RequestParam("cinema_id")Long cinema_id){
+        try {
+            Schedual schedual=scheudalRepository.findById(sche_id).get();
+            if(cinema_id==schedual.getCinema().getId()){
+                scheudalRepository.deleteById(sche_id);
+                return  Util.success(ExceptionEnums.DEL_SUCCESS);
+            }else {
+                return  Util.failure(ExceptionEnums.MNG_NO_AUTHOR);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+    @PutMapping(value = "schedual/update")
+    public  Result upadteSchedual(@RequestParam("schedualId")Long schedual_id ,@RequestParam("movieId")Long movieId,@RequestParam("hallId")Long hallId,
+                                  @RequestParam("cinemaId")Long cinemaId,@RequestParam("start")String stratTime,@RequestParam("end")String endTime,
+                                  @RequestParam("price")Double price,@RequestParam("describe")String description)
+    {
+
+
+        try {
+
+            Schedual schedual=cinemaService.updateSchedule(schedual_id,movieId,hallId,cinemaId,stratTime,endTime,price,description);
+            return Util.success(schedual);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Util.failure(ExceptionEnums.UPDATE_ERROR);
+        }
+    }
+
+
 
     @SysLog(value = "获取电影排片")
     @GetMapping(value = "cinema/getScheduals")

@@ -1,5 +1,6 @@
 package com.movie.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +34,7 @@ public class Hall extends BaseEntity {
 
     @Column(name = "hall_name", nullable = true, length = 20)
     private String hallName;
+
 
     @ManyToOne(targetEntity = Cinema.class)
     private  Cinema cinema;

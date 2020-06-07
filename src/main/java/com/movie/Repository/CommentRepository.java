@@ -21,4 +21,6 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
     @Query(value = "SELECT c FROM Comment c where c.movie.id=?1")
     /*@Query(nativeQuery = true,value = "SELECT c.id, FROM Comment c where c.movie.id=?1")*/
     Page<Comment> getAllByMovieOrderByCreatedTime(Long movie_id, Pageable pageable);
+
+
 }

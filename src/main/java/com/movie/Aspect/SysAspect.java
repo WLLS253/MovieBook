@@ -22,6 +22,7 @@ public class SysAspect {
 
     public  final static Logger logger= LoggerFactory.getLogger(SysAspect.class);
 
+
     @Pointcut("execution(public * com.movie.Controller.RouterController.getSysPage(..))")
     public  void logMng(){
     }
@@ -33,16 +34,24 @@ public class SysAspect {
         HttpServletRequest request =attributes.getRequest();
 
         Cookie[] cookies = request.getCookies();
-        String type=request.getHeader("type");
+
+        String type = null;
+        for (Cookie cookie : cookies) {
+            if(cookie.getName().equals("type")){
+
+                type=cookie.getValue();
+            }
+        }
+        //String type=request.getHeader("type");
 
 //        if (type==null||type.equals("User")||type.equals()){
 //            throw new
 //        }
 
-//        if(type==null||(!type.equals("SystemMng"))){
-//            throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_Sys);
-//
-//        }
+        if(type==null||(!type.equals("SystemMng"))){
+            throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_Sys);
+
+        }
     }
 
 

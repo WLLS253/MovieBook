@@ -3,6 +3,7 @@ package com.movie.Controller;
 
 import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
+import com.movie.Plugins.SysLog;
 import com.movie.Repository.*;
 import com.movie.Result.Result;
 import com.movie.Serivce.CinemaService;
@@ -175,6 +176,19 @@ public class MovieController {
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+
+    @SysLog(value = "影院管理员删除评论")
+    @DeleteMapping(value = "comment/delbymng")
+    public  Result delCommentByMng(@RequestParam("commentId")Long comment_id){
+        try {
+            commentRepository.deleteById(comment_id);
+            return  Util.success(ExceptionEnums.DEL_SUCCESS);
+        }catch (Exception e){
+            e.printStackTrace();;
+            return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
 

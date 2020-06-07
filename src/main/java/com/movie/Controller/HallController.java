@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
 import com.movie.Plugins.SysLog;
+import com.movie.Repository.CinemaRepository;
 import com.movie.Repository.HallRepository;
 import com.movie.Repository.ScheudalRepository;
 import com.movie.Repository.TicketRepository;
@@ -42,6 +43,9 @@ public class HallController  {
 
     @Autowired
     private  CinemaService cinemaService;
+
+    @Autowired
+    private CinemaRepository cinemaRepository;
 
 
     @SysLog(value = "选择电影票")
@@ -85,6 +89,8 @@ public class HallController  {
     @DeleteMapping(value = "cinemaHall/del")
     public Result delHall(@RequestParam("hallId")Long id){
         try {
+
+
             hallRepository.deleteById(id);
             return  Util.success(ExceptionEnums.DEL_SUCCESS);
         }catch (Exception e){
@@ -93,6 +99,24 @@ public class HallController  {
         }
     }
 
+
+    @SysLog(value = "查询电影院影厅")
+    @GetMapping(value = "cinemaHall/getList")
+    public Result getHallList(@RequestParam("cinema_id")Long cinema_id){
+        try {
+           Cinema cinema=cinemaRepository.findById(cinema_id).get();
+
+           List<Hall>halls=hallRepository.findByCinema(cinema);
+           return  Util.success(halls);
+        }catch (NoSuchElementException e){
+            e.printStackTrace();
+            return  Util.failure(ExceptionEnums.UNFIND_DATA_ERROR);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
 
 
     @Data

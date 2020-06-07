@@ -580,6 +580,8 @@
 
 
 <script type = "text/javascript">
+
+    document.cookie = "abc" + "="+ "asdadad" + ";expires=" + "wqeqeqwe";
     new Vue({
         el: '#app1',
         data () {
@@ -614,6 +616,8 @@
             .get('https://api.coindesk.com/v1/bpi/currentprice.json')
                 // .get('你本机的数据库中json文件地址')
                 .then(response => (this.info = response.data.bpi))
+
+
         }
     })
 

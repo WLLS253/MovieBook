@@ -98,6 +98,7 @@ public class LoginController {
                     response.setHeader("type", String.valueOf(Role.CinemaMng));
 
                     cookieService.writeCookie(response,"id",cinemaMng.getId().toString());
+                    cookieService.writeCookie(response,"type", String.valueOf(Role.CinemaMng));
                     return  Util.success(cinemaMng);
                 }else {
                     return  Util.failure(ExceptionEnums.PASSWORD_ERROR);
@@ -134,6 +135,7 @@ public class LoginController {
             response.setHeader("token",token);
             response.setHeader("type", String.valueOf(Role.User));
             cookieService.writeCookie(response,"id",result.getId().toString());
+            cookieService.writeCookie(response,"type", String.valueOf(Role.User));
             return  Util.success(userRepository.save(user));
         }catch (Exception e){
             e.printStackTrace();
@@ -166,7 +168,7 @@ public class LoginController {
         }
     }
 
-    @SysLog(value = "Sys添加")
+    //@SysLog(value = "Sys添加")
     @PostMapping(value = "sys/add")
     public  Result SysAdd(Assessor assessor, @RequestParam(value = "image",required = false)MultipartFile file,HttpServletResponse response){
         try {
@@ -181,6 +183,7 @@ public class LoginController {
             Assessor result=assessorRepository.save(assessor);
             response.setHeader("type", String.valueOf(Role.SystemMng));
             cookieService.writeCookie(response,"id",result.getId().toString());
+            cookieService.writeCookie(response,"type", String.valueOf(Role.SystemMng));
             return  Util.success(result);
         }catch (Exception e){
             e.printStackTrace();

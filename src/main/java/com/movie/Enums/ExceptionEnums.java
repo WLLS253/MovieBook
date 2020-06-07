@@ -18,7 +18,10 @@ public enum ExceptionEnums {
     ADD_ERROR(14,"添加失败"),
     AUTHOR_EEOR_User(15,"User权限不够"),
     AUTHOR_EEOR_Mng(16,"Mng权限不够"),
-    AUTHOR_EEOR_Sys(17,"Sys权限不够")
+    AUTHOR_EEOR_Sys(17,"Sys权限不够"),
+    USER_CANT_DEL(18,"用户无法删除非自己的评论"),
+    MNG_NO_AUTHOR(19,"管理员没有权限"),
+    UPDATE_ERROR(20,"更新失败")
     ;
 
     private  Integer code;
