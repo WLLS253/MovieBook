@@ -1,6 +1,7 @@
 package com.movie.Controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
 import com.movie.Plugins.SysLog;
@@ -154,6 +155,26 @@ public class MovieController {
         }
     }
 
+    @PostMapping(value = "collect/add")
+    public Result addCollect(@RequestParam("userId")Long userId,@RequestParam("movieId")Long movieId){
+        try {
+            User user=userRepository.findById(userId).get();
+            Movie movie=movieRepository.findById(movieId).get();
+            List<Movie> movies =user.getCollectedMovies();
+            JSONObject jsonObject =new JSONObject();
+            if(!movies.contains(movie)){
+                movies.add(movie);
+                userRepository.save(user);
+                jsonObject.put("msg","添加成功");
+            }else{
+                jsonObject.put("msg","添加失败，已经收藏过该电影");
+            }
+            return Util.success(jsonObject);
+        }catch (Exception e){
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
 
     @PostMapping(value = "tag/add")
     public  Result addTag(@RequestParam("tagName")String tagName){
@@ -191,6 +212,27 @@ public class MovieController {
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
+    @DeleteMapping(value = "collect/del")
+    public Result delCollect(@RequestParam("userId")Long userId,@RequestParam("movieId")Long movieId){
+        try {
+            User user=userRepository.findById(userId).get();
+            Movie movie=movieRepository.findById(movieId).get();
+            List<Movie> movies =user.getCollectedMovies();
+            JSONObject jsonObject =new JSONObject();
+            if(movies.contains(movie)){
+                movies.remove(movie);
+                userRepository.save(user);
+                jsonObject.put("msg","删除成功");
+            }else{
+                jsonObject.put("msg","删除失败，你没有收藏过该电影");
+            }
+            return Util.success(jsonObject);
+        }catch (Exception e){
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
 
     // 电影的主页信息
     @GetMapping(value = "movie/movieDetails")

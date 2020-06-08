@@ -42,12 +42,23 @@ public class User extends  BaseEntity {
     private List<Movie> commentedMovies;
 
 
+    @ManyToMany
+    @JoinTable(
+            name = "collect",
+            joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
+            inverseJoinColumns =@JoinColumn(name = "movie_id",referencedColumnName = "id")
+    )
+    @JsonIgnore
+    private List<Movie> collectedMovies;
+
+
 
 //    @OneToMany(mappedBy = "user")
 //    private  List<Ticket>ticketList;
 
     public User() {
         this.commentedMovies = new ArrayList<>();
+        this.collectedMovies = new ArrayList<>();
     }
 
 
@@ -99,6 +110,15 @@ public class User extends  BaseEntity {
     public void setCommentedMovies(List<Movie> commentedMovies) {
         this.commentedMovies = commentedMovies;
     }
+
+    public List<Movie> getCollectedMovies() {
+        return collectedMovies;
+    }
+
+    public void setCollectedMovies(List<Movie> commentedMovies) {
+        this.collectedMovies= commentedMovies;
+    }
+
 
 
 
