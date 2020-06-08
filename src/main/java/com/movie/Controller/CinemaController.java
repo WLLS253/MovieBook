@@ -106,6 +106,16 @@ public class CinemaController {
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+    @GetMapping(value = "/cinema/get")
+    public Result getCinema(Long id) {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("cinema_info",cinemaRepository.findById(id));
+            return Util.success(jsonObject);
+        }catch (Exception e){
+            return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
 
     @GetMapping(value = "/cinema/getList")
     public Result getCinemas(Pageable pageable) {

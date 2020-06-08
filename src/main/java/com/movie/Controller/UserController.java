@@ -34,5 +34,15 @@ public class UserController {
     }
 
 
+    @GetMapping(value = "user/getUserInfo")
+    public Result getUserInfo(@RequestParam("userId")Long userId){
+        try {
+            return Util.success(userService.getUserInfo(userId));
+        }catch (Exception e){
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+
 
 }

@@ -21,6 +21,7 @@ public class User extends  BaseEntity {
 
     private String userSex;
 
+    @JsonIgnore
     private String password;
 
     private String userEmail;

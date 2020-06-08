@@ -16,4 +16,5 @@ public interface BuyRepository extends JpaRepository<Buy,Long> {
     public List<Buy> getIncomeStatistic(long c_id,int year);
     int countAllByStateAndPurchaseDateBeforeAndPurchaseDateAfter(String state, Date before,Date after);
 
+
 }

@@ -39,4 +39,10 @@ public class UserService {
         jsonObject.put("movies",movieArray);
         return  jsonObject;
     }
+    public JSONObject getUserInfo(Long userId){
+        User user=userRepository.findById(userId).get();
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("user_info",user);
+        return  jsonObject;
+    }
 }

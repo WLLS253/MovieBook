@@ -69,17 +69,17 @@ public class StatisticsService {
             JSONObject day_json = new JSONObject();
             String format_date = f.format(c.getTime());
             List<Buy> buys =  buyRepository.getIncomeStatistic(cinema_id,format_date);
-            if(buys.size() == 0) continue;
-            double total_income =0;
-            for (Buy b:buys) {
-                total_income += b.getPrice();
+            if(buys.size() != 0) {
+                double total_income =0;
+                for (Buy b:buys) {
+                    total_income += b.getPrice();
+                }
+                day_json.put("total_income",total_income);
+                day_json.put("total_buys",buys.size());
+                day_json.put("day_of_week",c.getTime().toString().split(" ")[0]);
+                jsonObject.put(format_date,day_json);
             }
-            day_json.put("total_income",total_income);
-            day_json.put("total_buys",buys.size());
-            day_json.put("day_of_week",c.getTime().toString().split(" ")[0]);
-            jsonObject.put(format_date,day_json);
             c.add(Calendar.DAY_OF_MONTH,1);
-
         }
         return jsonObject;
     }
