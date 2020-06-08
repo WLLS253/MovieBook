@@ -32,7 +32,6 @@ public class Buy extends BaseEntity {
 
     private Double price;
 
-    @JsonIgnore
     @ManyToOne
     private Schedual schedual;
 

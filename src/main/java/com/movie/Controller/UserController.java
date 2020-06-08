@@ -52,6 +52,24 @@ public class UserController {
         }
     }
 
+    @GetMapping(value = "user/getCollectedMovies")
+    public Result getUserCollectedMovies(@RequestParam("userId")Long userId){
+        try {
+            return Util.success(userService.getUserCollectedMovies(userId));
+        }catch (Exception e){
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+    @GetMapping(value = "user/getBuyList")
+    public Result getUserBuyList(@RequestParam("userId")Long userId){
+        try {
+            return Util.success(userService.getBuyList(userId));
+        }catch (Exception e){
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
 
 
 
