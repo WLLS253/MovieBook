@@ -66,6 +66,7 @@ public class CinemaService {
         Hall hall=hallRepository.findById(hallId).get();
         Movie movie=movieRepository.findById(movieId).get();
 
+        schedual.setSchedDescription(description);
         schedual.setCinema(cinema);
         schedual.setEndDate(end);
         schedual.setMovie(movie);
@@ -74,6 +75,27 @@ public class CinemaService {
         schedual.setStartDate(start);
 
          return  scheudalRepository.save(schedual);
+    }
+
+    public  Schedual updateSchedule(Long schedualId,Long movieId,Long hallId,Long cinemaId,String startTime,String endTime,Double price,String description) throws ParseException {
+
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date start=simpleDateFormat.parse(startTime);
+        Date  end=simpleDateFormat.parse(endTime);
+        Schedual schedual=scheudalRepository.findById(schedualId).get();
+        Cinema cinema=cinemaRepository.findById(cinemaId).get();
+        Hall hall=hallRepository.findById(hallId).get();
+        Movie movie=movieRepository.findById(movieId).get();
+
+        schedual.setCinema(cinema);
+        schedual.setEndDate(end);
+        schedual.setMovie(movie);
+        schedual.setHall(hall);
+        schedual.setPrice(price);
+        schedual.setStartDate(start);
+        schedual.setSchedDescription(description);
+
+        return  scheudalRepository.save(schedual);
     }
 
     // 通过moive 来获取所有正在上映该电影的 电影院
@@ -153,6 +175,24 @@ public class CinemaService {
         }
         jsonObject.put("movieList",jsonArray);
         return  jsonObject;
+    }
+
+
+    public Hall updateHall(Long hadllId,Hall hall,List<MultipartFile>figureList){
+        Hall hallOri=hallRepository.findById(hadllId).get();
+        hallOri.updateObject(hall);
+        List<Figure>figures=hallOri.getFigureList();
+        if(figureList.size()>0){
+            for (MultipartFile multipartFile : figureList) {
+                String image=uploadSerivce.upImageFire(multipartFile);
+                Figure figure=new Figure();
+                figure.setImageurl(image);
+                figures.add(figure);
+            }
+        }
+        hallOri.setFigureList(figures);
+        hallRepository.save(hallOri);
+        return hallOri;
     }
 
 

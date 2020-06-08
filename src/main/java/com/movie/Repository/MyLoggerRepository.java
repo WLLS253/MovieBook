@@ -2,6 +2,8 @@ package com.movie.Repository;
 
 import com.movie.Entity.MyLogger;
 import com.movie.Enums.Role;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Date;
@@ -15,4 +17,7 @@ public interface MyLoggerRepository extends JpaRepository<MyLogger,Long> {
     List<MyLogger>findMyLoggerByRole(Role role);
 
     List<MyLogger>deleteByCreateDateAfter(Date createDate);
+
+//    Page<MyLogger>
+    Page<MyLogger>findMyLoggerByCreateDateAfter(Date createDate, Pageable pageable);
 }

@@ -3,6 +3,7 @@ package com.movie.Controller;
 
 import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
+import com.movie.Plugins.SysLog;
 import com.movie.Repository.*;
 import com.movie.Result.Result;
 import com.movie.Serivce.CinemaService;
@@ -131,13 +132,18 @@ public class MovieController {
     }
 
     @PostMapping(value = "comment/add")
-    public  Result addComment(@RequestParam("userId")Long userId,@RequestParam("movieId")Long movieId,@RequestParam("content")String content,@RequestParam("title")String title){
+    public  Result addComment(@RequestParam("userId")Long userId,@RequestParam("movieId")Long movieId,@RequestParam(value = "content",required = false)String content,@RequestParam(value = "title",required = false)String title){
         try {
             User user=userRepository.findById(userId).get();
             Movie movie=movieRepository.findById(movieId).get();
             Comment comment=new Comment();
-            comment.setContent(content);
-            comment.setTitle(title);
+
+            if(content!=null){
+                comment.setContent(content);
+            }
+            if(title!=null){
+                comment.setTitle(title);
+            }
             comment.setUser(user);
             comment.setMovie(movie);
             comment=commentRepository.save(comment);
@@ -147,6 +153,7 @@ public class MovieController {
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
 
     @PostMapping(value = "tag/add")
     public  Result addTag(@RequestParam("tagName")String tagName){
@@ -172,6 +179,19 @@ public class MovieController {
         }
     }
 
+
+    @SysLog(value = "影院管理员删除评论")
+    @DeleteMapping(value = "comment/delbymng")
+    public  Result delCommentByMng(@RequestParam("commentId")Long comment_id){
+        try {
+            commentRepository.deleteById(comment_id);
+            return  Util.success(ExceptionEnums.DEL_SUCCESS);
+        }catch (Exception e){
+            e.printStackTrace();;
+            return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
     // 电影的主页信息
     @GetMapping(value = "movie/movieDetails")
     public Result getMovieDetail(long movie_id){
@@ -182,6 +202,19 @@ public class MovieController {
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
+    @DeleteMapping(value = "movie/del")
+    public  Result delMovie(@RequestParam("movieId")Long movieId){
+        try {
+            movieRepository.deleteById(movieId);
+            return  Util.success(ExceptionEnums.DEL_SUCCESS);
+        }catch (Exception e){
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+
+
 
 //
 //    @GetMapping(value = "movie/movieUpdate")

@@ -1,5 +1,6 @@
 package com.movie.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +35,7 @@ public class Hall extends BaseEntity {
     @Column(name = "hall_name", nullable = true, length = 20)
     private String hallName;
 
+
     @ManyToOne(targetEntity = Cinema.class)
     private  Cinema cinema;
 
@@ -55,5 +57,26 @@ public class Hall extends BaseEntity {
                 ", createdTime=" + createdTime +
                 ", updatedTime=" + updatedTime +
                 '}';
+    }
+
+
+    public void  updateObject(Object o) {
+        Hall hall = (Hall) o;
+        if(hall.hallName!=null){
+            hallName=hall.hallName;
+        }
+        if( hall.hallType!=null){
+            hallType=hall.hallType;
+        }
+        if(hall.row!=null){
+            row=hall.row;
+        }
+        if(hall.col!=null){
+            col=hall.col;
+        }
+        if(hall.layout!=null){
+            layout=hall.layout;
+        }
+
     }
 }

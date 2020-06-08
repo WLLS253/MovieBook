@@ -35,7 +35,14 @@ public class UserAspect {
 
 
         Cookie[] cookies = request.getCookies();
-        String type=request.getHeader("type");
+//        String type=request.getHeader("type");
+        String type = null;
+        for (Cookie cookie : cookies) {
+            if(cookie.getName().equals("type")){
+
+                type=cookie.getValue();
+            }
+        }
 
         //TODO 前端權限檢查
 //        if(!(type==null||type.equals("Visitor")||type.equals("User"))){

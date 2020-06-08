@@ -72,6 +72,12 @@ public class LoggerAspect {
         //请求的参数
         Object[] args = joinPoint.getArgs();
         Object[] arguments  = new Object[args.length];
+
+//        System.out.println("------");
+//        for (Object arg : args) {
+//            System.out.println(arg);
+//        }
+//        System.out.println("-------");
         for (int i = 0; i < args.length; i++) {
             if (args[i] instanceof ServletRequest || args[i] instanceof ServletResponse || args[i] instanceof MultipartFile) {
                 //ServletRequest不能序列化，从入参里排除，否则报异常：java.lang.IllegalStateException: It is illegal to call this method if the current request is not in asynchronous mode (i.e. isAsyncStarted() returns false)
@@ -108,12 +114,17 @@ public class LoggerAspect {
         System.out.println(sysLog.getRole());
 
         Cookie[] cookies=request.getCookies();
-       if(cookies.length>0){
-           for (Cookie cookie : cookies) {
-               if(cookie.getName().equals("id"))
-                   sysLog.setUserId(cookie.getValue());
-           }
-       }
+        if(cookies!=null){
+            if(cookies.length>0){
+                for (Cookie cookie : cookies) {
+                    if(cookie.getName().equals("id"))
+                        sysLog.setUserId(cookie.getValue());
+                }
+            }
+        }
+
+        System.out.println(sysLog);
+        System.out.println(sysLog.getParams().length());
         //调用service保存SysLog实体类到数据库
         myLoggerRepository.save(sysLog);
     }

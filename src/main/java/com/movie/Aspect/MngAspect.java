@@ -23,6 +23,8 @@ public class MngAspect {
 
     public  final static Logger logger= LoggerFactory.getLogger(MngAspect.class);
 
+
+
     @Pointcut("execution(public * com.movie.Controller.RouterController.getMngPage(..))")
     public  void logMng(){
     }
@@ -34,15 +36,24 @@ public class MngAspect {
         HttpServletRequest request =attributes.getRequest();
 
         Cookie[] cookies = request.getCookies();
-        String type=request.getHeader("type");
 
-//        if (type==null||type.equals("User")||type.equals()){
-//            throw new
-//        }
+        String type = null;
+        for (Cookie cookie : cookies) {
+            if(cookie.getName().equals("type")){
 
+                type=cookie.getValue();
+            }
+        }
+
+
+        String type2=request.getHeader("type");
+
+
+//
 //        if(type==null||(!type.equals("CinemaMng"))){
 //            throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_Mng);
 //        }
+
     }
 
 

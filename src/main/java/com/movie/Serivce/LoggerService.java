@@ -5,7 +5,11 @@ import com.movie.Entity.MyLogger;
 import com.movie.Enums.Role;
 import com.movie.Repository.MyLoggerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,6 +29,10 @@ public class LoggerService {
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date2=simpleDateFormat.parse(Date);
 
+//        Pageable p= PageRequest.of(5,1);
+//        Page<MyLogger>myLoggerPage=myLoggerRepository.findMyLoggerByCreateDateAfter(date2,p);
+//        List<MyLogger>myLoggerList=myLoggerPage.getContent();
+//        System.out.println(myLoggerList);
         List<MyLogger>myLoggerList=myLoggerRepository.findMyLoggerByCreateDateAfter(date2);
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("loggers",myLoggerList);
@@ -39,6 +47,10 @@ public class LoggerService {
         calendar.add(Calendar.DATE,-7);
         Date date2=calendar.getTime();
         System.out.println(date2);
+
+//        Pageable p= PageRequest.of(5,2);
+//        Page<MyLogger>myLoggerPage=myLoggerRepository.findMyLoggerByCreateDateAfter(date2,p);
+//        List<MyLogger>myLoggerList=myLoggerPage.getContent();
         List<MyLogger>myLoggerList=myLoggerRepository.findMyLoggerByCreateDateAfter(date2);
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("loggers",myLoggerList);

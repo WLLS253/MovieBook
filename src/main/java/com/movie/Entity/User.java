@@ -32,9 +32,6 @@ public class User extends  BaseEntity {
 
     private String showimage;
 
-
-
-
     @ManyToMany
     @JoinTable(
             name = "comment",
