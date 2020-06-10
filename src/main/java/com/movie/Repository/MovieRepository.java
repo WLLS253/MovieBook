@@ -48,9 +48,9 @@ public interface    MovieRepository extends JpaRepository<Movie,Long> {
 
     @Query(nativeQuery = true,value = "SELECT m.* FROM movie m JOIN takepart t ON m.id=t.movie_id Join staff s ON s.id = t.staff_id " +
             "where " +
-            "(:role is NUll or t.role=:role ) and " +
-            "s.staff_name = :staff_name;")
-    List<Movie> filterMovies(@Param("role") String role ,@Param("staff_name") String staff_name);
+            "(?1 is NUll or t.role=?1) and "+
+            "s.staff_name = ?2")
+    List<Movie> filterMovies(String role ,String staff_name);
 
     @Query(nativeQuery = true,value = "SELECT m.* from movie m where m.state = :state order by release_time asc limit :start,:num")
     List<Movie> getLimitMoviesByState(@Param("state")String state,@Param("start")int start,@Param("num")int num);
