@@ -38,15 +38,15 @@ function insertNewRecord(data) {
     cell6.innerHTML = data.cinemadescription;
     cell8 = newRow.insertCell(6);
     cell8.innerHTML = '<div class="table-data-feature">\
-                            <button class="item" data-toggle="tooltip" data-placement="top" onclick="onEdit(this)" title="编辑">\
+                            <button class="item" data-toggle="tooltip" data-placement="top" onclick="onEdit(this)" score="编辑">\
                                 <i class="zmdi zmdi-edit"></i>\
                             </button>\
-                            <button class="item" data-toggle="tooltip" data-placement="top" onclick="onDelete(this)" title="删除">\
+                            <button class="item" data-toggle="tooltip" data-placement="top" onclick="onDelete(this)" score="删除">\
                                 <i class="zmdi zmdi-delete"></i>\
                             </button>\
                         </div>'
-    // cell8.innerHTML = '<div class="table-data-feature"><button class="item" data-toggle="tooltip" data-placement="top" onClick="onEdit(this)" title="编辑"><i class="zmdi zmdi-edit"></i></button>
-    //                 +'<button class="item" data-toggle="tooltip"data-placement="top"  onClick="onDelete(this)" title="删除"><i class="zmdi zmdi-delete"></i></button></div> ';
+    // cell8.innerHTML = '<div class="table-data-feature"><button class="item" data-toggle="tooltip" data-placement="top" onClick="onEdit(this)" score="编辑"><i class="zmdi zmdi-edit"></i></button>
+    //                 +'<button class="item" data-toggle="tooltip"data-placement="top"  onClick="onDelete(this)" score="删除"><i class="zmdi zmdi-delete"></i></button></div> ';
 }
 
 function resetForm() {

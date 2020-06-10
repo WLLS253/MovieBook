@@ -155,6 +155,7 @@ public class LoginController {
                     response.setHeader("type", String.valueOf(Role.SystemMng));
                     request.getSession().setAttribute("id",assessor.getId());
                     cookieService.writeCookie(response,"id",assessor.getId().toString());
+                    cookieService.writeCookie(response,"type", String.valueOf(Role.User));
                     return  Util.success(assessor);
                 }else {
                     return  Util.failure(ExceptionEnums.PASSWORD_ERROR);

@@ -195,7 +195,7 @@ public class CinemaService {
     public Hall updateHall(Long hadllId,Hall hall,List<MultipartFile>figureList){
         Hall hallOri=hallRepository.findById(hadllId).get();
         hallOri.updateObject(hall);
-        List<Figure>figures=hallOri.getFigureList();
+        List<Figure>figures=new ArrayList<>();
         if(figureList!=null){
             if(figureList!=null){
                 for (MultipartFile multipartFile : figureList) {

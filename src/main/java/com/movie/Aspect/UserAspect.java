@@ -3,6 +3,7 @@ package com.movie.Aspect;
 
 import com.movie.Enums.ExceptionEnums;
 import com.movie.Exception.AuthorException;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -44,10 +45,12 @@ public class UserAspect {
             }
         }
 
+        System.out.println(type);
+
         //TODO 前端權限檢查
-//        if(!(type==null||type.equals("Visitor")||type.equals("User"))){
-//            throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_User);
-//        }
-    }
+        if(!(type==null||type.equals("Visitor")||type.equals("User"))){
+            throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_User);
+        }
+}
 
 }

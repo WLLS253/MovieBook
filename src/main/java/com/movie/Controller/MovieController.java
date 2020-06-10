@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -133,17 +132,24 @@ public class MovieController {
     }
 
     @PostMapping(value = "comment/add")
-    public  Result addComment(@RequestParam("userId")Long userId,@RequestParam("movieId")Long movieId,@RequestParam(value = "content",required = false)String content,@RequestParam(value = "title",required = false)String title){
+    public  Result addComment(@RequestParam("userId")Long userId,@RequestParam("movieId")Long movieId,@RequestParam(value = "content",required = false)String content,@RequestParam(value = "score",required = false)String title){
         try {
             User user=userRepository.findById(userId).get();
             Movie movie=movieRepository.findById(movieId).get();
-            Comment comment=new Comment();
+
+            Comment comment=null;
+            List<Comment>commentList=commentRepository.findByUserAndMovie(user,movie);
+            if(commentList.size()==0){
+                 comment=new Comment();
+            }else {
+                comment=commentList.get(0);
+            }
 
             if(content!=null){
                 comment.setContent(content);
             }
             if(title!=null){
-                comment.setTitle(title);
+                comment.setScore(title);
             }
             comment.setUser(user);
             comment.setMovie(movie);

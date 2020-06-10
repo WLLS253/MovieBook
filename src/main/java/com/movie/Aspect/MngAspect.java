@@ -39,8 +39,7 @@ public class MngAspect {
 
         String type = null;
         for (Cookie cookie : cookies) {
-            if(cookie.getName().equals("type")){
-
+            if(cookie.getName().equals("type3")){
                 type=cookie.getValue();
             }
         }
@@ -50,9 +49,10 @@ public class MngAspect {
 
 
 //
-//        if(type==null||(!type.equals("CinemaMng"))){
-//            throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_Mng);
-//        }
+        System.out.println(type);
+        if(type==null||(!type.equals("CinemaMng"))){
+            throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_Mng);
+        }
 
     }
 

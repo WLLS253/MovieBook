@@ -1,7 +1,6 @@
 package com.movie.Serivce;
 
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.movie.Entity.*;
@@ -52,7 +51,7 @@ public class MovieService {
             temp.put("cotent",comment.getContent());
             temp.put("id",comment.getId());
             temp.put("date",comment.getCreatedTime());
-            temp.put("title",comment.getTitle());
+            temp.put("score",comment.getScore());
             userInfo.put("userName",u.getUsername());
             userInfo.put("avatar",u.getShowimage());
             userInfo.put("user_id",u.getId());
