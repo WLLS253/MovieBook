@@ -27,7 +27,8 @@ public interface    MovieRepository extends JpaRepository<Movie,Long> {
             "(?3 = ('null') or  t.tag_name in ?3) and " +
             "(?1 is null or ?2 is null or year(m.release_time) between ?1 and ?2) and " +
             "(?5 is null or m.state = ?5) and "+
-            "(?4 is null or day(?4)= day(s.start_date))"
+            "(?4 is null or day(?4)= day(s.start_date)) and "+
+            "(?7 is null or ?7= m.country)"
     , countQuery = "SELECT count(distinct m.id)" +
             " FROM movie m left join mark ma on ma.movie_id = m.id left join tag t on t.id = ma.tag_id left join schedual s on s.movie_id=m.id left join cinema ci on s.cinema_id = ci.id" +
             " where " +
@@ -35,15 +36,20 @@ public interface    MovieRepository extends JpaRepository<Movie,Long> {
             "(?3 = ('null') or  t.tag_name in ?3) and " +
             "(?1 is null or ?2 is null or year(m.release_time) between ?1 and ?2) and " +
             "(?5 is null or m.state = ?5) and "+
-            "(?4 is null or day(?4)= day(s.start_date))")
+            "(?4 is null or day(?4)= day(s.start_date)) and "+
+            "(?7 is null or ?7= m.country)")
     List<Movie> filterMovies(Integer start_year,
                              Integer end_year,
                              List<String> tags,
                              Date date,
                              String state,
-                             String cinema_name);
+                             String cinema_name,
+                             String country);
 
-    @Query(nativeQuery = true,value = "SELECT m.* FROM movie m JOIN takepart t ON m.id=t.movie_id Join staff s ON s.id = t.staff_id where t.role=:role and s.staff_name = :staff_name;")
+    @Query(nativeQuery = true,value = "SELECT m.* FROM movie m JOIN takepart t ON m.id=t.movie_id Join staff s ON s.id = t.staff_id " +
+            "where " +
+            "(:role is NUll or t.role=:role ) and " +
+            "s.staff_name = :staff_name;")
     List<Movie> filterMovies(@Param("role") String role ,@Param("staff_name") String staff_name);
 
     @Query(nativeQuery = true,value = "SELECT m.* from movie m where m.state = :state order by release_time asc limit :start,:num")

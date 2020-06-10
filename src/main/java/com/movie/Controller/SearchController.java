@@ -39,8 +39,7 @@ public class SearchController {
     public Result filterMovies(@RequestBody FilterSetting filter_setting){
         try {
             Pageable p = PageRequest.of(filter_setting.pageNumber,filter_setting.pageSize);
-
-            return Util.success(searchService.filterMoviesBrief(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags,filter_setting.date,filter_setting.state,filter_setting.cinema_name,p));
+            return Util.success(searchService.filterMoviesBrief(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags,filter_setting.date,filter_setting.state,filter_setting.cinema_name,filter_setting.country,p));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -61,8 +60,7 @@ public class SearchController {
     public Result filterMoviesDetails(@RequestBody FilterSetting filter_setting){
         try {
             Pageable p = PageRequest.of(filter_setting.pageNumber,filter_setting.pageSize);
-            System.out.println(filter_setting);
-            return Util.success(searchService.filterMoviesDetail(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags,filter_setting.date,filter_setting.state,filter_setting.cinema_name,p));
+            return Util.success(searchService.filterMoviesDetail(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags,filter_setting.date,filter_setting.state,filter_setting.cinema_name,filter_setting.country,p));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -70,8 +68,8 @@ public class SearchController {
     }
 
 
-    @PostMapping(value="movie/directorFilter")
-    public Result filterMovies(@RequestParam("role") String role,@RequestParam("name") String name){
+    @PostMapping(value="movie/staffFilter")
+    public Result filterMovies(String role,@RequestParam("name") String name){
         try {
             return Util.success(searchService.filterMovies(role,name));
         }catch (Exception e){
@@ -110,6 +108,7 @@ public class SearchController {
         String state;
         // 影院名称
         String cinema_name;
+        String country;
 
         int pageNumber;
         int pageSize;
