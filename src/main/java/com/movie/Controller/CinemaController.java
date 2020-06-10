@@ -27,6 +27,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -230,10 +232,16 @@ public class CinemaController {
 
     //@SysLog(value = "新增影厅")
     @PostMapping(value = "cinemaHall/add")
-    public Result addCinemaHall(@RequestParam("cinemaName")String cinameName, Hall hall){
+    public Result addCinemaHall(@RequestParam("cinemaName")String cinameName, Hall_Infor hall){
         try {
 
-            Hall ourHall=cinemaService.addCinemaHall(cinameName,hall);
+            Hall hall2=new Hall();
+            hall2.setHallName(hall.hallName);
+            hall2.setLayout(hall.layout);
+            hall2.setRow(hall.row);
+            hall2.setCol(hall.col);
+            hall2.setHallType(hall.hallType);
+            Hall ourHall=cinemaService.addCinemaHall(cinameName,hall2,hall.figureList);
             if(ourHall!=null){
                 return  Util.success(ourHall);
             }else {
@@ -349,6 +357,23 @@ public class CinemaController {
     }
 
 
+
+    @Data
+    private static class Hall_Infor{
+
+        private Integer col;
+
+        private Integer row;
+
+        private String hallType;
+
+        private String layout;
+
+        private String hallName;
+
+
+        private List<MultipartFile>figureList;
+    }
 
 
 

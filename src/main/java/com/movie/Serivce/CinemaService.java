@@ -43,8 +43,22 @@ public class CinemaService {
     @Autowired
     private  FigureRepository figureRepository;
 
-    public  Hall addCinemaHall(String cinemaName, Hall hall){
+    public  Hall addCinemaHall(String cinemaName, Hall hall,List<MultipartFile>fileList){
         List<Cinema >cinemaList=cinemaRepository.findByCinemaName(cinemaName);
+
+
+        List<Figure>figures=new ArrayList<>();
+        if(fileList!=null){
+            if(fileList!=null){
+                for (MultipartFile multipartFile : fileList) {
+                    String image=uploadSerivce.upImageFire(multipartFile);
+                    Figure figure=new Figure();
+                    figure.setImageurl(image);
+                    figures.add(figure);
+                }
+            }
+        }
+        hall.setFigureList(figures);
         Cinema cinema;
         if(cinemaList.size()>0){
             cinema=cinemaList.get(0);
@@ -183,13 +197,16 @@ public class CinemaService {
         hallOri.updateObject(hall);
         List<Figure>figures=hallOri.getFigureList();
         if(figureList!=null){
-            for (MultipartFile multipartFile : figureList) {
-                String image=uploadSerivce.upImageFire(multipartFile);
-                Figure figure=new Figure();
-                figure.setImageurl(image);
-                figures.add(figure);
+            if(figureList!=null){
+                for (MultipartFile multipartFile : figureList) {
+                    String image=uploadSerivce.upImageFire(multipartFile);
+                    Figure figure=new Figure();
+                    figure.setImageurl(image);
+                    figures.add(figure);
+                }
             }
         }
+
         hallOri.setFigureList(figures);
         hallRepository.save(hallOri);
         return hallOri;
