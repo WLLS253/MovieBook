@@ -50,6 +50,7 @@ public class MovieService {
             JSONObject userInfo = new JSONObject();
             User u = comment.getUser();
             temp.put("cotent",comment.getContent());
+            temp.put("id",comment.getId());
             temp.put("date",comment.getCreatedTime());
             temp.put("title",comment.getTitle());
             userInfo.put("userName",u.getUsername());

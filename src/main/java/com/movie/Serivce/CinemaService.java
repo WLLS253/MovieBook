@@ -182,7 +182,7 @@ public class CinemaService {
         Hall hallOri=hallRepository.findById(hadllId).get();
         hallOri.updateObject(hall);
         List<Figure>figures=hallOri.getFigureList();
-        if(figureList.size()>0){
+        if(figureList!=null){
             for (MultipartFile multipartFile : figureList) {
                 String image=uploadSerivce.upImageFire(multipartFile);
                 Figure figure=new Figure();

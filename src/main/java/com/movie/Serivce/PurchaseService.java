@@ -83,6 +83,7 @@ public class PurchaseService {
                 ticket.setAvaliable(true);
                 ticket.setTicketRow(row);
                 ticket.setTicketCol(col);
+                ticket.setSchedual(schedual);
                 ticketRepository.save(ticket);
             }
             boolean ticket_avaliable=ticket.isAvaliable();

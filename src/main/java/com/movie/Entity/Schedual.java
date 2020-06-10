@@ -54,12 +54,12 @@ public class Schedual extends BaseEntity {
 
 
     @JsonIgnore
-    @OneToMany(targetEntity = Ticket.class)
+    @OneToMany(cascade = CascadeType.ALL,targetEntity = Ticket.class)
     @JoinColumn(name = "schedual_id")
     public List<Ticket> ticketList;
 
     @JsonIgnore
-    @OneToMany(targetEntity = Buy.class)
+    @OneToMany(cascade = CascadeType.ALL,targetEntity = Buy.class)
     @JoinColumn(name = "schedual_id")
     public List<Buy> buyList;
 
