@@ -35,7 +35,7 @@ public class UserService {
         List<Movie>movieList=user.getCommentedMovies();
 
         JSONObject jsonObject=new JSONObject();
-        JSONArray movieArray=addMovieBreif(movieList);
+        JSONArray movieArray=addMovieDetails(movieList);
         jsonObject.put("movies",movieArray);
         return  jsonObject;
     }
@@ -44,7 +44,7 @@ public class UserService {
         User user=userRepository.findById(userId).get();
         List<Movie>movieList=user.getCollectedMovies();
         JSONObject jsonObject=new JSONObject();
-        JSONArray movieArray=addMovieBreif(movieList);
+        JSONArray movieArray=addMovieDetails(movieList);
         jsonObject.put("movies",movieArray);
         return  jsonObject;
     }
@@ -73,6 +73,14 @@ public class UserService {
             temp.put("brief",movie.getBrief());
             temp.put("releaseTime",movie.getReleaseTime());
             movieArray.add(temp);
+        }
+        return movieArray;
+    }
+
+    private JSONArray addMovieDetails(List<Movie> movieList){
+        JSONArray movieArray=new JSONArray();
+        for (Movie movie : movieList) {
+            movieArray.add(movie);
         }
         return movieArray;
     }

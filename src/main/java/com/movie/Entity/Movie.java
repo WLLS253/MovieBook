@@ -53,7 +53,6 @@ public class Movie extends BaseEntity {
         return this.getName();
     }
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "takepart",
@@ -71,7 +70,6 @@ public class Movie extends BaseEntity {
     @ManyToMany(mappedBy = "commentedMovies")
     private List<User> userList;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name ="mark",
