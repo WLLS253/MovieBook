@@ -22,6 +22,7 @@ import io.swagger.annotations.Api;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -122,9 +123,10 @@ public class CinemaController {
 
     @SysLog(value = "获取电影院列表")
     @GetMapping(value = "/cinema/getList")
-    public Result getCinemas(Pageable pageable) {
+    public Result getCinemas(int pageSize,int pageNumber) {
         try {
-            Page<Cinema> cinemaMngs = cinemaRepository.findAll(pageable);
+            Pageable p = PageRequest.of(pageNumber,pageSize);
+            Page<Cinema> cinemaMngs = cinemaRepository.findAll(p);
             List<Cinema> cinemaList =  cinemaMngs.getContent();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("cinemas",cinemaList);
@@ -152,8 +154,9 @@ public class CinemaController {
 
     @SysLog(value = "获取影院管理员列表")
     @GetMapping(value = "/cinemaMng/getList")
-    public Result getCinemaMngs(Pageable pageable) {
+    public Result getCinemaMngs(int pageSize,int pageNumber) {
         try {
+            Pageable pageable = PageRequest.of(pageNumber,pageSize);
             Page<CinemaMng> cinemaMngs = cinemaMngRepository.findAll(pageable);
             List<CinemaMng> cinemaMngList =  cinemaMngs.getContent();
             JSONObject jsonObject = new JSONObject();

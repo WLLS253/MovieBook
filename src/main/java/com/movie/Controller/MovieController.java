@@ -156,7 +156,7 @@ public class MovieController {
     }
 
     @PostMapping(value = "collect/add")
-    public Result addCollect(@RequestParam("userId")Long userId,@RequestParam("movieId")Long movieId){
+    public Result addCollect(Long userId,Long movieId){
         try {
             User user=userRepository.findById(userId).get();
             Movie movie=movieRepository.findById(movieId).get();
