@@ -35,6 +35,8 @@ public class LoggerController {
         }
     }
 
+
+
     @PostMapping(value = "myLogger/getRecent")
     public Result getLoggerRecent(){
         try {
