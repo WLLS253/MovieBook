@@ -71,6 +71,8 @@ public class HallController  {
     @PutMapping(value = "cinemaHall/update")
     public Result updateCinemaHall(@RequestParam("cinemaId")Long cinemaId, Hall_infor hall_infor){
         try {
+
+            //System.out.println(hall_infor.getFigureList());
             Hall hall_info=new Hall();
             hall_info.setCol(hall_infor.col);
             hall_info.setRow(hall_infor.row);
