@@ -50,9 +50,9 @@ public class SearchService {
                                           List<String> tags,
                                           Date date,
                                           String state,
-                                          String cinema_name,Pageable pageable) {
+                                          String cinema_name,String country,Pageable pageable) {
         JSONObject jsonObject = new JSONObject();
-        List<Movie> flitered_movies= getFliteredMovies(start_year,end_year,key_string,tags,date,state,cinema_name,pageable);
+        List<Movie> flitered_movies= getFliteredMovies(start_year,end_year,key_string,tags,date,state,cinema_name,country,pageable);
         jsonObject.put("movies",flitered_movies);
         return jsonObject;
     }
@@ -63,10 +63,10 @@ public class SearchService {
                                          List<String> tags,
                                          Date date,
                                          String state,
-                                         String cinema_name, Pageable pageable) {
+                                         String cinema_name,String country ,Pageable pageable) {
         JSONObject jsonObject = new JSONObject();
         JSONArray movie_infos = new JSONArray();
-        List<Movie> filtered_movies= getFliteredMovies(start_year,end_year,key_string,tags,date,state,cinema_name,pageable);
+        List<Movie> filtered_movies= getFliteredMovies(start_year,end_year,key_string,tags,date,state,cinema_name,country,pageable);
         Page<Movie> m_ps  = PageHelper.List2Page(filtered_movies,pageable);
         List<Movie> paged_movies = m_ps.getContent();
 
@@ -117,7 +117,7 @@ public class SearchService {
     // 获取热映电影
     public JSONObject getHotMovies(){
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("movies",movieRepository.getLimitMoviesByState("on",0,5));
+        jsonObject.put("movies",movieRepository.getLimitMoviesByState("on",0,6));
         return jsonObject;
     }
 
@@ -138,9 +138,9 @@ public class SearchService {
             List<String> tags,
             Date date,
             String state,
-            String cinema_name,Pageable pageable){
+            String cinema_name,String country,Pageable pageable){
         tags = tags==null?null_tags:tags;
-        List<Movie> movies =movieRepository.filterMovies(start_year,end_year,tags,date,state,cinema_name);
+        List<Movie> movies =movieRepository.filterMovies(start_year,end_year,tags,date,state,cinema_name,country);
         if(key_string == null)
             return  movies;
         String[] keys = key_string.split(" +");

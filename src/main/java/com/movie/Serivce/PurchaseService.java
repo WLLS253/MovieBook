@@ -47,16 +47,19 @@ public class PurchaseService {
         int row = hall.getRow();
         int col = hall.getCol();
         boolean[][] seat_info = new boolean[row][col];
-
+        for (int i=0;i<seat_info.length;i++){
+            for (int j=0;j<seat_info[i].length;j++){
+                seat_info[i][j] = true;
+            }
+        }
         for (Ticket t: tickets) {
             if(t.isAvaliable()){
-                seat_info[t.getTicketRow()-1][t.getTicketCol()-1] = true;
+                seat_info[t.getTicketRow()][t.getTicketCol()] = true;
             }else{
-                seat_info[t.getTicketRow()-1][t.getTicketCol()-1] = false;
+                seat_info[t.getTicketRow()][t.getTicketCol()] = false;
             }
         }
         JSONObject jsonObject=new JSONObject();
-//        jsonObject.put("hall_info",hall);
         jsonObject.put("seat_info",seat_info);
         jsonObject.put("schedual_info",schedual);
         return  jsonObject;
