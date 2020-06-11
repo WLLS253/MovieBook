@@ -26,9 +26,9 @@ public class LoggerController {
     private LoggerService loggerService;
 
     @PostMapping(value = "myLogger/getBydate")
-    public Result getLogger(@RequestParam("date") String Date){
+    public Result getLogger(@RequestParam("dateAfter") String Date,@RequestParam("dateBefore")String date2){
         try {
-            return Util.success(loggerService.getLoggeer(Date));
+            return Util.success(loggerService.getLoggeer(Date,date2));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);

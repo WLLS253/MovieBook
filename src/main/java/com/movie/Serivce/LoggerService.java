@@ -24,16 +24,18 @@ public class LoggerService {
     @Autowired
     private MyLoggerRepository  myLoggerRepository;
 
-    public JSONObject getLoggeer(String Date) throws ParseException {
+    public JSONObject getLoggeer(String Date,String Date2) throws ParseException {
 
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date2=simpleDateFormat.parse(Date);
+
+        Date date3=simpleDateFormat.parse(Date2);
 
 //        Pageable p= PageRequest.of(5,1);
 //        Page<MyLogger>myLoggerPage=myLoggerRepository.findMyLoggerByCreateDateAfter(date2,p);
 //        List<MyLogger>myLoggerList=myLoggerPage.getContent();
 //        System.out.println(myLoggerList);
-        List<MyLogger>myLoggerList=myLoggerRepository.findMyLoggerByCreateDateAfter(date2);
+        List<MyLogger>myLoggerList=myLoggerRepository.findMyLoggerByCreateDateAfterAndCreateDateBefore(date2,date3);
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("loggers",myLoggerList);
         return  jsonObject;
