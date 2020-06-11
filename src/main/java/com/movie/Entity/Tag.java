@@ -25,7 +25,6 @@ public class Tag extends  BaseEntity {
     @ManyToMany(mappedBy = "tagList")
     private List<Movie>movieList;
 
-
     public Tag() {
         this.movieList = new ArrayList<>();
     }

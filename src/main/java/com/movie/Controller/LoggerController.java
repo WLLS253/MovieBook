@@ -8,12 +8,14 @@ import com.movie.Result.Result;
 import com.movie.Serivce.LoggerService;
 import com.movie.Util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@Transactional
 @RestController
 public class LoggerController {
 
@@ -77,6 +79,8 @@ public class LoggerController {
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
+
 
     @DeleteMapping(value = "myLogger/delByDate")
     public Result delLoggerByDate(@RequestParam("date")String date){
