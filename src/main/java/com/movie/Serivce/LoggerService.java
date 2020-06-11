@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -29,8 +30,35 @@ public class LoggerService {
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date2=simpleDateFormat.parse(Date);
 
-        Date date3=simpleDateFormat.parse(Date2);
+        List<MyLogger>myLoggerList=new ArrayList<>();
+        if(Date2!=null){
+            Date date3=simpleDateFormat.parse(Date2);
+            myLoggerList=myLoggerRepository.findMyLoggerByCreateDateAfterAndCreateDateBefore(date2,date3);
+        }else {
+            myLoggerList=myLoggerRepository.findMyLoggerByCreateDateAfter(date2);
+        }
 
+
+
+//        Pageable p= PageRequest.of(5,1);
+//        Page<MyLogger>myLoggerPage=myLoggerRepository.findMyLoggerByCreateDateAfter(date2,p);
+//        List<MyLogger>myLoggerList=myLoggerPage.getContent();
+//        System.out.println(myLoggerList);
+
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("loggers",myLoggerList);
+        return  jsonObject;
+    }
+
+    public JSONObject getLoggerOneDay(String Date) throws ParseException {
+
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        Date date2=simpleDateFormat.parse(Date);
+
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(date2);
+        calendar.add(Calendar.DATE,1);
+        Date date3=calendar.getTime();
 //        Pageable p= PageRequest.of(5,1);
 //        Page<MyLogger>myLoggerPage=myLoggerRepository.findMyLoggerByCreateDateAfter(date2,p);
 //        List<MyLogger>myLoggerList=myLoggerPage.getContent();
@@ -40,7 +68,6 @@ public class LoggerService {
         jsonObject.put("loggers",myLoggerList);
         return  jsonObject;
     }
-
     public JSONObject getLoggeeRecent() throws ParseException {
         Date date=new Date();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
