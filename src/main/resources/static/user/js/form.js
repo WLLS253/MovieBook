@@ -93,58 +93,47 @@ $('.login').submit(function(e) {
 			createErrTult('Error! Wrong password!', $pass)
 			error++;
 		}
-		// axios.post('http://localhost:8081/user/login',{
-        //     username:$username.val(),
-		// 	password:$pass.val()
-        //     })
-        //     .then((response)=> {
-		// 		console.log(response);
-        //         console.log(response.headers);
-		// 		console.log(document.cookie);
-		// 		if(response.data.code==5){
-		// 			createErrTult('用户名或密码错误！', $pass);
-		// 			error++;
-		// 		}else if(response.code==2){
-		// 			createErrTult("用户名不存在！", $username);
-		// 			error++;
-		// 		}
-		// 		if (error!=0)return;
-		// 		else{
-		// 			self.find('[type=submit]').attr('disabled', 'disabled');
 
-		// 			self.children().fadeOut(300,function(){ $(this).remove() })
-		// 			$('<p class="login__title">登录<br><span class="login-edition">欢迎使用A.Movie!</span></span></p><p class="success">您已经登录成功！</p>').appendTo(self)
-		// 			.hide().delay(300).fadeIn();
-		// 		}
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8081/user/login",
+        headers:{
+            'Access-Control-Expose-Headers': ['Content-Disposition']
+        },
+        data: {
+            username:$username.val(),
+            password:$pass.val()
+        },
+        // xhrFields: {
+        // 	withCredentials: true
+        // },
+        success: function(data, status, xhr) {
+            console.log(data.headers);
+            console.log(document.cookie);
+            console.log(status);
+            console.log(xhr);
+            console.log(xhr.getAllResponseHeaders());
+            console.log(xhr.getResponseHeader("Set-Cookie"));
+            console.log(xhr.getResponseHeader("isLogin"));
+            console.log(document.headers);
 
-		$.post("http://localhost:8081/user/login",
-		{
-			username:$username.val(),
-			password:$pass.val()
-		},
-		function(data,status){
-			console.log(data.headers);
-			console.log(document.cookie);
-			if(data.code==5){
-				createErrTult('用户名或密码错误！', $pass);
-				error++;
-			}else if(data.code==2){
-				createErrTult("用户名不存在！", $username);
-				error++;
-			}
-			if (error!=0)return;
-			else{
-				self.find('[type=submit]').attr('disabled', 'disabled');
+            if(data.code==5){
+                createErrTult('用户名或密码错误！', $pass);
+                error++;
+            }else if(data.code==2){
+                createErrTult("用户名不存在！", $username);
+                error++;
+            }
+            if (error!=0)return;
+            else{
+                self.find('[type=submit]').attr('disabled', 'disabled');
 
-				self.children().fadeOut(300,function(){ $(this).remove() })
-				$('<p class="login__title">登录<br><span class="login-edition">欢迎使用A.Movie!</span></span></p><p class="success">您已经登录成功！</p>').appendTo(self)
-				.hide().delay(300).fadeIn();
-			}
-		});
+                self.children().fadeOut(300,function(){ $(this).remove() })
+                $('<p class="login__title">登录<br><span class="login-edition">欢迎使用A.Movie!</span></span></p><p class="success">您已经登录成功！</p>').appendTo(self)
+                    .hide().delay(300).fadeIn();
+            }
+        }
+    });
 		// var formInput = self.serialize();
 		// $.post(self.attr('action'),formInput, function(data){}); // end post
 }); // end submit

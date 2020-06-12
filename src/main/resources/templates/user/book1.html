@@ -322,17 +322,18 @@
                   
         </script>
         <script id="demo3" type="text/x-jquery-tmpl">
-        
+
+
             <div class="time-select__group">
                 <div class="col-sm-4">
                     <p class="time-select__place">${cinema_name}</p>
                 </div>
                 <ul class="col-sm-8 items-wrap">
                     {{each(i,data) sched_infos}}
-                        <li class="time-select__item" data-time='${data[1]}' name="${data[0]}"}">${data[1]}</li>
+                        <li class="time-select__item" data-time='${data[1]}' name="${data[0]}"}" >${data[1]}</li>
             　　　　　{{/each}}
                 </ul>
-            </div>      
+            </div>
 
            
         </script>
