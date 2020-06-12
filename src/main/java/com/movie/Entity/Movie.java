@@ -1,5 +1,6 @@
 package com.movie.Entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -84,6 +85,11 @@ public class Movie extends BaseEntity {
         this.tagList = new ArrayList<>();
     }
 
+    @JSONField
+    public Integer getComments_num(){
+        return userList.size();
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
@@ -93,6 +99,7 @@ public class Movie extends BaseEntity {
                 ", staffList=" + staffList+
                 ", userList=" + userList +
                 ", tagList=" + tagList +
+                ", comment_num=" + userList.size() +
                 ", id=" + id +
                 ", createdTime=" + createdTime +
                 ", updatedTime=" + updatedTime +
