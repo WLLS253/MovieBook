@@ -91,8 +91,6 @@ public class HallController  {
     @DeleteMapping(value = "cinemaHall/del")
     public Result delHall(@RequestParam("hallId")Long id){
         try {
-
-
             hallRepository.deleteById(id);
             return  Util.success(ExceptionEnums.DEL_SUCCESS);
         }catch (Exception e){

@@ -38,11 +38,14 @@ public class MngAspect {
         Cookie[] cookies = request.getCookies();
 
         String type = null;
-        for (Cookie cookie : cookies) {
-            if(cookie.getName().equals("type3")){
-                type=cookie.getValue();
+        if(cookies!=null){
+            for (Cookie cookie : cookies) {
+                if(cookie.getName().equals("type3")){
+                    type=cookie.getValue();
+                }
             }
         }
+
 
 
         String type2=request.getHeader("type");

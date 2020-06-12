@@ -826,17 +826,6 @@ table {
   margin-top: 50px;
   margin-bottom: 58px;
 }
-.signin .success {
-  background-color: #ffd564;
-  font: 18px 'aleobold', sans-serif;
-  text-transform: uppercase;
-  color: #4c4145;
-  text-align: center;
-  padding-bottom: 28px;
-  padding-top: 39px;
-  margin-top: 50px;
-  margin-bottom: 58px;
-}
 .form .success {
   font: 24px 'aleoitalic', sans-serif;
   padding-top: 67px;
@@ -4893,7 +4882,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   left: -17px;
 }
 .select .sbToggle:after {
-  content: '类型';
+  content: 'City';
   font: 13px 'Roboto', sans-serif;
   font-weight: bold;
 }
@@ -7688,66 +7677,6 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 .login .login__control {
   text-align: center;
 }
-.signin {
-  background-color: #ffffff;
-  padding-top: 58px;
-  padding-bottom: 22px;
-}
-.signin .login__title {
-  font-size: 22px;
-  font-family: 'aleobold', sans-serif;
-  line-height: 20px;
-  color: #4c4145;
-  text-transform: uppercase;
-  text-align: center;
-  margin: 0;
-  margin-bottom: 28px;
-}
-.signin .login__title .login-edition {
-  font-size: 16px;
-  font-weight: normal;
-  font-family: 'aleoitalic', sans-serif;
-  text-transform: none;
-}
-.signin .login__tracker {
-  text-align: center;
-  font: 16px 'aleoitalic', sans-serif;
-  color: #4c4145;
-  margin: 33px 0 35px;
-}
-.signin .form__tracker {
-  font-size: 13px;
-  display: block;
-  margin-top: 39px;
-}
-.signin .form__tracker:hover {
-  color: #fe505a;
-}
-.signin .login__input {
-  font-size: 13px;
-  color: #b4b1b2;
-  width: 100%;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  -webkit-appearance: none;
-  border: 1px solid #dbdee1;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  margin: 5px 0;
-  padding: 9px 20px 8px;
-}
-.signin .login__check-info {
-  font-family: 'Roboto', sans-serif;
-  font-size: 13px;
-  color: #b4b1b2;
-  display: block;
-  margin-top: 3px;
-  margin-bottom: 27px;
-}
-.signin .login__control {
-  text-align: center;
-}
 .checkbox {
   width: 13px;
   height: 13px;
@@ -8278,7 +8207,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 .tags--aside {
   float: right;
   margin-right: -26px;
-  min-width: 320px;
+  min-width: 280px;
   margin-top: -35px;
 }
 .choose-container .select {
@@ -8286,7 +8215,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .choose-container .datepicker {
   margin-top: 4px;
-  /* margin-left: 50px; */
+  margin-left: 50px;
 }
 .choose-container--short {
   margin-top: -13px;
@@ -8303,7 +8232,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   top: 2px;
 }
 .select--cinema .sbToggle:after {
-  content: '影院';
+  content: 'Cinema';
 }
 .select--film-category {
   margin-left: 84px;
@@ -8317,7 +8246,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   top: 2px;
 }
 .select--film-category .sbToggle:after {
-  content: '类型';
+  content: 'Category';
 }
 .movie--preview {
   margin-top: 40px;

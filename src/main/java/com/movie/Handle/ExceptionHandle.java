@@ -24,7 +24,7 @@ public class ExceptionHandle {
       logger.info("权限异常{}" ,authorException.getCode());
       switch (authorException.getCode()){
           case 16:
-              return "mng/index_xdq_new";
+              return "mng/xdq_cinema_login";
           case 17:
                return "sys/index";
           case 15:

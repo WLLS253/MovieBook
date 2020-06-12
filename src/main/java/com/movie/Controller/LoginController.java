@@ -17,6 +17,7 @@ import com.movie.Serivce.UploadSerivce;
 import com.movie.Util.Util;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.spec.ECField;
 import java.util.List;
 
+
+@CrossOrigin
 @RestController
 public class LoginController {
 
@@ -70,6 +73,9 @@ public class LoginController {
 //                    request.getSession().setMaxInactiveInterval(10);
 //                    System.out.println(request.getSession().getCreationTime());
                     cookieService.writeCookie(response,"id",user.getId().toString());
+                    cookieService.writeCookie(response,"type", String.valueOf(Role.User));
+                    cookieService.writeCookie(response,"name",user.getUsername());
+                    cookieService.writeCookie(response,"image",user.getShowimage());
                     return  Util.success(user);
                 }else {
                     return  Util.failure(ExceptionEnums.PASSWORD_ERROR);
