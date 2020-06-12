@@ -577,9 +577,18 @@
 
 <script type = "text/javascript">
 
+<<<<<<< HEAD
     var exp = new Date();
     exp.setTime(exp.getTime() + 20 * 1000),//过期时间 2分钟
     document.cookie = ";expires=" + exp.toGMTString();
+=======
+    // var exp = new Date();
+    // exp.setTime(exp.getTime() + 20 * 1000),//过期时间 2分钟
+    // document.cookie = ";expires=" + exp.toGMTString();
+    console.log(document.cookie);
+
+    document.cookie
+>>>>>>> 6f40752356ae26ae360804fc48e6d5aaa9f6b4a5
     new Vue({
         el: '#app5',
         data () {

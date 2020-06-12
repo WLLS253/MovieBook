@@ -56,6 +56,7 @@ public class CinemaService {
                     figure.setImageurl(image);
                     figures.add(figure);
                 }
+                figureRepository.saveAll(figures);
             }
         }
         hall.setFigureList(figures);

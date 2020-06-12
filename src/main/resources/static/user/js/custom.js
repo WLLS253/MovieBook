@@ -632,7 +632,7 @@ function init_BookingTwo () {
                                   break;
                             }
 
-                            $('.checked-result').text('¥'+sum);
+                            $('.checked-result').text('$'+sum);
                         }
                     }
 
@@ -657,7 +657,7 @@ function init_BookingTwo () {
                                   break;
                             }
 
-                        $('.checked-result').text('¥'+sum)
+                        $('.checked-result').text('$'+sum)
                     }
 
                     //data element init
@@ -758,7 +758,13 @@ function init_BookingTwo () {
                 
                 $('.sits-area--mobile .checked-place').prepend('<span class="choosen-place" data-sit="'+ch_sits+'">'+ ch_sits +'</span>');
 
-                ticketPrice = 30;
+                if (row ==  "A" || row ==  "B" || row ==  "C" || row ==  "D"){
+                    ticketPrice = 10;
+                } else if (row ==  "E" || row ==  "F" || row ==  "G" || row ==  "I"){
+                    ticketPrice = 20;
+                } else if (row ==  "J" || row ==  "K" || row ==  "L"){
+                    ticketPrice = 30;
+                }
 
                 switch(ticketPrice)
                         {
@@ -773,7 +779,7 @@ function init_BookingTwo () {
                             break;
                 }
 
-                $('.checked-result').text('¥'+sum);
+                $('.checked-result').text('$'+sum);
 
                 
 
@@ -795,7 +801,13 @@ function init_BookingTwo () {
                     	activeSit.remove();
                     	$(this).parent().remove();
 
-                        ticketPrice = 30;
+                        if (row ==  "A" || row ==  "B" || row ==  "C" || row ==  "D"){
+                            ticketPrice = 10;
+                        } else if (row ==  "E" || row ==  "F" || row ==  "G" || row ==  "I"){
+                            ticketPrice = 20;
+                        } else if (row ==  "J" || row ==  "K" || row ==  "L"){
+                            ticketPrice = 30;
+                        }
 
                         switch(ticketPrice)
                         {
@@ -810,7 +822,7 @@ function init_BookingTwo () {
                                     break;
                         }
 
-                        $('.checked-result').text('¥'+sum);
+                        $('.checked-result').text('$'+sum);
                     }
 
                     
@@ -967,7 +979,7 @@ function init_Gallery () {
                     
                 });
 
-                //pop up for photo (object - score link)
+                //pop up for photo (object - title link)
                 $('.gallery-item--photo-link').magnificPopup({
                     type: 'image',
                     closeOnContentClick: true,
@@ -998,7 +1010,7 @@ function init_Gallery () {
                     }
                 });
 
-                //pop up for video (object - score link)
+                //pop up for video (object - title link)
                  $('.gallery-item--video-link').magnificPopup({
                     disableOn: 700,
                     type: 'iframe',

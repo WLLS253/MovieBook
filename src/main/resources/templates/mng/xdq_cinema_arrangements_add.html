@@ -243,19 +243,20 @@
                                         <!--<input v-model="schedule.end_date" class="form-control" type="text" placeholder="请输入结束时间" >-->
                                     </div>
                                     <div id="app">
+                                        <!--<div class="form-group">-->
+                                            <!--<label>影片名称（请选择）</label>-->
+                                            <!--<select v-model="selected">-->
+                                                <!--<option >123123</option>-->
+                                                <!--<option >12312124123</option>-->
+                                                <!--<option >1236564123</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
 
                                         <div class="form-group">
                                             <label>影片名称（请选择）</label>
-
-                                    <!--<select v-model="selected" class='col-sm-12'>-->
-                                        <select v-model="selected">
-                                        <option v-for="thing in info.movie_infos"  :value="thing.movie_id">{{ setMovieIdAndGetPrice(thing.movie_id,thing.movie_name) }}</option>
-                                    </select>
-                                    <!--&nbsp;&nbsp;&nbsp;-->
-                                    <!--<span>{{ this.schedule.movie_id }}</span>-->
-                                    <!--<div class="container" id="vue">-->
-                                        <!--<row :name="'full time'"><leo-date :date-type="5" :sel-obj="dateObj" :sel-key="'d5'"></leo-date></row>-->
-                                    <!--</div>-->
+                                            <select v-model="selected">
+                                                <option v-for="thing in info.movie_infos"  :value="thing.movie_id">{{ setMovieIdAndGetPrice(thing.movie_id,thing.movie_name) }}</option>
+                                            </select>
                                         </div>
 
 
@@ -508,7 +509,7 @@
                     console.log(error);
                 });
 
-            axios.get('http://localhost:8081/cinema/getList')
+            axios.get('http://localhost:8081/cinema/getList?pageNumber=0&pageSize=5')
                 .then(response => {
                     console.log(response);
                     this.cinema_info = response.data.data;

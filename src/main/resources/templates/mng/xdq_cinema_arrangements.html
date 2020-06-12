@@ -293,27 +293,6 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td>1</td>
-                                            <td>泰坦尼克号</td>
-                                            <td>3D影厅1号</td>
-                                            <td>50元</td>
-                                            <td>2020年5月5日</td>
-                                            <td>2020年6月5日</td>
-                                            <td>经典之作重制版</td>
-                                            <td><font class="text-success">正常上映</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
                                         <tr v-for="schedule in info">
                                             <td>
                                                 <label class="lyear-checkbox checkbox-primary">
@@ -335,49 +314,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td>2</td>
-                                            <td>教父</td>
-                                            <td>3D影厅2号</td>
-                                            <td>40元</td>
-                                            <td>2020年5月2日</td>
-                                            <td>2020年6月2日</td>
-                                            <td>顶级大作</td>
-                                            <td><font class="text-warning">暂停上映</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td>3</td>
-                                            <td>肖申克的救赎</td>
-                                            <td>3D影厅3号</td>
-                                            <td>30元</td>
-                                            <td>2020年4月2日</td>
-                                            <td>2020年5月2日</td>
-                                            <td>历史经典</td>
-                                            <td><font class="text-danger">结束放映</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -432,11 +368,6 @@
 
 
 <script type = "text/javascript">
-
-    var exp = new Date();
-    exp.setTime(exp.getTime() + 20 * 1000),//过期时间 2分钟
-     document.cookie =name+"="+escape(value)+ ";expires=" + exp.toGMTString();
-    console.log(document.cookie);
     new Vue({
         el: '#schedule',
         data () {
