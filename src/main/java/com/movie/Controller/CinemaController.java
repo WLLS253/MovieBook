@@ -163,6 +163,7 @@ public class CinemaController {
             List<CinemaMng> cinemaMngList =  cinemaMngs.getContent();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("cinemaMngs",cinemaMngList);
+            jsonObject.put("pageInfo",PageHelper.getPageInfoWithoutContent(cinemaMngs));
             return Util.success(jsonObject);
         }catch (Exception e){
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);

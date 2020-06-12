@@ -1,6 +1,9 @@
 package com.movie.Repository;
 
 import com.movie.Entity.Cinema;
+import com.movie.Entity.Movie;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +22,30 @@ public interface CinemaRepository extends JpaRepository<Cinema,Long> {
             "and (:date_info is NULL or (:date_info<s.start_date and DAY(:date_info) = DAY(s.start_date)))" +
             "order by s.start_date asc")
     public List<Object[]> getOnShowCinemas(@Param("movie_id") Long movie_id, @Param("date_info") Date date_info);
+
+
+
+    @Query(nativeQuery = true,value = "SELECT distinct c.*" +
+            " FROM cinema c " +
+            " where " +
+            "(?1 is NULL or c.grade=?1 )"
+            , countQuery = "SELECT distinct c.*" +
+            " FROM cinema c " +
+            " where " +
+            "(?1 is NULL or c.grade=?1 )")
+    List<Cinema> filterCinema(Integer grade);
+
+    @Query(nativeQuery = true,value = "SELECT distinct c.*" +
+            " FROM cinema c " +
+            " where " +
+            "(?1 is NULL or c.grade=?1 ) and "+
+            "(?2 is NULL or c.cinema_name REGEXP ?2) and " +
+            "(?3 is NULL or c.location REGEXP ?3)"
+            , countQuery = "SELECT distinct c.*" +
+            " FROM cinema c " +
+            " where " +
+            "(?1 is NULL or c.grade=?1 ) and " +
+            "(?2 is NULL or c.cinema_name REGEXP ?2 ) and " +
+            "(?3 is NULL or c.location REGEXP ?3 )")
+    Page<Cinema> filterCinema(Integer grade, String key_strings , String loc_strings, Pageable pageable);
 }

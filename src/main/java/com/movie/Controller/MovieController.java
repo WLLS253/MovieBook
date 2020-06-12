@@ -236,9 +236,9 @@ public class MovieController {
 
     // 电影的主页信息
     @GetMapping(value = "movie/movieDetails")
-    public Result getMovieDetail(long movie_id){
+    public Result getMovieDetail(@RequestParam("movie_Id")long movie_id,long user_id){
         try {
-            return Util.success(movieService.getMovieDetail(movie_id));
+            return Util.success(movieService.getMovieDetail(movie_id,user_id));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);

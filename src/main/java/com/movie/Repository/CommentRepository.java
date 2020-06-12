@@ -15,7 +15,8 @@ import static org.hibernate.jpa.QueryHints.HINT_COMMENT;
 
 public interface CommentRepository extends JpaRepository<Comment,Long> {
 
-    List<Comment>findByMovie(Movie movie);
+    List<Comment> findByMovie(Movie movie);
+    List<Comment> findAllByUser_IdAndMovie_Id(Long userId,Long movieId);
 
     @QueryHints(value = { @QueryHint(name = HINT_COMMENT, value = "a query for pageable")})
     @Query(value = "SELECT c FROM Comment c where c.movie.id=?1")

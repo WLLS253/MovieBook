@@ -2,12 +2,7 @@ package com.movie.Controller;
 
 
 import com.movie.Enums.ExceptionEnums;
-import com.movie.Repository.CinemaRepository;
-import com.movie.Repository.MovieRepository;
-import com.movie.Repository.TagRepository;
-import com.movie.Repository.UserRepository;
 import com.movie.Result.Result;
-import com.movie.Serivce.MovieService;
 import com.movie.Serivce.SearchService;
 import com.movie.Util.Util;
 import lombok.Data;
@@ -36,7 +31,7 @@ public class SearchController {
 //    }
 
     @PostMapping(value = "moive/Fliter/brief")
-    public Result filterMovies(@RequestBody FilterSetting filter_setting){
+    public Result filterMovies(@RequestBody MovieFilterSetting filter_setting){
         try {
             Pageable p = PageRequest.of(filter_setting.pageNumber,filter_setting.pageSize);
             return Util.success(searchService.filterMoviesBrief(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags,filter_setting.date,filter_setting.state,filter_setting.cinema_name,filter_setting.country,p));
@@ -57,7 +52,7 @@ public class SearchController {
 
     // 返回电影搜索页面下需求的所有该电影相关的信息
     @PostMapping(value = "moive/Fliter/details")
-    public Result filterMoviesDetails(@RequestBody FilterSetting filter_setting){
+    public Result filterMoviesDetails(@RequestBody MovieFilterSetting filter_setting){
         try {
             Pageable p = PageRequest.of(filter_setting.pageNumber,filter_setting.pageSize);
             return Util.success(searchService.filterMoviesDetail(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags,filter_setting.date,filter_setting.state,filter_setting.cinema_name,filter_setting.country,p));
@@ -80,9 +75,22 @@ public class SearchController {
 
     // 按照  关键字获取电影院信息
     @PostMapping(value = "cinema/cinemaFliter")
-    public Result filterCinemas(@RequestParam("cinema_name") String cinema_names){
+    public Result filterCinemas(@RequestBody CinemaFilterSetting cinema_fliter){
         try {
-            return Util.success(searchService.filterCinema(cinema_names));
+            Pageable p = PageRequest.of(cinema_fliter.pageNumber,cinema_fliter.pageSize);
+            return Util.success(searchService.filterCinema(cinema_fliter.key_string,cinema_fliter.grade,p));
+        }catch (Exception e){
+            e.printStackTrace();
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+    // 按照  关键字获取电影院信息
+    @PostMapping(value = "cinemaMng/cinemaMngFliter")
+    public Result filterCinemas(@RequestBody CinemaMngFilterSetting cinemaMng_fliter){
+        try {
+            Pageable p = PageRequest.of(cinemaMng_fliter.pageNumber,cinemaMng_fliter.pageSize);
+            return Util.success(searchService.filterCinemaMng(cinemaMng_fliter.mngUsername,cinemaMng_fliter.mngSex,cinemaMng_fliter.mngCinema,cinemaMng_fliter.prio,p));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -91,7 +99,7 @@ public class SearchController {
 
     // requestBody classes
     @Data
-    private static class FilterSetting{
+    private static class MovieFilterSetting {
         // 上映年份区间
         Integer start_year;
         Integer end_year;
@@ -117,6 +125,25 @@ public class SearchController {
         public String toString() {
             return "start_year"+start_year+" end_year"+end_year+" tags"+tags;
         }
+    }
+
+
+    @Data
+    private static class CinemaFilterSetting {
+        // 上映年份区间
+        Integer grade;
+        String key_string;
+        int pageNumber;
+        int pageSize;
+    }
+    @Data
+    private static class CinemaMngFilterSetting{
+        String mngUsername;
+        String mngSex;
+        String mngCinema;
+        Integer prio;
+        int pageNumber;
+        int pageSize;
     }
 
 

@@ -64,14 +64,16 @@ public class MovieService {
         return  jsonObject;
     }
 
-    public JSONObject getMovieDetail(Long movie_id){
+    public JSONObject getMovieDetail(Long movie_id,Long user_id){
         JSONObject jsonObject=new JSONObject();
         Movie movie=movieRepository.findById(movie_id).get();
         JSONArray staffs = getTakePartInfos(movie_id);
-
         jsonObject.put("movie_info",movie);
         jsonObject.put("tags_info",movie.getTagList());
         jsonObject.put("staff_info",staffs);
+        List<Comment> comments = commentRepository.findAllByUser_IdAndMovie_Id(user_id,movie_id);
+        if(comments.size()!=0)
+            jsonObject.put("comment",comments.get(0));
         return  jsonObject;
 
     }
