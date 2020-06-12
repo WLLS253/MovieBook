@@ -43,8 +43,9 @@ public class CinemaService {
     @Autowired
     private  FigureRepository figureRepository;
 
-    public  Hall addCinemaHall(String cinemaName, Hall hall,List<MultipartFile>fileList){
-        List<Cinema >cinemaList=cinemaRepository.findByCinemaName(cinemaName);
+    public  Hall addCinemaHall(Cinema cinema, Hall hall,List<MultipartFile>fileList){
+
+
 
 
         List<Figure>figures=new ArrayList<>();
@@ -59,15 +60,10 @@ public class CinemaService {
             }
         }
         hall.setFigureList(figures);
-        Cinema cinema;
-        if(cinemaList.size()>0){
-            cinema=cinemaList.get(0);
             hall.setCinema(cinema);
             System.out.println(hall);
             return  hallRepository.save(hall);
-        }else {
-            return  null;
-        }
+
     }
 
     public  Schedual addSchedule(Long movieId,Long hallId,Long cinemaId,String startTime,String endTime,Double price,String description) throws ParseException {
