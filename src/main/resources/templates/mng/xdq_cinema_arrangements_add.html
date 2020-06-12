@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>新增排片管理</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
+    <meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
+    <meta name="author" content="yinqi">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.js"></script>
+
+    <!--<link rel="stylesheet" href="style/index.css">-->
+</head>
+
+<body>
+<div class="lyear-layout-web" >
+    <div class="lyear-layout-container">
+        <!--左侧导航-->
+        <aside class="lyear-layout-sidebar">
+
+            <!-- logo -->
+            <div id="logo" class="sidebar-header">
+
+                <a href="index_xdq_new.html"><img src="images/Cinema_logo_small_new.png" title="LightYear" alt="LightYear" /></a>
+            </div>
+            <div class="lyear-layout-sidebar-scroll">
+
+                <nav class="sidebar-main">
+                    <ul class="nav nav-drawer">
+                        <li class="nav-item"> <a href="index_xdq_new.html"><i class="mdi mdi-home"></i> 影院管理首页</a> </li>
+                        <li class="nav-item active"> <a href="xdq_cinema_arrangements.html"><i class="mdi mdi-table"></i> 影院排片管理</a> </li>
+                        <li class="nav-item"> <a href="xdq_cinema_rooms.html"><i class="mdi mdi-home-circle"></i> 影院影厅管理</a> </li>
+                        <li class="nav-item"> <a href="xdq_cinema_comments.html"><i class="mdi mdi-comment"></i> 影院评论管理</a> </li>
+                    </ul>
+                </nav>
+
+
+
+
+            </div>
+
+        </aside>
+        <!--End 左侧导航-->
+
+        <!--头部信息-->
+        <header class="lyear-layout-header">
+
+            <nav class="navbar navbar-default">
+                <div class="topbar">
+
+                    <div class="topbar-left">
+                        <div class="lyear-aside-toggler">
+                            <span class="lyear-toggler-bar"></span>
+                            <span class="lyear-toggler-bar"></span>
+                            <span class="lyear-toggler-bar"></span>
+                        </div>
+                        <span class="navbar-page-title"> 影院排片管理 </span>
+                    </div>
+
+                    <ul class="topbar-right">
+                        <li class="dropdown dropdown-profile">
+                            <a href="javascript:void(0)" data-toggle="dropdown">
+                                <img class="img-avatar img-avatar-48 m-r-10" src="images/users/xdq.jpg" alt="徐德全" />
+                                <span>徐德全 <span class="caret"></span></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li> <a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 个人信息</a> </li>
+                                <li> <a href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
+                                <li> <a href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a></li>
+                                <li class="divider"></li>
+                                <li> <a href="lyear_pages_login.html"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
+                            </ul>
+                        </li>
+                        <!--切换主题配色-->
+                        <li class="dropdown dropdown-skin">
+                            <span data-toggle="dropdown" class="icon-palette"><i class="mdi mdi-palette"></i></span>
+                            <ul class="dropdown-menu dropdown-menu-right" data-stopPropagation="true">
+                                <li class="drop-title"><p>主题</p></li>
+                                <li class="drop-skin-li clearfix">
+                  <span>
+                    <input type="radio" name="site_theme" value="default" id="site_theme_1" checked>
+                    <label for="site_theme_1"></label>
+                  </span>
+                                    <span class="inverse">
+                    <input type="radio" name="site_theme" value="dark" id="site_theme_2" checked>
+                    <label for="site_theme_2"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="site_theme" value="translucent" id="site_theme_3">
+                    <label for="site_theme_3"></label>
+                  </span>
+                                </li>
+                                <li class="drop-title"><p>LOGO</p></li>
+                                <li class="drop-skin-li clearfix">
+                  <span class="inverse">
+                    <input type="radio" name="logo_bg" value="default" id="logo_bg_1" checked>
+                    <label for="logo_bg_1"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="logo_bg" value="color_2" id="logo_bg_2">
+                    <label for="logo_bg_2"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="logo_bg" value="color_3" id="logo_bg_3">
+                    <label for="logo_bg_3"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="logo_bg" value="color_4" id="logo_bg_4">
+                    <label for="logo_bg_4"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="logo_bg" value="color_5" id="logo_bg_5">
+                    <label for="logo_bg_5"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="logo_bg" value="color_6" id="logo_bg_6">
+                    <label for="logo_bg_6"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="logo_bg" value="color_7" id="logo_bg_7">
+                    <label for="logo_bg_7"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="logo_bg" value="color_8" id="logo_bg_8">
+                    <label for="logo_bg_8"></label>
+                  </span>
+                                </li>
+                                <li class="drop-title"><p>头部</p></li>
+                                <li class="drop-skin-li clearfix">
+                  <span class="inverse">
+                    <input type="radio" name="header_bg" value="default" id="header_bg_1" checked>
+                    <label for="header_bg_1"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="header_bg" value="color_2" id="header_bg_2">
+                    <label for="header_bg_2"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="header_bg" value="color_3" id="header_bg_3">
+                    <label for="header_bg_3"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="header_bg" value="color_4" id="header_bg_4">
+                    <label for="header_bg_4"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="header_bg" value="color_5" id="header_bg_5">
+                    <label for="header_bg_5"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="header_bg" value="color_6" id="header_bg_6">
+                    <label for="header_bg_6"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="header_bg" value="color_7" id="header_bg_7">
+                    <label for="header_bg_7"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="header_bg" value="color_8" id="header_bg_8">
+                    <label for="header_bg_8"></label>
+                  </span>
+                                </li>
+                                <li class="drop-title"><p>侧边栏</p></li>
+                                <li class="drop-skin-li clearfix">
+                  <span class="inverse">
+                    <input type="radio" name="sidebar_bg" value="default" id="sidebar_bg_1" checked>
+                    <label for="sidebar_bg_1"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="sidebar_bg" value="color_2" id="sidebar_bg_2">
+                    <label for="sidebar_bg_2"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="sidebar_bg" value="color_3" id="sidebar_bg_3">
+                    <label for="sidebar_bg_3"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="sidebar_bg" value="color_4" id="sidebar_bg_4">
+                    <label for="sidebar_bg_4"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="sidebar_bg" value="color_5" id="sidebar_bg_5">
+                    <label for="sidebar_bg_5"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="sidebar_bg" value="color_6" id="sidebar_bg_6">
+                    <label for="sidebar_bg_6"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="sidebar_bg" value="color_7" id="sidebar_bg_7">
+                    <label for="sidebar_bg_7"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="sidebar_bg" value="color_8" id="sidebar_bg_8">
+                    <label for="sidebar_bg_8"></label>
+                  </span>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--切换主题配色-->
+                    </ul>
+
+                </div>
+            </nav>
+
+        </header>
+        <!--End 头部信息-->
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content" >
+            <div class="container-fluid" >
+
+                <div class="row" >
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <ul class="nav nav-tabs page-tabs">
+                                <li class="active"> <a href="#!">新增排片管理</a> </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                    <div class="form-group">
+                                        <label>开始时间</label>
+                                        <!--<input  class="form-control" type="text" placeholder="请输入开始时间" >-->
+                                        <input type='text' class="form-control" id='datetimepicker4'>
+                                        <!--日期选择器-->
+                                        <!--<div class='col-sm-12' >-->
+                                        <!--<input v-model="schedule.start_date" type='text' class="form-control" id='datetimepicker4' />-->
+                                        <!--<input type='text' class="form-control" id='datetimepicker4'>-->
+                                        <!--</div>-->
+                                        <!--<input v-model="schedule.start_date" class="form-control" type="text" placeholder="请输入开始时间" >-->
+                                    </div>
+                                    <div class="form-group">
+                                        <label>结束时间</label>
+                                        <input type='text' class="form-control" id='datetimepicker5' >
+                                        <!--<input v-model="schedule.end_date" class="form-control" type="text" placeholder="请输入结束时间" >-->
+                                    </div>
+                                    <div id="app">
+
+                                        <div class="form-group">
+                                            <label>影片名称（请选择）</label>
+
+                                    <!--<select v-model="selected" class='col-sm-12'>-->
+                                        <select v-model="selected">
+                                        <option v-for="thing in info.movie_infos"  :value="thing.movie_id">{{ setMovieIdAndGetPrice(thing.movie_id,thing.movie_name) }}</option>
+                                    </select>
+                                    <!--&nbsp;&nbsp;&nbsp;-->
+                                    <!--<span>{{ this.schedule.movie_id }}</span>-->
+                                    <!--<div class="container" id="vue">-->
+                                        <!--<row :name="'full time'"><leo-date :date-type="5" :sel-obj="dateObj" :sel-key="'d5'"></leo-date></row>-->
+                                    <!--</div>-->
+                                        </div>
+
+
+                                    <div class="form-group">
+                                        <label>影片id</label>
+                                        <input v-model="schedule.movie_id" class="form-control" type="text" placeholder="请输入影片id" >
+
+                                    </div>
+
+                                        <div class="form-group">
+                                            <label>影院名称（请选择）</label>
+                                            <select v-model="cinema_selected">
+                                                <option v-for="thing in cinema_info.cinemas"  :value="thing.id">{{ setCinemaIdAndGetPrice(thing.id,thing.cinemaName) }}</option>
+                                            </select>
+                                        </div>
+
+                                    <div class="form-group">
+                                        <label>所属影院id</label>
+                                        <input v-model="schedule.cinema_id" class="form-control" type="text" placeholder="请输入所属影院id" >
+                                    </div>
+
+                                        <div class="form-group">
+                                            <label>放映厅名称（请选择）</label>
+                                            <select v-model="hall_selected">
+                                                <option v-for="thing in hall_info"  :value="thing.id">{{ setHallIdAndGetPrice(thing.id,thing.hallName) }}</option>
+                                            </select>
+                                        </div>
+
+                                    <div class="form-group">
+                                        <label>放映厅id</label>
+                                        <input v-model="schedule.hall_id" class="form-control" type="text" placeholder="请输入所属放映厅id" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label>票价</label>
+                                        <input v-model="schedule.price" class="form-control" type="text" placeholder="请输入票价" >
+                                    </div>
+                                    <!--<div class="form-group">-->
+                                        <!--<label>开始时间</label>-->
+                                        <!--<input  class="form-control" type="text" placeholder="请输入开始时间" >-->
+                                        <!--&lt;!&ndash;日期选择器&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<div class='col-sm-12' >&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<input v-model="schedule.start_date" type='text' class="form-control" id='datetimepicker4' />&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<input type='text' class="form-control" id='datetimepicker4'>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<input v-model="schedule.start_date" class="form-control" type="text" placeholder="请输入开始时间" >&ndash;&gt;-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label>结束时间</label>-->
+                                        <!--<input type='text' class="form-control" id='datetimepicker5'>-->
+                                        <!--&lt;!&ndash;<input v-model="schedule.end_date" class="form-control" type="text" placeholder="请输入结束时间" >&ndash;&gt;-->
+                                    <!--</div>-->
+                                    <div class="form-group">
+                                        <label>相关描述</label>
+                                        <input v-model="schedule.description" class="form-control" type="text" placeholder="请输入相关描述" >
+                                        <small class="help-block">注：<code>尽量控制在20字内</code></small>
+                                    </div>
+                                    <!--图片上传-->
+                                    <!--<div class="form-group">-->
+                                    <!--<label for="web_site_logo">LOGO图片</label>-->
+                                    <!--<div class="input-group">-->
+                                    <!--<input type="text" class="form-control" name="web_site_logo" id="web_site_logo" value="/home/images/logo.png" />-->
+                                    <!--<div class="input-group-btn"><button class="btn btn-default" type="button">上传图片</button></div>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <!--开关-->
+                                    <!--<div class="form-group">-->
+                                    <!--<label class="btn-block" for="web_site_status">站点开关</label>-->
+                                    <!--<label class="lyear-switch switch-solid switch-primary">-->
+                                    <!--<input type="checkbox" checked="">-->
+                                    <!--<span></span>-->
+                                    <!--</label>-->
+                                    <!--<small class="help-block">站点关闭后将不能访问，后台可正常登录</small>-->
+                                    <!--</div>-->
+                                    <div>
+                                        <button v-on:click="addSchedule()">提 交</button>
+                                    </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<!--<script type="text/javascript" src="script/components.js"></script>-->
+<!--<script type="text/javascript" src="script/leo-scroll.js"></script>-->
+<!--<script type="text/javascript" src="script/index.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+
+<!-- Date-picker itself -->
+<script src="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/js/bootstrap-datetimepicker.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+<!-- Vue js -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5"></script>
+<!-- Lastly add this package -->
+<script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
+<script>
+    // Initialize as global component
+    Vue.component('date-picker', VueBootstrapDatetimePicker);
+</script>
+
+<script type = "text/javascript">
+    new Vue({
+        el: '#app',
+        data:{
+            info:null,
+            cinema_info:null,
+            hall_info:null,
+            selected:0,
+            cinema_selected:0,
+            hall_selected:0,
+            schedule:{
+                movie_id:null,
+                cinema_id:null,
+                hall_id:null,
+                price:null,
+                start_date:null,
+                end_date:null,
+                description:null,
+            },
+        },
+        methods:{
+            setMovieIdAndGetPrice(movie_id,movie_name){
+                if(this.selected > 0)this.schedule.movie_id = this.info.movie_infos[this.selected-1].movie_id;
+
+                console.log("这次selected为"+this.selected);
+                console.log("这次movie_id为"+this.schedule.movie_id);
+
+                return movie_name;
+            },
+            setCinemaIdAndGetPrice(id,cinemaName){
+                if(this.cinema_selected > 0)this.schedule.cinema_id = this.cinema_info.cinemas[this.cinema_selected-1].id;
+
+                console.log("这次cinema_selected为"+this.cinema_selected);
+                console.log("这次cinema_id为"+this.schedule.cinema_id);
+
+                return cinemaName;
+            },
+            setHallIdAndGetPrice(id,hallName){
+                if(this.hall_selected > 0)this.schedule.hall_id = this.hall_info[this.hall_selected-1].id;
+
+                console.log("这次hall_selected为"+this.hall_selected);
+                console.log("这次hall_id为"+this.schedule.hall_id);
+
+                return hallName;
+            },
+            addSchedule(){
+                // 按 URLSearchParams 方式的话是 application/x-www-form-urlencoded
+                // 否则 将会被 自动  json 化
+                const params = new URLSearchParams();
+                params.append('cinemaId', this.schedule.cinema_id);
+                params.append('describe', this.schedule.description);
+                params.append('end', this.schedule.end_date);
+                params.append('hallId', this.schedule.hall_id);
+                params.append('movieId', this.schedule.movie_id);
+                params.append('price', this.schedule.price);
+                params.append('start', this.schedule.start_date);
+
+                axios.post("http://localhost:8081/shedule/add",params,
+                    {
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                        },
+                        crossdomain: true,
+                    }
+                )
+                    .then(response => {console.log(response)
+                        console.log(this.schedule)
+                        // alert("添加成功！")
+                        // self.location = "xdq_cinema_arrangements.html";
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
+                alert("添加成功！");
+                window.location.href = "http://localhost:8081/mng/xdq_cinema_arrangements.html";
+            },
+            addCinema(){
+                const params = new URLSearchParams();
+                for (let key in this.cinema_info){
+                    params.append(key,this.cinema_info[key])
+                }
+                axios.post("http://localhost:8081/cinema/add",params)
+                    .then(response => {console.log(response)
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            checkOut(){
+                const params = new URLSearchParams();
+                params.append('ticket_infos', JSON.stringify([{row:1,col:1},{row:1,col:2},{row:1,col:3},{row:1,col:4}]));
+                // axios.post("http://localhost:8081/purchase/checkOut",params)
+                //     .then(response => {console.log(response)
+                //     })
+                //     .catch(function (error) { // 请求失败处理
+                //         console.log(error);
+                //     });
+                axios.post("http://localhost:8081/purchase/checkOut",{'ticket_infos':[{row:1,col:1},{row:1,col:2},{row:1,col:3},{row:1,col:4}]})
+                    .then(response => {console.log(response)
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            tester(){
+
+                axios.post("http://localhost:8081/moive/tagFliter",{"start_year":-1,"end_year":3000,"key_string":"普通",tags:["搞笑"]}).then(r=>{
+                    console.log(r)
+                })
+            },
+        },
+        mounted (){
+            const params = {
+                "pageNumber": 0,
+                "pageSize": 10
+            };
+
+            axios.post('http://localhost:8081/moive/Fliter/details',params,
+                {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    crossdomain: true,
+                })
+                .then(response => {
+                    console.log(response);
+                    this.info = response.data.data;
+                    console.log("这是我刚设置的info"+this.info);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+            axios.get('http://localhost:8081/cinema/getList')
+                .then(response => {
+                    console.log(response);
+                    this.cinema_info = response.data.data;
+                    console.log("这是我刚设置的cinema_info"+this.cinema_info);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+            axios.get('http://localhost:8081/cinemaHall/getList?cinema_id=1')
+                .then(response => {
+                    console.log(response);
+                    this.hall_info = response.data.data;
+                    console.log("这是我刚设置的hall_info"+this.hall_info);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+            this.schedule.start_date = "2020-06-13 10:00:00"
+            this.schedule.end_date = "2020-06-13 12:00:00"
+
+            $(function () {
+                $('#datetimepicker4').datetimepicker({
+                    keepOpen:true,
+                });
+                $('#datetimepicker4').data("DateTimePicker").keepOpen(true);
+                $('#datetimepicker5').datetimepicker({
+                    keepOpen:true,
+                });
+                $('#datetimepicker5').data("DateTimePicker").keepOpen(true);
+            });
+        },
+        updated(){
+            // $(function () {
+            //     $('#datetimepicker4').datetimepicker({
+            //         keepOpen:true,
+            //     });
+            //     $('#datetimepicker4').data("DateTimePicker").keepOpen(true);
+            //     $('#datetimepicker5').datetimepicker({
+            //         keepOpen:true,
+            //     });
+            //     $('#datetimepicker5').data("DateTimePicker").keepOpen(true);
+            // });
+        },
+    })
+</script>
+
+<!--<script type="text/javascript">-->
+    <!--$(function() {-->
+        <!--$('#datetimepicker1').datetimepicker();-->
+    <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+
+    <!--$(function () {-->
+        <!--$('#datetimepicker4').datetimepicker({-->
+            <!--keepOpen:true,-->
+        <!--});-->
+        <!--$('#datetimepicker4').data("DateTimePicker").keepOpen(true);-->
+        <!--$('#datetimepicker5').datetimepicker({-->
+            <!--keepOpen:true,-->
+        <!--});-->
+        <!--$('#datetimepicker5').data("DateTimePicker").keepOpen(true);-->
+    <!--});-->
+
+<!--</script>-->
+
+</body>
+</html>

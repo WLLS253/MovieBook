@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue components</title>
+	
+	<link rel="stylesheet" href="style/index.css">
+
+</head>
+<body>
+	
+	<div class="title">leo vue components</div>
+
+	<div class="container" id="vue">
+		
+		<div class="row1">
+			
+			<column :title="'select'">
+				<row :name="'default select'"><leo-select :list="select.list1" :sel-obj="selObj" :sel-key="'s1'" @change="selC1"></leo-select></row>
+				<row :name="'default select'"><leo-select :list="select.list2" :li-type="2" :sel-obj="selObj" :sel-key="'s2'"></leo-select></row>
+				<row :name="'default select'"><leo-select :list="select.list3" :li-type="3" :sel-obj="selObj" :sel-key="'s3'"></leo-select></row>
+
+				<div class="row row-console" >
+					<textarea v-model="selStr"></textarea>
+				</div>
+			</column>			
+
+			<column :title="'datetime'">
+				<row :name="'default date'"><leo-date :sel-obj="dateObj" :sel-key="'d1'" @change="dateC1"></leo-date></row>
+				<row :name="'month date'"><leo-date :date-type="2" :sel-obj="dateObj" :sel-key="'d2'"></leo-date></row>
+				<row :name="'year date'"><leo-date :date-type="3" :sel-obj="dateObj" :sel-key="'d3'"></leo-date></row>
+				<row :name="'hh:mm time'"><leo-date :date-type="4" :sel-obj="dateObj" :sel-key="'d4'"></leo-date></row>
+				<row :name="'full time'"><leo-date :date-type="5" :sel-obj="dateObj" :sel-key="'d5'"></leo-date></row>
+
+				<div class="row row-console" >
+					<textarea v-model="dateStr"></textarea>
+				</div>
+			</column>
+
+		</div>
+
+	</div>
+	
+	<script type="text/javascript" src="script/jquery-3.2.1.min.js"></script>
+	<script src="http://www.jq22.com/jquery/vue.min.js"></script>
+	<script type="text/javascript" src="script/components.js"></script>
+	<script type="text/javascript" src="script/leo-scroll.js"></script>
+	<script type="text/javascript" src="script/index.js"></script>
+
+</body>
+</html>

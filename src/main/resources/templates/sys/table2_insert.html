@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<header>
+    <!-- Title Page-->
+    <title>插入电影</title>
+    <meta charset="UTF-8">
+
+    <!-- Fontfaces CSS-->
+    <link href="/sys/css/font-face.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="/sys/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="/sys/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="/sys/css/theme.css" rel="stylesheet" media="all">
+</header>
+
+<body>
+
+    <div style="position: absolute; left: 30%; width: 90%;">
+        <!-- Vue app 开始 -->
+        <div id="app" class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <strong>插入电影</strong>
+                </div>
+                <div class="card-body card-block">
+                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">电影名称</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input v-model="movie_info.name" type="text" name="text-input" placeholder=""
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="textarea-input" class=" form-control-label">电影简介</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <textarea name="textarea-input" id="textarea-input" rows="9" placeholder=""
+                                    v-model="movie_info.brief" class="form-control" style="height: 150px;">
+                            </textarea>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">电影时长</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input v-model="movie_info.duration" type="text" name="text-input"
+                                    placeholder="" class="form-control">
+                                <small class="help-block form-text">时长格式：HH:mm:ss</small>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">语言</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input v-model="movie_info.language" type="text" name="text-input" placeholder=""
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">上映日期</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input v-model="movie_info.releaseTime" type="date" name="text-input"
+                                    placeholder="请按指定格式输入日期" class="form-control">
+                                <!-- <small class="help-block form-text">日期格式：yyyy-MM-dd HH:mm:ss</small> -->
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">国家/地区</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input v-model="movie_info.country" type="text" name="text-input" placeholder="请输入国家/地区"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">影片海报</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input v-model="movie_info.movie_figure" type="file" id="movie_img_files"
+                                    name="file-input" class="form-control-file">
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div>
+                            <p>添加演员</p>
+
+                        </div>
+                        <br>
+                        <!-- 演员表格 开始 -->
+                        <table class="table table-data2" id="staffList">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <label class="au-checkbox">
+                                            <input type="checkbox" :checked="isAllStaffSelected" @click="selectAll">
+                                            <span class="au-checkmark"></span>
+                                        </label>
+                                    </th>
+                                    <th>演员姓名</th>
+                                    <th>演员简介</th>
+                                    <th>
+                                        <button class="btn btn-danger" type="button" @click="deleteStafffromTable">
+                                            <i class="zmdi zmdi-minus"></i>
+                                        </button>
+                                        <button class="btn btn-success" type="button" data-toggle="modal"
+                                            data-target="#insertStaffModal">
+                                            <i class="zmdi zmdi-plus"></i>
+                                        </button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template v-for="staff in staffs">
+                                    <tr class="tr-shadow">
+                                        <td>
+                                            <label class="au-checkbox">
+                                                <input type="checkbox" v-model="selected_staffs" :value="staff.name"
+                                                    @click="select">
+                                                <span class="au-checkmark"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            {{staff.name}}
+                                        </td>
+                                        <td>
+                                            {{staff.description}}
+                                        </td>
+                                    </tr>
+                                    <tr class="spacer"></tr>
+                                </template>
+
+                                <tr class="spacer"></tr>
+
+                            </tbody>
+                        </table>
+                        <!-- 演员表格结束 -->
+
+                        <!-- <hr>
+                    <p>添加 Tag</p>
+                    <br>
+
+                    <div class="row form-group">
+                        <div class="col col-md-3">
+                            <label for="text-input" class=" form-control-label">标签名</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <input v-model="movie_info.name" type="text" name="text-input" placeholder="请输入标签名"
+                                class="form-control">
+                        </div>
+                    </div> -->
+
+                    </form>
+                    <!-- Debug: movie_info= {{movie_info}}
+                    <br><br>
+                    Debug: selected_staffs: {{selected_staffs}}, -->
+                </div>
+                <div class="card-footer">
+                    <button @click="addMovie" type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> 提交
+                    </button>
+                    <button type="reset" class="btn btn-danger btn-sm">
+                        <i class="fa fa-ban"></i> 取消
+                    </button>
+                </div>
+            </div>
+            <!-- 添加演员框 开始 -->
+
+            <div class="modal fade" id="insertStaffModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+                aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog modal-lg" role="document" style="width: 500px;">
+
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+
+                            <h5 class="modal-title" id="mediumModalLabel">添加演员</h5>
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">演员姓名</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input v-model="staff_info.name" type="text" name="text-input" placeholder=""
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">演员描述</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input v-model="staff_info.description" type="text" name="text-input"
+                                            placeholder="" class="form-control">
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button v-on:click="addStafftoTable" type="button" class="btn btn-primary"
+                                data-dismiss="modal">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 更新框 结束 -->
+
+
+        </div>
+        <!-- vue app 结束 -->
+    </div>
+    <!-- Jquery JS-->
+    <script src="/sys/vendor/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="/sys/vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="/sys/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- /sys/vendor JS       -->
+    <script src="/sys/vendor/slick/slick.min.js">
+    </script>
+    <script src="/sys/vendor/wow/wow.min.js"></script>
+    <script src="/sys/vendor/animsition/animsition.min.js"></script>
+    <script src="/sys/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="/sys/vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="/sys/vendor/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="/sys/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="/sys/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/sys/vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="/sys/vendor/select2/select2.min.js">
+    </script>
+
+    <script src="/sys/js/vue.js"></script>
+    <script src="/sys/js/axios.js"></script>
+
+    <!-- Main JS-->
+    <script src="/sys/js/main.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+
+                movie_info: {
+                    name: null,
+                    brief: null,
+                    duration: null,
+                    language: null,
+                    releaseTime: null,
+                    country: null,
+
+                    // name: "Name1",
+                    // brief: "Brief1",
+                    // duration: "duration1",
+                    // language: "Chinese",
+                    // releaseTime: null,
+                    // country: "China",
+
+                    movie_figure: null,
+                },
+
+                isAllStaffSelected: false,
+                staff_info: {
+                    name: null,
+                    description: null,
+                },
+                staffs: [],
+                selected_staffs: [],
+
+            },
+            methods: {
+                addMovie() {
+
+
+                    let params = new FormData();
+                    var files = document.getElementById("movie_img_files").files;
+                    for (let i = 0; i < files.length; i++) {
+                        params.append("showImage", files[i]);
+                    }
+
+                    this.movie_info.releaseTime = this.movie_info.releaseTime + " 00:00:00"
+
+                    params.append('name', this.movie_info.name);
+                    params.append('brief', this.movie_info.brief);
+                    params.append('duration', this.movie_info.duration);
+                    params.append('language', this.movie_info.language);
+                    params.append('releaseTime', this.movie_info.releaseTime);
+                    params.append('country', this.movie_info.country);
+
+                    let config = {
+                        headers: { "Content-Type": "multipart/form-data" },
+                        onUploadProgress: e => {
+                            var completeProgress = ((e.loaded / e.total * 100) | 0) + "%";
+                            this.progress = completeProgress;
+                        }
+                    }
+
+                    axios.post("http://localhost:8081/movie/add", params, config)
+                        .then(response => {
+                            console.log(response)
+                            data = response.data.data;
+
+                            if (response.data.code == 0) {
+                                alert("插入成功");
+                                window.location.href = "table2.html"
+                            }
+                        })
+                        .catch(function (error) { // 请求失败处理
+                            console.log(error);
+                        });
+
+                    if (this.staffs != null) {
+
+                        for (var s of this.staffs) {
+                            let param = {
+                                'staffBrief': s.description,
+                                'staffName': s.name,
+                            }
+
+                            axios.post("http://localhost:8081/staff/add", param)
+                                .then(response => {
+                                    console.log(response)
+                                    if (response.data.code == 0) {
+                                    }
+                                    else{
+                                        alert("演员插入失败");
+                                    }
+
+                                })
+                                .catch(function (error) { // 请求失败处理
+                                    console.log(error);
+                                });
+
+                        }
+
+                    }
+
+                },
+
+                addStafftoTable() {
+                    if (this.staff_info.name != null && this.staff_info.description != null) {
+                        this.staffs.push({
+                            name: this.staff_info.name,
+                            description: this.staff_info.description,
+                        })
+                    }
+                    else {
+
+                    }
+                },
+                deleteStafffromTable() {
+                    this.selected_staffs.forEach(name => {
+                        let ifFind = false;
+                        let val = name;
+                        let i = 0;
+                        while (i < this.staffs.length) {
+                            if (this.staffs[i].name == val) {
+                                ifFind = true;
+                                break;
+                            }
+                            i++;
+                        }
+                        if (ifFind == true) {
+                            this.staffs.splice(i, 1);
+                        }
+
+                        i = 0;
+                        while (i < this.selected_staffs.length) {
+                            if (this.selected_staffs[i].name == val) {
+                                ifFind = true;
+                                break;
+                            }
+                            i++;
+                        }
+                        if (ifFind == true) {
+                            this.selected_staffs.splice(i, 1);
+                        }
+                    })
+                },
+                selectAll() {
+                    if (this.isAllStaffSelected) {
+                        this.selected_staffs = []
+                        this.isAllStaffSelected = false
+                    } else {
+                        this.selected_staffs = []
+                        for (var staff in this.staffs) {
+                            this.selected_staffs.push(this.staffs[staff].name)
+                        }
+                        this.isAllStaffSelected = true
+                    }
+                },
+                select() {
+                    if (this.selected_staffs.length !== this.staffs.length) {
+                        this.isAllStaffSelected = false
+                    } else {
+                        this.isAllStaffSelected = true
+                    }
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>
