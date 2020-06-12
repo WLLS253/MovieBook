@@ -17,7 +17,7 @@
 //        System.out.println(project);
 //        JSONObject jsonObject=new JSONObject();
 //        jsonObject.put("id",project.getId());
-//        jsonObject.put("title",project.getTitle());
+//        jsonObject.put("score",project.getScore());
 //        jsonObject.put("endTime",project.getEndTime().toString());
 //        jsonObject.put("location",project.getLocation());
 //        jsonObject.put("picture",project.getPicture());
@@ -82,7 +82,7 @@
 //
 //    public JSONObject getAppliersJSON(Project project){
 //        JSONObject jsonObject=new JSONObject();
-//        jsonObject.put("title",project.getTitle());
+//        jsonObject.put("score",project.getScore());
 //        List<Post>postList=project.getPosts();
 //        JSONArray posts=new JSONArray();
 //        JSONObject postTest=new JSONObject();

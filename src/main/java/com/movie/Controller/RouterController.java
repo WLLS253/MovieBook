@@ -1,6 +1,8 @@
 package com.movie.Controller;
 
 
+import com.movie.Serivce.StatisticsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,10 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class RouterController {
 
+    @Autowired
+    private StatisticsService statisticsService;
+
     @RequestMapping({"/","/index"})
     public String index(){
         return "user/"+"index";
     }
+
+
     @RequestMapping({"/mng","/mng/index"})
     public String mngIndex(){
         return "mng/index_xdq_new";
@@ -30,6 +37,7 @@ public class RouterController {
     @RequestMapping({"/user","/user/index"})
     public String userIndex(){
 
+        statisticsService.addIndexVisitor();
         System.out.println("asdsdadad");
         return "user/index";
     }

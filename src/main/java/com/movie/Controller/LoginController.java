@@ -98,7 +98,9 @@ public class LoginController {
                     response.setHeader("type", String.valueOf(Role.CinemaMng));
 
                     cookieService.writeCookie(response,"id",cinemaMng.getId().toString());
-                    cookieService.writeCookie(response,"type", String.valueOf(Role.CinemaMng));
+                    cookieService.writeCookie(response,"type3", String.valueOf(Role.CinemaMng));
+                    cookieService.writeCookie(response,"name",cinemaMng.getMngUsername());
+                    cookieService.writeCookie(response,"image",cinemaMng.getShowImage());
                     return  Util.success(cinemaMng);
                 }else {
                     return  Util.failure(ExceptionEnums.PASSWORD_ERROR);
@@ -125,17 +127,23 @@ public class LoginController {
             user.setUserEmail(email);
             user.setUserSex(sex);
             user.setUserPhone(phone);
+
             if(file!=null){
                 String image=uploadSerivce.upImageFire(file);
                 user.setShowimage(image);
             }
+
             User result=userRepository.save(user);
             String token=tokenService.generateToken(result.getId().toString());
             response.setHeader("isLogin","true");
             response.setHeader("token",token);
             response.setHeader("type", String.valueOf(Role.User));
+
             cookieService.writeCookie(response,"id",result.getId().toString());
             cookieService.writeCookie(response,"type", String.valueOf(Role.User));
+            cookieService.writeCookie(response,"name",result.getUsername());
+            cookieService.writeCookie(response,"image",result.getShowimage());
+
             return  Util.success(userRepository.save(user));
         }catch (Exception e){
             e.printStackTrace();
@@ -155,6 +163,7 @@ public class LoginController {
                     response.setHeader("type", String.valueOf(Role.SystemMng));
                     request.getSession().setAttribute("id",assessor.getId());
                     cookieService.writeCookie(response,"id",assessor.getId().toString());
+                    cookieService.writeCookie(response,"type", String.valueOf(Role.User));
                     return  Util.success(assessor);
                 }else {
                     return  Util.failure(ExceptionEnums.PASSWORD_ERROR);

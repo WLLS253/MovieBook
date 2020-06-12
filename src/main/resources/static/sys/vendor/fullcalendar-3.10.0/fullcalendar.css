@@ -821,7 +821,7 @@ NOTE: use percentage font sizes or else old IE chokes
   /* extra precedence to override button border margins */
   margin-left: 0; }
 
-/* title text */
+/* score text */
 .fc-toolbar h2 {
   margin: 0; }
 
@@ -1108,14 +1108,14 @@ be a descendant of the grid when it is being dragged.
   font-size: .85em;
   white-space: nowrap; }
 
-/* short mode, where time and title are on the same line */
+/* short mode, where time and score are on the same line */
 .fc-time-grid-event.fc-short .fc-content {
   /* don't wrap to second line (now that contents will be inline) */
   white-space: nowrap; }
 
 .fc-time-grid-event.fc-short .fc-time,
 .fc-time-grid-event.fc-short .fc-title {
-  /* put the time and title on the same line */
+  /* put the time and score on the same line */
   display: inline-block;
   vertical-align: top; }
 
@@ -1133,7 +1133,7 @@ be a descendant of the grid when it is being dragged.
 
 .fc-time-grid-event.fc-short .fc-title {
   font-size: .85em;
-  /* make the title text the same size as the time */
+  /* make the score text the same size as the time */
   padding: 0;
   /* undo padding from above */ }
 
@@ -1254,7 +1254,7 @@ be a descendant of the grid when it is being dragged.
   white-space: nowrap;
   width: 1px; }
 
-/* make the dot closer to the event title */
+/* make the dot closer to the event score */
 .fc-ltr .fc-list-item-marker {
   padding-right: 0; }
 
@@ -1262,7 +1262,7 @@ be a descendant of the grid when it is being dragged.
   padding-left: 0; }
 
 .fc-list-item-title a {
-  /* every event title cell has an <a> tag */
+  /* every event score cell has an <a> tag */
   text-decoration: none;
   color: inherit; }
 

@@ -2,6 +2,7 @@ package com.movie.Repository;
 
 import com.movie.Entity.Comment;
 import com.movie.Entity.Movie;
+import com.movie.Entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +23,11 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
     @Query(value = "SELECT c FROM Comment c where c.movie.id=?1")
     /*@Query(nativeQuery = true,value = "SELECT c.id, FROM Comment c where c.movie.id=?1")*/
     Page<Comment> getAllByMovieOrderByCreatedTime(Long movie_id, Pageable pageable);
+
+
+    List<Comment>findByUserAndMovie(User user,Movie movie);
+
+
 
 
 }

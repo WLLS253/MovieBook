@@ -22,8 +22,10 @@ public class Comment extends BaseEntity{
     @Column(columnDefinition = "bigint", nullable = false)
     protected Long id;
 
-    @Column(name = "title", nullable = true, length = 30)
-    private String title;
+
+    @Column(name = "score", nullable = true, length = 30)
+    private String score;
+
 
     @Column(name = "content", nullable = true, length = 400)
     private String content;
@@ -31,6 +33,7 @@ public class Comment extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
 
     @ManyToOne
     @JoinColumn(name = "movie_id")

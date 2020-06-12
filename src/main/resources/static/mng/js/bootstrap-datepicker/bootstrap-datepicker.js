@@ -127,7 +127,7 @@
 		this.viewMode = this.o.startView;
 
 		if (this.o.calendarWeeks)
-			this.picker.find('thead .datepicker-title, tfoot .today, tfoot .clear')
+			this.picker.find('thead .datepicker-score, tfoot .today, tfoot .clear')
 						.attr('colspan', function(i, val){
 							return parseInt(val) + 1;
 						});
@@ -947,7 +947,7 @@
 					}
 				}
 
-				html += '<span class="' + classes.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + thisYear + '</span>';
+				html += '<span class="' + classes.join(' ') + '"' + (tooltip ? ' score="' + tooltip + '"' : '') + '>' + thisYear + '</span>';
 				thisYear += step;
 			}
 			view.find('td').html(html);
@@ -976,7 +976,7 @@
 			this.picker.find('tfoot .clear')
 						.text(cleartxt)
 						.toggle(this.o.clearBtn !== false);
-			this.picker.find('thead .datepicker-title')
+			this.picker.find('thead .datepicker-score')
 						.text(this.o.title)
 						.toggle(this.o.title !== '');
 			this.updateNavArrows();
@@ -1031,7 +1031,7 @@
 				}
 
 				clsName = $.unique(clsName);
-				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
+				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' score="'+tooltip+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
 				tooltip = null;
 				if (prevMonth.getUTCDay() === this.o.weekEnd){
 					html.push('</tr>');
@@ -1996,7 +1996,7 @@
 		},
 		headTemplate: '<thead>'+
 			              '<tr>'+
-			                '<th colspan="7" class="datepicker-title"></th>'+
+			                '<th colspan="7" class="datepicker-score"></th>'+
 			              '</tr>'+
 							'<tr>'+
 								'<th class="prev">&laquo;</th>'+

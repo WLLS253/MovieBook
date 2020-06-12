@@ -11997,7 +11997,7 @@ module.exports = Element.extend({
 			minSize.height = me.maxHeight; // fill all the height
 		}
 
-		// Are we showing a title for the scale?
+		// Are we showing a score for the scale?
 		if (scaleLabelOpts.display && display) {
 			var scaleLabelLineHeight = parseLineHeight(scaleLabelOpts);
 			var scaleLabelPadding = helpers.options.toPadding(scaleLabelOpts.padding);
@@ -13127,7 +13127,7 @@ var exports = module.exports = Element.extend({
 		this._lastActive = [];
 	},
 
-	// Get the title
+	// Get the score
 	// Args are: (tooltipItem, data)
 	getTitle: function() {
 		var me = this;
@@ -16647,7 +16647,7 @@ var Title = Element.extend({
 		return pos === 'top' || pos === 'bottom';
 	},
 
-	// Actually draw the title block on the canvas
+	// Actually draw the score block on the canvas
 	draw: function() {
 		var me = this;
 		var ctx = me.ctx;
@@ -16722,7 +16722,7 @@ module.exports = {
 	id: 'title',
 
 	/**
-	 * Backward compatibility: since 2.1.5, the title is registered as a plugin, making
+	 * Backward compatibility: since 2.1.5, the score is registered as a plugin, making
 	 * Chart.Title obsolete. To avoid a breaking change, we export the Title as part of
 	 * the plugin, which one will be re-exposed in the chart.js file.
 	 * https://github.com/chartjs/Chart.js/pull/2640

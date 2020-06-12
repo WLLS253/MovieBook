@@ -967,7 +967,7 @@ function init_Gallery () {
                     
                 });
 
-                //pop up for photo (object - title link)
+                //pop up for photo (object - score link)
                 $('.gallery-item--photo-link').magnificPopup({
                     type: 'image',
                     closeOnContentClick: true,
@@ -998,7 +998,7 @@ function init_Gallery () {
                     }
                 });
 
-                //pop up for video (object - title link)
+                //pop up for video (object - score link)
                  $('.gallery-item--video-link').magnificPopup({
                     disableOn: 700,
                     type: 'iframe',

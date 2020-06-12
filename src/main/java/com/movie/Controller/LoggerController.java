@@ -8,12 +8,14 @@ import com.movie.Result.Result;
 import com.movie.Serivce.LoggerService;
 import com.movie.Util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@Transactional
 @RestController
 public class LoggerController {
 
@@ -24,14 +26,26 @@ public class LoggerController {
     private LoggerService loggerService;
 
     @PostMapping(value = "myLogger/getBydate")
-    public Result getLogger(@RequestParam("date") String Date){
+    public Result getLogger(@RequestParam("dateAfter") String Date,@RequestParam(value = "dateBefore",required = false)String date2){
         try {
-            return Util.success(loggerService.getLoggeer(Date));
+            return Util.success(loggerService.getLoggeer(Date,date2));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
+    @PostMapping(value = "myLogger/getByOnedate")
+    public Result getLoggerOneDay(@RequestParam("date")String Date){
+        try {
+            return Util.success(loggerService.getLoggerOneDay(Date));
+        }catch (Exception e){
+            e.printStackTrace();
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+
 
     @PostMapping(value = "myLogger/getRecent")
     public Result getLoggerRecent(){
@@ -77,6 +91,8 @@ public class LoggerController {
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
+
 
     @DeleteMapping(value = "myLogger/delByDate")
     public Result delLoggerByDate(@RequestParam("date")String date){

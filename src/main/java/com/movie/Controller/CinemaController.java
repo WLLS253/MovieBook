@@ -343,7 +343,6 @@ public class CinemaController {
 
         private Long cinemaId;
 
-
         private String cinemaName;
 
         private String location;

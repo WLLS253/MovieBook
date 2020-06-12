@@ -44,9 +44,6 @@ public class Cinema extends  BaseEntity {
         String[] strs= this.cover_img_url.split("/");
         return UploadSerivce.uploadServer+ strs[strs.length-1];
     }*/
-
-
-
     public Cinema() {
         this.figureList = new ArrayList<>();
     }

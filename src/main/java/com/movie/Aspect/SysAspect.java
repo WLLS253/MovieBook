@@ -50,8 +50,8 @@ public class SysAspect {
 
         if(type==null||(!type.equals("SystemMng"))){
             throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_Sys);
-
         }
+
     }
 
 
