@@ -90,7 +90,7 @@ public class SearchController {
     public Result filterCinemas(@RequestBody CinemaMngFilterSetting cinemaMng_fliter){
         try {
             Pageable p = PageRequest.of(cinemaMng_fliter.pageNumber,cinemaMng_fliter.pageSize);
-            return Util.success(searchService.filterCinemaMng(cinemaMng_fliter.mngUsername,cinemaMng_fliter.mngSex,cinemaMng_fliter.mngCinema,cinemaMng_fliter.prio,p));
+            return Util.success(searchService.filterCinemaMng(cinemaMng_fliter.mng_username,cinemaMng_fliter.mng_sex,cinemaMng_fliter.mng_cinema,cinemaMng_fliter.prio,p));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -138,9 +138,9 @@ public class SearchController {
     }
     @Data
     private static class CinemaMngFilterSetting{
-        String mngUsername;
-        String mngSex;
-        String mngCinema;
+        String mng_username;
+        String mng_sex;
+        String mng_cinema;
         Integer prio;
         int pageNumber;
         int pageSize;

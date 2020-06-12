@@ -122,10 +122,9 @@ public class SearchService {
         return jsonObject;
     }
 
-    // 根据名称关键字来过滤 电影院
+    // 根据特定内容来过滤 电影管理员
     public JSONObject filterCinemaMng(String keyString,String sex,String cinema_name,Integer prio,Pageable pageable){
         JSONObject jsonObject = new JSONObject();
-        //TODO cienma的地区问题
         if(cinema_name!=null)
             cinema_name = getRegexString(cinema_name);
         if(keyString!=null)
