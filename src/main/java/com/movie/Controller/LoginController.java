@@ -169,7 +169,8 @@ public class LoginController {
                     response.setHeader("type", String.valueOf(Role.SystemMng));
                     request.getSession().setAttribute("id",assessor.getId());
                     cookieService.writeCookie(response,"id",assessor.getId().toString());
-                    cookieService.writeCookie(response,"type", String.valueOf(Role.User));
+                    cookieService.writeCookie(response,"type2", String.valueOf(Role.SystemMng));
+                    cookieService.writeCookie(response,"sysName",assessor.getAssessorName());
                     return  Util.success(assessor);
                 }else {
                     return  Util.failure(ExceptionEnums.PASSWORD_ERROR);

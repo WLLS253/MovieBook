@@ -26,7 +26,7 @@ public class ExceptionHandle {
           case 16:
               return "mng/xdq_cinema_login";
           case 17:
-               return "sys/index";
+               return "sys/login";
           case 15:
               return "index";
           default:

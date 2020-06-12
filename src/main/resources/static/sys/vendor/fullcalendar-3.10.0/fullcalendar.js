@@ -3860,7 +3860,7 @@ var View = /** @class */ (function (_super) {
     };
     /* Title and Date Formatting
     ------------------------------------------------------------------------------------------------------------------*/
-    // Computes what the score at the top of the calendar should be for this view
+    // Computes what the title at the top of the calendar should be for this view
     View.prototype.computeTitle = function (dateProfile) {
         var unzonedRange;
         // for views that span a large unit of time, show the proper interval, ignoring stray days before and after
@@ -3875,7 +3875,7 @@ var View = /** @class */ (function (_super) {
             end: this.calendar.msToMoment(unzonedRange.endMs, dateProfile.isRangeAllDay)
         }, dateProfile.isRangeAllDay, this.opt('titleFormat') || this.computeTitleFormat(dateProfile), this.opt('titleRangeSeparator'));
     };
-    // Generates the format string that should be used to generate the score for the current date range.
+    // Generates the format string that should be used to generate the title for the current date range.
     // Attempts to compute the most appropriate format if not explicitly specified with `titleFormat`.
     View.prototype.computeTitleFormat = function (dateProfile) {
         var currentRangeUnit = dateProfile.currentRangeUnit;
@@ -7829,7 +7829,7 @@ var DayGrid = /** @class */ (function (_super) {
         var title = this.getCellDate(row, col).format(this.opt('dayPopoverFormat'));
         var content = $('<div class="fc-header ' + theme.getClass('popoverHeader') + '">' +
             '<span class="fc-close ' + theme.getIconClass('close') + '"></span>' +
-            '<span class="fc-score">' +
+            '<span class="fc-title">' +
             util_1.htmlEscape(title) +
             '</span>' +
             '<div class="fc-clear"/>' +
@@ -13363,7 +13363,7 @@ var TimeGridEventRenderer = /** @class */ (function (_super) {
                     '</div>' :
                 '') +
             (eventDef.title ?
-                '<div class="fc-score">' +
+                '<div class="fc-title">' +
                     util_1.htmlEscape(eventDef.title) +
                     '</div>' :
                 '') +
@@ -13461,8 +13461,8 @@ var TimeGridEventRenderer = /** @class */ (function (_super) {
         for (i = 0; i < segs.length; i++) {
             seg = segs[i];
             seg.el.css(this.generateFgSegHorizontalCss(seg));
-            // if the event is short that the score will be cut off,
-            // attach a className that condenses the score into the time area.
+            // if the event is short that the title will be cut off,
+            // attach a className that condenses the title into the time area.
             if (seg.footprint.eventDef.title && seg.bottom - seg.top < 30) {
                 seg.el.addClass('fc-short'); // TODO: "condensed" is a better name
             }
@@ -13860,7 +13860,7 @@ var DayGridEventRenderer = /** @class */ (function (_super) {
             }
         }
         titleHtml =
-            '<span class="fc-score">' +
+            '<span class="fc-title">' +
                 (util_1.htmlEscape(eventDef.title || '') || '&nbsp;') + // we always want one line of height
                 '</span>';
         return '<a class="' + classes.join(' ') + '"' +
@@ -14313,7 +14313,7 @@ var ListEventRenderer = /** @class */ (function (_super) {
                 '') +
             '></span>' +
             '</td>' +
-            '<td class="fc-list-item-score ' + theme.getClass('widgetContent') + '">' +
+            '<td class="fc-list-item-title ' + theme.getClass('widgetContent') + '">' +
             '<a' + (url ? ' href="' + util_1.htmlEscape(url) + '"' : '') + '>' +
             util_1.htmlEscape(eventDef.title || '') +
             '</a>' +
@@ -14437,7 +14437,7 @@ module.exports = exportHooks;
 Object.defineProperty(exports, "__esModule", { value: true });
 var $ = __webpack_require__(3);
 var util_1 = __webpack_require__(4);
-/* Toolbar with buttons and score
+/* Toolbar with buttons and title
 ----------------------------------------------------------------------------------------------------------------------*/
 var Toolbar = /** @class */ (function () {
     function Toolbar(calendar, toolbarOptions) {

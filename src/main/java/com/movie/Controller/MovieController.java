@@ -76,7 +76,7 @@ public class MovieController {
         Movie movie1=new Movie();
         movie1.setBrief(movieInformation.brief);
         movie1.setCountry(movieInformation.country);
-        movie1.setDuration(movieInformation.brief);
+        movie1.setDuration(movieInformation.duration);
         movie1.setReleaseTime(releaseTime);
         movie1.setLanguage(movieInformation.language);
         movie1.setState(movieInformation.state);
