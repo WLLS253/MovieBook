@@ -74,7 +74,6 @@ public class MovieService {
         if(comments.size()!=0)
             jsonObject.put("comment",comments.get(0));
         return  jsonObject;
-
     }
 
 

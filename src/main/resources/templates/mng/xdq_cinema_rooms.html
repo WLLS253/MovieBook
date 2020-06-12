@@ -10,11 +10,14 @@
     <link href="css/materialdesignicons.min.css" rel="stylesheet">
     <link href="css/style.min.css" rel="stylesheet">
 
+    <script src="js/vue.js"></script>
+    <script src="js/axios.js"></script>
+
     <!--对话框-->
     <link rel="stylesheet" href="js/jconfirm/jquery-confirm.min.css">
 </head>
 
-<body data-theme="dark">
+<body data-theme="default">
 <div class="lyear-layout-web">
     <div class="lyear-layout-container">
         <!--左侧导航-->
@@ -22,7 +25,7 @@
 
             <!-- logo -->
             <div id="logo" class="sidebar-header">
-                
+
                 <a href="index_xdq_new.html"><img src="images/Cinema_logo_small_new.png" title="LightYear" alt="LightYear" /></a>
             </div>
             <div class="lyear-layout-sidebar-scroll">
@@ -36,9 +39,9 @@
                     </ul>
                 </nav>
 
-                
-                
-                
+
+
+
             </div>
 
         </aside>
@@ -233,51 +236,35 @@
                                     </div>
                                 </form>
 
-                                
+
                                 <div class="toolbar-btn-action">
-                                    <a class="btn btn-success m-r-5 example-p-3" href="#!"><i class="mdi mdi-plus"></i> 新增影厅</a>
+                                    <a class="btn btn-success m-r-5 example-p-3" href="xdq_cinema_rooms_add.html"><i class="mdi mdi-plus"></i> 新增影厅</a>
                                     <a class="btn btn-danger" href="#!"><i class="mdi mdi-window-close"></i> 删除影厅</a>
                                 </div>
                             </div>
 
 
-                            <div class="card-body">
+                            <div class="card-body" id="hall">
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
-                                    <tr>
-                                        <th>
-                                            <label class="lyear-checkbox checkbox-primary">
-                                                <input type="checkbox" id="check-all"><span></span>
-                                            </label>
-                                        </th>
-                                        
-                                        
-                                        <th>编号</th>
-
-                                        
-                                        <th>名称</th>
-
-                                        
-                                        <th>类型</th>
-
-                                        
-                                        <th>座位行数</th>
-
-                                        
-                                        <th>座位列数</th>
-
-                                        
-                                        <th>所属影院</th>
-
-                                        
-                                        <th>补充信息</th>
-
-                                        <th>影厅状态</th>
-
-                                        <th>编辑</th>
-                                    </tr>
-                                    </thead>
+                                        <tr>
+                                            <th>
+                                                <label class="lyear-checkbox checkbox-primary">
+                                                    <input type="checkbox" id="check-all"><span></span>
+                                                </label>
+                                            </th>
+                                            <th>编号</th>
+                                            <th>名称</th>
+                                            <th>类型</th>
+                                            <th>座位行数</th>
+                                            <th>座位列数</th>
+                                            <th>所属影院</th>
+                                            <th>补充信息</th>
+                                            <th>影厅状态</th>
+                                            <th>编辑</th>
+                                        </tr>
+                                        </thead>
                                         <tbody>
                                         <tr>
                                             <td>
@@ -297,6 +284,27 @@
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
                                                     <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr v-for="hall in info">
+                                            <td>
+                                                <label class="lyear-checkbox checkbox-primary">
+                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
+                                                </label>
+                                            </td>
+                                            <td>{{ hall.id }}</td>
+                                            <td>{{ hall.hallName }}影厅</td>
+                                            <td>{{ hall.hallType }}</td>
+                                            <td>{{ hall.row }}行</td>
+                                            <td>{{ hall.col }}列</td>
+                                            <td>{{ hall.cinema.cinemaName }}影院</td>
+                                            <td>{{ hall.cinema.cinemaDescription }}</td>
+                                            <td><font class="text-success">放映中</font></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a class="btn btn-xs btn-default" v-on:click="updateHall(hall.cinema.id,hall.col,hall.id,hall.hallName,hall.hallType,hall.layout,hall.row)" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                    <a class="btn btn-xs btn-default" v-on:click="deleteHall(hall.id)" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -382,54 +390,54 @@
 
 <script src="js/jconfirm/jquery-confirm.min.js"></script>
 <script type="text/javascript" src="js/main.min.js"></script>
-<script type="text/javascript">
-    $('.example-p-3').on('click', function () {
-        $.confirm({
-            title: '新建影片',
-            content: '' +
-                '<form action="" class="formName">' +
-                '<div class="form-group">' +
-                '<label>请输入影厅名称</label>' +
-                '<input type="text" placeholder="影厅名称" class="name form-control" required />' +
-                '<label>请输入影厅类型</label>' +
-                '<input type="text" placeholder="影厅类型" class="name form-control" required />' +
-                '<label>请设置座位行数</label>' +
-                '<input type="text" placeholder="座位行数" class="name form-control" required />' +
-                '<label>请设置座位列数</label>' +
-                '<input type="text" placeholder="座位列数" class="name form-control" required />' +
-                '<label>请设置所属影院</label>' +
-                '<input type="text" placeholder="所属影院" class="name form-control" required />' +
-                '<label>请补充相关信息</label>' +
-                '<input type="text" placeholder="相关信息" class="name form-control" required />' +
-                '</div>' +
-                '</form>',
-            buttons: {
-                formSubmit: {
-                    text: '提交',
-                    btnClass: 'btn-blue',
-                    action: function () {
-                        var name = this.$content.find('.name').val();
-                        if(!name){
-                            $.alert('请您输入影厅名称');
-                            return false;
-                        }
-                        $.alert('新建影厅名称是： ' + name);
-                    }
-                },
-                cancel: {
-                    text: '取消'
-                },
-            },
-            onContentReady: function () {
-                var jc = this;
-                this.$content.find('form').on('submit', function (e) {
-                    e.preventDefault();
-                    jc.$$formSubmit.trigger('click');
-                });
-            }
-        });
-    });
-</script>
+<!--<script type="text/javascript">-->
+    <!--$('.example-p-3').on('click', function () {-->
+        <!--$.confirm({-->
+            <!--title: '新建影片',-->
+            <!--content: '' +-->
+                <!--'<form action="" class="formName">' +-->
+                <!--'<div class="form-group">' +-->
+                <!--'<label>请输入影厅名称</label>' +-->
+                <!--'<input type="text" placeholder="影厅名称" class="name form-control" required />' +-->
+                <!--'<label>请输入影厅类型</label>' +-->
+                <!--'<input type="text" placeholder="影厅类型" class="name form-control" required />' +-->
+                <!--'<label>请设置座位行数</label>' +-->
+                <!--'<input type="text" placeholder="座位行数" class="name form-control" required />' +-->
+                <!--'<label>请设置座位列数</label>' +-->
+                <!--'<input type="text" placeholder="座位列数" class="name form-control" required />' +-->
+                <!--'<label>请设置所属影院</label>' +-->
+                <!--'<input type="text" placeholder="所属影院" class="name form-control" required />' +-->
+                <!--'<label>请补充相关信息</label>' +-->
+                <!--'<input type="text" placeholder="相关信息" class="name form-control" required />' +-->
+                <!--'</div>' +-->
+                <!--'</form>',-->
+            <!--buttons: {-->
+                <!--formSubmit: {-->
+                    <!--text: '提交',-->
+                    <!--btnClass: 'btn-blue',-->
+                    <!--action: function () {-->
+                        <!--var name = this.$content.find('.name').val();-->
+                        <!--if(!name){-->
+                            <!--$.alert('请您输入影厅名称');-->
+                            <!--return false;-->
+                        <!--}-->
+                        <!--$.alert('新建影厅名称是： ' + name);-->
+                    <!--}-->
+                <!--},-->
+                <!--cancel: {-->
+                    <!--text: '取消'-->
+                <!--},-->
+            <!--},-->
+            <!--onContentReady: function () {-->
+                <!--var jc = this;-->
+                <!--this.$content.find('form').on('submit', function (e) {-->
+                    <!--e.preventDefault();-->
+                    <!--jc.$$formSubmit.trigger('click');-->
+                <!--});-->
+            <!--}-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
 
 <script type="text/javascript">
     $(function(){
@@ -439,6 +447,62 @@
             $('#search-btn').html($(this).text() + ' <span class="caret"></span>');
         });
     });
+</script>
+
+<script type = "text/javascript">
+
+    new Vue({
+        el: '#hall',
+        data () {
+            return {
+                info: null
+            }
+        },
+        methods:{
+            // 时间戳转为中文输出
+            getTime:function(t){
+                var _time=new Date(t);
+                var   year=_time.getFullYear();//2017
+                var   month=_time.getMonth()+1;//7
+                var   date=_time.getDate();//10
+                var   hour=_time.getHours();//10
+                var   minute=_time.getMinutes();//56
+                var   second=_time.getSeconds();//15
+                return   year+"年"+month+"月"+date+"日   "+hour+":"+minute;//这里自己按自己需要的格式拼接
+            },
+
+            updateHall: function(cinemaId,col,hallId,hallName,hallType,layout,row){
+                window.location.href = "http://localhost:8081/mng/xdq_cinema_rooms_update.html?cinemaId="+cinemaId+"&col="+col+"&hallId="+hallId+"&hallName="+hallName+"&hallType="+hallType+"&layout="+layout+"&row="+row;
+            },
+
+            deleteHall: function(hallId){
+                alert("删除成功");
+
+                axios.delete("http://localhost:8081/cinemaHall/del?hallId="+hallId,
+                    {
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                        },
+                        crossdomain: true,
+                    }
+                )
+                    .then(response => {console.log(response)
+                        console.log(this.schedule)
+                        // alert("添加成功！")
+                        // self.location = "xdq_cinema_arrangements.html";
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+                window.location.href = "http://localhost:8081/mng/xdq_cinema_rooms.html"
+            },
+        },
+        mounted () {
+            axios
+                .get('http://localhost:8081/cinemaHall/getList?cinema_id=1')
+                .then(response => (this.info = response.data.data))
+        }
+    })
 </script>
 </body>
 </html>

@@ -9,15 +9,16 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/materialdesignicons.min.css" rel="stylesheet">
     <link href="css/style.min.css" rel="stylesheet">
-    
+
     <script src="js/vue.js"></script>
     <script src="js/axios.js"></script>
+
 
     <!--对话框-->
     <link rel="stylesheet" href="js/jconfirm/jquery-confirm.min.css">
 </head>
 
-<body data-theme="dark">
+<body data-theme="default">
 <div class="lyear-layout-web">
     <div class="lyear-layout-container">
         <!--左侧导航-->
@@ -25,7 +26,7 @@
 
             <!-- logo -->
             <div id="logo" class="sidebar-header">
-                
+
                 <a href="index_xdq_new.html"><img src="images/Cinema_logo_small_new.png" title="LightYear" alt="LightYear" /></a>
             </div>
             <div class="lyear-layout-sidebar-scroll">
@@ -39,9 +40,9 @@
                     </ul>
                 </nav>
 
-                
-                
-                
+
+
+
             </div>
 
         </aside>
@@ -237,12 +238,12 @@
                                     </div>
                                 </form>
 
-                                
+
                                 <div class="toolbar-btn-action">
-                                    
-                                    
-                                    
-                                    <a class="btn btn-primary m-r-5 example-p-3" href="#!"><i class="mdi mdi-plus"></i> 新增</a>
+
+
+
+                                    <a class="btn btn-primary m-r-5 example-p-3" href="xdq_cinema_arrangements_add.html"><i class="mdi mdi-plus"></i> 新增</a>
                                     <a class="btn btn-success m-r-5" href="#!"><i class="mdi mdi-check"></i> 恢复上映</a>
                                     <a class="btn btn-warning m-r-5" href="#!"><i class="mdi mdi-block-helper"></i> 暂停上映</a>
                                     <a class="btn btn-danger" href="#!"><i class="mdi mdi-window-close"></i> 删除</a>
@@ -251,8 +252,11 @@
                             </div>
 
 
-                            <div class="card-body">
+
+
+                            <div class="card-body" id="schedule">
                                 <div class="table-responsive">
+
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
@@ -261,26 +265,26 @@
                                                     <input type="checkbox" id="check-all"><span></span>
                                                 </label>
                                             </th>
-                                            
-                                            
+
+
                                             <th>编号</th>
 
-                                            
+
                                             <th>电影名称</th>
 
-                                            
+
                                             <th>放映厅</th>
 
-                                            
+
                                             <th>票价</th>
 
-                                            
+
                                             <th>开始时间</th>
 
-                                            
+
                                             <th>结束时间</th>
 
-                                            
+
                                             <th>相关描述</th>
 
                                             <th>上映状态</th>
@@ -310,23 +314,24 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr id="schedule" v-for="schedule in info">
+                                        <tr v-for="schedule in info">
                                             <td>
                                                 <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
+                                                    <input type="checkbox" name="ids[]"><span></span>
                                                 </label>
                                             </td>
-                                            <td>{{ schedule.movie_id }}</td>
-                                            <td>{{ schedule.hall_id }}</td>
-                                            <td>{{ schedule.price }}</td>
-                                            <td>{{ schedule.start_date }}</td>
-                                            <td>{{ schedule.end_date }}</td>
-                                            <td>{{ schedule.description }}</td>
+                                            <td>{{ schedule.id }}</td>
+                                            <td>{{ schedule.movie.name }}</td>
+                                            <td>{{ schedule.hall.hallName }}</td>
+                                            <td>{{ schedule.price }}元</td>
+                                            <td>{{ getTime(schedule.startDate) }}</td>
+                                            <td>{{ getTime(schedule.endDate) }}</td>
+                                            <td>{{ schedule.schedDescription }}</td>
                                             <td><font class="text-success">正常上映</font></td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
+                                                    <a class="btn btn-xs btn-default" v-on:click="updateSchedule(schedule.cinema.id,schedule.schedDescription,getTimeForDB(schedule.endDate),schedule.hall.id,schedule.movie.id,schedule.price,schedule.id,getTimeForDB(schedule.startDate))" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                    <a class="btn btn-xs btn-default" v-on:click="deleteSchedule(schedule.id)" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -414,159 +419,6 @@
 
 <script src="js/jconfirm/jquery-confirm.min.js"></script>
 <script type="text/javascript" src="js/main.min.js"></script>
-<script type="text/javascript">
-
-
-    $('.example-p-3').on('click', function () {
-        $.confirm({
-            title: '新建影片',
-            content: '' +
-                '<form action="" class="formName">' +
-                '<div class="form-group" id="vue_test1">' +
-                '<label>请输入影片名称</label>' +
-                '<input id="movie_id" type="text" placeholder="影片名称" class="name form-control" required />' +
-                '<label>请输入所属影院名称</label>' +
-                '<input id="cinema_id" type="text" placeholder="所属影院名称" class="name form-control" required />' +
-                '<label>请输入放映厅名称</label>' +
-                '<input id="hall_id" type="text" placeholder="放映厅名称" class="name form-control" required />' +
-                '<label>请设置票价</label>' +
-                '<input id="price" type="text" placeholder="票价" class="name form-control" required />' +
-                '<label>请输入开始时间</label>' +
-                '<input id="start_date" type="text" placeholder="开始时间" class="name form-control" required />' +
-                '<label>请输入结束时间</label>' +
-                '<input id="end_date" type="text" placeholder="结束时间" class="name form-control" required />' +
-                '<label>请补充相关描述</label>' +
-                '<input id="description" type="text" placeholder="相关描述" class="name form-control" required />' +
-                '<label>请上传logo</label>' +
-                '<input id="logo" type="file"  class="name form-control" name="pic" ref="avatarInput" required />' +
-                '</div>' +
-                '</form>',
-            buttons: {
-                // v-on:click:"addSchedual()",
-                formSubmit: {
-                    text: '提交',
-                    btnClass: 'btn-blue',
-                    action: function () {
-                        var name = this.$content.find('.name').val();
-                        var movie_id = this.$content.find('#movie_id').val();
-                        var cinema_id = this.$content.find('#cinema_id').val();
-                        var hall_id = this.$content.find('#hall_id').val();
-                        var price = this.$content.find('#price').val();
-                        var start_date = this.$content.find('#start_date').val();
-                        var end_date = this.$content.find('#end_date').val();
-                        var description = this.$content.find('#description').val();
-                        //var thislogo = this.$content.find('#logo').file[0];
-
-                        console.log(movie_id);
-                        const params = new URLSearchParams();
-
-
-                        params.append('cinemaId', cinema_id);
-                        params.append('describe', description);
-                        params.append('end', end_date);
-                        params.append('hallId', hall_id);
-                        params.append('movieId', movie_id);
-                        params.append('price', price);
-                        params.append('start', start_date);
-
-                        axios.post("http://localhost:8081/shedule/add",params)
-                            .then(response => {console.log(response)
-                                console.log(this.schedual)
-                            })
-                            .catch(function (error) { // 请求失败处理
-                                console.log(error);
-                            });
-
-                        // let param = new FormData();
-                        // var file = this.$content.find("#logo")[0].files;
-                        // param.append("cover_img",file[0])
-                        // let config = {
-                        //     //添加请求头
-                        //     headers: { "Content-Type": "multipart/form-data" },
-                        //     //添加上传进度监听事件
-                        //     onUploadProgress: e => {
-                        //         var completeProgress = ((e.loaded / e.total * 100) | 0) + "%";
-                        //         this.progress = completeProgress;
-                        //     }
-                        // };
-                        // axios.post("http://localhost:8081/movie/add", param,config)
-                        //     .then(response => {console.log(response)
-                        //         console.log(this.schedual)
-                        //     })
-                        //     .catch(function (error) { // 请求失败处理
-                        //         console.log(error);
-                        //     });
-
-                        if(!name){
-                            $.alert('请您输入影片名称');
-                            return false;
-                        }
-                        $.alert('新建影片名称是： ' + name);
-                    }
-                },
-                cancel: {
-                    text: '取消'
-                },
-            },
-            onContentReady: function () {
-                var jc = this;
-                this.$content.find('form').on('submit', function (e) {
-                    e.preventDefault();
-                    jc.$$formSubmit.trigger('click');
-                });
-            }
-
-
-        });
-    });
-
-    new Vue({
-        el: '#vue_test1',
-        data:{
-            schedual:{
-                movie_id:null,
-                cinema_id:null,
-                hall_id:null,
-                price:null,
-                start_date:null,
-                end_date:null,
-                description:null,
-            },
-        },
-        methods:{
-            addSchedual:function(){
-                // 按 URLSearchParams 方式的话是 application/x-www-form-urlencoded
-                // 否则 将会被 自动  json 化
-                const params = new URLSearchParams();
-                params.append('movie_id', this.schedual.movie_id);
-                params.append('cinema_id', this.schedual.cinema_id);
-                params.append('hall_id', this.schedual.hall_id);
-                params.append('price', this.schedual.price);
-                params.append('start_date', this.schedual.start_date);
-                params.append('end_date', this.schedual.end_date);
-                params.append('description', this.schedual.description);
-                axios.post("http://localhost:8081/staff/add",params)
-                    .then(response => {console.log(response)
-                        console.log(this.schedual)
-                    })
-                    .catch(function (error) { // 请求失败处理
-                        console.log(error);
-                    });
-            },
-        },
-        mounted () {
-            axios.get('cinema/getScheduals?cinema_id=1')
-                .then(response => {console.log(response)})
-                .catch(function (error) { // 请求失败处理
-                    console.log(error);
-                });
-        },
-
-    })
-
-
-
-</script>
 
 <script type="text/javascript">
     $(function(){
@@ -581,46 +433,10 @@
 
 <script type = "text/javascript">
 
-    //document.cookie = "type" + "="+ "CinemaMng" + ";expires=" + "wqeqeqwe";
-    new Vue({
-        el: '#app1',
-        data () {
-            return {
-                info: null
-            }
-        },
-        mounted () {
-            axios
-                //    经测试已经成功，json文件读取逻辑没问题
-                .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-                // .get('你本机的数据库中json文件地址')
-                .then(response => (this.info = response))
-        }
-    })
-
-    new Vue({
-        el: '#app2',
-        data () {
-            return {
-                info: null
-            }
-        },
-        filters: {
-            currencydecimal (value) {
-                return value.toFixed(2)
-            }
-        },
-        mounted () {
-            axios
-            //    经测试已经成功，json文件读取逻辑没问题
-            .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-                // .get('你本机的数据库中json文件地址')
-                .then(response => (this.info = response.data.bpi))
-
-
-        }
-    })
-
+    var exp = new Date();
+    exp.setTime(exp.getTime() + 20 * 1000),//过期时间 2分钟
+     document.cookie =name+"="+escape(value)+ ";expires=" + exp.toGMTString();
+    console.log(document.cookie);
     new Vue({
         el: '#schedule',
         data () {
@@ -628,10 +444,103 @@
                 info: null
             }
         },
+        methods:{
+            getTimestamp(stamp){
+                console.error(stamp)
+            },
+            // 时间戳转为中文输出
+            getTime:function(t){
+                var _time=new Date(t);
+                var   year=_time.getFullYear();//2017
+                var   month=_time.getMonth()+1;//7
+                var   date=_time.getDate();//10
+                var   hour=_time.getHours();//10
+                var   minute=_time.getMinutes();//56
+                var   second=_time.getSeconds();//15
+                return   year+"年"+month+"月"+date+"日   "+hour+":"+minute;//这里自己按自己需要的格式拼接
+            },
+
+            getTimeForDB:function(t){
+                var _time=new Date(t);
+                var   year=_time.getFullYear();//2017
+                var   month=_time.getMonth()+1;//7
+                var   date=_time.getDate();//10
+                var   hour=_time.getHours();//10
+                var   minute=_time.getMinutes();//56
+                var   second=_time.getSeconds();//15
+                return   year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second;//这里自己按自己需要的格式拼接
+            },
+
+            updateSchedule: function(cinemaId,describe,end,hallId,movieId,price,schedualId,start){
+
+                // alert(cinemaId);
+                // alert(describe);
+                // alert(end);
+                // alert(hallId);
+                // alert(movieId);
+                // alert(price);
+                // alert(schedualId);
+                // alert(start);
+                window.location.href = "http://localhost:8081/mng/xdq_cinema_arrangements_update.html?cinemaId="+cinemaId+"&describe="+describe+"&end="+end+"&hallId="+hallId+"&movieId="+movieId+"&price="+price+"&schedualId="+schedualId+"&start="+start;
+
+                // const params = new URLSearchParams();
+                // params.append('cinemaId', cinemaId);
+                // params.append('describe', describe);
+                // params.append('end', end);
+                // params.append('hallId', hallId);
+                // params.append('movieId', movieId);
+                // params.append('price', price);
+                // params.append('schedualId', schedualId);
+                // params.append('start', start);
+                //
+                // axios.post("http://localhost:8081/shedule/add",params,
+                //     {
+                //         headers: {
+                //             'Access-Control-Allow-Origin': '*',
+                //         },
+                //         crossdomain: true,
+                //     }
+                // )
+                //     .then(response => {console.log(response)
+                //         console.log(this.schedule)
+                //         // alert("添加成功！")
+                //         // self.location = "xdq_cinema_arrangements.html";
+                //     })
+                //     .catch(function (error) { // 请求失败处理
+                //         console.log(error);
+                //     });
+            },
+
+            deleteSchedule: function(sche_id){
+                alert("删除成功");
+
+                axios.delete("http://localhost:8081/schedual/delEasy?sche_id="+sche_id,
+                    {
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                        },
+                        crossdomain: true,
+                    }
+                )
+                    .then(response => {console.log(response)
+                        console.log(this.schedule)
+                        // alert("添加成功！")
+                        // self.location = "xdq_cinema_arrangements.html";
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+                window.location.href = "http://localhost:8081/mng/xdq_cinema_arrangements.html"
+            },
+
+            say: function (message) {
+                alert(message)
+            }
+        },
         mounted () {
             axios
-                .get('cinema/getScheduals')
-                .then(response => (this.info = response.data))
+                .get('http://localhost:8081/cinema/getScheduals?cinema_id=1')
+                .then(response => (this.info = response.data.data))
         }
     })
 </script>
