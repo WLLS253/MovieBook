@@ -33,126 +33,99 @@
     <!-- Main CSS-->
     <link href="/sys/css/theme.css" rel="stylesheet" media="all">
 
+    <style>
+        .pagewrap {
+            padding: 25px 0;
+            -webkit-user-select: none;
+            user-select: none;
+            width: 100%;
+            color: #666;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .pagewrap i {
+            height: 34px;
+            padding: 0;
+            border: 1px solid #ccc;
+            line-height: 34px;
+            border-radius: 3px;
+            width: 34px;
+            display: inline-block;
+            cursor: pointer;
+            margin: 0 4px;
+            vertical-align: middle;
+        }
+
+        .pagewrap i.button {
+            width: 68px;
+        }
+
+        .pagewrap i:hover {
+            border-color: #fdb800;
+            color: #fdb800;
+            animation: buttonshake .4s ease-out forwards;
+        }
+
+        .pagewrap i.current:hover,
+        i.current,
+        i.button:hover {
+            border-color: #fdb800;
+            color: #fdb800;
+            animation: none;
+        }
+
+        .pagewrap i.disabled,
+        i.disabled:hover {
+            background: #EFEFEF;
+            border-color: #EFEFEF;
+            color: #AAA;
+            cursor: text;
+            animation: none;
+        }
+
+        .pagewrap i.ellipsis,
+        i.ellipsis:hover {
+            background: none;
+            border-color: #FFF;
+            color: #AAA;
+            cursor: text;
+            animation: none;
+        }
+
+        @-webkit-keyframes buttonshake {
+            25% {
+                -webkit-transform: rotate(45deg);
+            }
+
+            75% {
+                -webkit-transform: rotate(-45deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(0deg);
+            }
+        }
+
+        @keyframes buttonshake {
+            25% {
+                transform: rotate(45deg);
+            }
+
+            75% {
+                transform: rotate(-45deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+    </style>
+
 </head>
 
 <body class="animsition">
     <div class="page-wrapper">
-        <!-- HEADER MOBILE-->
-        <header class="header-mobile d-block d-lg-none">
-            <div class="header-mobile__bar">
-                <div class="container-fluid">
-                    <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
-                            <img src="images/icon/logo.png" alt="CoolAdmin" />
-                        </a>
-                        <button class="hamburger hamburger--slider" type="button">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <nav class="navbar-mobile">
-                <div class="container-fluid">
-                    <ul class="navbar-mobile__list list-unstyled">
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="index.html">Dashboard 1</a>
-                                </li>
-                                <li>
-                                    <a href="index2.html">Dashboard 2</a>
-                                </li>
-                                <li>
-                                    <a href="index3.html">Dashboard 3</a>
-                                </li>
-                                <li>
-                                    <a href="index4.html">Dashboard 4</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Charts</a>
-                        </li>
-                        <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Tables</a>
-                        </li>
-                        <li>
-                            <a href="form.html">
-                                <i class="far fa-check-square"></i>Forms</a>
-                        </li>
-                        <li>
-                            <a href="calendar.html">
-                                <i class="fas fa-calendar-alt"></i>Calendar</a>
-                        </li>
-                        <li>
-                            <a href="map.html">
-                                <i class="fas fa-map-marker-alt"></i>Maps</a>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-copy"></i>Pages</a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="login.html">Login</a>
-                                </li>
-                                <li>
-                                    <a href="register.html">Register</a>
-                                </li>
-                                <li>
-                                    <a href="forget-pass.html">Forget Password</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-desktop"></i>UI Elements</a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="button.html">Button</a>
-                                </li>
-                                <li>
-                                    <a href="badge.html">Badges</a>
-                                </li>
-                                <li>
-                                    <a href="tab.html">Tabs</a>
-                                </li>
-                                <li>
-                                    <a href="card.html">Cards</a>
-                                </li>
-                                <li>
-                                    <a href="alert.html">Alerts</a>
-                                </li>
-                                <li>
-                                    <a href="progress-bar.html">Progress Bars</a>
-                                </li>
-                                <li>
-                                    <a href="modal.html">Modals</a>
-                                </li>
-                                <li>
-                                    <a href="switch.html">Switchs</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grids</a>
-                                </li>
-                                <li>
-                                    <a href="fontawesome.html">Fontawesome Icon</a>
-                                </li>
-                                <li>
-                                    <a href="typo.html">Typography</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <!-- END HEADER MOBILE-->
 
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
@@ -165,7 +138,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
+                        <li>
                             <a href="index.html">
                                 <i class="fas fa-tachometer-alt"></i>控制台</a>
                         </li>
@@ -178,7 +151,7 @@
                                 <i class="fas fa-table"></i>用户管理</a>
                         </li>
 
-                        <li>
+                        <li class="active has-sub">
                             <a href="table2.html">
                                 <i class="fas fa-table"></i>电影管理</a>
                         </li>
@@ -188,67 +161,86 @@
                                 <i class="fas fa-table"></i>影院管理</a>
                         </li>
 
+                        <li>
+                            <a href="table4.html">
+                                <i class="fas fa-table"></i>日志管理</a>
+                        </li>
+
+                        <li>
+                            <a href="table5.html">
+                                <i class="fas fa-table"></i>电影评论管理</a>
+                        </li>
+
                     </ul>
                 </nav>
             </div>
         </aside>
         <!-- END MENU SIDEBAR-->
 
-        <!-- PAGE CONTAINER-->
-        <div class="page-container">
-            <!-- HEADER DESKTOP-->
-            <header class="header-desktop">
-                <div class="section__content section__content--p30">
-                    <div class="container-fluid">
-                        <div class="header-wrap">
-                            <form class="form-header" action="" method="POST">
-                                <input class="au-input au-input--xl" type="text" name="search"
-                                    placeholder="搜索数据和报告..." />
-                                <button class="au-btn--submit" type="submit">
-                                    <i class="zmdi zmdi-search"></i>
-                                </button>
-                            </form>
-                            <div class="header-button">
+        <!-- vue app 开始 -->
+        <div id="app">
 
-                                <div class="account-wrap">
-                                    <div class="account-item clearfix js-item-menu">
-                                        <div class="image">
-                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                                        </div>
-                                        <div class="content">
-                                            <a class="js-acc-btn" href="#">Jason</a>
-                                        </div>
-                                        <div class="account-dropdown js-dropdown">
-                                            <div class="info clearfix">
-                                                <div class="image">
-                                                    <a href="#">
-                                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                                                    </a>
-                                                </div>
-                                                <div class="content">
-                                                    <h5 class="name">
-                                                        <a href="#">Jason</a>
-                                                    </h5>
-                                                    <span class="email">Jason@outlook.com</span>
-                                                </div>
+            <!-- PAGE CONTAINER-->
+            <div class="page-container">
+                <!-- HEADER DESKTOP-->
+                <header class="header-desktop">
+                    <div class="section__content section__content--p30">
+                        <div class="container-fluid">
+                            <div class="header-wrap">
+
+                                <!-- 搜索框 开始 -->
+
+                                <div class="form-header">
+                                    <input class="au-input au-input--xl" v-model="searched_movie_name" type="text"
+                                        name="search" placeholder="搜索电影..." />
+                                    <button class="au-btn--submit" @click="searchMovie">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                </div>
+                                <!-- 搜索框 结束 -->
+
+                                <div class="header-button">
+
+                                    <div class="account-wrap">
+                                        <div class="account-item clearfix js-item-menu">
+                                            <div class="image">
+                                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
                                             </div>
-                                            <div class="account-dropdown__body">
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-account"></i>账户</a>
+                                            <div class="content">
+                                                <a class="js-acc-btn" href="#">Jason</a>
+                                            </div>
+                                            <div class="account-dropdown js-dropdown">
+                                                <div class="info clearfix">
+                                                    <div class="image">
+                                                        <a href="#">
+                                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h5 class="name">
+                                                            <a href="#">Jason</a>
+                                                        </h5>
+                                                        <span class="email">Jason@outlook.com</span>
+                                                    </div>
                                                 </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-settings"></i>设置</a>
-                                                </div>
-                                                <!-- <div class="account-dropdown__item">
+                                                <div class="account-dropdown__body">
+                                                    <div class="account-dropdown__item">
+                                                        <a href="#">
+                                                            <i class="zmdi zmdi-account"></i>账户</a>
+                                                    </div>
+                                                    <div class="account-dropdown__item">
+                                                        <a href="#">
+                                                            <i class="zmdi zmdi-settings"></i>设置</a>
+                                                    </div>
+                                                    <!-- <div class="account-dropdown__item">
                                                     <a href="#">
                                                         <i class="zmdi zmdi-money-box"></i>Billing</a>
                                                 </div> -->
-                                            </div>
-                                            <div class="account-dropdown__footer">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-power"></i>退出登录</a>
+                                                </div>
+                                                <div class="account-dropdown__footer">
+                                                    <a href="#">
+                                                        <i class="zmdi zmdi-power"></i>退出登录</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -256,117 +248,206 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </header>
-            <!-- END HEADER DESKTOP-->
+                </header>
+                <!-- END HEADER DESKTOP-->
 
-            <!-- MAIN CONTENT-->
-            <div class="main-content">
-                <div class="section__content section__content--p30">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">电影管理</h3>
-                                <div class="table-data__tool">
-                                    <div class="table-data__tool-left">
-                                        <div class="rs-select2--light rs-select2--md">
-                                            <select class="js-select2" name="property">
-                                                <option selected="selected">所有</option>
-                                                <option value="">一周内</option>
-                                                <option value="">半年内</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
+                <!-- MAIN CONTENT-->
+
+
+                <div class="main-content">
+                    <div class="section__content section__content--p30">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <!-- DATA TABLE -->
+                                    <h3 class="title-5 m-b-35">电影管理</h3>
+                                    <div class="table-data__tool">
+                                        <div class="table-data__tool-left">
+                                            <input v-model="selected_date_begin" class="au-btn-filter" type="date">
+                                            </input>
+                                            <input v-model="selected_date_end" class="au-btn-filter" type="date">
+                                            </input>
+                                            <button class="au-btn-filter" @click="getByDateTime">
+                                                <i class="zmdi zmdi-filter-list"></i>过滤器</button>
                                         </div>
-                                        <button class="au-btn-filter">
-                                            <i class="zmdi zmdi-filter-list"></i>过滤器</button>
-                                    </div>
-                                </div>
 
-                                <!-- vue.js app -->
-                                <div id="app">
+                                        <!-- 主要工具 开始 -->
+
+                                        <div class="table-data__tool-right">
+                                            <button class="btn btn-danger" type="button" @click="deleteMovie">
+                                                <i class="zmdi zmdi-minus"></i>删除电影
+                                            </button>
+                                            <button class="btn btn-success" type="button" @click="openInsertWindow">
+                                                <i class="zmdi zmdi-plus"></i>添加电影
+                                            </button>
+                                        </div>
+                                        <!-- 主要工具 结束 -->
+
+
+
+                                    </div>
+
+
                                     <div class="table-responsive table-responsive-data2">
-                                        <table class="table table-data2" id="userList">
+                                        <table class="table table-borderless table-data3" style="table-layout:fixed;">
                                             <thead>
                                                 <tr>
                                                     <th>
                                                         <label class="au-checkbox">
-                                                            <input type="checkbox">
+                                                            <input type="checkbox" :checked="isAllSelected"
+                                                                @click="selectAll">
                                                             <span class="au-checkmark"></span>
                                                         </label>
                                                     </th>
-                                                    <th>电影名称</th>
-                                                    <th>电影类型</th>
-                                                    <th>制片地区</th>
-                                                    <th>电影简介</th>
-                                                    <th>电影海报</th>
-                                                    <th></th>
+                                                    <th>名称</th>
+                                                    <th>简介</th>
+                                                    <th>时长</th>
+                                                    <th>语言</th>
+                                                    <th>上映日期</th>
+                                                    <th>地区</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <form onsubmit="event.preventDefault();onFormSubmit()">
+                                                <template v-for="movie in movies">
                                                     <tr class="tr-shadow">
                                                         <td>
                                                             <label class="au-checkbox">
-                                                                <input type="checkbox">
+                                                                <input type="checkbox" v-model="selected_movies"
+                                                                    :value="movie.movie_id" @click="select">
                                                                 <span class="au-checkmark"></span>
                                                             </label>
                                                         </td>
-                                                        <td>
-                                                            <input v-model="movie_info.moviename"
-                                                                style="width: 130px;border:2px solid #e5e5e5;"
-                                                                type="text" name="MovieName" id="moviename" />
+                                                        <td style="overflow:hidden;">
+                                                            {{movie.name}}
                                                         </td>
-                                                        <td>
-                                                            <input v-model="movie_info.movietype"
-                                                                style="width: 130px;border:2px solid #e5e5e5;"
-                                                                type="text" name="MovieType" id="movietype" />
+                                                        <td style="overflow:hidden;" v-bind:title="movie.brief">
+                                                            {{movie.brief.substring(0,5)}}
                                                         </td>
-                                                        <td>
-                                                            <input v-model="movie_info.area"
-                                                                style="width: 130px;border:2px solid #e5e5e5;"
-                                                                type="text" name="Area" id="area" />
-
+                                                        <td style="overflow:hidden;" v-bind:title="movie.duration">
+                                                            {{movie.duration.substring(0,5)}}
                                                         </td>
-                                                        <td>
-                                                            <input v-model="movie_info.moviedescription"
-                                                                style="width: 130px;border:2px solid #e5e5e5;"
-                                                                type="text" name="movieDescription"
-                                                                id="moviedescription" />
+                                                        <td style="overflow:hidden;">
+                                                            {{movie.language}}
                                                         </td>
-                                                        <td>
-                                                            <input type="file"
-                                                                style="width: 130px;border:2px solid #e5e5e5;"
-                                                                @change="onImageChange()" id="image" />
+                                                        <td style="overflow:hidden;">
+                                                            {{movie.releaseTime.substring(0,12)}}
                                                         </td>
-
-                                                        <td>
-                                                            <input v-on:click="addMovie();" onclick="onFormSubmit()"
-                                                                type="submit" value="提交"
-                                                                class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                                            </input>
+                                                        <td style="overflow:hidden;">
+                                                            {{movie.country}}
                                                         </td>
                                                     </tr>
-                                                </form>
+                                                    <tr class="spacer"></tr>
+                                                </template>
+
                                                 <tr class="spacer"></tr>
+
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
-                                <!-- END APP -->
-                            </div>
-                            <!-- <div class="row">
-                                <div class="col-md-12">
-                                    <div class="copyright">
-                                        <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a
-                                                href="https://colorlib.com">Colorlib</a>.</p>
+
+                                    <div class="pagewrap">
+                                        <button @click="lastPage">上一页</button>
+                                        <input style="width:20px" v-model="current_page" @keyup.enter="loadList"/>
+                                        <button @click="nextPage">下一页</button>
                                     </div>
+
+                                    <!-- Debug: movie_info= {{movie_info}} <br> <br> {{movies}} <br> <br> {{page_size}} <br>
+                                    <br> {{current_page}} <br> <br> {{total_pages}}
+                                    <br> {{searched_movie_name}} -->
                                 </div>
-                            </div> -->
+
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
+                <div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+                    aria-hidden="true" data-backdrop="static">
+                    <div class="modal-dialog modal-lg" role="document" style="width: 500px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="mediumModalLabel">添加电影</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="text-input" class=" form-control-label">电影名称</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input v-model="movie_info.name" type="text" name="text-input"
+                                                placeholder="请输入电影名称" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="text-input" class=" form-control-label">电影简介</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input v-model="movie_info.brief" type="text" name="text-input"
+                                                placeholder="请输入电影简介" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="text-input" class=" form-control-label">电影时长</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input v-model="movie_info.duration" type="text" name="text-input"
+                                                placeholder="请输入电影时长" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="text-input" class=" form-control-label">语言</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input v-model="movie_info.language" type="text" name="text-input"
+                                                placeholder="请输入电影语言" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="text-input" class=" form-control-label">上映日期</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input v-model="movie_info.releaseTime" type="text" name="text-input"
+                                                placeholder="yyyy-MM-dd HH:mm:ss" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="text-input" class=" form-control-label">国家/地区</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input v-model="movie_info.country" type="text" name="text-input"
+                                                placeholder="请输入国家/地区" class="form-control">
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <button v-on:click="addMovie" type="button" class="btn btn-primary"
+                                    data-dismiss="modal">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+            <!-- Vue App 结束 -->
 
         </div>
 
@@ -392,41 +473,318 @@
 
         <script src="/sys/js/vue.js"></script>
         <script src="/sys/js/axios.js"></script>
-        
+
         <!-- Main JS-->
         <script src="/sys/js/main.js"></script>
 
-        <!-- my js -->
-        <script src="js/table2.js"></script>
 
         <script type="text/javascript">
             new Vue({
                 el: "#app",
                 data: {
-                    movie_info: {
-                        moviename: null,
-                        movietype: null,
-                        area: null,
-                        moviedescription: null,
-                        poster: null,
-                    },
-                },
-                methods: {
-                    addMovie: function () {
+                    current_page: 0,
+                    page_size: 5,
+                    total_pages: null,
 
-                        const params = new URLSearchParams();
-                        params.append('moviename', this.movie_info.moviename);
-                        params.append('movietype', this.movie_info.movietype);
-                        params.append('area', this.movie_info.area);
-                        params.append('moviedescription', this.movie_info.moviedescription);
-                        axios.post("http://localhost:8081/?", params)
+                    isAllSelected: false,
+                    selected_movies: [],
+
+
+                    selected_date_begin: null,
+                    selected_date_end: null,
+
+                    searched_movie_name: null,
+
+
+                    movie_info: {
+                        name: null,
+                        brief: null,
+                        duration: null,
+                        language: null,
+                        releaseTime: null,
+                        country: null,
+                    },
+
+                    movies: [],
+
+                },
+                mounted: function () {
+
+                    let params = {
+                        'pageNumber': this.current_page,
+                        'pageSize': this.page_size
+                    }
+
+                    params = JSON.stringify(params)
+
+                    let config = {
+                        headers: { "Content-Type": "application/json" },
+                    }
+
+                    axios.post("http://116.62.10.95:8081/moive/Fliter/details", params, config)
+                        .then(response => {
+                            console.log(response)
+                            if (response.data.code == 0) {
+                                this.movies = [];
+                                let data = response.data.data;
+                                this.total_pages = data.pageInfo.total_pages;
+
+                                // 返回字段变了 movie_infos -> cinemas_infos
+                                for (var m of data.cinemas_infos) {
+                                    this.movies.push({
+                                        movie_id: m.id,
+                                        name: m.name,
+                                        brief: m.brief,
+                                        duration: m.duration,
+                                        language: m.language,
+                                        releaseTime: m.releaseTime,
+                                        country: m.country,
+                                    })
+                                }
+                            }
+
+                        })
+                        .catch(function (error) { // 请求失败处理
+                            console.log(error);
+                        });
+                },
+
+
+
+
+                methods: {
+
+                    loadList() {
+                        let params = {
+                            'pageNumber': this.current_page,
+                            'pageSize': this.page_size
+                        }
+
+                        params = JSON.stringify(params)
+
+                        let config = {
+                            headers: { "Content-Type": "application/json" },
+                        }
+
+                        axios.post("http://116.62.10.95:8081/moive/Fliter/details", params, config)
                             .then(response => {
                                 console.log(response)
-                                console.log(this.staff_info)
+                                if (response.data.code == 0) {
+                                    this.movies = [];
+                                    let data = response.data.data;
+                                    for (var m of data.cinemas_infos) {
+                                        this.movies.push({
+                                            movie_id: m.id,
+                                            name: m.name,
+                                            brief: m.brief,
+                                            duration: m.duration,
+                                            language: m.language,
+                                            releaseTime: m.releaseTime,
+                                            country: m.country,
+                                        })
+                                    }
+                                }
+
                             })
                             .catch(function (error) { // 请求失败处理
                                 console.log(error);
                             });
+                    },
+
+                    lastPage() {
+                        if (this.current_page >= 1) {
+                            this.current_page = this.current_page - 1;
+                            this.loadList();
+
+                        }
+                    },
+
+                    nextPage() {
+                        if (this.current_page + 1 < this.total_pages) {
+                            this.current_page = this.current_page + 1;
+                            this.loadList();
+                        }
+                    },
+
+                    getByDateTime() {
+
+                        if (this.selected_date_begin == null || this.selected_date_end == null) {
+                            alert("请选择日期");
+                            return
+                        }
+
+                        let selected_year_begin = this.selected_date_begin.substring(0, 4);
+
+                        let selected_year_end = this.selected_date_end.substring(0, 4);
+
+                        let params = {
+                            'pageNumber': this.current_page,
+                            'pageSize': this.page_size,
+                            'start_year': selected_year_begin,
+                            'end_year': selected_year_end,
+                        }
+
+                        params = JSON.stringify(params)
+
+                        let config = {
+                            headers: { "Content-Type": "application/json" },
+                        }
+
+                        axios.post("http://116.62.10.95:8081/moive/Fliter/details", params, config)
+                            .then(response => {
+                                console.log(response)
+                                if (response.data.code == 0) {
+                                    this.movies = [];
+                                    let data = response.data.data;
+                                    for (var m of data.cinemas_infos) {
+                                        this.movies.push({
+                                            movie_id: m.id,
+                                            name: m.name,
+                                            brief: m.brief,
+                                            duration: m.duration,
+                                            language: m.language,
+                                            releaseTime: m.releaseTime,
+                                            country: m.country,
+                                        })
+                                    }
+                                }
+
+                            })
+                            .catch(function (error) { // 请求失败处理
+                                console.log(error);
+                            });
+
+
+                    },
+
+
+                    addMovie: function () {
+
+                        const params = new URLSearchParams();
+                        params.append('name', this.movie_info.name);
+                        params.append('brief', this.movie_info.brief);
+                        params.append('duration', this.movie_info.duration);
+                        params.append('language', this.movie_info.language);
+                        params.append('releaseTime', this.movie_info.releaseTime);
+                        params.append('country', this.movie_info.country);
+
+                        axios.post("http://116.62.10.95:8081/movie/add", params)
+                            .then(response => {
+                                console.log(response)
+                                data = response.data.data;
+
+                                if (response.data.code == 0) {
+                                    movies.push({
+                                        movie_id: data.id,
+                                        name: data.name,
+                                        brief: data.brief,
+                                        duration: data.duration,
+                                        language: data.language,
+                                        releaseTime: data.releaseTime,
+                                        country: data.country,
+                                    })
+                                }
+                            })
+                            .catch(function (error) { // 请求失败处理
+                                console.log(error);
+                            });
+                    },
+
+                    deleteMovie() {
+                        this.selected_movies.forEach(movie_id => {
+                            
+                            axios.delete("http://116.62.10.95:8081/movie/del?movieId=" + movie_id)
+                                .then(response => {
+                                    console.log(response)
+                                    if (response.data.code == 0) {
+
+                                        let ifFind = false;
+                                        let val = movie_id;
+                                        let i = 0;
+                                        while (i < this.movies.length) {
+                                            if (this.movies[i].movie_id == val) {
+                                                ifFind = true;
+                                                break;
+                                            }
+                                            i++;
+                                        }
+                                        if (ifFind == true) {
+                                            this.movies.splice(i, 1);
+                                        }
+
+                                        this.selected_movies.shift();
+                                    }
+
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                })
+
+                        });
+
+                    },
+
+                    searchMovie() {
+                        if (this.searched_movie_name != "") {
+
+                            let params = {
+                                'pageNumber': this.current_page,
+                                'pageSize': this.page_size,
+                                'key_string': this.searched_movie_name
+                            }
+
+                            param = JSON.stringify(params)
+
+                            let config = {
+                                headers: { "Content-Type": "application/json" },
+                            }
+
+                            axios.post("http://116.62.10.95:8081/moive/Fliter/details", param, config)
+                                .then(response => {
+                                    console.log(response)
+                                    if (response.data.code == 0) {
+                                        let data = response.data.data;
+                                        // let url = data.cover_img_url.split('/');
+                                        this.movies = [];
+
+                                        for (var m of data.cinemas_infos) {
+                                            this.movies.push({
+                                                movie_id: m.id,
+                                                name: m.name,
+                                                brief: m.brief,
+                                                duration: m.duration,
+                                                language: m.language,
+                                                releaseTime: m.releaseTime,
+                                                country: m.country,
+                                            })
+                                        }
+                                    }
+                                })
+                        }
+                        else {
+                            this.loadList();
+                        }
+                    },
+
+                    selectAll() {
+                        if (this.isAllSelected) {
+                            this.selected_movies = []
+                            this.isAllSelected = false
+                        } else {
+                            this.selected_movies = []
+                            for (var movie in this.movies) {
+                                this.selected_movies.push(this.movies[movie].movie_id)
+                            }
+                            this.isAllSelected = true
+                        }
+                    },
+
+                    select() {
+                        if (this.selected_movies.length !== this.movies.length) {
+                            this.isAllSelected = false
+                        } else {
+                            this.isAllSelected = true
+                        }
                     },
 
                     onImageChange(event) {
@@ -436,25 +794,23 @@
                     uploadImage() {
                         const formdata = new FormData()
                         formdata.append('poster', this.movie_info.poster)
-                        axios.post('http://localhost:8081/test/file', formdata, {
+                        axios.post('http://116.62.10.95:8081/test/file', formdata, {
                             headers: {
                                 "Content-Type": "multipart/form-data"
                             }
                         })
                     },
+                    openInsertWindow() {
+                        // window.open("table2_insert.html", "", "top=100,left=100,width=600,height=650");
+                        window.location.href = "table2_insert.html";
+                    }
 
                 },
-                mounted() {
-                    axios.get('http://localhost:8081/test/ggget')
-                        .then(response => { console.log(response) })
-                        .catch(function (error) { // 请求失败处理
-                            console.log(error);
-                        });
-                },
+
             })
 
         </script>
-
+    </div>
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>新增排片管理</title>
+    <title>新增大厅管理</title>
     <link rel="icon" href="favicon.ico" type="image/ico">
     <meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
     <meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
@@ -353,28 +353,33 @@
                 return 0;
             },
             addHall(){
-                // 按 URLSearchParams 方式的话是 application/x-www-form-urlencoded
-                // 否则 将会被 自动  json 化
-                // const params = new URLSearchParams();
-                // params.append('cinemaId', this.schedule.cinema_id);
-                // params.append('describe', this.schedule.description);
-                // params.append('end', this.schedule.end_date);
-                // params.append('hallId', this.schedule.hall_id);
-                // params.append('movieId', this.schedule.movie_id);
-                // params.append('price', this.schedule.price);
-                // params.append('schedualId', this.schedule.schedualId);
-                // params.append('start', this.schedule.start_date);
-
-                axios.post("http://localhost:8081//cinemaHall/add?cinemaName=BESTCINEMA&col="+this.hall.col+"&hallId="+this.hall.hallId+"&hallName="+this.hall.hallName+"&hallType="+this.hall.hallType+"&row="+this.hall.row,
-                    {
-                        headers: {
-                            'Access-Control-Allow-Origin': '*',
-                        },
-                        crossdomain: true,
+                let hall = this.hall
+                let param = new FormData()
+                var file = document.getElementById("hall_img_input").files
+                for(let i = 0;i<file.length;i++){
+                    param.append("figureList",file[i])
+                }
+                param.append("cinemaId",1)
+                param.append("col",hall.col)
+                param.append("row",hall.row)
+                param.append("layout",hall.layout)
+                param.append("hallName",hall.hallName)
+                param.append("hallType",hall.hallType)
+                let config = {
+                    //添加请求头
+                    headers: { "Content-Type": "multipart/form-data" },
+                    //添加上传进度监听事件
+                    onUploadProgress: e => {
+                        var completeProgress = ((e.loaded / e.total * 100) | 0) + "%";
+                        this.progress = completeProgress;
                     }
-                )
+                };
+                //param,config
+                axios.post("http://116.62.10.95:8081//cinemaHall/add",param,config)
                     .then(response => {console.log(response)
                         console.log(this.hall)
+                        alert("添加成功！");
+                        window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_rooms.html";
                         // alert("添加成功！")
                         // self.location = "xdq_cinema_arrangements.html";
                     })
@@ -382,15 +387,14 @@
                         console.log(error);
                     });
 
-                alert("添加成功！");
-                window.location.href = "http://localhost:8081/mng/xdq_cinema_rooms.html";
+
             },
             addCinema(){
                 const params = new URLSearchParams();
                 for (let key in this.cinema_info){
                     params.append(key,this.cinema_info[key])
                 }
-                axios.post("http://localhost:8081/cinema/add",params)
+                axios.post("http://116.62.10.95:8081/cinema/add",params)
                     .then(response => {console.log(response)
                     })
                     .catch(function (error) { // 请求失败处理
@@ -400,13 +404,13 @@
             checkOut(){
                 const params = new URLSearchParams();
                 params.append('ticket_infos', JSON.stringify([{row:1,col:1},{row:1,col:2},{row:1,col:3},{row:1,col:4}]));
-                // axios.post("http://localhost:8081/purchase/checkOut",params)
+                // axios.post("http://116.62.10.95:8081/purchase/checkOut",params)
                 //     .then(response => {console.log(response)
                 //     })
                 //     .catch(function (error) { // 请求失败处理
                 //         console.log(error);
                 //     });
-                axios.post("http://localhost:8081/purchase/checkOut",{'ticket_infos':[{row:1,col:1},{row:1,col:2},{row:1,col:3},{row:1,col:4}]})
+                axios.post("http://116.62.10.95:8081/purchase/checkOut",{'ticket_infos':[{row:1,col:1},{row:1,col:2},{row:1,col:3},{row:1,col:4}]})
                     .then(response => {console.log(response)
                     })
                     .catch(function (error) { // 请求失败处理
@@ -415,7 +419,7 @@
             },
             tester(){
 
-                axios.post("http://localhost:8081/moive/tagFliter",{"start_year":-1,"end_year":3000,"key_string":"普通",tags:["搞笑"]}).then(r=>{
+                axios.post("http://116.62.10.95:8081/moive/tagFliter",{"start_year":-1,"end_year":3000,"key_string":"普通",tags:["搞笑"]}).then(r=>{
                     console.log(r)
                 })
             },
@@ -431,7 +435,7 @@
             },
         },
         mounted (){
-            axios.get('http://localhost:8081/cinemaHall/getList?cinema_id=1')
+            axios.get('http://116.62.10.95:8081/cinemaHall/getList?cinema_id=1')
                 .then(function (response) {
                     console.log(response);
                 })

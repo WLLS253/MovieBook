@@ -274,25 +274,6 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td>1</td>
-                                            <td>泰坦尼克号</td>
-                                            <td>徐德全</td>
-                                            <td>好电影</td>
-                                            <td>真是个好电影</td>
-                                            <td><font class="text-success">正常</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default example-p-3" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
                                         <tr v-for="comment in info.comments">
                                             <td>
                                                 <label class="lyear-checkbox checkbox-primary">
@@ -312,43 +293,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td>2</td>
-                                            <td>教父</td>
-                                            <td>吴志镛</td>
-                                            <td>深刻的电影</td>
-                                            <td>真是个深刻的电影</td>
-                                            <td><font class="text-success">正常</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td>3</td>
-                                            <td>肖申克的救赎</td>
-                                            <td>陈凌云</td>
-                                            <td>垃圾电影</td>
-                                            <td>真是个垃圾电影</td>
-                                            <td><font class="text-warning">敏感词汇</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -470,7 +414,7 @@
             deleteComment: function(commentId){
                 alert("删除成功");
 
-                axios.delete("http://localhost:8081/comment/delbymng?commentId="+commentId,
+                axios.delete("http://116.62.10.95:8081/comment/delbymng?commentId="+commentId,
                     {
                         headers: {
                             'Access-Control-Allow-Origin': '*',
@@ -486,13 +430,13 @@
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                     });
-                window.location.href = "http://localhost:8081/mng/xdq_cinema_comments.html"
+                window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_comments.html"
             },
         },
 
         mounted () {
             axios
-                .get('http://localhost:8081/movie/getCommentList?movieId=1&pageNumber=0&pageSize=10')
+                .get('http://116.62.10.95:8081/movie/getCommentList?movieId=1&pageNumber=0&pageSize=10')
                 .then(response => (this.info = response.data.data))
         }
     })

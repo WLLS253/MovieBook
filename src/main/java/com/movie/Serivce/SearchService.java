@@ -48,6 +48,8 @@ public class SearchService {
 
     @Autowired
     private CinemaMngRepository cinemaMngRepository;
+    @Autowired
+    StatisticsService statisticsService;
 
 
     public JSONObject filterMoviesBrief(Integer start_year,
@@ -139,6 +141,7 @@ public class SearchService {
 
     // 获取热映电影
     public JSONObject getHotMovies(){
+        statisticsService.addIndexVisitor();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("movies",movieRepository.getLimitMoviesByState("on",0,6));
         return jsonObject;

@@ -23,8 +23,7 @@
 
     <!-- Vendor CSS-->
     <link href="/sys/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="/sys/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet"
-        media="all">
+    <link href="/sys/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
     <link href="/sys/vendor/wow/animate.css" rel="stylesheet" media="all">
     <link href="/sys/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
     <link href="/sys/vendor/slick/slick.css" rel="stylesheet" media="all">
@@ -35,166 +34,153 @@
     <link href="/sys/css/theme.css" rel="stylesheet" media="all">
 
 
+
+    <style>
+        .pagewrap {
+            padding: 25px 0;
+            -webkit-user-select: none;
+            user-select: none;
+            width: 100%;
+            color: #666;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .pagewrap i {
+            height: 34px;
+            padding: 0;
+            border: 1px solid #ccc;
+            line-height: 34px;
+            border-radius: 3px;
+            width: 34px;
+            display: inline-block;
+            cursor: pointer;
+            margin: 0 4px;
+            vertical-align: middle;
+        }
+
+        .pagewrap i.button {
+            width: 68px;
+        }
+
+        .pagewrap i:hover {
+            border-color: #fdb800;
+            color: #fdb800;
+            animation: buttonshake .4s ease-out forwards;
+        }
+
+        .pagewrap i.current:hover,
+        i.current,
+        i.button:hover {
+            border-color: #fdb800;
+            color: #fdb800;
+            animation: none;
+        }
+
+        .pagewrap i.disabled,
+        i.disabled:hover {
+            background: #EFEFEF;
+            border-color: #EFEFEF;
+            color: #AAA;
+            cursor: text;
+            animation: none;
+        }
+
+        .pagewrap i.ellipsis,
+        i.ellipsis:hover {
+            background: none;
+            border-color: #FFF;
+            color: #AAA;
+            cursor: text;
+            animation: none;
+        }
+
+        @-webkit-keyframes buttonshake {
+            25% {
+                -webkit-transform: rotate(45deg);
+            }
+
+            75% {
+                -webkit-transform: rotate(-45deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(0deg);
+            }
+        }
+
+        @keyframes buttonshake {
+            25% {
+                transform: rotate(45deg);
+            }
+
+            75% {
+                transform: rotate(-45deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+    </style>
+
+
+
 </head>
 
-<body  class="animsition">
-    <div id="app" class="page-wrapper">
-        <!-- HEADER MOBILE-->
-        <header class="header-mobile d-block d-lg-none">
-            <div class="header-mobile__bar">
-                <div class="container-fluid">
-                    <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
-                            <img src="images/icon/logo.png" alt="CoolAdmin" />
-                        </a>
-                        <button class="hamburger hamburger--slider" type="button">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <nav class="navbar-mobile">
-                <div class="container-fluid">
-                    <ul class="navbar-mobile__list list-unstyled">
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="index.html">Dashboard 1</a>
-                                </li>
-                                <li>
-                                    <a href="index2.html">Dashboard 2</a>
-                                </li>
-                                <li>
-                                    <a href="index3.html">Dashboard 3</a>
-                                </li>
-                                <li>
-                                    <a href="index4.html">Dashboard 4</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Charts</a>
-                        </li>
-                        <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Tables</a>
-                        </li>
-                        <li>
-                            <a href="form.html">
-                                <i class="far fa-check-square"></i>Forms</a>
-                        </li>
-                        <li>
-                            <a href="calendar.html">
-                                <i class="fas fa-calendar-alt"></i>Calendar</a>
-                        </li>
-                        <li>
-                            <a href="map.html">
-                                <i class="fas fa-map-marker-alt"></i>Maps</a>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-copy"></i>Pages</a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="login.html">Login</a>
-                                </li>
-                                <li>
-                                    <a href="register.html">Register</a>
-                                </li>
-                                <li>
-                                    <a href="forget-pass.html">Forget Password</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-desktop"></i>UI Elements</a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="button.html">Button</a>
-                                </li>
-                                <li>
-                                    <a href="badge.html">Badges</a>
-                                </li>
-                                <li>
-                                    <a href="tab.html">Tabs</a>
-                                </li>
-                                <li>
-                                    <a href="card.html">Cards</a>
-                                </li>
-                                <li>
-                                    <a href="alert.html">Alerts</a>
-                                </li>
-                                <li>
-                                    <a href="progress-bar.html">Progress Bars</a>
-                                </li>
-                                <li>
-                                    <a href="modal.html">Modals</a>
-                                </li>
-                                <li>
-                                    <a href="switch.html">Switchs</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grids</a>
-                                </li>
-                                <li>
-                                    <a href="fontawesome.html">Fontawesome Icon</a>
-                                </li>
-                                <li>
-                                    <a href="typo.html">Typography</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+<body class="animsition">
+<div class="page-wrapper">
+
+    <!-- MENU SIDEBAR-->
+    <aside class="menu-sidebar d-none d-lg-block">
+        <div class="logo">
+            <!-- <a href="#">
+            <img src="images/icon/logo.png" alt="Cool Admin" />
+        </a> -->
+            <h3 class="title-5 m-b-35" style="margin: 50px,0px,0px,10px;">Admin System</h3>
+        </div>
+        <div class="menu-sidebar__content js-scrollbar1">
+            <nav class="navbar-sidebar">
+                <ul class="list-unstyled navbar__list">
+                    <li>
+                        <a href="index.html">
+                            <i class="fas fa-tachometer-alt"></i>控制台</a>
+                    </li>
+
+                    <li>
+                        <a href="table.html">
+                            <i class="fas fa-table"></i>用户管理</a>
+                    </li>
+
+                    <li>
+                        <a href="table2.html">
+                            <i class="fas fa-table"></i>电影管理</a>
+                    </li>
+
+                    <li class="active has-sub">
+                        <a href="table3.html">
+                            <i class="fas fa-table"></i>影院管理</a>
+                    </li>
+
+                    <li>
+                        <a href="table4.html">
+                            <i class="fas fa-table"></i>日志管理</a>
+                    </li>
+
+                    <li>
+                        <a href="table5.html">
+                            <i class="fas fa-table"></i>电影评论管理</a>
+                    </li>
+
+                </ul>
             </nav>
-        </header>
-        <!-- END HEADER MOBILE-->
+        </div>
+    </aside>
+    <!-- END MENU SIDEBAR-->
 
-        <!-- MENU SIDEBAR-->
-        <aside class="menu-sidebar d-none d-lg-block">
-            <div class="logo">
-                <!-- <a href="#">
-                    <img src="images/icon/logo.png" alt="Cool Admin" />
-                </a> -->
-                <h3 class="title-5 m-b-35" style="margin: 50px,0px,0px,10px;">Admin System</h3>
-            </div>
-            <div class="menu-sidebar__content js-scrollbar1">
-                <nav class="navbar-sidebar">
-                    <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
-                            <a href="index.html">
-                                <i class="fas fa-tachometer-alt"></i>控制台</a>
-                        </li>
-                        <!-- <li>
-                            <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Charts</a>
-                        </li> -->
-                        <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>用户管理</a>
-                        </li>
 
-                        <!-- <li>
-                            <a href="table2.html">
-                                <i class="fas fa-table"></i>电影管理</a>
-                        </li> -->
-
-                        <li>
-                            <a href="table3.html">
-                                <i class="fas fa-table"></i>影院管理</a>
-                        </li>
-
-                    </ul>
-                </nav>
-            </div>
-        </aside>
-        <!-- END MENU SIDEBAR-->
+    <!-- vue app 开始 -->
+    <div id="app">
 
         <!-- PAGE CONTAINER-->
         <div class="page-container">
@@ -203,13 +189,20 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-                            <form class="form-header" action="" method="POST">
-                                <input class="au-input au-input--xl" type="text" name="search"
-                                    placeholder="搜索数据和报告..." />
-                                <button class="au-btn--submit" type="submit">
+
+                            <!-- 搜索框 开始 -->
+                            <div class="form-header" action="" method="POST">
+                                <input v-model="searched_cinema_name" class="au-input au-input--xl" type="text"
+                                       name="search" placeholder="请输入影院名...">
+                                </input>
+
+                                <button class="au-btn--submit" @click="searchCinema">
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
-                            </form>
+
+                            </div>
+                            <!-- 搜索框 结束 -->
+
                             <div class="header-button">
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
@@ -258,101 +251,142 @@
             <!-- END HEADER DESKTOP-->
 
             <!-- MAIN CONTENT-->
-            <div >
-                <div class="main-content">
-                    <div class="section__content section__content--p30">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <!-- DATA TABLE -->
-                                    <h3 class="title-5 m-b-35">影院管理</h3>
-                                    <div class="table-data__tool">
-                                        <div class="table-data__tool-left">
-                                            <div class="rs-select2--light rs-select2--md">
-                                                <select class="js-select2" name="property">
-                                                    <option selected="selected">所有</option>
-                                                    <option value="">一周内</option>
-                                                    <option value="">半年内</option>
-                                                </select>
-                                                <div class="dropDownSelect2"></div>
-                                            </div>
-                                            <button class="au-btn-filter">
-                                                <i class="zmdi zmdi-filter-list"></i>过滤器</button>
-                                        </div>
-                                        <div class="table-data__tool-right">
-                                            <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button"
-                                                data-toggle="modal" data-target="#mediumModal">
-                                                <i class="zmdi zmdi-plus"></i>添加影院
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive table-responsive-data2">
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
 
-                                        <!-- table table-data2 -->
+                                <!-- 数据表工具 -->
+                                <h3 class="title-5 m-b-35">影院管理</h3>
+                                {{selected_date}}
+                                <div class="table-data__tool">
+                                    <div class="table-data__tool-left">
+                                        <!-- <input v-model="selected_date" class="au-btn-filter" type="date">
+                                        </button>
 
-                                        <table id="dtBasicExample" class="table table-data2">
-                                            <thead>
-                                                <tr >
-                                                    <th>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
-                                                    </th>
-                                                    <th style="text-align: center;">名称</th>
-                                                    <th style="text-align: center;">位置</th>
-                                                    <th style="text-align: center;">级别</th>
-                                                    <th style="text-align: center;">电话</th>
-                                                    <th style="text-align: center;">描述</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
 
-                                                <tr v-for="cinema in sortedcinemas" class="tr-shadow">
-                                                    <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        {{cinema.cinemaname}}
-                                                    </td>
-                                                    <td>
-                                                        {{cinema.location}}
-                                                    </td>
-                                                    <td>
-                                                        {{cinema.grade}}
-                                                    </td>
-                                                    <td>
-                                                        {{cinema.phone}}
-                                                    </td>
-                                                    <td width="30%">
-                                                        {{cinema.cinemadescription}}
-                                                    </td>
-                                                    <td width="30%">
-                                                        <img src={{cinema.img_url}} />
-                                                    </td>
-                                                    <tr class="spacer"></tr>
-                                                </tr>
-
-                                                <tr class="spacer"></tr>
-                                            </tbody>
-
-                                            <tfoot>
-
-                                            </tfoot>
-
-                                        </table>
-
-                                        <button @click="prevPage()" type="button" class="btn btn-primary" width="30%" >Previous</button>
-
-                                        <button @click="nextPage()" type="button" class="btn btn-primary" width="30%" >Next</button>
-                              
-                                        <!-- debug: sort={{currentSort}}, dir={{currentSortDir}}, page={{currentPage}} -->
+                                        <button class="au-btn-filter" @click="getByDateTime">
+                                            <i class="zmdi zmdi-filter-list"></i>过滤器</button> -->
 
                                     </div>
+
+                                    <!-- 主要工具 开始 -->
+                                    <div class="table-data__tool-right">
+                                        <button class="btn btn-info" type="button" @click="updateCinema"
+                                                data-toggle="modal" data-target="#updateModal">
+                                            更新影院
+                                        </button>
+
+                                        <button class="btn btn-danger" type="button" @click="deleteCinema">
+                                            <i class="zmdi zmdi-minus"></i>删除影院
+                                        </button>
+                                        <button class="btn btn-success" type="button" data-toggle="modal"
+                                                data-target="#insertModal">
+                                            <i class="zmdi zmdi-plus"></i>添加影院
+                                        </button>
+                                    </div>
+                                    <!-- 主要工具 结束 -->
+
+                                </div>
+                                <div class="table-responsive table-responsive-data2">
+
+                                    <!-- 数据表 -->
+                                    <table id="dtBasicExample" class="table table-borderless table-data3">
+
+                                        <!-- 数据表表头 开始 -->
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                <label class="au-checkbox">
+                                                    <input type="checkbox" :checked="isAllSelected"
+                                                           @click="selectAll">
+                                                    <span class="au-checkmark"></span>
+                                                </label>
+                                            </th>
+                                            <th>名称</th>
+                                            <th>位置</th>
+                                            <th>级别</th>
+                                            <th>电话</th>
+                                            <th>描述</th>
+                                            <th>照片</th>
+                                        </tr>
+                                        </thead>
+
+                                        <!-- 数据表表头 结束 -->
+
+                                        <!-- 数据表内容 开始 -->
+                                        <tbody>
+                                        <template v-for="cinema in cinemas">
+                                            <tr class="tr-shadow">
+                                                <td>
+                                                    <label class="au-checkbox">
+                                                        <input type="checkbox" v-model="selected_cinemas"
+                                                               :value="cinema.cinema_id" @click="select">
+                                                        <span class="au-checkmark"></span>
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    {{cinema.cinemaname}}
+                                                </td>
+                                                <td>
+                                                    {{cinema.location}}
+                                                </td>
+                                                <td>
+                                                    {{cinema.grade}}
+                                                </td>
+                                                <td>
+                                                    {{cinema.phone}}
+                                                </td>
+                                                <td>
+                                                    {{cinema.cinemadescription}}
+                                                </td>
+                                                <td>
+                                                    <img width="100" height="100" v-bind:src="cinema.img_url" />
+                                                </td>
+                                            </tr>
+                                            <tr class="spacer"></tr>
+                                        </template>
+
+                                        <tr class="spacer"></tr>
+
+                                        </tbody>
+
+                                        <!-- 数据表内容 结束 -->
+
+                                        <tfoot>
+
+                                        </tfoot>
+
+                                    </table>
+
+                                    <!-- <button @click="prevPage()" type="button" class="btn btn-primary"
+                                    width="30%">Previous</button>
+
+                                <button @click="nextPage()" type="button" class="btn btn-primary"
+                                    width="30%">Next</button> -->
+
+                                    <!-- debug: sort={{currentSort}}, dir={{currentSortDir}}, page={{currentPage}} -->
+                                    <!--
+                                    debug: cinemas = {{cinemas}}
+                                    <br>
+                                    <br>
+                                    selected_cinemas = {{selected_cinemas}}
+                                    <br>
+                                    <br>
+                                    cinema_info = {{cinema_info}}
+                                    <br>
+                                    <br>
+                                    searched_cinema_name = {{searched_cinema_name}} -->
+
+                                    <div class="pagewrap">
+                                        <button @click="lastPage">上一页</button>
+                                        <input style="width:20px" v-model="current_page" @keyup.enter="loadList"/>
+                                        <button @click="nextPage">下一页</button>
+                                    </div>
+
+                                    <!-- debug: {{current_page}} ,   {{total_pages}} -->
+
                                 </div>
                             </div>
                         </div>
@@ -360,8 +394,11 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
-                aria-hidden="true" data-backdrop="static">
+
+            <!-- 输入框 开始 -->
+
+            <div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+                 aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog modal-lg" role="document" style="width: 500px;">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -378,8 +415,8 @@
                                         <label for="text-input" class=" form-control-label">影院名称</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input v-model="cinema_info.cinemaname" type="text" id="text-input"
-                                            name="text-input" placeholder="请输入影院名" class="form-control">
+                                        <input v-model="cinema_info.cinemaname" type="text" name="text-input"
+                                               placeholder="请输入影院名" class="form-control">
                                     </div>
                                 </div>
 
@@ -389,8 +426,8 @@
                                         <label for="text-input" class=" form-control-label">影院位置</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input v-model="cinema_info.location" type="text" id="text-input"
-                                            name="text-input" placeholder="请输入影院地址" class="form-control">
+                                        <input v-model="cinema_info.location" type="text" name="text-input"
+                                               placeholder="请输入影院地址" class="form-control">
                                     </div>
                                 </div>
 
@@ -399,8 +436,8 @@
                                         <label for="text-input" class=" form-control-label">影院级别</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input v-model="cinema_info.grade" type="text" id="text-input" name="text-input"
-                                            placeholder="请输入影院级别" class="form-control">
+                                        <input v-model="cinema_info.grade" type="text" name="text-input"
+                                               placeholder="请输入影院级别" class="form-control">
                                     </div>
                                 </div>
 
@@ -409,28 +446,28 @@
                                         <label for="text-input" class=" form-control-label">联系方式</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input v-model="cinema_info.phone" type="text" id="text-input" name="text-input"
-                                            placeholder="请输入影院联系方式" class="form-control">
+                                        <input v-model="cinema_info.phone" type="text" name="text-input"
+                                               placeholder="请输入影院联系方式" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="file-input"  class=" form-control-label">影院描述</label>
+                                        <label for="text-input" class=" form-control-label">影院描述</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input  id="file-input" v-model="cinema_info.cinemadescription" type="text"
-                                            name="text-input" placeholder="请输入影院描述 " class="form-control">
+                                        <input v-model="cinema_info.cinemadescription" type="text" name="text-input"
+                                               placeholder="请输入影院描述 " class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="img_files" class=" form-control-label">影院照片</label>
+                                        <label for="file-input" class=" form-control-label">影院照片</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input id="img_files" type="file"
-                                            name="file-input" class="form-control-file">
+                                        <input v-model="cinema_info.cinemafigure" type="file" id="img_files"
+                                               name="file-input" class="form-control-file">
                                     </div>
                                 </div>
                             </form>
@@ -440,157 +477,224 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                             <button v-on:click="addCinema()" type="button" class="btn btn-primary"
-                                data-dismiss="modal">确定</button>
+                                    data-dismiss="modal">确定</button>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- 输入框 结束 -->
+
+
+            <!-- 更新框 开始 -->
+
+            <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+                 aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog modal-lg" role="document" style="width: 500px;">
+
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+
+                            <h5 class="modal-title" id="mediumModalLabel">更新影院</h5>
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">影院名称</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input v-model="cinema_info.cinemaname" type="text" name="text-input"
+                                               placeholder="请输入影院名" class="form-control" disabled="true">
+                                    </div>
+                                </div>
+
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">影院位置</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input v-model="cinema_info.location" type="text" name="text-input"
+                                               placeholder="请输入影院地址" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">影院级别</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input v-model="cinema_info.grade" type="text" name="text-input"
+                                               placeholder="请输入影院级别" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">联系方式</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input v-model="cinema_info.phone" type="text" name="text-input"
+                                               placeholder="请输入影院联系方式" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">影院描述</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input v-model="cinema_info.cinemadescription" type="text" name="text-input"
+                                               placeholder="请输入影院描述 " class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="file-input" class=" form-control-label">影院照片</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input v-model="cinema_info.cinemafigure" type="file" id="img_files"
+                                               name="file-input" class="form-control-file">
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button v-on:click="updateCinemaSubmit" type="button" class="btn btn-primary"
+                                    data-dismiss="modal">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 更新框 结束 -->
 
         </div>
-        <!-- APP END -->
+        <!-- vue app 结束 -->
+
     </div>
+</div>
 
-    <!-- Jquery JS-->
-    <script src="/sys/vendor/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap JS-->
-    <script src="/sys/vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="/sys/vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS       -->
-    <script src="/sys/vendor/slick/slick.min.js">
-    </script>
-    <script src="/sys/vendor/wow/wow.min.js"></script>
-    <script src="/sys/vendor/animsition/animsition.min.js"></script>
-    <script src="/sys/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
-    <script src="/sys/vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="/sys/vendor/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="/sys/vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="/sys/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="/sys/vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="/sys/vendor/select2/select2.min.js">
-    </script>
+<!-- Jquery JS-->
+<script src="/sys/vendor/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap JS-->
+<script src="/sys/vendor/bootstrap-4.1/popper.min.js"></script>
+<script src="/sys/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+<!-- Vendor JS       -->
+<script src="/sys/vendor/slick/slick.min.js">
+</script>
+<script src="/sys/vendor/wow/wow.min.js"></script>
+<script src="/sys/vendor/animsition/animsition.min.js"></script>
+<script src="/sys/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+</script>
+<script src="/sys/vendor/counter-up/jquery.waypoints.min.js"></script>
+<script src="/sys/vendor/counter-up/jquery.counterup.min.js">
+</script>
+<script src="/sys/vendor/circle-progress/circle-progress.min.js"></script>
+<script src="/sys/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="/sys/vendor/chartjs/Chart.bundle.min.js"></script>
+<script src="/sys/vendor/select2/select2.min.js">
+</script>
 
-    <script src="/sys/js/vue.js"></script>
-    <script src="/sys/js/axios.js"></script>
+<script src="/sys/js/vue.js"></script>
+<script src="/sys/js/axios.js"></script>
 
-    <!-- Main JS-->
-    <script src="/sys/js/main.js"></script>
+<!-- Main JS-->
+<script src="/sys/js/main.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
 
-    <script src="https://unpkg.com/vue" ></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            page_size: 3,
+            current_page: 0,
+            total_pages: null,
 
-    <script type="text/javascript">
-        new Vue({
-            el: '#app',
-            data: {
-                currentSort: 'name',
-                currentSortDir: 'asc',
-                pageSize: 20,
-                currentPage: 1,
+            selected_date: null,
 
-                cinema_info: {
-                    cinemaname: '兰州万达广场店',
-                    location: '兰州市城关区天水北路68号万达广场4楼',
-                    phone: '0931-5369999',
-                    grade: '5',
-                    cinemadescription: ' 温馨提示：观看特殊影片 ',
-                    img_url: null,
-                    // cinemaname: null,
-                    // location: null,
-                    // phone: null,
-                    // grade: null,
-                    // cinemadescription: null,
-                },
-                cinemas: [
-                    // {
-                    //     cinemaname: '兰州万达广场店',
-                    //     location: '兰州市城关区天水北路68号万达广场4楼',
-                    //     phone: '0931-5369999 ',
-                    //     grade: '5',
-                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    // },
-                    // {
-                    //     cinemaname: '北京万达广场店',
-                    //     location: '兰州市城关区天水北路68号万达广场4楼',
-                    //     phone: '0931-5369999 ',
-                    //     grade: '5',
-                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    // },
-                    // {
-                    //     cinemaname: '西安万达广场店',
-                    //     location: '兰州市城关区天水北路68号万达广场4楼',
-                    //     phone: '0931-5369999 ',
-                    //     grade: '5',
-                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    // },
-                    // {
-                    //     cinemaname: '山东万达广场店',
-                    //     location: '兰州市城关区天水北路68号万达广场4楼',
-                    //     phone: '0931-5369999 ',
-                    //     grade: '5',
-                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    // },
-                    // {
-                    //     cinemaname: '湖北万达广场店',
-                    //     location: '兰州市城关区天水北路68号万达广场4楼',
-                    //     phone: '0931-5369999 ',
-                    //     grade: '5',
-                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    // },
-                    // {
-                    //     cinemaname: '贵州万达广场店',
-                    //     location: '兰州市城关区天水北路68号万达广场4楼',
-                    //     phone: '0931-5369999 ',
-                    //     grade: '5',
-                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    // },
-                    // {
-                    //     cinemaname: '兰州万达广场店',
-                    //     location: '兰州市城关区天水北路68号万达广场4楼',
-                    //     phone: '0931-5369999 ',
-                    //     grade: '5',
-                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    // },
-                    // {
-                    //     cinemaname: '兰州万达广场店',
-                    //     location: '兰州市城关区天水北路68号万达广场4楼',
-                    //     phone: '0931-5369999 ',
-                    //     grade: '5',
-                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    // },
-                    // {
-                    //     cinemaname: '兰州万达广场店',
-                    //     location: '兰州市城关区天水北路68号万达广场4楼',
-                    //     phone: '0931-5369999 ',
-                    //     grade: '5',
-                    //     cinemadescription: ' 温馨提示：观看特殊影片（VIP厅、IMAX、IMAX3D、XLAND厅、4D厅、ScreenX厅）时，身高不足1.3米的儿童也需购票入场 ',
-                    // },
-                ]
+            searched_cinema_name: "",
+
+            cinema_info: {
+                // cinemaname: '兰州万达广场店',
+                // location: '兰州市城关区天水北路68号万达广场4楼',
+                // phone: '0931-5369999 ',
+                // grade: '5',
+                // cinemadescription: ' 温馨提示：观看特殊影片 ',
+                // cinemafigure: null,
+                cinemaname: null,
+                location: null,
+                phone: null,
+                grade: null,
+                cinemadescription: null,
             },
-            mounted:function(){
-                const params = new URLSearchParams();
-                params.append('pageNumber', this.currentPage);
-                params.append('pageSize', this.pageSize);
-                axios.get("http://localhost:8081/cinema/getList", params)
-                    .then(response => {console.log(response)
-                        let data = response.data.data;
 
-                        for (var c of data.cinemas){
-                            let file_name = ""
-                            if(data.cover_img_url!=null){
-                                let strs= data.cover_img_url.split("/");
-                                file_name = strs[strs.length];
-                            }
+            cinemas: [],
+
+            isAllSelected: false,
+            selected_cinemas: [],
+        },
+
+        mounted: function () {
+
+            axios.get("http://116.62.10.95:8081/cinema/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
+                .then(response => {
+                    console.log(response)
+                    let data = response.data.data;
+                    this.total_pages = data.pageInfo.total_pages;
+                    this.cinemas = [];
+
+                    for (var c of data.cinemas) {
+                        this.cinemas.push({
+                            cinema_id: c.id,
+                            cinemaname: c.cinemaName,
+                            location: c.location,
+                            phone: c.phone,
+                            grade: c.grade,
+                            cinemadescription: c.cinemaDescription,
+                            img_url: c.cover_img_url,
+                        })
+                    }
+                    console.log(this.cinemas)
+
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+
+        },
+
+
+
+        methods: {
+
+            loadList() {
+                axios.get("http://116.62.10.95:8081/cinema/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
+                    .then(response => {
+                        console.log(response)
+                        let data = response.data.data;
+                        this.total_pages = data.pageInfo.total_pages;
+                        this.cinemas = [];
+
+                        for (var c of data.cinemas) {
                             this.cinemas.push({
+                                cinema_id: c.id,
                                 cinemaname: c.cinemaName,
                                 location: c.location,
                                 phone: c.phone,
                                 grade: c.grade,
                                 cinemadescription: c.cinemaDescription,
-                                img_url:"http://localhost:8000/uploadFiles/"+file_name,
+                                img_url: c.cover_img_url,
                             })
                         }
 
@@ -599,111 +703,291 @@
                         console.log(error);
                     });
             },
-            // created: function () {
-            //     fetch('https://api.myjson.com/bins/s9lux')
-            //         .then(res => res.json())
-            //         .then(res => {
-            //             this.cinemas = res;
-            //         })
-            // },
-            methods: {
-                addCinema() {
-                    const params = new URLSearchParams();
 
+            lastPage() {
+                if (this.current_page >= 1) {
+                    this.current_page = this.current_page - 1;
+                    this.loadList();
 
-                    params.append('cinemaDescription', this.cinema_info.cinemadescription);
-                    params.append('cinemaName', this.cinema_info.cinemaname);
-                    params.append('grade', this.cinema_info.grade)
-                    params.append('location', this.cinema_info.location)
-                    params.append('phone', this.cinema_info.phone)
+                }
+            },
 
+            nextPage() {
+                if (this.current_page + 1 < this.total_pages) {
+                    this.current_page = this.current_page + 1;
+                    this.loadList();
+                }
+            },
 
-                    let param = new FormData();
-                    var files = document.getElementById("img_files").files;
-                    for (let i = 0; i < files.length; i++) {
-                        param.append("imgs",files[i])
+            getByDateTime() {
+
+            },
+
+            addCinema() {
+
+                let param = new FormData();
+                var files = document.getElementById("img_files").files;
+                for (let i = 0; i < files.length; i++) {
+                    param.append("imgs", files[i])
+                }
+
+                param.append('cinemaDescription', this.cinema_info.cinemadescription);
+                param.append('cinemaName', this.cinema_info.cinemaname);
+                param.append('grade', this.cinema_info.grade)
+                param.append('location', this.cinema_info.location)
+                param.append('phone', this.cinema_info.phone)
+                let config = {
+                    //添加请求头
+                    headers: { "Content-Type": "multipart/form-data" },
+                    //添加上传进度监听事件
+                    onUploadProgress: e => {
+                        var completeProgress = ((e.loaded / e.total * 100) | 0) + "%";
+                        this.progress = completeProgress;
                     }
+                };
 
-                    param.append('cinemaDescription', this.cinema_info.cinemadescription);
-                    param.append('cinemaName', this.cinema_info.cinemaname);
-                    param.append('grade', this.cinema_info.grade)
-                    param.append('location', this.cinema_info.location)
-                    param.append('phone', this.cinema_info.phone)
-                    let config = {
-                        //添加请求头
-                        headers: { "Content-Type": "multipart/form-data" },
-                        //添加上传进度监听事件
-                        onUploadProgress: e => {
-                            var completeProgress = ((e.loaded / e.total * 100) | 0) + "%";
-                            this.progress = completeProgress;
-                        }
-                    };
-
-                    axios.post("http://localhost:8081/cinema/add", param,config)
-                        .then(response => {console.log(response)
+                axios.post("http://116.62.10.95:8081/cinema/add", param, config)
+                    .then(response => {
+                        console.log(response)
+                        if (response.data.code == 0) {
                             let data = response.data.data;
-                            let file_name = ""
-                            if(data.cover_img_url!=null){
-                                let strs= data.cover_img_url.split("/");
-                                file_name = strs[strs.length];
-                            }
+                            let url = data.cover_img_url.split('/')
                             this.cinemas.push({
+                                cinema_id: data.id,
                                 cinemaname: this.cinema_info.cinemaname,
                                 location: this.cinema_info.location,
                                 phone: this.cinema_info.phone,
                                 grade: this.cinema_info.grade,
                                 cinemadescription: this.cinema_info.cinemadescription,
-                                img_url:"http://localhost:8000/uploadFiles/"+file_name,
+                                img_url: data.cover_img_url,
                             })
+
+                            // 插入后输入框内容清空
+                            // for(var attribute in this.cinema_info){
+                            //     attribute = null;
+                            // }
+                            this.cinema_info.cinemaname = null;
+                            this.cinema_info.location = null;
+                            this.cinema_info.phone = null;
+                            this.cinema_info.grade = null;
+                            this.cinema_info.cinemadescription = null;
+                            this.cinema_info.cinemafigure = null;
+
+                        }
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
+            },
+
+            deleteCinema() {
+                this.selected_cinemas.forEach(cinema_id => {
+                    const param = new URLSearchParams();
+                    param.append("cinemaId", cinema_id);
+                    let config =
+                        axios.delete("http://116.62.10.95:8081/cinema/delete?cinemaId=" + cinema_id)
+                            .then(response => {
+                                console.log(response)
+                                if (response.data.code == 0) {
+
+                                    let ifFind = false;
+                                    let val = cinema_id;
+                                    let i = 0;
+                                    while (i < this.cinemas.length) {
+                                        if (this.cinemas[i].cinema_id == val) {
+                                            ifFind = true;
+                                            break;
+                                        }
+                                        i++;
+                                    }
+                                    if (ifFind == true) {
+                                        this.cinemas.splice(i, 1);
+                                    }
+
+                                    this.selected_cinemas.shift();
+                                }
+
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            })
+
+                });
+
+
+            },
+
+            updateCinema() {
+                if (this.selected_cinemas.length != 1)
+                    alert("请选择 1 个需要修改的数据项");
+                else if (this.selected_cinemas.length == 1) {
+                    this.cinema_info = {};
+
+                    let ifFind = false;
+                    let cinema_id = this.selected_cinemas[0];
+                    let i = 0;
+                    while (i < this.cinemas.length) {
+                        if (this.cinemas[i].cinema_id == cinema_id) {
+                            ifFind = true;
+                            break;
+                        }
+                        i++;
+                    }
+                    if (ifFind == true) {
+                        this.cinema_info = this.cinemas[i];
+                    }
+                }
+            },
+
+            updateCinemaSubmit() {
+                let param = new FormData();
+                var files = document.getElementById("img_files").files;
+                for (let i = 0; i < files.length; i++) {
+                    param.append("imgs", files[i])
+                }
+
+                param.append('cinemaDescription', this.cinema_info.cinemadescription);
+                param.append('cinemaName', this.cinema_info.cinemaname);
+                param.append('grade', this.cinema_info.grade)
+                param.append('location', this.cinema_info.location)
+                param.append('phone', this.cinema_info.phone)
+                let config = {
+                    //添加请求头
+                    headers: { "Content-Type": "multipart/form-data" },
+                    //添加上传进度监听事件
+                    onUploadProgress: e => {
+                        var completeProgress = ((e.loaded / e.total * 100) | 0) + "%";
+                        this.progress = completeProgress;
+                    }
+                };
+
+                axios.put("http://116.62.10.95:8081/cinema/update", param, config)
+                    .then(response => {
+                        console.log(response)
+                        if (response.data.code = 0) {
+                            let data = response.data.data;
+                            let url = data.cover_img_url.split('/')
+
+                            // 找到电影在列表中所对应的数据项
+                            let ifFind = false;
+                            let cinema_id = data.id;
+                            let i = 0;
+                            while (i < this.cinemas.length) {
+                                if (this.cinemas[i].cinema_id == cinema_id) {
+                                    ifFind = true;
+                                    break;
+                                }
+                                i++;
+                            }
+
+                            if (ifFind == true) {
+                                this.cinemas[i] = {
+                                    cinema_id: data.id,
+                                    cinemaname: data.cinemaname,
+                                    location: data.location,
+                                    phone: data.phone,
+                                    grade: data.grade,
+                                    cinemadescription: data.cinemadescription,
+                                    img_url: data.cover_img_url,
+                                }
+                            }
+
+                            // 更新后选择清空
+                            this.selected_cinemas = [];
+
+                            // 更新后输入框内容清空
+                            // for(var attribute in this.cinema_info){
+                            //     attribute = null;
+                            // }
+                            this.cinema_info.cinemaname = null;
+                            this.cinema_info.location = null;
+                            this.cinema_info.phone = null;
+                            this.cinema_info.grade = null;
+                            this.cinema_info.cinemadescription = null;
+                            this.cinema_info.cinemafigure = null;
+                        }
+
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
+            },
+
+            searchCinema() {
+                if (this.searched_cinema_name != "") {
+                    let param = new FormData();
+                    param.append('cinema_name', this.searched_cinema_name);
+
+                    axios.post("http://116.62.10.95:8081/cinema/cinemaFliter", param)
+                        .then(response => {
+                            console.log(response)
+                            let data = response.data.data;
+                            this.cinemas = [];
+                            this.cinemas.push({
+                                cinema_id: data.cinemas[0].id,
+                                cinemaname: data.cinemas[0].cinemaName,
+                                location: data.cinemas[0].location,
+                                phone: data.cinemas[0].phone,
+                                grade: data.cinemas[0].grade,
+                                cinemadescription: data.cinemas[0].cinemaDescription,
+                                img_url: data.cinemas[0].cover_img_url,
+                            })
+                        })
+                }
+                else {
+                    axios.get("http://116.62.10.95:8081/cinema/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
+                        .then(response => {
+                            console.log(response)
+                            let data = response.data.data;
+                            this.total_pages = data.pageInfo.total_pages;
+
+                            for (var c of data.cinemas) {
+                                this.cinemas = [];
+                                this.cinemas.push({
+                                    cinema_id: c.id,
+                                    cinemaname: c.cinemaName,
+                                    location: c.location,
+                                    phone: c.phone,
+                                    grade: c.grade,
+                                    cinemadescription: c.cinemaDescription,
+                                    img_url: c.cover_img_url,
+                                })
+                            }
+
                         })
                         .catch(function (error) { // 请求失败处理
                             console.log(error);
                         });
-
-
-                    //
-                    // axios.post("http://localhost:8081/cinema/add", params)
-                    //     .then(response => {
-                    //         console.log(response)
-                    //     })
-                    //     .catch(function (error) { // 请求失败处理
-                    //         console.log(error);
-                    //     });
-                },
-                sort: function (s) {
-                    //if s == current sort, reverse
-                    if (s === this.currentSort) {
-                        this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
-                    }
-                    this.currentSort = s;
-                },
-                nextPage: function () {
-                    if ((this.currentPage * this.pageSize) < this.cinemas.length) this.currentPage++;
-                },
-                prevPage: function () {
-                    if (this.currentPage > 1) this.currentPage--;
-                },
-            },
-            
-            computed: {
-                sortedcinemas: function () {
-                    return this.cinemas.sort((a, b) => {
-                        let modifier = 1;
-                        if (this.currentSortDir === 'desc') modifier = -1;
-                        if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-                        if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
-                        return 0;
-                    }).filter((row, index) => {
-                        let start = (this.currentPage - 1) * this.pageSize;
-                        let end = this.currentPage * this.pageSize;
-                        if (index >= start && index < end) return true;
-                    });
                 }
-            }
+            },
+
+            selectAll() {
+                if (this.isAllSelected) {
+                    this.selected_cinemas = []
+                    this.isAllSelected = false
+                } else {
+                    this.selected_cinemas = []
+                    for (var cinema in this.cinemas) {
+                        this.selected_cinemas.push(this.cinemas[cinema].cinema_id)
+                    }
+                    this.isAllSelected = true
+                }
+            },
+
+            select() {
+                if (this.selected_cinemas.length !== this.cinemas.length) {
+                    this.isAllSelected = false
+                } else {
+                    this.isAllSelected = true
+                }
+            },
 
 
-        })
-    </script>
+        },
+    })
+</script>
 </body>
 
 </html>

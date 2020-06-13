@@ -22,11 +22,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import sun.text.normalizer.UTF16;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.spec.ECField;
 import java.util.List;
 
 
@@ -107,6 +105,7 @@ public class LoginController {
                     cookieService.writeCookie(response,"type3", String.valueOf(Role.CinemaMng));
                     cookieService.writeCookie(response,"name",cinemaMng.getMngUsername());
                     cookieService.writeCookie(response,"image",cinemaMng.getShowImage());
+                    cookieService.writeCookie(response,"cinema_id",cinemaMng.getCinema().getId().toString());
                     return  Util.success(cinemaMng);
                 }else {
                     return  Util.failure(ExceptionEnums.PASSWORD_ERROR);
@@ -169,7 +168,8 @@ public class LoginController {
                     response.setHeader("type", String.valueOf(Role.SystemMng));
                     request.getSession().setAttribute("id",assessor.getId());
                     cookieService.writeCookie(response,"id",assessor.getId().toString());
-                    cookieService.writeCookie(response,"type", String.valueOf(Role.User));
+                    cookieService.writeCookie(response,"type2", String.valueOf(Role.SystemMng));
+                    cookieService.writeCookie(response,"sysName",assessor.getAssessorName());
                     return  Util.success(assessor);
                 }else {
                     return  Util.failure(ExceptionEnums.PASSWORD_ERROR);

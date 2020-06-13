@@ -58,6 +58,8 @@ public interface    MovieRepository extends JpaRepository<Movie,Long> {
     @Query(nativeQuery = true,value = "SELECT m.* from movie m where m.state = :state order by release_time asc limit :start,:num")
     List<Movie> getLimitMoviesByState(@Param("state")String state,@Param("start")int start,@Param("num")int num);
 
+    List<Movie> getMoviesByState(String state);
+
 
 
 

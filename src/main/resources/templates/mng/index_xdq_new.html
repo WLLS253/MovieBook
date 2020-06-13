@@ -349,14 +349,16 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr v-for="movie in info.movie_infos">
-                                            <td>{{ movie.movie_id }}</td>
-                                            <td>{{ movie.movie_name }}</td>
-                                            <td>{{ getTime(movie.release_time) }}</td>
+                                        <tr v-for="movie in info.cinemas_infos">
+                                            <td>{{ movie.id }}</td>
+                                            <td>{{ movie.name }}</td>
+                                            <td>{{ getTime(movie.releaseTime) }}</td>
                                             <td>{{ movie.comments_num }}</td>
                                             <!--// 要加if判断状态。值高和值低状态要不同-->
                                             <!--补加state字段{{ movie.state }}-->
-                                            <td><span class="label label-warning">计划中</span></td>
+
+                                            <td v-if="movie.state=='pre'"><span class="label label-warning">计划中</span></td>
+                                            <td v-if="movie.state=='on'"><span class="label label-success">进行中</span></td>
                                             <td>
                                                 <div class="progress progress-striped progress-sm">
                                                     <div class="progress-bar progress-bar-warning" style="width: 10%;"></div>
@@ -487,7 +489,7 @@
         },
         mounted () {
             axios
-                .get('http://localhost:8081/statistics/getBuyStatisByDate?cienma_id=1&end_date=2021%2F11%2F01%2010%3A00%3A00&start_date=2019%2F01%2F01%2010%3A00%3A00')
+                .get('http://116.62.10.95:8081/statistics/getBuyStatisByDate?cienma_id=1&end_date=2021%2F11%2F01%2010%3A00%3A00&start_date=2019%2F01%2F01%2010%3A00%3A00')
                 .then(response => {
                     this.info = response.data.data;
                     console.log(this.info);
@@ -510,7 +512,7 @@
         },
         mounted () {
             axios
-                .get('http://localhost:8081/statistics/getBuyStatisByDate?cienma_id=1&end_date=2021%2F11%2F01%2010%3A00%3A00&start_date=2019%2F01%2F01%2010%3A00%3A00')
+                .get('http://116.62.10.95:8081/statistics/getBuyStatisByDate?cienma_id=1&end_date=2021%2F11%2F01%2010%3A00%3A00&start_date=2019%2F01%2F01%2010%3A00%3A00')
                 .then(response => {
                     this.info = response.data.data;
                     console.log(this.info);
@@ -533,7 +535,7 @@
         },
         mounted () {
             axios
-                .get('http://localhost:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
+                .get('http://116.62.10.95:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
                 .then(response => {
                     this.info = response.data.data;
                     console.log(this.info);
@@ -556,7 +558,7 @@
         },
         mounted () {
             axios
-                .get('http://localhost:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
+                .get('http://116.62.10.95:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
                 .then(response => {
                     this.info = response.data.data;
                     console.log(this.info);
@@ -577,18 +579,6 @@
 
 <script type = "text/javascript">
 
-<<<<<<< HEAD
-    var exp = new Date();
-    exp.setTime(exp.getTime() + 20 * 1000),//过期时间 2分钟
-    document.cookie = ";expires=" + exp.toGMTString();
-=======
-    // var exp = new Date();
-    // exp.setTime(exp.getTime() + 20 * 1000),//过期时间 2分钟
-    // document.cookie = ";expires=" + exp.toGMTString();
-    console.log(document.cookie);
-
-    document.cookie
->>>>>>> 6f40752356ae26ae360804fc48e6d5aaa9f6b4a5
     new Vue({
         el: '#app5',
         data () {
@@ -615,7 +605,7 @@
         },
         mounted () {
             axios
-                .get('http://localhost:8081/statistics/getBuyStatisByDate?cienma_id=1&end_date=2021%2F11%2F01%2010%3A00%3A00&start_date=2019%2F01%2F01%2010%3A00%3A00')
+                .get('http://116.62.10.95:8081/statistics/getBuyStatisByDate?cienma_id=1&end_date=2021%2F11%2F01%2010%3A00%3A00&start_date=2019%2F01%2F01%2010%3A00%3A00')
                 .then(response => {
                     this.info = response.data.data;
                     console.log(this.info);
@@ -684,7 +674,7 @@
         },
         mounted () {
             axios
-                .get('http://localhost:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
+                .get('http://116.62.10.95:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
                 .then(response => {
                     this.info = response.data.data;
                     console.log(this.info);
@@ -768,7 +758,7 @@
                 // alert(price);
                 // alert(schedualId);
                 // alert(start);
-                window.location.href = "http://localhost:8081/mng/xdq_cinema_arrangements_update.html?cinemaId="+cinemaId+"&describe="+describe+"&end="+end+"&hallId="+hallId+"&movieId="+movieId+"&price="+price+"&schedualId="+schedualId+"&start="+start;
+                window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_arrangements_update.html?cinemaId="+cinemaId+"&describe="+describe+"&end="+end+"&hallId="+hallId+"&movieId="+movieId+"&price="+price+"&schedualId="+schedualId+"&start="+start;
 
                 // const params = new URLSearchParams();
                 // params.append('cinemaId', cinemaId);
@@ -780,7 +770,7 @@
                 // params.append('schedualId', schedualId);
                 // params.append('start', start);
                 //
-                // axios.post("http://localhost:8081/shedule/add",params,
+                // axios.post("http://116.62.10.95:8081/shedule/add",params,
                 //     {
                 //         headers: {
                 //             'Access-Control-Allow-Origin': '*',
@@ -801,7 +791,7 @@
             deleteSchedule: function(sche_id){
                 alert("删除成功");
 
-                axios.delete("http://localhost:8081/schedual/delEasy?sche_id="+sche_id,
+                axios.delete("http://116.62.10.95:8081/schedual/delEasy?sche_id="+sche_id,
                     {
                         headers: {
                             'Access-Control-Allow-Origin': '*',
@@ -817,21 +807,22 @@
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                     });
-                window.location.href = "http://localhost:8081/mng/xdq_cinema_arrangements.html"
+                window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_arrangements.html"
             },
 
             say: function (message) {
                 alert(message)
             }
         },
+
         mounted () {
             const params = {
+                "state":"on",
                 "pageNumber": 0,
                 "pageSize": 10
             };
-
             axios
-                .post('http://localhost:8081/moive/Fliter/details',params,
+                .post('http://116.62.10.95:8081/moive/Fliter/details',params,
                     {
                         headers: {
                             'Access-Control-Allow-Origin': '*',
@@ -839,12 +830,24 @@
                         crossdomain: true,
                     })
                 .then(
-            response => {this.info = response.data.data;
-                        console.log(response);
-                console.log("这是detail movie测试："+this.info);
-                // alert("添加成功！")
-                // self.location = "xdq_cinema_arrangements.html";
-            }
+                    response => {
+                        this.info = response.data.data;
+                        params.state="pre"
+                        axios
+                            .post('http://116.62.10.95:8081/moive/Fliter/details',params,
+                                {
+                                    headers: {
+                                        'Access-Control-Allow-Origin': '*',
+                                    },
+                                    crossdomain: true,
+                                })
+                            .then(
+                                response1=>{
+                                    console.log(response1)
+                                    this.info["cinemas_infos"] = this.info["cinemas_infos"].concat(response1.data.data["cinemas_infos"])
+                                }
+                            )
+                    }
                 )
 
 

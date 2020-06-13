@@ -4,6 +4,7 @@ package com.movie.Controller;
 import com.movie.Enums.ExceptionEnums;
 import com.movie.Result.Result;
 import com.movie.Serivce.SearchService;
+import com.movie.Serivce.StatisticsService;
 import com.movie.Util.Util;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class SearchController {
 
     @Autowired
     SearchService searchService;
+
+
 
 //    @PostMapping(value = "moive/tagFliter")
 //    public Result filterMovies(@RequestBody List<String> key_string){
@@ -87,7 +90,7 @@ public class SearchController {
 
     // 按照  关键字获取电影院信息
     @PostMapping(value = "cinemaMng/cinemaMngFliter")
-    public Result filterCinemas(@RequestBody CinemaMngFilterSetting cinemaMng_fliter){
+    public Result filterCinemaMngs(@RequestBody CinemaMngFilterSetting cinemaMng_fliter){
         try {
             Pageable p = PageRequest.of(cinemaMng_fliter.pageNumber,cinemaMng_fliter.pageSize);
             return Util.success(searchService.filterCinemaMng(cinemaMng_fliter.mng_username,cinemaMng_fliter.mng_sex,cinemaMng_fliter.mng_cinema,cinemaMng_fliter.prio,p));

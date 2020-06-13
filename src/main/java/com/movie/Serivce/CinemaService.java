@@ -9,6 +9,7 @@ import com.movie.Repository.*;
 import com.movie.Util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.origin.OriginTrackedValue;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,8 +44,9 @@ public class CinemaService {
     @Autowired
     private  FigureRepository figureRepository;
 
-    public  Hall addCinemaHall(String cinemaName, Hall hall,List<MultipartFile>fileList){
-        List<Cinema >cinemaList=cinemaRepository.findByCinemaName(cinemaName);
+    public  Hall addCinemaHall(Cinema cinema, Hall hall,List<MultipartFile>fileList){
+
+
 
 
         List<Figure>figures=new ArrayList<>();
@@ -60,15 +62,10 @@ public class CinemaService {
             }
         }
         hall.setFigureList(figures);
-        Cinema cinema;
-        if(cinemaList.size()>0){
-            cinema=cinemaList.get(0);
             hall.setCinema(cinema);
             System.out.println(hall);
             return  hallRepository.save(hall);
-        }else {
-            return  null;
-        }
+
     }
 
     public  Schedual addSchedule(Long movieId,Long hallId,Long cinemaId,String startTime,String endTime,Double price,String description) throws ParseException {
@@ -153,19 +150,19 @@ public class CinemaService {
         cinema.setCinemaName(cinemaName);
         cinema.setCinemaDescription(cinemaDescription);
         cinema.setLocation(location);
-        if(figureList.size()>0){
-            List<Figure>figures=new ArrayList<>();
-            for (MultipartFile multipartFile : figureList) {
-                Figure figure=new Figure();
-                String url=uploadSerivce.upImageFire(multipartFile);
-                figure.setImageurl(url);
-                figures.add(figure);
-                figureRepository.save(figure);
+        if(figureList!=null){
+            if(figureList.size()>0){
+                List<Figure>figures=new ArrayList<>();
+                for (MultipartFile multipartFile : figureList) {
+                    Figure figure=new Figure();
+                    String url=uploadSerivce.upImageFire(multipartFile);
+                    figure.setImageurl(url);
+                    figures.add(figure);
+                    figureRepository.save(figure);
+                }
+                cinema.setFigureList(figures);
             }
-            cinema.setFigureList(figures);
         }
-
-
         return cinemaRepository.save(cinema);
     }
 
@@ -212,6 +209,19 @@ public class CinemaService {
         hallOri.setFigureList(figures);
         hallRepository.save(hallOri);
         return hallOri;
+    }
+
+    @Scheduled(fixedRate = 5000)
+    public void reportCurrentTime() {
+        List<Schedual> norm_scheds = scheudalRepository.findAllByState("normal");
+        Long cur = new Date().getTime();
+        for (Schedual s:
+                norm_scheds) {
+            if(Math.abs(s.getStartDate().getTime() - cur) <= 5000 || s.getStartDate().getTime() < cur){
+                s.setState("dated");
+            }
+        }
+        scheudalRepository.saveAll(norm_scheds);
     }
 
 

@@ -317,26 +317,29 @@
                                         </tbody>
                                     </table>
                                 </div>
+
+
                                 <ul class="pagination">
-                                    <li class="disabled"><span>«</span></li>
-                                    <li class="active"><span>1</span></li>
-                                    <li><a href="xdq_cinema_arrangements_2.html">2</a></li>
-                                    <li><a href="#1">3</a></li>
-                                    <li><a href="#1">4</a></li>
-                                    <li><a href="#1">5</a></li>
-                                    <li><a href="#1">6</a></li>
-                                    <li><a href="#1">7</a></li>
-                                    <li><a href="#1">8</a></li>
+                                    <li v-on:click="setPage(page_info.number-1)" v-bind:class="{'disabled':page_info.first}"><span>«</span></li>
+                                    <li v-for=" n in (page_info.total_pages>5?page_info.total_pages<9?page_info.total_pages:5:page_info.total_pages)">
+                                        <a v-on:click="setPage(n-1)">{{ n }}</a>
+                                    </li>
+                                </ul>
+
+                                <ul class="pagination" v-if="page_info.total_pages>8" >
                                     <li class="disabled"><span>...</span></li>
-                                    <li><a href="#!">14452</a></li>
-                                    <li><a href="xdq_error.html">14453</a></li>
-                                    <li><a href="#!">»</a></li>
+                                    <li v-for=" n in 3">
+                                        <a v-on:click="setPage(page_info.total_pages-3+n)">{{ page_info.total_pages-3+n }}</a>
+                                    </li>
+                                </ul>
+
+                                <ul class="pagination">
+                                    <li v-on:click="setPage(page_info.number+1)"  v-bind:class="{'disabled':page_info.last}"><span>»</span></li>
                                 </ul>
 
                             </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>
@@ -372,8 +375,11 @@
         el: '#schedule',
         data () {
             return {
-                info: null
+                info: null,
+                page_info:null,
+                default_page_size:10
             }
+
         },
         methods:{
             getTimestamp(stamp){
@@ -403,49 +409,13 @@
             },
 
             updateSchedule: function(cinemaId,describe,end,hallId,movieId,price,schedualId,start){
-
-                // alert(cinemaId);
-                // alert(describe);
-                // alert(end);
-                // alert(hallId);
-                // alert(movieId);
-                // alert(price);
-                // alert(schedualId);
-                // alert(start);
-                window.location.href = "http://localhost:8081/mng/xdq_cinema_arrangements_update.html?cinemaId="+cinemaId+"&describe="+describe+"&end="+end+"&hallId="+hallId+"&movieId="+movieId+"&price="+price+"&schedualId="+schedualId+"&start="+start;
-
-                // const params = new URLSearchParams();
-                // params.append('cinemaId', cinemaId);
-                // params.append('describe', describe);
-                // params.append('end', end);
-                // params.append('hallId', hallId);
-                // params.append('movieId', movieId);
-                // params.append('price', price);
-                // params.append('schedualId', schedualId);
-                // params.append('start', start);
-                //
-                // axios.post("http://localhost:8081/shedule/add",params,
-                //     {
-                //         headers: {
-                //             'Access-Control-Allow-Origin': '*',
-                //         },
-                //         crossdomain: true,
-                //     }
-                // )
-                //     .then(response => {console.log(response)
-                //         console.log(this.schedule)
-                //         // alert("添加成功！")
-                //         // self.location = "xdq_cinema_arrangements.html";
-                //     })
-                //     .catch(function (error) { // 请求失败处理
-                //         console.log(error);
-                //     });
+                window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_arrangements_update.html?cinemaId="+cinemaId+"&describe="+describe+"&end="+end+"&hallId="+hallId+"&movieId="+movieId+"&price="+price+"&schedualId="+schedualId+"&start="+start;
             },
 
             deleteSchedule: function(sche_id){
                 alert("删除成功");
 
-                axios.delete("http://localhost:8081/schedual/delEasy?sche_id="+sche_id,
+                axios.delete("http://116.62.10.95:8081/schedual/delEasy?sche_id="+sche_id,
                     {
                         headers: {
                             'Access-Control-Allow-Origin': '*',
@@ -461,17 +431,31 @@
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                     });
-                window.location.href = "http://localhost:8081/mng/xdq_cinema_arrangements.html"
+                window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_arrangements.html"
             },
 
             say: function (message) {
                 alert(message)
+            },
+            setPage(n){
+                axios
+                    .get('http://116.62.10.95:8081/cinema/getScheduals?cinema_id=1&pageSize='+this.default_page_size+'&pageNumber='+n)
+                    .then(response => {
+                            this.info = response.data.data["schedual_info"]
+                            this.page_info =response.data.data["page_info"]
+                        }
+                    )
             }
         },
         mounted () {
             axios
-                .get('http://localhost:8081/cinema/getScheduals?cinema_id=1')
-                .then(response => (this.info = response.data.data))
+                .get('http://116.62.10.95:8081/cinema/getScheduals?cinema_id=1&pageSize='+this.default_page_size+'&pageNumber=0')
+                .then(response => {
+                    this.info = response.data.data["schedual_info"]
+                    this.page_info =response.data.data["page_info"]
+                    }
+
+                )
         }
     })
 </script>

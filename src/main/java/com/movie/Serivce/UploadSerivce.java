@@ -25,6 +25,9 @@ public class UploadSerivce {
     @Value("${file.sonPath}")
     private String SON_PATH;
 
+    @Value("${file.fileServer}")
+    private String SERVER_URL;
+
     @Value("${server.port}")
     //获取主机端口
     private String POST;
@@ -63,9 +66,7 @@ public class UploadSerivce {
         try {
             //transferTo（dest）方法将上传文件写到服务器上指定的文件
             file.transferTo(dest);
-            String filePathNew = ROOT_PATH+SON_PATH + fileName;
-//            String profilePhoto = saveUploadFile(filePathNew);
-//            System.out.println(profilePhoto);
+            String filePathNew = SERVER_URL + fileName;
             return filePathNew;
         } catch (Exception e) {
             return dest.toString();

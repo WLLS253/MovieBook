@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Login</title>
+    <title>登录</title>
 
     <!-- Fontfaces CSS-->
     <link href="/sys/css/font-face.css" rel="stylesheet" media="all">
@@ -23,8 +23,7 @@
 
     <!-- Vendor CSS-->
     <link href="/sys/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="/sys/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet"
-        media="all">
+    <link href="/sys/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
     <link href="/sys/vendor/wow/animate.css" rel="stylesheet" media="all">
     <link href="/sys/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
     <link href="/sys/vendor/slick/slick.css" rel="stylesheet" media="all">
@@ -36,57 +35,65 @@
 
 </head>
 
+<!-- Vue app -->
+
 <body class="animsition">
-    <div class="page-wrapper">
-        <div class="page-content--bge5">
-            <div class="container">
-                <div class="login-wrap">
-                    <div class="login-content">
-                        <div class="login-logo">
-                            <a href="#">
-                                <img src="images/icon/logo.png" alt="CoolAdmin">
-                            </a>
-                        </div>
-                        <div class="login-form">
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <label>用户名</label>
-                                    <input class="au-input au-input--full" type="email" name="email" placeholder="">
-                                </div>
-                                <div class="form-group">
-                                    <label>密码</label>
-                                    <input class="au-input au-input--full" type="password" name="password"
-                                        placeholder="">
-                                </div>
-                                <div class="login-checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember">记住密码
-                                    </label>
-                                    <label>
+    <div id="app">
+        <div class="page-wrapper">
+            <div class="page-content--bge5">
+                <div class="container" style="width: 500px;">
+                    <div class="login-wrap">
+                        <div class="login-content">
+                            <div style="vertical-align: middle;text-align: center;">
+
+                                管理员系统登录界面
+
+                            </div>
+                            <div class="login-form">
+                                <form>
+                                    <div class="form-group">
+                                        <label>用户名</label>
+                                        <input v-model="sys_username" class="au-input au-input--full" type="email"
+                                            name="email" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>密码</label>
+                                        <input v-model="sys_password" class="au-input au-input--full" type="password"
+                                            name="password" placeholder="">
+                                    </div>
+                                    <div class="login-checkbox">
+                                        <label>
+                                            <input type="checkbox" name="remember">记住密码
+                                        </label>
+                                        <!-- <label>
                                         <a href="#">忘记密码?</a>
-                                    </label>
-                                </div>
-                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">登录</button>
-                                <!-- <div class="social-login-content">
+                                    </label> -->
+                                    </div>
+                                    <button @click="login" type="button"
+                                        class="au-btn au-btn--block au-btn--green m-b-20">登录</button>
+                                    <!-- <div class="social-login-content">
                                     <div class="social-button">
                                         <button class="au-btn au-btn--block au-btn--blue m-b-20">sign in with facebook</button>
                                         <button class="au-btn au-btn--block au-btn--blue2">sign in with twitter</button>
                                     </div>
                                 </div> -->
-                            </form>
-                            <div class="register-link">
+                                </form>
+                                <!-- <div class="register-link">
                                 <p>
                                     没有账户?
                                     <a href="#">点击这里</a>
                                 </p>
+                            </div> -->
+                                <!-- Debug: {{sys_username}} {{sys_password}} -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+    <!-- vue app end -->
+
 
     <!-- Jquery JS-->
     <script src="/sys/vendor/jquery-3.2.1.min.js"></script>
@@ -111,9 +118,79 @@
 
     <script src="/sys/js/vue.js"></script>
     <script src="/sys/js/axios.js"></script>
-    
+
     <!-- Main JS-->
     <script src="/sys/js/main.js"></script>
+
+
+    <script>
+
+        function getCookie(cookie_name) {
+            var allcookies = document.cookie;
+            //索引长度，开始索引的位置
+            var cookie_pos = allcookies.indexOf(cookie_name);
+
+            // 如果找到了索引，就代表cookie存在,否则不存在
+            if (cookie_pos != -1) {
+                // 把cookie_pos放在值的开始，只要给值加1即可
+                //计算取cookie值得开始索引，加的1为“=”
+                cookie_pos = cookie_pos + cookie_name.length + 1;
+                //计算取cookie值得结束索引
+                var cookie_end = allcookies.indexOf(";", cookie_pos);
+
+                if (cookie_end == -1) {
+                    cookie_end = allcookies.length;
+
+                }
+                //得到想要的cookie的值
+                var value = unescape(allcookies.substring(cookie_pos, cookie_end));
+            }
+            return value;
+        }
+        new Vue({
+            el: '#app',
+            data: {
+                sys_username: null,
+                sys_password: null
+            },
+            methods: {
+                login() {
+                    const params = new URLSearchParams();
+                    params.append("sysName", this.sys_username);
+                    params.append("password", this.sys_password);
+
+                    axios.post("http://116.62.10.95:8081/sys/login", params)
+                        .then(response => {
+                            console.log(response);
+                            if (response.data.code == 0) {
+                                
+                                // document.cookie = "type" + ":" +"SystemMng";
+
+                                //alert("登录成功")
+
+                                console.log(document.cookie);
+                                var test=getCookie("type2");
+                                console.log("test"+test);
+                                window.location.href = "index.html";
+                            }
+                            else if (response.data.code == 2) {
+                                alert("用户不存在")
+                                this.sys_username = null;
+                                this.sys_password = null;
+                            }
+                            else if (response.data.code == 5) {
+                                alert("用户名或密码错误")
+                                this.sys_password = null;
+                            }
+
+                        })
+                        .catch(function (error) { // 请求失败处理
+                            console.log(error);
+                        });
+                },
+            }
+        })
+    </script>
 
 </body>
 

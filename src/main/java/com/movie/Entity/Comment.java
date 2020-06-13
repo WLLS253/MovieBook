@@ -4,10 +4,8 @@ package com.movie.Entity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import sun.plugin2.message.PrintAppletMessage;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Getter
 @Setter

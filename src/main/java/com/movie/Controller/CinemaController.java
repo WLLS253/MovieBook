@@ -29,11 +29,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
-import java.awt.*;
 import java.util.List;
 
 /**
@@ -233,16 +230,17 @@ public class CinemaController {
 
     //@SysLog(value = "新增影厅")
     @PostMapping(value = "cinemaHall/add")
-    public Result addCinemaHall(@RequestParam("cinemaName")String cinameName, Hall_Infor hall){
+    public Result addCinemaHall(@RequestParam("cinemaId")Long cinemaId, Hall_Infor hall){
         try {
 
+            Cinema cinema=cinemaRepository.findById(cinemaId).get();
             Hall hall2=new Hall();
             hall2.setHallName(hall.hallName);
             hall2.setLayout(hall.layout);
             hall2.setRow(hall.row);
             hall2.setCol(hall.col);
             hall2.setHallType(hall.hallType);
-            Hall ourHall=cinemaService.addCinemaHall(cinameName,hall2,hall.figureList);
+            Hall ourHall=cinemaService.addCinemaHall(cinema,hall2,hall.figureList);
             if(ourHall!=null){
                 return  Util.success(ourHall);
             }else {
@@ -251,7 +249,10 @@ public class CinemaController {
                  * 待完善
                  */
             }
-        }catch (Exception e){
+        }catch ( NoSuchElementException e){
+            return  Util.failure(ExceptionEnums.UNFIND_DATA_ERROR);
+        }
+        catch (Exception e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
@@ -311,8 +312,6 @@ public class CinemaController {
                                   @RequestParam("cinemaId")Long cinemaId,@RequestParam("start")String stratTime,@RequestParam("end")String endTime,
                                   @RequestParam("price")Double price,@RequestParam("describe")String description)
     {
-
-
         try {
 
             Schedual schedual=cinemaService.updateSchedule(schedual_id,movieId,hallId,cinemaId,stratTime,endTime,price,description);
@@ -327,10 +326,15 @@ public class CinemaController {
 
     @SysLog(value = "获取电影排片")
     @GetMapping(value = "cinema/getScheduals")
-    public Result getScheduals(@RequestParam("cinema_id")Long cinema_id){
+    public Result getScheduals(@RequestParam("cinema_id")Long cinema_id,int pageNumber,int pageSize){
         try {
-            Cinema c =  cinemaRepository.findById(cinema_id).get();
-            return Util.success(scheudalRepository.findAllByCinema(c));
+            JSONObject jsonObject = new JSONObject();
+            Pageable p = PageRequest.of(pageNumber,pageSize);
+            Cinema cinema=cinemaRepository.findById(cinema_id).get();
+            Page<Schedual> scheduals=scheudalRepository.findAllByCinema_Id(cinema_id,p);
+            jsonObject.put("schedual_info",scheduals.getContent());
+            jsonObject.put("page_info",PageHelper.getPageInfoWithoutContent(scheduals));
+            return  Util.success(jsonObject);
         }catch (Exception e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.ADD_ERROR);
@@ -340,19 +344,12 @@ public class CinemaController {
 
     @Data
     private static class Cinema_Infor{
-
         private Long cinemaId;
-
         private String cinemaName;
-
         private String location;
-
         private String phone;
-
         private Integer grade;
-
         private String cinemaDescription;
-
         private List<MultipartFile>figureList;
     }
 

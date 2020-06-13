@@ -37,7 +37,7 @@ public class SysAspect {
 
         String type = null;
         for (Cookie cookie : cookies) {
-            if(cookie.getName().equals("type")){
+            if(cookie.getName().equals("type2")){
 
                 type=cookie.getValue();
             }

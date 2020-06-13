@@ -3,7 +3,8 @@ server:
   address: 0.0.0.0
   servlet:
     session:
-      timeout: PT2M
+      timeout: PT15M
+
 
 spring:
   datasource:
@@ -28,7 +29,7 @@ volunteer:
   credit: 100
 
 file:
-  rootPath: "D:"
+  rootPath: "/root/Projects/Java/MovieBook"
   sonPath: "/img/"
-  fileServer: "http://localhost:8000/uploadFiles/"
+  fileServer: "http://116.62.10.95:8000/uploadFiles/"
 

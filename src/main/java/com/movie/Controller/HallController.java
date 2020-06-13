@@ -13,10 +13,15 @@ import com.movie.Repository.TicketRepository;
 import com.movie.Result.Result;
 import com.movie.Serivce.CinemaService;
 import com.movie.Serivce.PurchaseService;
+import com.movie.Util.PageHelper;
 import com.movie.Util.Util;
 import com.sun.org.apache.regexp.internal.RE;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -102,12 +107,15 @@ public class HallController  {
 
     @SysLog(value = "查询电影院影厅")
     @GetMapping(value = "cinemaHall/getList")
-    public Result getHallList(@RequestParam("cinema_id")Long cinema_id){
+    public Result getHallList(@RequestParam("cinema_id")Long cinema_id,int pageNumber,int pageSize){
         try {
+            JSONObject jsonObject = new JSONObject();
+            Pageable p = PageRequest.of(pageNumber,pageSize);
            Cinema cinema=cinemaRepository.findById(cinema_id).get();
-
-           List<Hall>halls=hallRepository.findByCinema(cinema);
-           return  Util.success(halls);
+           Page<Hall> halls=hallRepository.findByCinema(cinema,p);
+           jsonObject.put("hall_infos",halls.getContent());
+            jsonObject.put("page_infos",PageHelper.getPageInfoWithoutContent(halls));
+           return  Util.success(jsonObject);
         }catch (NoSuchElementException e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNFIND_DATA_ERROR);

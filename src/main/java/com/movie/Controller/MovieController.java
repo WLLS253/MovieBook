@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -76,7 +77,7 @@ public class MovieController {
         Movie movie1=new Movie();
         movie1.setBrief(movieInformation.brief);
         movie1.setCountry(movieInformation.country);
-        movie1.setDuration(movieInformation.brief);
+        movie1.setDuration(movieInformation.duration);
         movie1.setReleaseTime(releaseTime);
         movie1.setLanguage(movieInformation.language);
         movie1.setState(movieInformation.state);
@@ -260,6 +261,8 @@ public class MovieController {
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
+
 
 
 

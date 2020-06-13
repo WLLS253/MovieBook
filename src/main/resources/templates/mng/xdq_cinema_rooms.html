@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>影院管理</title>
+    <title>影厅管理</title>
     <link rel="icon" href="favicon.ico" type="image/ico">
     <meta name="author" content="Yodo">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -266,27 +266,6 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td>1</td>
-                                            <td>3D影厅1号</td>
-                                            <td>3D</td>
-                                            <td>18行</td>
-                                            <td>22列</td>
-                                            <td>北京第一影院</td>
-                                            <td>地理位置最好</td>
-                                            <td><font class="text-success">放映中</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
                                         <tr v-for="hall in info">
                                             <td>
                                                 <label class="lyear-checkbox checkbox-primary">
@@ -308,65 +287,26 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td>2</td>
-                                            <td>3D影厅2号</td>
-                                            <td>3D</td>
-                                            <td>19行</td>
-                                            <td>21列</td>
-                                            <td>北京第一影院</td>
-                                            <td>地理位置一般</td>
-                                            <td><font class="text-warning">闲置中</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td>3</td>
-                                            <td>2D影厅1号</td>
-                                            <td>2D</td>
-                                            <td>12行</td>
-                                            <td>18列</td>
-                                            <td>北京第一影院</td>
-                                            <td>地理位置最差</td>
-                                            <td><font class="text-danger">故障中</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
+
                                 <ul class="pagination">
-                                    <li class="disabled"><span>«</span></li>
-                                    <li class="active"><span>1</span></li>
-                                    <li><a href="#1">2</a></li>
-                                    <li><a href="#1">3</a></li>
-                                    <li><a href="#1">4</a></li>
-                                    <li><a href="#1">5</a></li>
-                                    <li><a href="#1">6</a></li>
-                                    <li><a href="#1">7</a></li>
-                                    <li><a href="#1">8</a></li>
+                                    <li v-on:click="setPage(page_info.number-1)" v-bind:class="{'disabled':page_info.first}"><span>«</span></li>
+                                    <li v-for=" n in (page_info.total_pages>5?page_info.total_pages<9?page_info.total_pages:5:page_info.total_pages)">
+                                        <a v-on:click="setPage(n-1)">{{ n }}</a>
+                                    </li>
+                                </ul>
+
+                                <ul class="pagination" v-if="page_info.total_pages>8" >
                                     <li class="disabled"><span>...</span></li>
-                                    <li><a href="#!">14452</a></li>
-                                    <li><a href="#!">14453</a></li>
-                                    <li><a href="#!">»</a></li>
+                                    <li v-for=" n in 3">
+                                        <a v-on:click="setPage(page_info.total_pages-3+n)">{{ page_info.total_pages-3+n }}</a>
+                                    </li>
+                                </ul>
+
+                                <ul class="pagination">
+                                    <li v-on:click="setPage(page_info.number+1)"  v-bind:class="{'disabled':page_info.last}"><span>»</span></li>
                                 </ul>
 
                             </div>
@@ -390,54 +330,6 @@
 
 <script src="js/jconfirm/jquery-confirm.min.js"></script>
 <script type="text/javascript" src="js/main.min.js"></script>
-<!--<script type="text/javascript">-->
-    <!--$('.example-p-3').on('click', function () {-->
-        <!--$.confirm({-->
-            <!--title: '新建影片',-->
-            <!--content: '' +-->
-                <!--'<form action="" class="formName">' +-->
-                <!--'<div class="form-group">' +-->
-                <!--'<label>请输入影厅名称</label>' +-->
-                <!--'<input type="text" placeholder="影厅名称" class="name form-control" required />' +-->
-                <!--'<label>请输入影厅类型</label>' +-->
-                <!--'<input type="text" placeholder="影厅类型" class="name form-control" required />' +-->
-                <!--'<label>请设置座位行数</label>' +-->
-                <!--'<input type="text" placeholder="座位行数" class="name form-control" required />' +-->
-                <!--'<label>请设置座位列数</label>' +-->
-                <!--'<input type="text" placeholder="座位列数" class="name form-control" required />' +-->
-                <!--'<label>请设置所属影院</label>' +-->
-                <!--'<input type="text" placeholder="所属影院" class="name form-control" required />' +-->
-                <!--'<label>请补充相关信息</label>' +-->
-                <!--'<input type="text" placeholder="相关信息" class="name form-control" required />' +-->
-                <!--'</div>' +-->
-                <!--'</form>',-->
-            <!--buttons: {-->
-                <!--formSubmit: {-->
-                    <!--text: '提交',-->
-                    <!--btnClass: 'btn-blue',-->
-                    <!--action: function () {-->
-                        <!--var name = this.$content.find('.name').val();-->
-                        <!--if(!name){-->
-                            <!--$.alert('请您输入影厅名称');-->
-                            <!--return false;-->
-                        <!--}-->
-                        <!--$.alert('新建影厅名称是： ' + name);-->
-                    <!--}-->
-                <!--},-->
-                <!--cancel: {-->
-                    <!--text: '取消'-->
-                <!--},-->
-            <!--},-->
-            <!--onContentReady: function () {-->
-                <!--var jc = this;-->
-                <!--this.$content.find('form').on('submit', function (e) {-->
-                    <!--e.preventDefault();-->
-                    <!--jc.$$formSubmit.trigger('click');-->
-                <!--});-->
-            <!--}-->
-        <!--});-->
-    <!--});-->
-<!--</script>-->
 
 <script type="text/javascript">
     $(function(){
@@ -455,8 +347,11 @@
         el: '#hall',
         data () {
             return {
-                info: null
+                info: null,
+                page_info:null,
+                default_page_size:10
             }
+
         },
         methods:{
             // 时间戳转为中文输出
@@ -472,13 +367,13 @@
             },
 
             updateHall: function(cinemaId,col,hallId,hallName,hallType,layout,row){
-                window.location.href = "http://localhost:8081/mng/xdq_cinema_rooms_update.html?cinemaId="+cinemaId+"&col="+col+"&hallId="+hallId+"&hallName="+hallName+"&hallType="+hallType+"&layout="+layout+"&row="+row;
+                window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_rooms_update.html?cinemaId="+cinemaId+"&col="+col+"&hallId="+hallId+"&hallName="+hallName+"&hallType="+hallType+"&layout="+layout+"&row="+row;
             },
 
             deleteHall: function(hallId){
                 alert("删除成功");
 
-                axios.delete("http://localhost:8081/cinemaHall/del?hallId="+hallId,
+                axios.delete("http://116.62.10.95:8081/cinemaHall/del?hallId="+hallId,
                     {
                         headers: {
                             'Access-Control-Allow-Origin': '*',
@@ -494,13 +389,27 @@
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                     });
-                window.location.href = "http://localhost:8081/mng/xdq_cinema_rooms.html"
+                window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_rooms.html"
+            },
+            setPage(n){
+                axios
+                    .get('http://116.62.10.95:8081/cinemaHall/getList?cinema_id=1&pageSize='+this.default_page_size+'&pageNumber='+n)
+                    .then(response => {
+                            this.info = response.data.data["hall_infos"]
+                            this.page_info =response.data.data["page_infos"]
+                        }
+                    )
             },
         },
+
         mounted () {
             axios
-                .get('http://localhost:8081/cinemaHall/getList?cinema_id=1')
-                .then(response => (this.info = response.data.data))
+                .get('http://116.62.10.95:8081/cinemaHall/getList?cinema_id=1&pageSize='+this.default_page_size+'&pageNumber=0')
+                .then(response => {
+                this.info = response.data.data["hall_infos"]
+                this.page_info = response.data.data["page_infos"] }
+                )
+
         }
     })
 </script>

@@ -26,12 +26,12 @@ public class RouterController {
 
     @RequestMapping({"/mng","/mng/index"})
     public String mngIndex(){
-        return "mng/index_xdq_new";
+        return "mng/xdq_cinema_login";
     }
 
     @RequestMapping({"/sys","/sys/index"})
     public String sysIndex(){
-        return "sys/index";
+        return "sys/login";
     }
 
     @RequestMapping({"/user","/user/index"})

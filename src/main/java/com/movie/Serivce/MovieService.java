@@ -10,6 +10,7 @@ import com.movie.Repository.TakePartRepository;
 import com.movie.Util.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +35,8 @@ public class MovieService {
 
     @Autowired
     private UploadSerivce uploadSerivce;
+    @Autowired
+    private StatisticsService statisticsService;
 
 
 
@@ -113,6 +116,19 @@ public class MovieService {
             staffs.add(staff_json);
         }
         return  staffs;
+    }
+
+    @Scheduled(fixedRate = 10000)
+    public void updateMovieStates() {
+        List<Movie> preMovies  = movieRepository.getMoviesByState("pre");
+        Long cur = new Date().getTime();
+        for (Movie m:
+                preMovies) {
+            if(Math.abs(m.getReleaseTime().getTime() - cur) <= 10000 || m.getReleaseTime().getTime() < cur){
+                m.setState("on");
+            }
+        }
+        movieRepository.saveAll(preMovies);
     }
 
 //    public JSONObject getMovieBreifInfos(String state){
