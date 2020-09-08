@@ -15,14 +15,9 @@ import javax.persistence.*;
 public class Comment extends BaseEntity{
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "bigint", nullable = false)
-    protected Long id;
-
 
     @Column(name = "score", nullable = true, length = 30)
-    private String score;
+    private Float score;
 
 
     @Column(name = "content", nullable = true, length = 400)

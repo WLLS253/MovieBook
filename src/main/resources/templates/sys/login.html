@@ -159,7 +159,7 @@
                     params.append("sysName", this.sys_username);
                     params.append("password", this.sys_password);
 
-                    axios.post("http://116.62.10.95:8081/sys/login", params)
+                    axios.post("http://localhost:8081/sys/login", params)
                         .then(response => {
                             console.log(response);
                             if (response.data.code == 0) {

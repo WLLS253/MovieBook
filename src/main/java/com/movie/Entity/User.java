@@ -53,12 +53,6 @@ public class User extends  BaseEntity {
     private List<Movie> collectedMovies;
 
 
-
-
-
-
-
-
 //    @OneToMany(mappedBy = "user")
 //    private  List<Ticket>ticketList;
 
@@ -167,4 +161,20 @@ public class User extends  BaseEntity {
 //    }
 
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userSex='" + userSex + '\'' +
+                ", password='" + password + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", username='" + username + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", showimage='" + showimage + '\'' +
+                ", commentedMovies=" + commentedMovies +
+                ", collectedMovies=" + collectedMovies +
+                ", id=" + id +
+                ", createdTime=" + createdTime +
+                ", updatedTime=" + updatedTime +
+                '}';
+    }
 }

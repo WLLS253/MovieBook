@@ -423,10 +423,10 @@
             methods: {
 
                 loadList() {
-                    http://116.62.10.95:8081/movie/getCommentList?movieId=1&pageNumber=0&pageSize=10
+                    http://localhost:8081/movie/getCommentList?movieId=1&pageNumber=0&pageSize=10
 
                     if (this.selected_movie_id != null) {
-                        axios.get("http://116.62.10.95:8081/movie/getCommentList?" + "movieId" + "=" + this.selected_movie_id + "&" + "pageNumber" + "=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
+                        axios.get("http://localhost:8081/movie/getCommentList?" + "movieId" + "=" + this.selected_movie_id + "&" + "pageNumber" + "=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
                             .then(response => {
                                 console.log(response)
                                 if (response.data.code == 0) {
@@ -483,7 +483,7 @@
                     if (this.selected_comments != null) {
                         this.selected_comments.forEach(commentid => {
 
-                            axios.delete("http://116.62.10.95:8081/comment/delbymng?commentId=" + commentid)
+                            axios.delete("http://localhost:8081/comment/delbymng?commentId=" + commentid)
                                 .then(response => {
                                     console.log(response)
                                     if (response.data.code == 0) {

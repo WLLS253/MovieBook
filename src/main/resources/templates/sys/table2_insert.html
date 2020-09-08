@@ -331,7 +331,7 @@
                         }
                     }
 
-                    axios.post("http://116.62.10.95:8081/movie/add", params, config)
+                    axios.post("http://localhost:8081/movie/add", params, config)
                         .then(response => {
                             console.log(response)
                             data = response.data.data;
@@ -353,7 +353,7 @@
                                 'staffName': s.name,
                             }
 
-                            axios.post("http://116.62.10.95:8081/staff/add", param)
+                            axios.post("http://localhost:8081/staff/add", param)
                                 .then(response => {
                                     console.log(response)
                                     if (response.data.code == 0) {

@@ -10,7 +10,6 @@ import com.movie.Repository.UserRepository;
 import com.movie.Result.Result;
 import com.movie.Serivce.UserService;
 import com.movie.Util.Util;
-import com.sun.org.apache.regexp.internal.RE;
 import org.hibernate.stat.internal.CategorizedStatistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

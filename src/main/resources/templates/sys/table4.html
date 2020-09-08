@@ -304,7 +304,7 @@
             },
 
             mounted: function () {
-                axios.post("http://116.62.10.95:8081/myLogger/getRecent")
+                axios.post("http://localhost:8081/myLogger/getRecent")
                     .then(response => {
                         console.log(response);
                         if (response.data.code == 0) {
@@ -330,7 +330,7 @@
 
             methods: {
                 deleteAll() {
-                    axios.delete("http://116.62.10.95:8081/myLogger/delAll")
+                    axios.delete("http://localhost:8081/myLogger/delAll")
                         .then(response => {
                             if (response.data.code == 0) {
                                 alert("删除成功");
@@ -355,7 +355,7 @@
 
                     let selected_datetime = this.selected_date + " " + "12:12:12";
 
-                    axios.delete("http://116.62.10.95:8081/myLogger/delByDate?date=" + selected_datetime)
+                    axios.delete("http://localhost:8081/myLogger/delByDate?date=" + selected_datetime)
 
                         .then(response => {
                             if (response.data.code == 0) {
@@ -373,7 +373,7 @@
                 getByUserid() {
                     const param = new URLSearchParams();
                     param.append("userId", this.keyword);
-                    axios.post("http://116.62.10.95:8081/myLogger/getByUser", param)
+                    axios.post("http://localhost:8081/myLogger/getByUser", param)
                         .then(response => {
                             console.log(response);
                             if (response.data.code == 0) {
@@ -409,7 +409,7 @@
                     const param = new URLSearchParams();
                     let selected_datetime = this.selected_date + " " + "12:12:12"
                     param.append("date", selected_datetime);
-                    axios.post("http://116.62.10.95:8081/myLogger/getByOnedate", param)
+                    axios.post("http://localhost:8081/myLogger/getByOnedate", param)
                         .then(response => {
                             console.log(response);
                             if (response.data.code == 0) {

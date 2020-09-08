@@ -409,7 +409,7 @@
         <script>
             function myFunction(){
                 var mid = document.location.href.split('?id=')[1].split('#')[0];
-                axios.post('http://116.62.10.95:8081/collect/add?movieId='+mid+'&userId=1')
+                axios.post('http://localhost:8081/collect/add?movieId='+mid+'&userId=1')
                 .then((response)=>{
                     if(response.data.data!=null){
                         alert(response.data.data.msg);

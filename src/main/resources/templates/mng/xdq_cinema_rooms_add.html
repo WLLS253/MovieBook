@@ -375,11 +375,11 @@
                     }
                 };
                 //param,config
-                axios.post("http://116.62.10.95:8081//cinemaHall/add",param,config)
+                axios.post("http://localhost:8081//cinemaHall/add",param,config)
                     .then(response => {console.log(response)
                         console.log(this.hall)
                         alert("添加成功！");
-                        window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_rooms.html";
+                        window.location.href = "http://localhost:8081/mng/xdq_cinema_rooms.html";
                         // alert("添加成功！")
                         // self.location = "xdq_cinema_arrangements.html";
                     })
@@ -394,7 +394,7 @@
                 for (let key in this.cinema_info){
                     params.append(key,this.cinema_info[key])
                 }
-                axios.post("http://116.62.10.95:8081/cinema/add",params)
+                axios.post("http://localhost:8081/cinema/add",params)
                     .then(response => {console.log(response)
                     })
                     .catch(function (error) { // 请求失败处理
@@ -404,13 +404,13 @@
             checkOut(){
                 const params = new URLSearchParams();
                 params.append('ticket_infos', JSON.stringify([{row:1,col:1},{row:1,col:2},{row:1,col:3},{row:1,col:4}]));
-                // axios.post("http://116.62.10.95:8081/purchase/checkOut",params)
+                // axios.post("http://localhost:8081/purchase/checkOut",params)
                 //     .then(response => {console.log(response)
                 //     })
                 //     .catch(function (error) { // 请求失败处理
                 //         console.log(error);
                 //     });
-                axios.post("http://116.62.10.95:8081/purchase/checkOut",{'ticket_infos':[{row:1,col:1},{row:1,col:2},{row:1,col:3},{row:1,col:4}]})
+                axios.post("http://localhost:8081/purchase/checkOut",{'ticket_infos':[{row:1,col:1},{row:1,col:2},{row:1,col:3},{row:1,col:4}]})
                     .then(response => {console.log(response)
                     })
                     .catch(function (error) { // 请求失败处理
@@ -419,7 +419,7 @@
             },
             tester(){
 
-                axios.post("http://116.62.10.95:8081/moive/tagFliter",{"start_year":-1,"end_year":3000,"key_string":"普通",tags:["搞笑"]}).then(r=>{
+                axios.post("http://localhost:8081/moive/tagFliter",{"start_year":-1,"end_year":3000,"key_string":"普通",tags:["搞笑"]}).then(r=>{
                     console.log(r)
                 })
             },
@@ -435,7 +435,7 @@
             },
         },
         mounted (){
-            axios.get('http://116.62.10.95:8081/cinemaHall/getList?cinema_id=1')
+            axios.get('http://localhost:8081/cinemaHall/getList?cinema_id=1')
                 .then(function (response) {
                     console.log(response);
                 })

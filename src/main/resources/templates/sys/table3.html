@@ -647,7 +647,7 @@
 
         mounted: function () {
 
-            axios.get("http://116.62.10.95:8081/cinema/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
+            axios.get("http://localhost:8081/cinema/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
                 .then(response => {
                     console.log(response)
                     let data = response.data.data;
@@ -679,7 +679,7 @@
         methods: {
 
             loadList() {
-                axios.get("http://116.62.10.95:8081/cinema/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
+                axios.get("http://localhost:8081/cinema/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
                     .then(response => {
                         console.log(response)
                         let data = response.data.data;
@@ -746,7 +746,7 @@
                     }
                 };
 
-                axios.post("http://116.62.10.95:8081/cinema/add", param, config)
+                axios.post("http://localhost:8081/cinema/add", param, config)
                     .then(response => {
                         console.log(response)
                         if (response.data.code == 0) {
@@ -786,7 +786,7 @@
                     const param = new URLSearchParams();
                     param.append("cinemaId", cinema_id);
                     let config =
-                        axios.delete("http://116.62.10.95:8081/cinema/delete?cinemaId=" + cinema_id)
+                        axios.delete("http://localhost:8081/cinema/delete?cinemaId=" + cinema_id)
                             .then(response => {
                                 console.log(response)
                                 if (response.data.code == 0) {
@@ -862,7 +862,7 @@
                     }
                 };
 
-                axios.put("http://116.62.10.95:8081/cinema/update", param, config)
+                axios.put("http://localhost:8081/cinema/update", param, config)
                     .then(response => {
                         console.log(response)
                         if (response.data.code = 0) {
@@ -920,7 +920,7 @@
                     let param = new FormData();
                     param.append('cinema_name', this.searched_cinema_name);
 
-                    axios.post("http://116.62.10.95:8081/cinema/cinemaFliter", param)
+                    axios.post("http://localhost:8081/cinema/cinemaFliter", param)
                         .then(response => {
                             console.log(response)
                             let data = response.data.data;
@@ -937,7 +937,7 @@
                         })
                 }
                 else {
-                    axios.get("http://116.62.10.95:8081/cinema/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
+                    axios.get("http://localhost:8081/cinema/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
                         .then(response => {
                             console.log(response)
                             let data = response.data.data;

@@ -489,7 +489,7 @@
         },
         mounted () {
             axios
-                .get('http://116.62.10.95:8081/statistics/getBuyStatisByDate?cienma_id=1&end_date=2021%2F11%2F01%2010%3A00%3A00&start_date=2019%2F01%2F01%2010%3A00%3A00')
+                .get('http://localhost:8081/statistics/getBuyStatisByDate?cienma_id=1&end_date=2021%2F11%2F01%2010%3A00%3A00&start_date=2019%2F01%2F01%2010%3A00%3A00')
                 .then(response => {
                     this.info = response.data.data;
                     console.log(this.info);
@@ -512,7 +512,7 @@
         },
         mounted () {
             axios
-                .get('http://116.62.10.95:8081/statistics/getBuyStatisByDate?cienma_id=1&end_date=2021%2F11%2F01%2010%3A00%3A00&start_date=2019%2F01%2F01%2010%3A00%3A00')
+                .get('http://localhost:8081/statistics/getBuyStatisByDate?cienma_id=1&end_date=2021%2F11%2F01%2010%3A00%3A00&start_date=2019%2F01%2F01%2010%3A00%3A00')
                 .then(response => {
                     this.info = response.data.data;
                     console.log(this.info);
@@ -535,7 +535,7 @@
         },
         mounted () {
             axios
-                .get('http://116.62.10.95:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
+                .get('http://localhost:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
                 .then(response => {
                     this.info = response.data.data;
                     console.log(this.info);
@@ -558,7 +558,7 @@
         },
         mounted () {
             axios
-                .get('http://116.62.10.95:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
+                .get('http://localhost:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
                 .then(response => {
                     this.info = response.data.data;
                     console.log(this.info);
@@ -605,7 +605,7 @@
         },
         mounted () {
             axios
-                .get('http://116.62.10.95:8081/statistics/getBuyStatisByDate?cienma_id=1&end_date=2021%2F11%2F01%2010%3A00%3A00&start_date=2019%2F01%2F01%2010%3A00%3A00')
+                .get('http://localhost:8081/statistics/getBuyStatisByDate?cienma_id=1&end_date=2021%2F11%2F01%2010%3A00%3A00&start_date=2019%2F01%2F01%2010%3A00%3A00')
                 .then(response => {
                     this.info = response.data.data;
                     console.log(this.info);
@@ -674,7 +674,7 @@
         },
         mounted () {
             axios
-                .get('http://116.62.10.95:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
+                .get('http://localhost:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
                 .then(response => {
                     this.info = response.data.data;
                     console.log(this.info);
@@ -758,7 +758,7 @@
                 // alert(price);
                 // alert(schedualId);
                 // alert(start);
-                window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_arrangements_update.html?cinemaId="+cinemaId+"&describe="+describe+"&end="+end+"&hallId="+hallId+"&movieId="+movieId+"&price="+price+"&schedualId="+schedualId+"&start="+start;
+                window.location.href = "http://localhost:8081/mng/xdq_cinema_arrangements_update.html?cinemaId="+cinemaId+"&describe="+describe+"&end="+end+"&hallId="+hallId+"&movieId="+movieId+"&price="+price+"&schedualId="+schedualId+"&start="+start;
 
                 // const params = new URLSearchParams();
                 // params.append('cinemaId', cinemaId);
@@ -770,7 +770,7 @@
                 // params.append('schedualId', schedualId);
                 // params.append('start', start);
                 //
-                // axios.post("http://116.62.10.95:8081/shedule/add",params,
+                // axios.post("http://localhost:8081/shedule/add",params,
                 //     {
                 //         headers: {
                 //             'Access-Control-Allow-Origin': '*',
@@ -791,7 +791,7 @@
             deleteSchedule: function(sche_id){
                 alert("删除成功");
 
-                axios.delete("http://116.62.10.95:8081/schedual/delEasy?sche_id="+sche_id,
+                axios.delete("http://localhost:8081/schedual/delEasy?sche_id="+sche_id,
                     {
                         headers: {
                             'Access-Control-Allow-Origin': '*',
@@ -807,7 +807,7 @@
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                     });
-                window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_arrangements.html"
+                window.location.href = "http://localhost:8081/mng/xdq_cinema_arrangements.html"
             },
 
             say: function (message) {
@@ -822,7 +822,7 @@
                 "pageSize": 10
             };
             axios
-                .post('http://116.62.10.95:8081/moive/Fliter/details',params,
+                .post('http://localhost:8081/moive/Fliter/details',params,
                     {
                         headers: {
                             'Access-Control-Allow-Origin': '*',
@@ -834,7 +834,7 @@
                         this.info = response.data.data;
                         params.state="pre"
                         axios
-                            .post('http://116.62.10.95:8081/moive/Fliter/details',params,
+                            .post('http://localhost:8081/moive/Fliter/details',params,
                                 {
                                     headers: {
                                         'Access-Control-Allow-Origin': '*',

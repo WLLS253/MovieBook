@@ -46,7 +46,7 @@ public class Movie extends BaseEntity {
 
     private  String state;
 
-    @OneToMany(targetEntity = Figure.class)
+    @OneToMany(targetEntity = Figure.class,fetch = FetchType.EAGER)
     private  List<Figure>figureList;
 
     @Override
@@ -83,6 +83,7 @@ public class Movie extends BaseEntity {
         this.staffList = new ArrayList<>();
         this.userList = new ArrayList<>();
         this.tagList = new ArrayList<>();
+        this.figureList = new ArrayList<>();
     }
 
     @JSONField
@@ -96,10 +97,6 @@ public class Movie extends BaseEntity {
                 "score=" + score +
                 ", brief='" + brief + '\'' +
                 ", releaseTime=" + releaseTime +
-                ", staffList=" + staffList+
-                ", userList=" + userList +
-                ", tagList=" + tagList +
-                ", comment_num=" + userList.size() +
                 ", id=" + id +
                 ", createdTime=" + createdTime +
                 ", updatedTime=" + updatedTime +

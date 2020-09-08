@@ -7,6 +7,7 @@ import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
 import com.movie.Repository.*;
 import com.movie.Util.Util;
+import com.movie.redis.RedisParse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.origin.OriginTrackedValue;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -43,6 +44,10 @@ public class CinemaService {
 
     @Autowired
     private  FigureRepository figureRepository;
+
+
+    @Autowired
+    private RedisParse redisParse;
 
     public  Hall addCinemaHall(Cinema cinema, Hall hall,List<MultipartFile>fileList){
 
@@ -134,6 +139,8 @@ public class CinemaService {
                 infos.put("cinema_name",row[1]);
                 infos.put("cinema_id",row[0]);
                 infos.put("sched_infos",sched_infos);
+                //infos.put("location",)
+                infos.put("location",row[4]);
                 cinArrs.put((String) row[0].toString(),infos);
             }
         }
@@ -163,6 +170,7 @@ public class CinemaService {
                 cinema.setFigureList(figures);
             }
         }
+
         return cinemaRepository.save(cinema);
     }
 
@@ -211,7 +219,7 @@ public class CinemaService {
         return hallOri;
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 10000)
     public void reportCurrentTime() {
         List<Schedual> norm_scheds = scheudalRepository.findAllByState("normal");
         Long cur = new Date().getTime();

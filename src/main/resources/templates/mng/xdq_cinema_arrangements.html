@@ -409,13 +409,13 @@
             },
 
             updateSchedule: function(cinemaId,describe,end,hallId,movieId,price,schedualId,start){
-                window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_arrangements_update.html?cinemaId="+cinemaId+"&describe="+describe+"&end="+end+"&hallId="+hallId+"&movieId="+movieId+"&price="+price+"&schedualId="+schedualId+"&start="+start;
+                window.location.href = "http://localhost:8081/mng/xdq_cinema_arrangements_update.html?cinemaId="+cinemaId+"&describe="+describe+"&end="+end+"&hallId="+hallId+"&movieId="+movieId+"&price="+price+"&schedualId="+schedualId+"&start="+start;
             },
 
             deleteSchedule: function(sche_id){
                 alert("删除成功");
 
-                axios.delete("http://116.62.10.95:8081/schedual/delEasy?sche_id="+sche_id,
+                axios.delete("http://localhost:8081/schedual/delEasy?sche_id="+sche_id,
                     {
                         headers: {
                             'Access-Control-Allow-Origin': '*',
@@ -431,7 +431,7 @@
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                     });
-                window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_arrangements.html"
+                window.location.href = "http://localhost:8081/mng/xdq_cinema_arrangements.html"
             },
 
             say: function (message) {
@@ -439,7 +439,7 @@
             },
             setPage(n){
                 axios
-                    .get('http://116.62.10.95:8081/cinema/getScheduals?cinema_id=1&pageSize='+this.default_page_size+'&pageNumber='+n)
+                    .get('http://localhost:8081/cinema/getScheduals?cinema_id=1&pageSize='+this.default_page_size+'&pageNumber='+n)
                     .then(response => {
                             this.info = response.data.data["schedual_info"]
                             this.page_info =response.data.data["page_info"]
@@ -449,7 +449,7 @@
         },
         mounted () {
             axios
-                .get('http://116.62.10.95:8081/cinema/getScheduals?cinema_id=1&pageSize='+this.default_page_size+'&pageNumber=0')
+                .get('http://localhost:8081/cinema/getScheduals?cinema_id=1&pageSize='+this.default_page_size+'&pageNumber=0')
                 .then(response => {
                     this.info = response.data.data["schedual_info"]
                     this.page_info =response.data.data["page_info"]

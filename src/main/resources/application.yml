@@ -9,16 +9,26 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
-    username: BlueBurger
+    url: jdbc:mysql://116.62.10.95:3306/Movie?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+    username: movie_base
     password: 123456
+
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-
+  redis:
+    timeout: 300s # redis超时时间，建议用docker起一个redis容器即可
+    host: 116.62.10.95
+    port: 6379
+    jedis:
+      pool:
+        max-idle: 8 #最大连接数
+        max-active: 20 # 最大连接数,-1为不限制
+        min-idle: 0 # 最小空闲数量
+        max-wait: 1s # 最大阻塞等待时间，-1为不限制
 
   mvc:
     view:
@@ -31,5 +41,5 @@ volunteer:
 file:
   rootPath: "/root/Projects/Java/MovieBook"
   sonPath: "/img/"
-  fileServer: "http://116.62.10.95:8000/uploadFiles/"
+  fileServer: "http://localhost:8000/uploadFiles/"
 

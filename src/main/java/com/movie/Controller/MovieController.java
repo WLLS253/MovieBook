@@ -11,6 +11,9 @@ import com.movie.Serivce.CinemaService;
 import com.movie.Serivce.MovieService;
 import com.movie.Serivce.UploadSerivce;
 import com.movie.Util.Util;
+import com.movie.redis.CacheObject.MovieInfoRe;
+import com.movie.redis.RedisKeys;
+import com.movie.redis.RedisParse;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -69,6 +72,12 @@ public class MovieController {
     @Autowired
     private CinemaService cinemaService;
 
+    @Autowired
+    private MovieInfoRe movieInfoRe;
+
+    @Autowired
+    private  RedisParse redisParse;
+
 
     @PostMapping(value = "movie/add")
     public Result addMovie(MovieInformation movieInformation) throws ParseException {
@@ -100,6 +109,7 @@ public class MovieController {
             movie1.setFigureList(figureList);
         }
 
+        //movieInfoRe.save(movie1.getId().toString(),movie1);
         return Util.success(movieRepository.save(movie1));
     }
 
@@ -133,7 +143,7 @@ public class MovieController {
     }
 
     @PostMapping(value = "comment/add")
-    public  Result addComment(@RequestParam("userId")Long userId,@RequestParam("movieId")Long movieId,@RequestParam(value = "content",required = false)String content,@RequestParam(value = "score",required = false)String title){
+    public  Result addComment(@RequestParam("userId")Long userId,@RequestParam("movieId")Long movieId,@RequestParam(value = "content",required = false)String content,@RequestParam(value = "score",required = false)Float score){
         try {
             User user=userRepository.findById(userId).get();
             Movie movie=movieRepository.findById(movieId).get();
@@ -149,8 +159,8 @@ public class MovieController {
             if(content!=null){
                 comment.setContent(content);
             }
-            if(title!=null){
-                comment.setScore(title);
+            if(score!=null){
+                comment.setScore(score);
             }
             comment.setUser(user);
             comment.setMovie(movie);
@@ -252,11 +262,19 @@ public class MovieController {
         }
     }
 
+
+
+
     @DeleteMapping(value = "movie/del")
     public  Result delMovie(@RequestParam("movieId")Long movieId){
         try {
             movieRepository.deleteById(movieId);
-            return  Util.success(ExceptionEnums.DEL_SUCCESS);
+            Boolean bool = redisParse.delObject(movieId.toString(), RedisKeys.Movie);
+            if(bool){
+                return  Util.success(ExceptionEnums.DEL_SUCCESS);
+            }else {
+                return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+            }
         }catch (Exception e){
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }

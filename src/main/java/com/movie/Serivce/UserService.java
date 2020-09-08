@@ -10,6 +10,8 @@ import com.movie.Entity.User;
 import com.movie.Repository.BuyRepository;
 import com.movie.Repository.MovieRepository;
 import com.movie.Repository.UserRepository;
+import com.movie.redis.RedisKeys;
+import com.movie.redis.RedisParse;
 import org.hibernate.procedure.spi.ParameterRegistrationImplementor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,9 @@ public class UserService {
     @Autowired
     private BuyRepository buyRepository;
 
+    @Autowired
+    private RedisParse redisParse;
+
 
 
     public JSONObject getUserCommentedMovies(Long userId){
@@ -41,18 +46,32 @@ public class UserService {
     }
 
     public JSONObject getUserCollectedMovies(Long userId){
-        User user=userRepository.findById(userId).get();
-        List<Movie>movieList=user.getCollectedMovies();
-        JSONObject jsonObject=new JSONObject();
-        JSONArray movieArray=addMovieDetails(movieList);
-        jsonObject.put("movies",movieArray);
-        return  jsonObject;
+        JSONObject json = (JSONObject) redisParse.getObject(userId.toString(),RedisKeys.User_Movie);
+        if(json!=null){
+            return json;
+        }else {
+            User user=userRepository.findById(userId).get();
+            List<Movie>movieList=user.getCollectedMovies();
+            JSONObject jsonObject=new JSONObject();
+            JSONArray movieArray=addMovieDetails(movieList);
+            jsonObject.put("movies",movieArray);
+            redisParse.saveObject(userId.toString(),jsonObject,RedisKeys.User_Movie);
+            return  jsonObject;
+
+        }
+
     }
     public JSONObject getUserInfo(Long userId){
-        User user=userRepository.findById(userId).get();
-        JSONObject jsonObject=new JSONObject();
-        jsonObject.put("user_info",user);
-        return  jsonObject;
+        JSONObject json = (JSONObject) redisParse.getObject(userId.toString(), RedisKeys.User);
+        if(json != null){
+            return  json;
+        }else {
+            User user=userRepository.findById(userId).get();
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("user_info",user);
+            redisParse.saveObject(userId.toString(),jsonObject,RedisKeys.User);
+            return  jsonObject;
+        }
     }
 
     public JSONObject getBuyList(Long userId){

@@ -361,7 +361,7 @@
             },
 
             mounted() {
-                axios.post('http://116.62.10.95:8081/user/statistics')
+                axios.post('http://localhost:8081/user/statistics')
                     .then(response => {
                         console.log(response);
                         data = response.data.data;
@@ -828,7 +828,7 @@
                 }
                 ,
                 updateStat() {
-                    axios.post('http://116.62.10.95:8081/user/statistics')
+                    axios.post('http://localhost:8081/user/statistics')
                         .then(response => {
                             console.log(response);
                             data = response.data.data;

@@ -677,7 +677,7 @@
                 mounted: function () {
 
 
-                    axios.get("http://116.62.10.95:8081/cinemaMng/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
+                    axios.get("http://localhost:8081/cinemaMng/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
                         .then(response => {
                             console.log(response);
                             if (response.data.code == 0) {
@@ -712,7 +712,7 @@
                 methods: {
 
                     loadList() {
-                        axios.get("http://116.62.10.95:8081/cinemaMng/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
+                        axios.get("http://localhost:8081/cinemaMng/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
                             .then(response => {
                                 console.log(response);
                                 if (response.data.code == 0) {
@@ -773,7 +773,7 @@
                                 headers: { "Content-Type": "application/json" },
                             }
 
-                            axios.post("http://116.62.10.95:8081/cinemaMng/cinemaMngFliter", param, config)
+                            axios.post("http://localhost:8081/cinemaMng/cinemaMngFliter", param, config)
                                 .then(response => {
                                     console.log(response)
                                     if (response.data.code == 0) {
@@ -815,7 +815,7 @@
                         params.append('prio', this.user_info.priority)
                         params.append('cinema_id', this.user_info.related_cinema_id)
 
-                        axios.post("http://116.62.10.95:8081/cinemaMng/add", params)
+                        axios.post("http://localhost:8081/cinemaMng/add", params)
                             .then(response => {
                                 console.log(response);
                                 if (response.data.code == 0) {
@@ -875,7 +875,7 @@
                         params.append('prio', this.user_info.priority)
                         params.append('cinema_id', this.user_info.related_cinema_id)
 
-                        axios.put("http://116.62.10.95:8081/cinemaMng/update", params)
+                        axios.put("http://localhost:8081/cinemaMng/update", params)
                             .then(response => {
                                 console.log(response)
                                 if (response.data.code == 0) {

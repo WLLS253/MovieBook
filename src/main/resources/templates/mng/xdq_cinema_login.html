@@ -122,7 +122,7 @@
                 params.append('mngName', this.mngName);
                 params.append('password', this.password);
 
-                axios.post("http://116.62.10.95:8081/cinemaMng/login",params,
+                axios.post("http://localhost:8081/cinemaMng/login",params,
                     {
                         headers: {
                             'Access-Control-Allow-Origin': '*',
@@ -145,7 +145,7 @@
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                     });
-                // window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_arrangements.html";
+                // window.location.href = "http://localhost:8081/mng/xdq_cinema_arrangements.html";
             },
         },
         mounted (){
