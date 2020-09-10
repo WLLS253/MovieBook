@@ -14,6 +14,9 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class StaffDto implements Serializable {
 
+    private Long id;
+
+    private String role;
     private String staffName;
 
     private String staffBrief;

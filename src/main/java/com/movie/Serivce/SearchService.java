@@ -53,22 +53,25 @@ public class SearchService {
 
 
     public JSONObject filterMoviesBrief(Integer start_year,
-                                   Integer end_year,
-                                          String key_string,
-                                          List<String> tags,
-                                          Date date,
-                                          String state,
-                                          String cinema_name,String country,Pageable pageable) {
+                                        Integer end_year,
+                                        String key_string,
+                                        List<String> tags,
+                                        Date date,
+                                        String state,
+                                        String cinema_name,String country,Pageable pageable) {
         JSONObject jsonObject = new JSONObject();
+        String tag_regex = getRegex(tags);
         if(key_string!=null)
             key_string = key_string.join("|",key_string.split("[\\s]+"));
         if(cinema_name!=null)
             cinema_name = cinema_name.join("|",cinema_name.split("[\\s]+"));
-        Page<Movie> filtered_movies=movieRepository.filterMovies(start_year,end_year,tags,date,state,cinema_name,key_string,country,pageable);
+        Page<Movie> filtered_movies=movieRepository.filterMovies(start_year,end_year,tag_regex ,date,state,cinema_name,key_string,country,pageable);
         jsonObject.put("movies",filtered_movies.getContent());
         jsonObject.put("pageInfo",PageHelper.getPageInfoWithoutContent(filtered_movies));
         return jsonObject;
     }
+
+
 
     public JSONObject filterMoviesDetail(Integer start_year,
                                          Integer end_year,
@@ -77,29 +80,41 @@ public class SearchService {
                                          Date date,
                                          String state,
                                          String cinema_name,String country ,Pageable pageable) {
-//        JSONObject jsonObject = new JSONObject();
-//        //JSONArray movie_infos = new JSONArray();
-//        List<Movie> filtered_movies= getFliteredMovies(start_year,end_year,key_string,tags,date,state,cinema_name,country);
-//        Page<Movie> m_ps  = PageHelper.List2Page(filtered_movies,pageable);
-//        List<Movie> paged_movies = m_ps.getContent();
-//        jsonObject.put("movie_infos",paged_movies);
-//        JSONObject page_info = PageHelper.getPageInfoWithoutContent(m_ps);
-//        jsonObject.put("pageInfo",page_info);
-//        return jsonObject;
 
         JSONObject jsonObject = new JSONObject();
-        tags = tags==null?null_tags:tags;
+        //tags = tags==null?null_tags:tags;
+        // 构成 tag正则
+        String tag_regex = getRegex(tags);
+
         //TODO cienma的地区问题
         if(key_string!=null)
             key_string = key_string.join("|",key_string.split("[\\s]+"));
         if(cinema_name!=null)
             cinema_name = cinema_name.join("|",cinema_name.split("[\\s]+"));
-        Page<Movie> filtered_movies=movieRepository.filterMovies(start_year,end_year,tags,date,state,cinema_name,key_string,country,pageable);
+        Page<Movie> filtered_movies=movieRepository.filterMovies(start_year,end_year,tag_regex,date,state,cinema_name,key_string,country,pageable);
         jsonObject.put("cinemas_infos",filtered_movies.getContent());
         jsonObject.put("pageInfo",PageHelper.getPageInfoWithoutContent(filtered_movies));
         return jsonObject;
     }
 
+    private String getRegex(List<String> tags) {
+        String tag_regex = null;
+        if(tags!=null){
+            //String notRegex = "[^(" + tags.get(0)+')';
+            String notRegex = ".*";
+            String isRegex = "("+ tags.get(0);
+            for(int i=1;i<tags.size();i++){
+                isRegex += "|"+tags.get(i);
+            }
+            isRegex+=")";
+            tag_regex = "";
+            tag_regex += notRegex;
+            for (String a:tags) {
+                tag_regex += isRegex+notRegex;
+            }
+        }
+        return tag_regex;
+    }
 
     // 按照员工 职位和姓名来 过滤电影
     public JSONObject filterMovies(String role ,String name){

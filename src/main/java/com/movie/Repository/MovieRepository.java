@@ -24,25 +24,27 @@ public interface    MovieRepository extends JpaRepository<Movie,Long> {
             " FROM movie m left join mark ma on ma.movie_id = m.id left join tag t on t.id = ma.tag_id left join schedual s on s.movie_id=m.id left join cinema ci on s.cinema_id = ci.id" +
             " where " +
             "(?6 is NUll or ci.cinema_name REGEXP ?6 ) and " +
-            "(?3 = ('null') or  t.tag_name in ?3) and " +
+            //"(?3 = ('null') or  t.tag_name in ?3) and " +
+            "(?3 is NULL or m.tags REGEXP ?3) and " +
             "(?1 is null or ?2 is null or year(m.release_time) between ?1 and ?2) and " +
             "(?5 is null or m.state = ?5) and "+
-            "(?4 is null or day(?4)= day(s.start_date)) and "+
+            "(?4 is null or (year(?4)=year(s.start_date) and month(?4)= month(s.start_date) and day(?4)= day(s.start_date))) and "+
             "(?7 is NULL or m.name REGEXP ?7 ) and "+
             "(?8 is null or ?8= m.country) "
-    , countQuery = "SELECT count(distinct m.id)" +
+            , countQuery = "SELECT count(distinct m.id)" +
             " FROM movie m left join mark ma on ma.movie_id = m.id left join tag t on t.id = ma.tag_id left join schedual s on s.movie_id=m.id left join cinema ci on s.cinema_id = ci.id" +
             " where " +
             "(?6 is NUll or ci.cinema_name REGEXP ?6 ) and " +
-            "(?3 = ('null') or  t.tag_name in ?3) and " +
+            //"(?3 = ('null') or  t.tag_name in ?3) and " +
+            "(?3 is NULL or m.tags REGEXP ?3) and " +
             "(?1 is null or ?2 is null or year(m.release_time) between ?1 and ?2) and " +
             "(?5 is null or m.state = ?5) and "+
-            "(?4 is null or day(?4)= day(s.start_date)) and "+
+            "(?4 is null or ((year(?4)=year(s.start_date) and month(?4)= month(s.start_date) and day(?4)= day(s.start_date)))) and "+
             "(?7 is NULL or m.name REGEXP ?7 ) and "+
             "(?8 is null or ?8= m.country) ")
     Page<Movie> filterMovies(Integer start_year,
                              Integer end_year,
-                             List<String> tags,
+                             String tags,
                              Date date,
                              String state,
                              String cinema_name,

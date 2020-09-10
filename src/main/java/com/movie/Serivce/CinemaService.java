@@ -138,6 +138,7 @@ public class CinemaService {
                 sched_infos.add(sche_info);
                 infos.put("cinema_name",row[1]);
                 infos.put("cinema_id",row[0]);
+                infos.put("location",row[4]);
                 infos.put("sched_infos",sched_infos);
                 //infos.put("location",)
                 infos.put("location",row[4]);
@@ -219,7 +220,7 @@ public class CinemaService {
         return hallOri;
     }
 
-    @Scheduled(fixedRate = 10000)
+    //@Scheduled(fixedRate = 10000)
     public void reportCurrentTime() {
         List<Schedual> norm_scheds = scheudalRepository.findAllByState("normal");
         Long cur = new Date().getTime();

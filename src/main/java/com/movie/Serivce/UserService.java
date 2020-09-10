@@ -4,6 +4,7 @@ package com.movie.Serivce;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.movie.Dto.MovieDto;
 import com.movie.Entity.Buy;
 import com.movie.Entity.Movie;
 import com.movie.Entity.User;
@@ -13,9 +14,11 @@ import com.movie.Repository.UserRepository;
 import com.movie.redis.RedisKeys;
 import com.movie.redis.RedisParse;
 import org.hibernate.procedure.spi.ParameterRegistrationImplementor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -96,10 +99,14 @@ public class UserService {
         return movieArray;
     }
 
-    private JSONArray addMovieDetails(List<Movie> movieList){
+    public JSONArray addMovieDetails(List<Movie> movieList){
         JSONArray movieArray=new JSONArray();
+        List<MovieDto>movieDtoList = new ArrayList<>();
         for (Movie movie : movieList) {
-            movieArray.add(movie);
+            MovieDto movieDto =new MovieDto();
+            BeanUtils.copyProperties(movie,movieDto);
+            movieDto.setReleaseTime(movie.getReleaseTime().toString());
+            movieArray.add(movieDto);
         }
         return movieArray;
     }

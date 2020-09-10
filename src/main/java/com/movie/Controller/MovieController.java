@@ -1,6 +1,7 @@
 package com.movie.Controller;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
@@ -10,6 +11,7 @@ import com.movie.Result.Result;
 import com.movie.Serivce.CinemaService;
 import com.movie.Serivce.MovieService;
 import com.movie.Serivce.UploadSerivce;
+import com.movie.Serivce.UserService;
 import com.movie.Util.Util;
 import com.movie.redis.CacheObject.MovieInfoRe;
 import com.movie.redis.RedisKeys;
@@ -78,8 +80,10 @@ public class MovieController {
     @Autowired
     private  RedisParse redisParse;
 
+    @Autowired
+    private UserService userService;
 
-    @PostMapping(value = "movie/add")
+   @PostMapping(value = "movie/add")
     public Result addMovie(MovieInformation movieInformation) throws ParseException {
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date releaseTime=simpleDateFormat.parse(movieInformation.releaseTime);
@@ -183,6 +187,10 @@ public class MovieController {
                 movies.add(movie);
                 userRepository.save(user);
                 jsonObject.put("msg","添加成功");
+                JSONArray jsonArray =userService.addMovieDetails(movies);
+                JSONObject temp = new JSONObject();
+                temp.put("movies",jsonArray);
+                redisParse.saveObject(userId.toString(),temp,RedisKeys.User_Movie);
             }else{
                 jsonObject.put("msg","添加失败，已经收藏过该电影");
             }
@@ -196,8 +204,8 @@ public class MovieController {
     @PostMapping(value = "tag/add")
     public  Result addTag(@RequestParam("tagName")String tagName){
         try {
-            Tag tag=new Tag();
-            tag.setTagName(tagName);
+            Tag tag=new Tag(tagName);
+            //tag.setTagName(tagName);
             return Util.success(tagRepository.save(tag));
         }catch (Exception e){
             e.printStackTrace();;

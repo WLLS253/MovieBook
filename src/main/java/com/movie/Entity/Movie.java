@@ -46,6 +46,9 @@ public class Movie extends BaseEntity {
 
     private  String state;
 
+
+    private  String tags;
+
     @OneToMany(targetEntity = Figure.class,fetch = FetchType.EAGER)
     private  List<Figure>figureList;
 
@@ -54,14 +57,13 @@ public class Movie extends BaseEntity {
         return this.getName();
     }
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "takepart",
             joinColumns = @JoinColumn(name = "movie_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "staff_id",referencedColumnName = "id")
     )
-//    @OneToMany(targetEntity = TakePart.class)
-//    @JoinColumn(name = "movie_id")
     private List<Staff> staffList;
 
 
@@ -71,21 +73,34 @@ public class Movie extends BaseEntity {
     @ManyToMany(mappedBy = "commentedMovies")
     private List<User> userList;
 
-    @ManyToMany
-    @JoinTable(
-            name ="mark",
-            joinColumns = @JoinColumn(name = "movie_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id",referencedColumnName = "id")
-    )
-    private  List<Tag> tagList;
+//    @ManyToMany
+//    @JoinTable(
+//            name ="mark",
+//            joinColumns = @JoinColumn(name = "movie_id",referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "tag_id",referencedColumnName = "id")
+//    )
+//    private  List<Tag> tagList;
 
     public Movie() {
         this.staffList = new ArrayList<>();
         this.userList = new ArrayList<>();
-        this.tagList = new ArrayList<>();
+        //this.tagList = new ArrayList<>();
         this.figureList = new ArrayList<>();
     }
 
+
+
+    @JsonIgnore
+    public List<Tag> getTagList(){
+        ArrayList<Tag> tagList = new ArrayList<Tag>();
+
+            for (String a:this.tags.split("/")) {
+                tagList.add(new Tag(a));
+            }
+
+        return tagList;
+
+    }
     @JSONField
     public Integer getComments_num(){
         return userList.size();

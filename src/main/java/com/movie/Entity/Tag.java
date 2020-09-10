@@ -21,11 +21,13 @@ public class Tag extends  BaseEntity {
     @Column(name = "tag_name", nullable = true, length = 20)
     private String tagName;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "tagList")
-    private List<Movie>movieList;
 
-    public Tag() {
-        this.movieList = new ArrayList<>();
+
+//    @JsonIgnore
+//    @ManyToMany(mappedBy = "tagList")
+//    private List<Movie>movieList;
+//
+    public Tag(String tagname) {
+        this.tagName = tagname;
     }
 }

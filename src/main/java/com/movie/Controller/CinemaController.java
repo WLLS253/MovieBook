@@ -39,6 +39,7 @@ import java.util.List;
  * 处理跨域@CrossOrigin现在可以先不用加
  */
 //@CrossOrigin
+@CrossOrigin
 @RestController
 @Api("cinema")
 public class CinemaController {

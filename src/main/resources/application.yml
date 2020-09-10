@@ -39,7 +39,6 @@ volunteer:
   credit: 100
 
 file:
-  rootPath: "/root/Projects/Java/MovieBook"
+  rootPath: "http://116.62.10.95:3306/uploadFiles"
   sonPath: "/img/"
   fileServer: "http://localhost:8000/uploadFiles/"
-

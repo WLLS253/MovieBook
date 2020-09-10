@@ -30,7 +30,7 @@ public class MovieDto implements Serializable {
 
     private String name;
 
-    private Date releaseTime;
+    private String releaseTime;
 
     private  String language;
 
@@ -43,6 +43,8 @@ public class MovieDto implements Serializable {
     private  String state;
 
     private List<Figure> figureList;
+
+    private  String tags;
 
     @Override
     public String toString() {

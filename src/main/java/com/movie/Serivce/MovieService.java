@@ -106,6 +106,7 @@ public class MovieService {
             JSONObject jsonObject=new JSONObject();
             Movie movie=movieRepository.findById(movie_id).get();
             BeanUtils.copyProperties(movie,movieDto);
+            movieDto.setReleaseTime(movie.getReleaseTime().toString());
             //JSONArray staffs = getTakePartInfos(movie_id);
             List<StaffDto>staffDtos =getTakePartStaff(movie_id);
             List<String>tagDtos = new ArrayList<>();
@@ -189,6 +190,7 @@ public class MovieService {
         for (TakePart t:takeParts) {
             StaffDto staffDto =new StaffDto();
             BeanUtils.copyProperties(t.getStaff(),staffDto);
+            staffDto.setRole(t.getRole());
             staffDtos.add(staffDto);
 
         }
