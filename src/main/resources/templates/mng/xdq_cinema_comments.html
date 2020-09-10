@@ -414,7 +414,7 @@
             deleteComment: function(commentId){
                 alert("删除成功");
 
-                axios.delete("http://116.62.10.95:8081/comment/delbymng?commentId="+commentId,
+                axios.delete("http://localhost:8081/comment/delbymng?commentId="+commentId,
                     {
                         headers: {
                             'Access-Control-Allow-Origin': '*',
@@ -430,13 +430,13 @@
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                     });
-                window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_comments.html"
+                window.location.href = "http://localhost:8081/mng/xdq_cinema_comments.html"
             },
         },
 
         mounted () {
             axios
-                .get('http://116.62.10.95:8081/movie/getCommentList?movieId=1&pageNumber=0&pageSize=10')
+                .get('http://localhost:8081/movie/getCommentList?movieId=1&pageNumber=0&pageSize=10')
                 .then(response => (this.info = response.data.data))
         }
     })

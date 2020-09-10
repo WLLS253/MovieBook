@@ -199,40 +199,8 @@
                                 <div class="header-button">
                                     <div class="account-wrap">
                                         <div class="account-item clearfix js-item-menu">
-                                            <div class="image">
-                                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                                            </div>
-                                            <div class="content">
-                                                <a class="js-acc-btn" href="#">Jason</a>
-                                            </div>
-                                            <div class="account-dropdown js-dropdown">
-                                                <div class="info clearfix">
-                                                    <div class="image">
-                                                        <a href="#">
-                                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                                                        </a>
-                                                    </div>
-                                                    <div class="content">
-                                                        <h5 class="name">
-                                                            <a href="#">Jason</a>
-                                                        </h5>
-                                                        <span class="email">Jason@outlook.com</span>
-                                                    </div>
-                                                </div>
-                                                <div class="account-dropdown__body">
-                                                    <div class="account-dropdown__item">
-                                                        <a href="#">
-                                                            <i class="zmdi zmdi-account"></i>账户</a>
-                                                    </div>
-                                                    <div class="account-dropdown__item">
-                                                        <a href="#">
-                                                            <i class="zmdi zmdi-settings"></i>设置</a>
-                                                    </div>
-                                                </div>
-                                                <div class="account-dropdown__footer">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-power"></i>退出登录</a>
-                                                </div>
+                                            <div>
+                                                <a id=user_identification></a>
                                             </div>
                                         </div>
                                     </div>
@@ -618,6 +586,33 @@
         <!-- my js -->
 
         <script type="text/javascript">
+            function getCookie(cookie_name) {
+                var allcookies = document.cookie;
+                //索引长度，开始索引的位置
+                var cookie_pos = allcookies.indexOf(cookie_name);
+
+                // 如果找到了索引，就代表cookie存在,否则不存在
+                if (cookie_pos != -1) {
+                    // 把cookie_pos放在值的开始，只要给值加1即可
+                    //计算取cookie值得开始索引，加的1为“=”
+                    cookie_pos = cookie_pos + cookie_name.length + 1;
+                    //计算取cookie值得结束索引
+                    var cookie_end = allcookies.indexOf(";", cookie_pos);
+
+                    if (cookie_end == -1) {
+                        cookie_end = allcookies.length;
+
+                    }
+                    //得到想要的cookie的值
+                    var value = unescape(allcookies.substring(cookie_pos, cookie_end));
+                }
+                return value;
+            }
+            var user_identfication = document.getElementById("user_identification");
+            console.log("User_identification: " + getCookie("sysName"))
+            user_identfication.innerHTML = getCookie("sysName")
+
+
             new Vue({
                 el: "#app",
                 data: {
@@ -677,7 +672,7 @@
                 mounted: function () {
 
 
-                    axios.get("http://116.62.10.95:8081/cinemaMng/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
+                    axios.get("http://localhost:8081/cinemaMng/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
                         .then(response => {
                             console.log(response);
                             if (response.data.code == 0) {
@@ -712,7 +707,7 @@
                 methods: {
 
                     loadList() {
-                        axios.get("http://116.62.10.95:8081/cinemaMng/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
+                        axios.get("http://localhost:8081/cinemaMng/getList?" + "pageNumber=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
                             .then(response => {
                                 console.log(response);
                                 if (response.data.code == 0) {
@@ -773,7 +768,7 @@
                                 headers: { "Content-Type": "application/json" },
                             }
 
-                            axios.post("http://116.62.10.95:8081/cinemaMng/cinemaMngFliter", param, config)
+                            axios.post("http://localhost:8081/cinemaMng/cinemaMngFliter", param, config)
                                 .then(response => {
                                     console.log(response)
                                     if (response.data.code == 0) {
@@ -815,24 +810,25 @@
                         params.append('prio', this.user_info.priority)
                         params.append('cinema_id', this.user_info.related_cinema_id)
 
-                        axios.post("http://116.62.10.95:8081/cinemaMng/add", params)
+                        axios.post("http://localhost:8081/cinemaMng/add", params)
                             .then(response => {
                                 console.log(response);
                                 if (response.data.code == 0) {
 
-                                    var data = response.data.data;
-                                    this.users.push(
-                                        {
-                                            user_id: data.id,
-                                            username: data.username,
-                                            password: data.mngPassword,
-                                            gender: data.sex,
-                                            email: data.mngEmail,
-                                            phonenumber: data.mngPhone,
-                                            priority: data.prio,
-                                            related_cinema_id: data.cinema.id,
-                                        }
-                                    );
+                                    // var data = response.data.data;
+                                    // this.users.push(
+                                    //     {
+                                    //         user_id: data.id,
+                                    //         username: data.username,
+                                    //         password: data.mngPassword,
+                                    //         gender: data.sex,
+                                    //         email: data.email,
+                                    //         phonenumber: data.mngPhone,
+                                    //         priority: data.prio,
+                                    //         related_cinema_id: data.cinema.id,
+                                    //     }
+                                    // );
+                                    this.loadList();
                                 }
                             })
                             .catch(function (error) { // 请求失败处理
@@ -875,7 +871,7 @@
                         params.append('prio', this.user_info.priority)
                         params.append('cinema_id', this.user_info.related_cinema_id)
 
-                        axios.put("http://116.62.10.95:8081/cinemaMng/update", params)
+                        axios.put("http://localhost:8081/cinemaMng/update", params)
                             .then(response => {
                                 console.log(response)
                                 if (response.data.code == 0) {

@@ -1,6 +1,8 @@
 package com.movie.Controller;
 
 
+import com.movie.Config.MahoutConfig;
+import com.movie.Domain.MovieRecommender;
 import com.movie.Entity.Assessor;
 import com.movie.Entity.Comment;
 import com.movie.Entity.Movie;
@@ -11,6 +13,7 @@ import com.movie.Repository.CommentRepository;
 import com.movie.Repository.MovieRepository;
 import com.movie.Repository.UserRepository;
 import com.movie.Result.Result;
+import com.movie.Serivce.ElasticSearchService;
 import com.movie.Serivce.UploadSerivce;
 import com.movie.Util.Util;
 import com.sun.org.apache.regexp.internal.RE;
@@ -18,6 +21,7 @@ import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.security.NoSuchAlgorithmException;
@@ -38,6 +42,9 @@ public class testController {
     private MovieRepository movieRepository;
 
     @Autowired
+    private ElasticSearchService elasticSearchService;
+
+    @Autowired
     private UploadSerivce uploadSerivce;
 
     @Autowired
@@ -46,6 +53,10 @@ public class testController {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private MovieRecommender movieRecommender;
+    @Autowired
+    private MahoutConfig mahoutConfig;
 
     @PostMapping(value = "/test/add")
     public Result add(@RequestParam("name") String name,@RequestParam("pass")String pass) throws InvalidKeySpecException, NoSuchAlgorithmException {
@@ -87,10 +98,31 @@ public class testController {
     }
 
     @GetMapping(value = "/test/ggget")
-    public Result tmse(){
+    public Result tmse(@RequestParam long id){
 
-        return Util.success(userRepository.findById((long)1).get());
+        return Util.success(userRepository.findById(id).get());
     }
 
+    @GetMapping(value="/test/elas")
+    public Result es() throws Exception{
+        return Util.success(elasticSearchService.importCommentToEs());
+    }
+
+//    @GetMapping(value="/test/mahout")
+//    public Result eee1() throws Exception{
+//        mahoutConfig.refreshPreferenceData();
+//        return Util.success();
+//    }
+
+
+    @GetMapping(value="/test/recommand")
+    public Result recommand(@RequestParam long id) throws Exception{
+        return Util.success(movieRecommender.userBasedRecommender(id,20));
+    }
+
+    @PostMapping(value="/test/upload_test")
+    public Result uploadImg(@RequestParam MultipartFile files){
+        return Util.success(uploadSerivce.upImageFire(files));
+    }
 
 }

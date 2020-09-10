@@ -31,6 +31,9 @@ public class Movie extends BaseEntity {
     @Column(name = "name", nullable = true, length = 400)
     private String name;
 
+    @Column(name = "tags", nullable = true, length = 400)
+    private String tags;
+
     @Column(name = "release_time", nullable = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
@@ -48,6 +51,8 @@ public class Movie extends BaseEntity {
 
     @OneToMany(targetEntity = Figure.class)
     private  List<Figure>figureList;
+
+
 
     @Override
     public String getSearchName() {
@@ -71,18 +76,39 @@ public class Movie extends BaseEntity {
     @ManyToMany(mappedBy = "commentedMovies")
     private List<User> userList;
 
-    @ManyToMany
-    @JoinTable(
-            name ="mark",
-            joinColumns = @JoinColumn(name = "movie_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id",referencedColumnName = "id")
-    )
-    private  List<Tag> tagList;
+//    @ManyToMany
+//    @JoinTable(
+//            name ="mark",
+//            joinColumns = @JoinColumn(name = "movie_id",referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "tag_id",referencedColumnName = "id")
+//    )
+
+//    @Transient
+//    private  List<Tag> tagList;
+
+
+
+
+
 
     public Movie() {
         this.staffList = new ArrayList<>();
         this.userList = new ArrayList<>();
-        this.tagList = new ArrayList<>();
+//        this.tagList = new ArrayList<>();
+//        this.tagList = new ArrayList<Tag>();
+//
+//        for (String a:this.tags.split("/")) {
+//            this.tagList.add(new Tag(a));
+//        }
+    }
+
+    @JsonIgnore
+    public List<Tag> getTagList(){
+        ArrayList<Tag> tagList = new ArrayList<Tag>();
+        for (String a:this.tags.split("/")) {
+            tagList.add(new Tag(a));
+        }
+        return tagList;
     }
 
     @JSONField
@@ -98,7 +124,7 @@ public class Movie extends BaseEntity {
                 ", releaseTime=" + releaseTime +
                 ", staffList=" + staffList+
                 ", userList=" + userList +
-                ", tagList=" + tagList +
+                ", tagList=" + tags +
                 ", comment_num=" + userList.size() +
                 ", id=" + id +
                 ", createdTime=" + createdTime +

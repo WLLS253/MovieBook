@@ -9,6 +9,7 @@ import com.movie.Util.Util;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.data.domain.Pageable;
@@ -43,10 +44,12 @@ public class SearchController {
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
+
     @GetMapping(value = "moive/getHotMovies")
-    public Result getHotMovies(){
+    public Result getHotMovies(@RequestParam(required = false) Long userId){
         try {
-            return Util.success(searchService.getHotMovies());
+            return Util.success(searchService.getHotMovies(userId));
         }catch (Exception e){
             e.printStackTrace();
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
@@ -57,7 +60,8 @@ public class SearchController {
     @PostMapping(value = "moive/Fliter/details")
     public Result filterMoviesDetails(@RequestBody MovieFilterSetting filter_setting){
         try {
-            Pageable p = PageRequest.of(filter_setting.pageNumber,filter_setting.pageSize);
+            Sort s = Sort.by(filter_setting.sort_type,filter_setting.sort_by);
+            Pageable p = PageRequest.of(filter_setting.pageNumber,filter_setting.pageSize,s);
             return Util.success(searchService.filterMoviesDetail(filter_setting.start_year,filter_setting.end_year,filter_setting.key_string,filter_setting.tags,filter_setting.date,filter_setting.state,filter_setting.cinema_name,filter_setting.country,p));
         }catch (Exception e){
             e.printStackTrace();
@@ -123,6 +127,8 @@ public class SearchController {
 
         int pageNumber;
         int pageSize;
+        String sort_by = "createdTime";
+        Sort.Direction sort_type = Sort.Direction.ASC;
 
         @Override
         public String toString() {

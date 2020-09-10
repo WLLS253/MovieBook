@@ -24,7 +24,8 @@ public interface    MovieRepository extends JpaRepository<Movie,Long> {
             " FROM movie m left join mark ma on ma.movie_id = m.id left join tag t on t.id = ma.tag_id left join schedual s on s.movie_id=m.id left join cinema ci on s.cinema_id = ci.id" +
             " where " +
             "(?6 is NUll or ci.cinema_name REGEXP ?6 ) and " +
-            "(?3 = ('null') or  t.tag_name in ?3) and " +
+            //"(?3 = ('null') or  t.tag_name in ?3) and " +
+            "(?3 is NULL or m.tags REGEXP ?3) and " +
             "(?1 is null or ?2 is null or year(m.release_time) between ?1 and ?2) and " +
             "(?5 is null or m.state = ?5) and "+
             "(?4 is null or day(?4)= day(s.start_date)) and "+
@@ -34,7 +35,8 @@ public interface    MovieRepository extends JpaRepository<Movie,Long> {
             " FROM movie m left join mark ma on ma.movie_id = m.id left join tag t on t.id = ma.tag_id left join schedual s on s.movie_id=m.id left join cinema ci on s.cinema_id = ci.id" +
             " where " +
             "(?6 is NUll or ci.cinema_name REGEXP ?6 ) and " +
-            "(?3 = ('null') or  t.tag_name in ?3) and " +
+            //"(?3 = ('null') or  t.tag_name in ?3) and " +
+            "(?3 is NULL or m.tags REGEXP ?3) and " +
             "(?1 is null or ?2 is null or year(m.release_time) between ?1 and ?2) and " +
             "(?5 is null or m.state = ?5) and "+
             "(?4 is null or day(?4)= day(s.start_date)) and "+
@@ -42,7 +44,7 @@ public interface    MovieRepository extends JpaRepository<Movie,Long> {
             "(?8 is null or ?8= m.country) ")
     Page<Movie> filterMovies(Integer start_year,
                              Integer end_year,
-                             List<String> tags,
+                             String tags,
                              Date date,
                              String state,
                              String cinema_name,
@@ -60,6 +62,14 @@ public interface    MovieRepository extends JpaRepository<Movie,Long> {
 
     List<Movie> getMoviesByState(String state);
 
+
+
+    // for recommender
+    @Query(nativeQuery = true, value = "select * from movie where 1=1 limit ?1")
+    List<Movie> findAllByCountLimit(@Param("num") int num);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM movie WHERE 1=1 ORDER BY score DESC limit 12")
+    List<Movie> findAllByHighScore();
 
 
 

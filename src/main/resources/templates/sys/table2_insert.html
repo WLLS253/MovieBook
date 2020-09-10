@@ -39,22 +39,33 @@
                     <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">电影名称</label>
+                                <label for="text-input1" class=" form-control-label">电影名称</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input v-model="movie_info.name" type="text" name="text-input" placeholder=""
+                                <input v-model="movie_info.name" type="text" name="text-input1" placeholder=""
                                     class="form-control">
                             </div>
                         </div>
 
+<!--                        <div class="row form-group">-->
+<!--                            <div class="col col-md-3">-->
+<!--                                <label for="textarea-input" class=" form-control-label">电影简介</label>-->
+<!--                            </div>-->
+<!--                            <div class="col-12 col-md-9">-->
+<!--                                <textarea name="textarea-input" id="textarea-input" rows="9" placeholder=""-->
+<!--                                    v-model="movie_info.brief" class="form-control" style="height: 150px;">-->
+<!--                            </textarea>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="textarea-input" class=" form-control-label">电影简介</label>
+                                <label for="text-input2" class=" form-control-label">电影简介</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <textarea name="textarea-input" id="textarea-input" rows="9" placeholder=""
-                                    v-model="movie_info.brief" class="form-control" style="height: 150px;">
-                            </textarea>
+                                <input name="text-input2" type="text"   placeholder=""
+                                          v-model="movie_info.brief" class="form-control" >
+                            </input>
                             </div>
                         </div>
 
@@ -65,7 +76,7 @@
                             <div class="col-12 col-md-9">
                                 <input v-model="movie_info.duration" type="text" name="text-input"
                                     placeholder="" class="form-control">
-                                <small class="help-block form-text">时长格式：HH:mm:ss</small>
+<!--                                <small class="help-block form-text">时长格式：HH:mm:ss</small>-->
                             </div>
                         </div>
                         <div class="row form-group">
@@ -331,7 +342,7 @@
                         }
                     }
 
-                    axios.post("http://116.62.10.95:8081/movie/add", params, config)
+                    axios.post("http://localhost:8081/movie/add", params, config)
                         .then(response => {
                             console.log(response)
                             data = response.data.data;
@@ -348,12 +359,13 @@
                     if (this.staffs != null) {
 
                         for (var s of this.staffs) {
-                            let param = {
-                                'staffBrief': s.description,
-                                'staffName': s.name,
-                            }
+                            const params = new URLSearchParams();
+                            params.append('staffBrief', s.description);
+                            params.append('staffName', s.name);
+                            console.log(s.description)
+                            console.log(s.name)
 
-                            axios.post("http://116.62.10.95:8081/staff/add", param)
+                            axios.post("http://localhost:8081/staff/add", params)
                                 .then(response => {
                                     console.log(response)
                                     if (response.data.code == 0) {

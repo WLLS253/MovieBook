@@ -3,9 +3,11 @@ package com.movie.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.movie.Plugins.UserPasswordEncrypt;
+import com.sun.javafx.beans.IDProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.security.NoSuchAlgorithmException;
@@ -20,6 +22,7 @@ public class User extends  BaseEntity {
 
 
     private String userSex;
+
 
     @JsonIgnore
     private String password;

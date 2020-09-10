@@ -211,7 +211,7 @@ public class CinemaService {
         return hallOri;
     }
 
-    @Scheduled(fixedRate = 5000)
+    //@Scheduled(fixedRate = 5000)
     public void reportCurrentTime() {
         List<Schedual> norm_scheds = scheudalRepository.findAllByState("normal");
         Long cur = new Date().getTime();

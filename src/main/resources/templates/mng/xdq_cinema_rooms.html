@@ -367,13 +367,13 @@
             },
 
             updateHall: function(cinemaId,col,hallId,hallName,hallType,layout,row){
-                window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_rooms_update.html?cinemaId="+cinemaId+"&col="+col+"&hallId="+hallId+"&hallName="+hallName+"&hallType="+hallType+"&layout="+layout+"&row="+row;
+                window.location.href = "http://localhost:8081/mng/xdq_cinema_rooms_update.html?cinemaId="+cinemaId+"&col="+col+"&hallId="+hallId+"&hallName="+hallName+"&hallType="+hallType+"&layout="+layout+"&row="+row;
             },
 
             deleteHall: function(hallId){
                 alert("删除成功");
 
-                axios.delete("http://116.62.10.95:8081/cinemaHall/del?hallId="+hallId,
+                axios.delete("http://localhost:8081/cinemaHall/del?hallId="+hallId,
                     {
                         headers: {
                             'Access-Control-Allow-Origin': '*',
@@ -389,11 +389,11 @@
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                     });
-                window.location.href = "http://116.62.10.95:8081/mng/xdq_cinema_rooms.html"
+                window.location.href = "http://localhost:8081/mng/xdq_cinema_rooms.html"
             },
             setPage(n){
                 axios
-                    .get('http://116.62.10.95:8081/cinemaHall/getList?cinema_id=1&pageSize='+this.default_page_size+'&pageNumber='+n)
+                    .get('http://localhost:8081/cinemaHall/getList?cinema_id=1&pageSize='+this.default_page_size+'&pageNumber='+n)
                     .then(response => {
                             this.info = response.data.data["hall_infos"]
                             this.page_info =response.data.data["page_infos"]
@@ -404,7 +404,7 @@
 
         mounted () {
             axios
-                .get('http://116.62.10.95:8081/cinemaHall/getList?cinema_id=1&pageSize='+this.default_page_size+'&pageNumber=0')
+                .get('http://localhost:8081/cinemaHall/getList?cinema_id=1&pageSize='+this.default_page_size+'&pageNumber=0')
                 .then(response => {
                 this.info = response.data.data["hall_infos"]
                 this.page_info = response.data.data["page_infos"] }

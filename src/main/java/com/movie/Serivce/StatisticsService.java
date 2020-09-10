@@ -205,7 +205,7 @@ public class StatisticsService {
 
 
 
-    @Scheduled(cron = "0 0 0 * * *")
+    //@Scheduled(cron = "0 0 0 * * *")
     public void TimeFix(){
         IndexVisitor=Long.valueOf(0);
     }

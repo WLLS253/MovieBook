@@ -30,23 +30,16 @@ public class UserAspect {
 
     @Before("logUser()")
     public  void doBefore(JoinPoint joinPoint){
-
         ServletRequestAttributes attributes=(ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request =attributes.getRequest();
-
-
         Cookie[] cookies = request.getCookies();
-//        String type=request.getHeader("type");
         String type = null;
         for (Cookie cookie : cookies) {
             if(cookie.getName().equals("type")){
-
                 type=cookie.getValue();
             }
         }
-
         System.out.println(type);
-
         //TODO 前端權限檢查
         if(!(type==null||type.equals("Visitor")||type.equals("User"))){
             throw new AuthorException(ExceptionEnums.AUTHOR_EEOR_User);

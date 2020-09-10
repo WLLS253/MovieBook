@@ -37,828 +37,799 @@
 
 <body class="animsition">
 
-    <!-- vue app begin -->
-    <div id="app">
-        <div class="page-wrapper">
+<!-- vue app begin -->
+<div id="app">
+    <div class="page-wrapper">
 
-            <!-- MENU SIDEBAR-->
-            <aside class="menu-sidebar d-none d-lg-block">
-                <div class="logo">
-                    <!-- <a href="#">
-                    <img src="images/icon/logo.png" alt="Cool Admin" />
-                </a> -->
-                    <h3 class="title-5 m-b-35" style="margin: 50px,0px,0px,10px;">Admin System</h3>
-                </div>
-                <div class="menu-sidebar__content js-scrollbar1">
-                    <nav class="navbar-sidebar">
-                        <ul class="list-unstyled navbar__list">
-                            <li class="active has-sub">
-                                <a href="index.html">
-                                    <i class="fas fa-tachometer-alt"></i>控制台</a>
-                            </li>
-
-                            <li>
-                                <a href="table.html">
-                                    <i class="fas fa-table"></i>用户管理</a>
-                            </li>
-
-                            <li>
-                                <a href="table2.html">
-                                    <i class="fas fa-table"></i>电影管理</a>
-                            </li>
-
-                            <li>
-                                <a href="table3.html">
-                                    <i class="fas fa-table"></i>影院管理</a>
-                            </li>
-
-                            <li>
-                                <a href="table4.html">
-                                    <i class="fas fa-table"></i>日志管理</a>
-                            </li>
-
-                            <li>
-                                <a href="table5.html">
-                                    <i class="fas fa-table"></i>电影评论管理</a>
-                            </li>
-
-                        </ul>
-                    </nav>
-                </div>
-            </aside>
-            <!-- END MENU SIDEBAR-->
-
-            <!-- PAGE CONTAINER-->
-            <div class="page-container">
-                <!-- HEADER DESKTOP-->
-                <header class="header-desktop">
-                    <div class="section__content section__content--p30">
-                        <div class="container-fluid">
-                            <div class="header-wrap">
-                                <form class="form-header" action="" method="POST">
-                                    <input class="au-input au-input--xl" type="text" name="search"
-                                        placeholder="搜索数据和报告..." />
-                                    <button class="au-btn--submit" type="submit">
-                                        <i class="zmdi zmdi-search"></i>
-                                    </button>
-                                </form>
-                                <div class="header-button">
-
-                                    <div class="account-wrap">
-                                        <div class="account-item clearfix js-item-menu">
-                                            <div class="image">
-                                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                                            </div>
-                                            <div class="content">
-                                                <a class="js-acc-btn" href="#">Jason</a>
-                                            </div>
-                                            <div class="account-dropdown js-dropdown">
-                                                <div class="info clearfix">
-                                                    <div class="image">
-                                                        <a href="#">
-                                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                                                        </a>
-                                                    </div>
-                                                    <div class="content">
-                                                        <h5 class="name">
-                                                            <a href="#">Jason</a>
-                                                        </h5>
-                                                        <span class="email">Jason@outlook.com</span>
-                                                    </div>
-                                                </div>
-                                                <div class="account-dropdown__body">
-                                                    <div class="account-dropdown__item">
-                                                        <a href="#">
-                                                            <i class="zmdi zmdi-account"></i>账户</a>
-                                                    </div>
-                                                    <div class="account-dropdown__item">
-                                                        <a href="#">
-                                                            <i class="zmdi zmdi-settings"></i>设置</a>
-                                                    </div>
-                                                    <!-- <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-money-box"></i>Billing</a>
-                                                </div> -->
-                                                </div>
-                                                <div class="account-dropdown__footer">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-power"></i>退出登录</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-                <!-- HEADER DESKTOP-->
-
-                <!-- MAIN CONTENT-->
-                <div class="main-content">
-                    <div class="section__content section__content--p30">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="overview-wrap">
-                                        <h2 class="title-1">总览</h2>
-                                        <!-- <button class="au-btn au-btn-icon au-btn--blue">
-                                        <i class="zmdi zmdi-plus"></i>add item</button> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row m-t-25">
-                                <div class="col-sm-6 col-lg-3">
-                                    <div class="overview-item overview-item--c1">
-                                        <div class="overview__inner">
-                                            <div class="overview-box clearfix">
-                                                <div class="icon">
-                                                    <i class="zmdi zmdi-account-o"></i>
-                                                </div>
-                                                <br>
-                                                <div class="text">
-                                                    <h2>{{stat1[0]}}</h2>
-                                                    <span>当前在线人数</span>
-                                                </div>
-                                            </div>
-                                            <div class="overview-chart">
-                                                <canvas id="widgetChart1"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-3">
-                                    <div class="overview-item overview-item--c2">
-                                        <div class="overview__inner">
-                                            <div class="overview-box clearfix">
-                                                <div class="icon">
-                                                    <i class="zmdi zmdi-shopping-cart"></i>
-                                                </div>
-                                                <br>
-                                                <div class="text">
-                                                    <h2>{{stat2[0]}}</h2>
-                                                    <span>当日售出电影票</span>
-                                                </div>
-                                            </div>
-                                            <div class="overview-chart">
-                                                <canvas id="widgetChart2"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-3">
-                                    <div class="overview-item overview-item--c3">
-                                        <div class="overview__inner">
-                                            <div class="overview-box clearfix">
-                                                <div class="icon">
-                                                    <i class="zmdi zmdi-calendar-note"></i>
-                                                </div>
-                                                <br>
-                                                <div class="text">
-                                                    <h2>{{stat3[0]}}</h2>
-                                                    <span>当日新增访问量</span>
-                                                </div>
-                                            </div>
-                                            <div class="overview-chart">
-                                                <canvas id="widgetChart3"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-3">
-                                    <div class="overview-item overview-item--c4">
-                                        <div class="overview__inner">
-                                            <div class="overview-box clearfix">
-                                                <div class="icon">
-                                                    <i class="zmdi zmdi-money"></i>
-                                                </div>
-                                                <br>
-                                                <div class="text">
-                                                    <h2>{{stat4[0]}}</h2>
-                                                    <span>当日新增排片</span>
-                                                </div>
-                                            </div>
-                                            <div class="overview-chart">
-                                                <canvas id="widgetChart4"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="au-card recent-report">
-                                        <div class="au-card-inner">
-                                            <h3 class="title-2">最近 7 天新增观影人次</h3>
-                                            <br>
-                                            <div class="chart-info">
-                                                <div class="chart-info__left">
-                                                    <div class="chart-note">
-                                                        <span class="dot dot--green"></span>
-                                                        <span>新增观影人次</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="recent-report__chart">
-                                                <canvas id="recent-rep-chart"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="au-card m-b-30">
-                                        <div class="au-card-inner">
-                                            <h3 class="title-2 m-b-40">最近 7 天新增排片数</h3>
-                                            <canvas id="barChart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="row">
-                            <div class="col-md-12">
-                                <div class="copyright">
-                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
-                                </div>
-                            </div>
-                        </div> -->
-                        </div>
-                    </div>
-                </div>
-<!--                Debug: {{stat1}} {{stat2}} {{stat3}} {{stat4}}-->
-                <!-- END MAIN CONTENT-->
-                <!-- END PAGE CONTAINER-->
+        <!-- MENU SIDEBAR-->
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
+                <!-- <a href="#">
+                <img src="images/icon/logo.png" alt="Cool Admin" />
+            </a> -->
+                <h3 class="title-5 m-b-35" style="margin: 50px,0px,0px,10px;">Admin System</h3>
             </div>
+            <div class="menu-sidebar__content js-scrollbar1">
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <li class="active has-sub">
+                            <a href="index.html">
+                                <i class="fas fa-tachometer-alt"></i>控制台</a>
+                        </li>
+
+                        <li>
+                            <a href="table.html">
+                                <i class="fas fa-table"></i>用户管理</a>
+                        </li>
+
+                        <li>
+                            <a href="table2.html">
+                                <i class="fas fa-table"></i>电影管理</a>
+                        </li>
+
+                        <li>
+                            <a href="table3.html">
+                                <i class="fas fa-table"></i>影院管理</a>
+                        </li>
+
+                        <li>
+                            <a href="table4.html">
+                                <i class="fas fa-table"></i>日志管理</a>
+                        </li>
+
+                        <li>
+                            <a href="table5.html">
+                                <i class="fas fa-table"></i>电影评论管理</a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <!-- END MENU SIDEBAR-->
+
+        <!-- PAGE CONTAINER-->
+        <div class="page-container">
+            <!-- HEADER DESKTOP-->
+            <header class="header-desktop">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="header-wrap">
+                            <form class="form-header" action="" method="POST">
+                                <input class="au-input au-input--xl" type="text" name="search"
+                                       placeholder="搜索数据和报告..."/>
+                                <button class="au-btn--submit" type="submit">
+                                    <i class="zmdi zmdi-search"></i>
+                                </button>
+                            </form>
+                            <div class="header-button">
+
+                                <div class="account-wrap">
+                                    <div class="account-item clearfix js-item-menu">
+                                        <div>
+                                            <a id=user_identification></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- HEADER DESKTOP-->
+
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="overview-wrap">
+                                    <h2 class="title-1">总览</h2>
+                                    <!-- <button class="au-btn au-btn-icon au-btn--blue">
+                                    <i class="zmdi zmdi-plus"></i>add item</button> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-t-25">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="overview-item overview-item--c1">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-account-o"></i>
+                                            </div>
+                                            <br>
+                                            <div class="text">
+                                                <h2>{{stat1[0]}}</h2>
+                                                <span>当前在线人数</span>
+                                            </div>
+                                        </div>
+                                        <div class="overview-chart">
+                                            <canvas id="widgetChart1"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="overview-item overview-item--c2">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-shopping-cart"></i>
+                                            </div>
+                                            <br>
+                                            <div class="text">
+                                                <h2>{{stat2[0]}}</h2>
+                                                <span>当日售出电影票</span>
+                                            </div>
+                                        </div>
+                                        <div class="overview-chart">
+                                            <canvas id="widgetChart2"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="overview-item overview-item--c3">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-calendar-note"></i>
+                                            </div>
+                                            <br>
+                                            <div class="text">
+                                                <h2>{{stat3[0]}}</h2>
+                                                <span>当日新增访问量</span>
+                                            </div>
+                                        </div>
+                                        <div class="overview-chart">
+                                            <canvas id="widgetChart3"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="overview-item overview-item--c4">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-money"></i>
+                                            </div>
+                                            <br>
+                                            <div class="text">
+                                                <h2>{{stat4[0]}}</h2>
+                                                <span>当日新增排片</span>
+                                            </div>
+                                        </div>
+                                        <div class="overview-chart">
+                                            <canvas id="widgetChart4"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="au-card recent-report">
+                                    <div class="au-card-inner">
+                                        <h3 class="title-2">最近 7 天新增观影人次</h3>
+                                        <br>
+                                        <div class="chart-info">
+                                            <div class="chart-info__left">
+                                                <div class="chart-note">
+                                                    <span class="dot dot--green"></span>
+                                                    <span>新增观影人次</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="recent-report__chart">
+                                            <canvas id="recent-rep-chart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="au-card m-b-30">
+                                    <div class="au-card-inner">
+                                        <h3 class="title-2 m-b-40">最近 7 天新增排片数</h3>
+                                        <canvas id="barChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                        <div class="col-md-12">
+                            <div class="copyright">
+                                <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                            </div>
+                        </div>
+                    </div> -->
+                    </div>
+                </div>
+            </div>
+            <!--                Debug: {{stat1}} {{stat2}} {{stat3}} {{stat4}}-->
+            <!-- END MAIN CONTENT-->
+            <!-- END PAGE CONTAINER-->
         </div>
     </div>
-    <!-- vue app end -->
+</div>
+<!-- vue app end -->
 
-    <!-- Jquery JS-->
-    <script src="/sys/vendor/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap JS-->
-    <script src="/sys/vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="/sys/vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS       -->
-    <script src="/sys/vendor/slick/slick.min.js">
-    </script>
-    <script src="/sys/vendor/wow/wow.min.js"></script>
-    <script src="/sys/vendor/animsition/animsition.min.js"></script>
-    <script src="/sys/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
-    <script src="/sys/vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="/sys/vendor/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="/sys/vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="/sys/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="/sys/vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="/sys/vendor/select2/select2.min.js">
-    </script>
+<!-- Jquery JS-->
+<script src="/sys/vendor/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap JS-->
+<script src="/sys/vendor/bootstrap-4.1/popper.min.js"></script>
+<script src="/sys/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+<!-- Vendor JS       -->
+<script src="/sys/vendor/slick/slick.min.js">
+</script>
+<script src="/sys/vendor/wow/wow.min.js"></script>
+<script src="/sys/vendor/animsition/animsition.min.js"></script>
+<script src="/sys/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+</script>
+<script src="/sys/vendor/counter-up/jquery.waypoints.min.js"></script>
+<script src="/sys/vendor/counter-up/jquery.counterup.min.js">
+</script>
+<script src="/sys/vendor/circle-progress/circle-progress.min.js"></script>
+<script src="/sys/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="/sys/vendor/chartjs/Chart.bundle.min.js"></script>
+<script src="/sys/vendor/select2/select2.min.js">
+</script>
 
-    <script src="/sys/js/vue.js"></script>
-    <script src="/sys/js/axios.js"></script>
+<script src="/sys/js/vue.js"></script>
+<script src="/sys/js/axios.js"></script>
 
-    <!-- Main JS-->
-    <script src="/sys/js/main.js"></script>
+<!-- Main JS-->
+<script src="/sys/js/main.js"></script>
 
-    <script>
+<script>
 
-        function getCookie(cookie_name) {
-            var allcookies = document.cookie;
-            //索引长度，开始索引的位置
-            var cookie_pos = allcookies.indexOf(cookie_name);
+    function getCookie(cookie_name) {
+        var allcookies = document.cookie;
+        //索引长度，开始索引的位置
+        var cookie_pos = allcookies.indexOf(cookie_name);
 
-            // 如果找到了索引，就代表cookie存在,否则不存在
-            if (cookie_pos != -1) {
-                // 把cookie_pos放在值的开始，只要给值加1即可
-                //计算取cookie值得开始索引，加的1为“=”
-                cookie_pos = cookie_pos + cookie_name.length + 1;
-                //计算取cookie值得结束索引
-                var cookie_end = allcookies.indexOf(";", cookie_pos);
+        // 如果找到了索引，就代表cookie存在,否则不存在
+        if (cookie_pos != -1) {
+            // 把cookie_pos放在值的开始，只要给值加1即可
+            //计算取cookie值得开始索引，加的1为“=”
+            cookie_pos = cookie_pos + cookie_name.length + 1;
+            //计算取cookie值得结束索引
+            var cookie_end = allcookies.indexOf(";", cookie_pos);
 
-                if (cookie_end == -1) {
-                    cookie_end = allcookies.length;
+            if (cookie_end == -1) {
+                cookie_end = allcookies.length;
 
-                }
-                //得到想要的cookie的值
-                var value = unescape(allcookies.substring(cookie_pos, cookie_end));
             }
-            return value;
+            //得到想要的cookie的值
+            var value = unescape(allcookies.substring(cookie_pos, cookie_end));
         }
-        console.log("test"+getCookie("id"));
-        new Vue({
-            el: '#app',
-            data: {
-                timer1: '',
-                timer2: '',
-                timer3: '',
-                timer4: '',
-                timer5: '',
-                stat1: [], // 用户在线人数
-                stat2: [], // 今日购票数
-                stat3: [], // 今日浏览人次
-                stat4: [], // 今日排片
-                data1:[],
-                data2:[]
-            },
+        return value;
+    }
 
-            mounted() {
-                axios.post('http://116.62.10.95:8081/user/statistics')
+    console.log("test" + getCookie("id"));
+    new Vue({
+        el: '#app',
+        data: {
+            timer1: '',
+            timer2: '',
+            timer3: '',
+            timer4: '',
+            timer5: '',
+            stat1: [], // 用户在线人数
+            stat2: [], // 今日购票数
+            stat3: [], // 今日浏览人次
+            stat4: [], // 今日排片
+            data1: [],
+            data2: []
+        },
+
+        mounted() {
+
+            var user_identfication = document.getElementById("user_identification");
+            console.log("User_identification: " + getCookie("sysName"))
+            user_identfication.innerHTML = getCookie("sysName")
+            axios.post('http://localhost:8081/user/statistics')
+                .then(response => {
+                    console.log(response);
+                    data = response.data.data;
+                    if (response.data.code == 0) {
+                        for (i = 0; i < 6; i++) {
+                            this.stat1.push(data.sum); // 用户在线人数
+                            this.stat2.push(data.Tickets); // 今日购票数
+                            this.stat3.push(data.stat); // 今日浏览人次
+                            this.stat4.push(data.Schedule); // 今日排片
+                            this.data1.push(data.Table1.TicketList);
+                            this.data2.push(data.Table1.ScheList);
+                        }
+
+                    }
+
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+
+            this.data1 = [129,123,100,80,90,70,85];
+            this.data2 = [20,30,10,15,30,40,20];
+
+            // this.drawWiget1();
+            this.drawWiget3();
+
+            this.drawChart1();
+            this.drawChart2();
+
+            // 若要启用定时更新，则取消对应语句的注释
+
+            // 定时绘图
+            // this.timer1 = setInterval(this.drawWiget1, 5000)
+            // this.timer2 = setInterval(this.drawWiget2, 5000)
+            // this.timer3 = setInterval(this.drawWiget3, 5000)
+            // this.timer4 = setInterval(this.drawWiget4, 5000)
+
+            // 定时更新数据
+            // this.timer5 = setInterval(this.updateStat, 2000);
+        },
+
+        methods: {
+            drawWiget1() {
+
+                var ctx = document.getElementById("widgetChart1");
+                if (ctx) {
+                    ctx.remove();
+                    ctx.height = 130;
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['1s', '2s', '3s', '4s', '5s', '6s'],
+                            type: 'line',
+                            datasets: [{
+                                data: this.stat1,
+                                // data: [1, 18, 9, 17, 34, 22],
+                                label: '当前在线人数',
+                                backgroundColor: 'transparent',
+                                borderColor: 'rgba(255,255,255,.55)',
+                            },]
+                        },
+                        options: {
+
+                            maintainAspectRatio: false,
+                            legend: {
+                                display: false
+                            },
+                            responsive: true,
+                            tooltips: {
+                                mode: 'index',
+                                titleFontSize: 12,
+                                titleFontColor: '#000',
+                                bodyFontColor: '#000',
+                                backgroundColor: '#fff',
+                                titleFontFamily: 'Montserrat',
+                                bodyFontFamily: 'Montserrat',
+                                cornerRadius: 3,
+                                intersect: false,
+                            },
+                            scales: {
+                                xAxes: [{
+                                    gridLines: {
+                                        color: 'transparent',
+                                        zeroLineColor: 'transparent'
+                                    },
+                                    ticks: {
+                                        fontSize: 2,
+                                        fontColor: 'transparent'
+                                    }
+                                }],
+                                yAxes: [{
+                                    display: false,
+                                    ticks: {
+                                        display: false,
+                                    }
+                                }]
+                            },
+                            title: {
+                                display: false,
+                            },
+                            elements: {
+                                line: {
+                                    tension: 0.00001,
+                                    borderWidth: 1
+                                },
+                                point: {
+                                    radius: 4,
+                                    hitRadius: 10,
+                                    hoverRadius: 4
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+            ,
+            drawWiget2() {
+
+
+                var ctx = document.getElementById("widgetChart2");
+                if (ctx) {
+                    ctx.height = 130;
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['1s', '2s', '3s', '4s', '5s', '6s'],
+                            type: 'line',
+                            datasets: [{
+                                data: this.stat2,
+                                // data: [1, 18, 9, 17, 34, 22],
+                                label: '今日购票数',
+                                backgroundColor: 'transparent',
+                                borderColor: 'rgba(255,255,255,.55)',
+                            },]
+                        },
+                        options: {
+
+                            maintainAspectRatio: false,
+                            legend: {
+                                display: false
+                            },
+                            responsive: true,
+                            tooltips: {
+                                mode: 'index',
+                                titleFontSize: 12,
+                                titleFontColor: '#000',
+                                bodyFontColor: '#000',
+                                backgroundColor: '#fff',
+                                titleFontFamily: 'Montserrat',
+                                bodyFontFamily: 'Montserrat',
+                                cornerRadius: 3,
+                                intersect: false,
+                            },
+                            scales: {
+                                xAxes: [{
+                                    gridLines: {
+                                        color: 'transparent',
+                                        zeroLineColor: 'transparent'
+                                    },
+                                    ticks: {
+                                        fontSize: 2,
+                                        fontColor: 'transparent'
+                                    }
+                                }],
+                                yAxes: [{
+                                    display: false,
+                                    ticks: {
+                                        display: false,
+                                    }
+                                }]
+                            },
+                            title: {
+                                display: false,
+                            },
+                            elements: {
+                                line: {
+                                    tension: 0.00001,
+                                    borderWidth: 1
+                                },
+                                point: {
+                                    radius: 4,
+                                    hitRadius: 10,
+                                    hoverRadius: 4
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+            ,
+            drawWiget3() {
+
+                var ctx = document.getElementById("widgetChart3");
+                ctx.height = ctx.height;
+                ctx = document.getElementById("widgetChart3");
+                if (ctx) {
+                    ctx.height = 130;
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['1s', '2s', '3s', '4s', '5s', '6s'],
+                            type: 'line',
+                            datasets: [{
+                                data: this.stat3,
+                                label: 'Dataset',
+                                backgroundColor: 'transparent',
+                                borderColor: 'rgba(255,255,255,.55)',
+                            },]
+                        },
+                        options: {
+
+                            maintainAspectRatio: false,
+                            legend: {
+                                display: false
+                            },
+                            responsive: true,
+                            tooltips: {
+                                mode: 'index',
+                                titleFontSize: 12,
+                                titleFontColor: '#000',
+                                bodyFontColor: '#000',
+                                backgroundColor: '#fff',
+                                titleFontFamily: 'Montserrat',
+                                bodyFontFamily: 'Montserrat',
+                                cornerRadius: 3,
+                                intersect: false,
+                            },
+                            scales: {
+                                xAxes: [{
+                                    gridLines: {
+                                        color: 'transparent',
+                                        zeroLineColor: 'transparent'
+                                    },
+                                    ticks: {
+                                        fontSize: 2,
+                                        fontColor: 'transparent'
+                                    }
+                                }],
+                                yAxes: [{
+                                    display: false,
+                                    ticks: {
+                                        display: false,
+                                    }
+                                }]
+                            },
+                            title: {
+                                display: false,
+                            },
+                            elements: {
+                                line: {
+                                    borderWidth: 1
+                                },
+                                point: {
+                                    radius: 4,
+                                    hitRadius: 10,
+                                    hoverRadius: 4
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+            ,
+            drawWiget4() {
+
+                var ctx = document.getElementById("widgetChart4");
+                if (ctx) {
+                    ctx.height = 130;
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['1s', '2s', '3s', '4s', '5s', '6s'],
+                            type: 'line',
+                            datasets: [{
+                                data: this.stat4,
+                                label: 'Dataset',
+                                backgroundColor: 'transparent',
+                                borderColor: 'rgba(255,255,255,.55)',
+                            },]
+                        },
+                        options: {
+
+                            maintainAspectRatio: false,
+                            legend: {
+                                display: false
+                            },
+                            responsive: true,
+                            tooltips: {
+                                mode: 'index',
+                                titleFontSize: 12,
+                                titleFontColor: '#000',
+                                bodyFontColor: '#000',
+                                backgroundColor: '#fff',
+                                titleFontFamily: 'Montserrat',
+                                bodyFontFamily: 'Montserrat',
+                                cornerRadius: 3,
+                                intersect: false,
+                            },
+                            scales: {
+                                xAxes: [{
+                                    gridLines: {
+                                        color: 'transparent',
+                                        zeroLineColor: 'transparent'
+                                    },
+                                    ticks: {
+                                        fontSize: 2,
+                                        fontColor: 'transparent'
+                                    }
+                                }],
+                                yAxes: [{
+                                    display: false,
+                                    ticks: {
+                                        display: false,
+                                    }
+                                }]
+                            },
+                            title: {
+                                display: false,
+                            },
+                            elements: {
+                                line: {
+                                    borderWidth: 1
+                                },
+                                point: {
+                                    radius: 4,
+                                    hitRadius: 10,
+                                    hoverRadius: 4
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+            ,
+            drawChart1() {
+                const brandProduct = 'rgba(0,181,233,0.8)'
+                const brandService = 'rgba(0,173,95,0.8)'
+
+                var elements = 10
+                var data1 = this.data1;
+                // var data1 = [52, 60, 55, 50, 65, 80, 57, 70, 105, 115]
+
+                var ctx = document.getElementById("recent-rep-chart");
+                if (ctx) {
+                    ctx.height = 250;
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Day1', 'Day2', 'Day3', 'Day4', 'Day5', 'Day6', 'Day7'],
+                            datasets: [
+                                {
+                                    label: '新增观影人数',
+                                    backgroundColor: brandService,
+                                    borderColor: 'transparent',
+                                    pointHoverBackgroundColor: '#fff',
+                                    borderWidth: 0,
+                                    data: data1
+                                },
+                            ]
+                        },
+                        options: {
+                            maintainAspectRatio: true,
+                            legend: {
+                                display: false
+                            },
+                            responsive: true,
+                            scales: {
+                                xAxes: [{
+                                    gridLines: {
+                                        drawOnChartArea: true,
+                                        color: '#f2f2f2'
+                                    },
+                                    ticks: {
+                                        fontFamily: "Poppins",
+                                        fontSize: 12
+                                    }
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                        maxTicksLimit: 5,
+                                        stepSize: 50,
+                                        max: 150,
+                                        fontFamily: "Poppins",
+                                        fontSize: 12
+                                    },
+                                    gridLines: {
+                                        display: true,
+                                        color: '#f2f2f2'
+
+                                    }
+                                }]
+                            },
+                            elements: {
+                                point: {
+                                    radius: 0,
+                                    hitRadius: 10,
+                                    hoverRadius: 4,
+                                    hoverBorderWidth: 3
+                                }
+                            }
+
+
+                        }
+                    });
+                }
+            }
+            ,
+            drawChart2() {
+
+                // data = [65, 59, 80, 81, 56, 55, 40];
+
+                data = this.data2;
+
+                try {
+                    //bar chart
+                    var ctx = document.getElementById("barChart");
+                    if (ctx) {
+                        ctx.height = 330;
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            defaultFontFamily: 'Poppins',
+                            data: {
+                                labels: ['Day1', 'Day2', 'Day3', 'Day4', 'Day5', 'Day6', 'Day7'],
+                                datasets: [
+                                    {
+                                        label: "最近7天新增排片数",
+                                        data: data,
+                                        borderColor: "rgba(0, 123, 255, 0.9)",
+                                        borderWidth: "0",
+                                        backgroundColor: "rgba(0, 123, 255, 0.5)",
+                                        fontFamily: "Poppins"
+                                    },
+                                ]
+                            },
+                            options: {
+                                legend: {
+                                    position: 'top',
+                                    labels: {
+                                        fontFamily: 'Poppins'
+                                    }
+
+                                },
+                                scales: {
+                                    xAxes: [{
+                                        ticks: {
+                                            fontFamily: "Poppins"
+
+                                        }
+                                    }],
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true,
+                                            fontFamily: "Poppins"
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    }
+
+
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            ,
+            updateStat() {
+                axios.post('http://localhost:8081/user/statistics')
                     .then(response => {
                         console.log(response);
                         data = response.data.data;
                         if (response.data.code == 0) {
-                            for (i = 0; i < 6; i++) {
-                                this.stat1.push(data.sum); // 用户在线人数
-                                this.stat2.push(data.Tickets); // 今日购票数
-                                this.stat3.push(data.stat); // 今日浏览人次
-                                this.stat4.push(data.Schedule); // 今日排片
-                                this.data1.push(data.Table1.TicketList);
-                                this.data2.push(data.Table1.ScheList);
-                            }
-
+                            this.stat1.shift();
+                            this.stat2.shift();
+                            this.stat3.shift();
+                            this.stat4.shift();
+                            this.stat1.push(data.sum); // 用户在线人数
+                            this.stat2.push(data.Tickets); // 今日购票数
+                            this.stat3.push(data.stat); // 今日浏览人次
+                            this.stat4.push(data.Schedule); // 今日排片
                         }
 
                     })
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                     });
-
-
-                // this.drawWiget1();
-                this.drawWiget3();
-
-                this.drawChart1();
-                this.drawChart2();
-
-                // 若要启用定时更新，则取消对应语句的注释
-
-                // 定时绘图
-                // this.timer1 = setInterval(this.drawWiget1, 5000)
-                // this.timer2 = setInterval(this.drawWiget2, 5000)
-                // this.timer3 = setInterval(this.drawWiget3, 5000)
-                // this.timer4 = setInterval(this.drawWiget4, 5000)
-
-                // 定时更新数据
-                // this.timer5 = setInterval(this.updateStat, 2000);
-            },
-
-            methods: {
-                drawWiget1() {
-
-                    var ctx = document.getElementById("widgetChart1");
-                    if (ctx) {
-                        ctx.remove();
-                        ctx.height = 130;
-                        var myChart = new Chart(ctx, {
-                            type: 'line',
-                            data: {
-                                labels: ['1s', '2s', '3s', '4s', '5s', '6s'],
-                                type: 'line',
-                                datasets: [{
-                                    data: this.stat1,
-                                    // data: [1, 18, 9, 17, 34, 22],
-                                    label: '当前在线人数',
-                                    backgroundColor: 'transparent',
-                                    borderColor: 'rgba(255,255,255,.55)',
-                                },]
-                            },
-                            options: {
-
-                                maintainAspectRatio: false,
-                                legend: {
-                                    display: false
-                                },
-                                responsive: true,
-                                tooltips: {
-                                    mode: 'index',
-                                    titleFontSize: 12,
-                                    titleFontColor: '#000',
-                                    bodyFontColor: '#000',
-                                    backgroundColor: '#fff',
-                                    titleFontFamily: 'Montserrat',
-                                    bodyFontFamily: 'Montserrat',
-                                    cornerRadius: 3,
-                                    intersect: false,
-                                },
-                                scales: {
-                                    xAxes: [{
-                                        gridLines: {
-                                            color: 'transparent',
-                                            zeroLineColor: 'transparent'
-                                        },
-                                        ticks: {
-                                            fontSize: 2,
-                                            fontColor: 'transparent'
-                                        }
-                                    }],
-                                    yAxes: [{
-                                        display: false,
-                                        ticks: {
-                                            display: false,
-                                        }
-                                    }]
-                                },
-                                title: {
-                                    display: false,
-                                },
-                                elements: {
-                                    line: {
-                                        tension: 0.00001,
-                                        borderWidth: 1
-                                    },
-                                    point: {
-                                        radius: 4,
-                                        hitRadius: 10,
-                                        hoverRadius: 4
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }
-                ,
-                drawWiget2() {
-
-
-                    var ctx = document.getElementById("widgetChart2");
-                    if (ctx) {
-                        ctx.height = 130;
-                        var myChart = new Chart(ctx, {
-                            type: 'line',
-                            data: {
-                                labels: ['1s', '2s', '3s', '4s', '5s', '6s'],
-                                type: 'line',
-                                datasets: [{
-                                    data: this.stat2,
-                                    // data: [1, 18, 9, 17, 34, 22],
-                                    label: '今日购票数',
-                                    backgroundColor: 'transparent',
-                                    borderColor: 'rgba(255,255,255,.55)',
-                                },]
-                            },
-                            options: {
-
-                                maintainAspectRatio: false,
-                                legend: {
-                                    display: false
-                                },
-                                responsive: true,
-                                tooltips: {
-                                    mode: 'index',
-                                    titleFontSize: 12,
-                                    titleFontColor: '#000',
-                                    bodyFontColor: '#000',
-                                    backgroundColor: '#fff',
-                                    titleFontFamily: 'Montserrat',
-                                    bodyFontFamily: 'Montserrat',
-                                    cornerRadius: 3,
-                                    intersect: false,
-                                },
-                                scales: {
-                                    xAxes: [{
-                                        gridLines: {
-                                            color: 'transparent',
-                                            zeroLineColor: 'transparent'
-                                        },
-                                        ticks: {
-                                            fontSize: 2,
-                                            fontColor: 'transparent'
-                                        }
-                                    }],
-                                    yAxes: [{
-                                        display: false,
-                                        ticks: {
-                                            display: false,
-                                        }
-                                    }]
-                                },
-                                title: {
-                                    display: false,
-                                },
-                                elements: {
-                                    line: {
-                                        tension: 0.00001,
-                                        borderWidth: 1
-                                    },
-                                    point: {
-                                        radius: 4,
-                                        hitRadius: 10,
-                                        hoverRadius: 4
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }
-                ,
-                drawWiget3() {
-
-                    var ctx = document.getElementById("widgetChart3");
-                    ctx.height = ctx.height;
-                    ctx = document.getElementById("widgetChart3");
-                    if (ctx) {
-                        ctx.height = 130;
-                        var myChart = new Chart(ctx, {
-                            type: 'line',
-                            data: {
-                                labels: ['1s', '2s', '3s', '4s', '5s', '6s'],
-                                type: 'line',
-                                datasets: [{
-                                    data: this.stat3,
-                                    label: 'Dataset',
-                                    backgroundColor: 'transparent',
-                                    borderColor: 'rgba(255,255,255,.55)',
-                                },]
-                            },
-                            options: {
-
-                                maintainAspectRatio: false,
-                                legend: {
-                                    display: false
-                                },
-                                responsive: true,
-                                tooltips: {
-                                    mode: 'index',
-                                    titleFontSize: 12,
-                                    titleFontColor: '#000',
-                                    bodyFontColor: '#000',
-                                    backgroundColor: '#fff',
-                                    titleFontFamily: 'Montserrat',
-                                    bodyFontFamily: 'Montserrat',
-                                    cornerRadius: 3,
-                                    intersect: false,
-                                },
-                                scales: {
-                                    xAxes: [{
-                                        gridLines: {
-                                            color: 'transparent',
-                                            zeroLineColor: 'transparent'
-                                        },
-                                        ticks: {
-                                            fontSize: 2,
-                                            fontColor: 'transparent'
-                                        }
-                                    }],
-                                    yAxes: [{
-                                        display: false,
-                                        ticks: {
-                                            display: false,
-                                        }
-                                    }]
-                                },
-                                title: {
-                                    display: false,
-                                },
-                                elements: {
-                                    line: {
-                                        borderWidth: 1
-                                    },
-                                    point: {
-                                        radius: 4,
-                                        hitRadius: 10,
-                                        hoverRadius: 4
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }
-                ,
-                drawWiget4() {
-
-                    var ctx = document.getElementById("widgetChart4");
-                    if (ctx) {
-                        ctx.height = 130;
-                        var myChart = new Chart(ctx, {
-                            type: 'line',
-                            data: {
-                                labels: ['1s', '2s', '3s', '4s', '5s', '6s'],
-                                type: 'line',
-                                datasets: [{
-                                    data: this.stat4,
-                                    label: 'Dataset',
-                                    backgroundColor: 'transparent',
-                                    borderColor: 'rgba(255,255,255,.55)',
-                                },]
-                            },
-                            options: {
-
-                                maintainAspectRatio: false,
-                                legend: {
-                                    display: false
-                                },
-                                responsive: true,
-                                tooltips: {
-                                    mode: 'index',
-                                    titleFontSize: 12,
-                                    titleFontColor: '#000',
-                                    bodyFontColor: '#000',
-                                    backgroundColor: '#fff',
-                                    titleFontFamily: 'Montserrat',
-                                    bodyFontFamily: 'Montserrat',
-                                    cornerRadius: 3,
-                                    intersect: false,
-                                },
-                                scales: {
-                                    xAxes: [{
-                                        gridLines: {
-                                            color: 'transparent',
-                                            zeroLineColor: 'transparent'
-                                        },
-                                        ticks: {
-                                            fontSize: 2,
-                                            fontColor: 'transparent'
-                                        }
-                                    }],
-                                    yAxes: [{
-                                        display: false,
-                                        ticks: {
-                                            display: false,
-                                        }
-                                    }]
-                                },
-                                title: {
-                                    display: false,
-                                },
-                                elements: {
-                                    line: {
-                                        borderWidth: 1
-                                    },
-                                    point: {
-                                        radius: 4,
-                                        hitRadius: 10,
-                                        hoverRadius: 4
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }
-                ,
-                drawChart1() {
-                    const brandProduct = 'rgba(0,181,233,0.8)'
-                    const brandService = 'rgba(0,173,95,0.8)'
-
-                    var elements = 10
-                    var data1 = this.data1;
-                    // var data1 = [52, 60, 55, 50, 65, 80, 57, 70, 105, 115]
-
-                    var ctx = document.getElementById("recent-rep-chart");
-                    if (ctx) {
-                        ctx.height = 250;
-                        var myChart = new Chart(ctx, {
-                            type: 'line',
-                            data: {
-                                labels: ['Day1', 'Day2', 'Day3', 'Day4', 'Day5', 'Day6', 'Day7'],
-                                datasets: [
-                                    {
-                                        label: '新增观影人数',
-                                        backgroundColor: brandService,
-                                        borderColor: 'transparent',
-                                        pointHoverBackgroundColor: '#fff',
-                                        borderWidth: 0,
-                                        data: data1
-                                    },
-                                ]
-                            },
-                            options: {
-                                maintainAspectRatio: true,
-                                legend: {
-                                    display: false
-                                },
-                                responsive: true,
-                                scales: {
-                                    xAxes: [{
-                                        gridLines: {
-                                            drawOnChartArea: true,
-                                            color: '#f2f2f2'
-                                        },
-                                        ticks: {
-                                            fontFamily: "Poppins",
-                                            fontSize: 12
-                                        }
-                                    }],
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true,
-                                            maxTicksLimit: 5,
-                                            stepSize: 50,
-                                            max: 150,
-                                            fontFamily: "Poppins",
-                                            fontSize: 12
-                                        },
-                                        gridLines: {
-                                            display: true,
-                                            color: '#f2f2f2'
-
-                                        }
-                                    }]
-                                },
-                                elements: {
-                                    point: {
-                                        radius: 0,
-                                        hitRadius: 10,
-                                        hoverRadius: 4,
-                                        hoverBorderWidth: 3
-                                    }
-                                }
-
-
-                            }
-                        });
-                    }
-                }
-                ,
-                drawChart2() {
-
-                    // data = [65, 59, 80, 81, 56, 55, 40];
-                    
-                    data = this.data2;
-
-                    try {
-                        //bar chart
-                        var ctx = document.getElementById("barChart");
-                        if (ctx) {
-                            ctx.height = 330;
-                            var myChart = new Chart(ctx, {
-                                type: 'bar',
-                                defaultFontFamily: 'Poppins',
-                                data: {
-                                    labels: ['Day1', 'Day2', 'Day3', 'Day4', 'Day5', 'Day6', 'Day7'],
-                                    datasets: [
-                                        {
-                                            label: "最近7天新增排片数",
-                                            data: data,
-                                            borderColor: "rgba(0, 123, 255, 0.9)",
-                                            borderWidth: "0",
-                                            backgroundColor: "rgba(0, 123, 255, 0.5)",
-                                            fontFamily: "Poppins"
-                                        },
-                                    ]
-                                },
-                                options: {
-                                    legend: {
-                                        position: 'top',
-                                        labels: {
-                                            fontFamily: 'Poppins'
-                                        }
-
-                                    },
-                                    scales: {
-                                        xAxes: [{
-                                            ticks: {
-                                                fontFamily: "Poppins"
-
-                                            }
-                                        }],
-                                        yAxes: [{
-                                            ticks: {
-                                                beginAtZero: true,
-                                                fontFamily: "Poppins"
-                                            }
-                                        }]
-                                    }
-                                }
-                            });
-                        }
-
-
-                    } catch (error) {
-                        console.log(error);
-                    }
-                }
-                ,
-                updateStat() {
-                    axios.post('http://116.62.10.95:8081/user/statistics')
-                        .then(response => {
-                            console.log(response);
-                            data = response.data.data;
-                            if (response.data.code == 0) {
-                                this.stat1.shift();
-                                this.stat2.shift();
-                                this.stat3.shift();
-                                this.stat4.shift();
-                                this.stat1.push(data.sum); // 用户在线人数
-                                this.stat2.push(data.Tickets); // 今日购票数
-                                this.stat3.push(data.stat); // 今日浏览人次
-                                this.stat4.push(data.Schedule); // 今日排片
-                            }
-
-                        })
-                        .catch(function (error) { // 请求失败处理
-                            console.log(error);
-                        });
-                }
-                ,
-            },
-
-            beforeDestroy() {
-                clearInterval(this.timer1);
-                clearInterval(this.timer2);
-                clearInterval(this.timer3);
-                clearInterval(this.timer4);
             }
-        })
-    </script>
+            ,
+        },
+
+        beforeDestroy() {
+            clearInterval(this.timer1);
+            clearInterval(this.timer2);
+            clearInterval(this.timer3);
+            clearInterval(this.timer4);
+        }
+    })
+</script>
 
 
 </body>

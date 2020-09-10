@@ -94,7 +94,7 @@ public class UploadSerivce {
 //        //获取本机IP
 //        String host = null;
 //        try {
-//            host = InetAddress.getLocalHost().getHostAddress();
+//            host = InetAddress.getlocalhost().getHostAddress();
 //        } catch (UnknownHostException e) {
 //            logger.error("get server host Exception e:", e);
 //        }

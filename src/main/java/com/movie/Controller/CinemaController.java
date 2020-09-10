@@ -66,7 +66,6 @@ public class CinemaController {
                             Integer grade,
                             String cinemaDescription,
                             List<MultipartFile> imgs){
-
         try {
             Cinema cinema1=new Cinema();
             cinema1.setCinemaName(cinemaName);

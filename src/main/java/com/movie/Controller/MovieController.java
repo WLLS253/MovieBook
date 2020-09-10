@@ -10,12 +10,14 @@ import com.movie.Result.Result;
 import com.movie.Serivce.CinemaService;
 import com.movie.Serivce.MovieService;
 import com.movie.Serivce.UploadSerivce;
+import com.movie.Util.RecommendUtils;
 import com.movie.Util.Util;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -69,6 +72,8 @@ public class MovieController {
     @Autowired
     private CinemaService cinemaService;
 
+    @Autowired
+    private CommentEsRepo commentEsRepo;
 
     @PostMapping(value = "movie/add")
     public Result addMovie(MovieInformation movieInformation) throws ParseException {
@@ -133,7 +138,7 @@ public class MovieController {
     }
 
     @PostMapping(value = "comment/add")
-    public  Result addComment(@RequestParam("userId")Long userId,@RequestParam("movieId")Long movieId,@RequestParam(value = "content",required = false)String content,@RequestParam(value = "score",required = false)String title){
+    public  Result addComment(@RequestParam("userId")Long userId,@RequestParam("movieId")Long movieId,@RequestParam(value = "content",required = false)String content,@RequestParam(value = "score",required = false)Float score){
         try {
             User user=userRepository.findById(userId).get();
             Movie movie=movieRepository.findById(movieId).get();
@@ -149,8 +154,8 @@ public class MovieController {
             if(content!=null){
                 comment.setContent(content);
             }
-            if(title!=null){
-                comment.setScore(title);
+            if(score!=null){
+                comment.setScore(score);
             }
             comment.setUser(user);
             comment.setMovie(movie);
@@ -161,6 +166,34 @@ public class MovieController {
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
     }
+
+    @PostMapping(value = "commentEs/add")
+    public  Result addCommentEs(@RequestParam("userId")Long userId,
+                                @RequestParam("movieId")Long movieId,
+                                @RequestParam(value = "content",required = false)String content,
+                                @RequestParam(value = "score",required = false)Float score){
+        try{
+
+            List<CommentEs> commentEs = commentEsRepo.findByUserIdAndMovieId(userId,movieId);
+            CommentEs comment;
+            User user = userRepository.findById(userId).get();
+            Movie m = movieRepository.findById(movieId).get();
+            if(commentEs.size() == 0){
+                comment = new CommentEs(null,userId,user.getUsername(),user.getShowimage(),movieId,m.getName(),content,(long)0,score,new Date(),new Date());
+            }else{
+                comment = commentEs.get(0);
+                comment.setContent(content);
+                comment.setScore(score);
+            }
+            movieService.submitComment(comment);
+            return Util.success(comment);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+
 
     @PostMapping(value = "collect/add")
     public Result addCollect(Long userId,Long movieId){
@@ -186,8 +219,8 @@ public class MovieController {
     @PostMapping(value = "tag/add")
     public  Result addTag(@RequestParam("tagName")String tagName){
         try {
-            Tag tag=new Tag();
-            tag.setTagName(tagName);
+            Tag tag=new Tag(tagName);
+            //tag.setTagName(tagName);
             return Util.success(tagRepository.save(tag));
         }catch (Exception e){
             e.printStackTrace();;
@@ -198,6 +231,7 @@ public class MovieController {
     @GetMapping(value = "movie/getCommentList")
     public Result getMovieCommentList(@RequestParam("movieId")Long movieId,int pageSize,int pageNumber){
         try {
+
             Sort s = Sort.by(Sort.Direction.ASC,"createdTime");
             Pageable p = PageRequest.of(pageNumber,pageSize,s);
             return Util.success(movieService.getMovieComments(movieId,p));

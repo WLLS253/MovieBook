@@ -26,7 +26,7 @@ public class CinemaMng extends BaseEntity{
     @Column(name = "prio", nullable = true)
     private Integer prio;
 
-    @Column(name = "mng_username", nullable = true, length = 30)
+    @Column(name = "mng_username", nullable = true, length = 30,unique = true)
     private String mngUsername;
 
     @Column(name = "mng_email", nullable = true, length = 30)
