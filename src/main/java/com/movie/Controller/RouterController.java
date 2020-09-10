@@ -18,10 +18,10 @@ public class RouterController {
     @Autowired
     private StatisticsService statisticsService;
 
-    @RequestMapping({"/","/index"})
-    public String index(){
-        return "user/"+"index";
-    }
+//    @RequestMapping({"/","/index"})
+//    public String index(){
+//        return "user/"+"index";
+//    }
 
 
     @RequestMapping({"/mng","/mng/index"})
@@ -34,13 +34,13 @@ public class RouterController {
         return "sys/login";
     }
 
-    @RequestMapping({"/user","/user/index"})
-    public String userIndex(){
-
-        statisticsService.addIndexVisitor();
-        System.out.println("asdsdadad");
-        return "user/index";
-    }
+//    @RequestMapping({"/user","/user/index"})
+//    public String userIndex(){
+//
+//        statisticsService.addIndexVisitor();
+//        System.out.println("asdsdadad");
+//        return "user/index";
+//    }
 
 
     @RequestMapping(value = "/mng/{htmlname}.html")

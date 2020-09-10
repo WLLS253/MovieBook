@@ -15,7 +15,7 @@ import com.movie.Serivce.CinemaService;
 import com.movie.Serivce.PurchaseService;
 import com.movie.Util.PageHelper;
 import com.movie.Util.Util;
-import com.sun.org.apache.regexp.internal.RE;
+
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,6 +1,7 @@
 package com.movie.Controller;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.movie.Entity.*;
 import com.movie.Enums.ExceptionEnums;
@@ -11,7 +12,11 @@ import com.movie.Serivce.CinemaService;
 import com.movie.Serivce.MovieService;
 import com.movie.Serivce.UploadSerivce;
 import com.movie.Util.RecommendUtils;
+import com.movie.Serivce.UserService;
 import com.movie.Util.Util;
+import com.movie.redis.CacheObject.MovieInfoRe;
+import com.movie.redis.RedisKeys;
+import com.movie.redis.RedisParse;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -74,8 +79,15 @@ public class MovieController {
 
     @Autowired
     private CommentEsRepo commentEsRepo;
+    private MovieInfoRe movieInfoRe;
 
-    @PostMapping(value = "movie/add")
+    @Autowired
+    private  RedisParse redisParse;
+
+    @Autowired
+    private UserService userService;
+
+   @PostMapping(value = "movie/add")
     public Result addMovie(MovieInformation movieInformation) throws ParseException {
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date releaseTime=simpleDateFormat.parse(movieInformation.releaseTime);
@@ -105,6 +117,7 @@ public class MovieController {
             movie1.setFigureList(figureList);
         }
 
+        //movieInfoRe.save(movie1.getId().toString(),movie1);
         return Util.success(movieRepository.save(movie1));
     }
 
@@ -206,6 +219,10 @@ public class MovieController {
                 movies.add(movie);
                 userRepository.save(user);
                 jsonObject.put("msg","添加成功");
+                JSONArray jsonArray =userService.addMovieDetails(movies);
+                JSONObject temp = new JSONObject();
+                temp.put("movies",jsonArray);
+                redisParse.saveObject(userId.toString(),temp,RedisKeys.User_Movie);
             }else{
                 jsonObject.put("msg","添加失败，已经收藏过该电影");
             }
@@ -286,11 +303,19 @@ public class MovieController {
         }
     }
 
+
+
+
     @DeleteMapping(value = "movie/del")
     public  Result delMovie(@RequestParam("movieId")Long movieId){
         try {
             movieRepository.deleteById(movieId);
-            return  Util.success(ExceptionEnums.DEL_SUCCESS);
+            Boolean bool = redisParse.delObject(movieId.toString(), RedisKeys.Movie);
+            if(bool){
+                return  Util.success(ExceptionEnums.DEL_SUCCESS);
+            }else {
+                return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+            }
         }catch (Exception e){
             return Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }

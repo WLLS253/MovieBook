@@ -62,6 +62,8 @@ public class SearchService {
         return jsonObject;
     }
 
+
+
     public JSONObject filterMoviesDetail(Integer start_year,
                                          Integer end_year,
                                          String key_string,
@@ -81,7 +83,6 @@ public class SearchService {
         if(cinema_name!=null)
             cinema_name = cinema_name.join("|",cinema_name.split("[\\s]+"));
         Page<Movie> filtered_movies=movieRepository.filterMovies(start_year,end_year,tag_regex,date,state,cinema_name,key_string,country,pageable);
-
         jsonObject.put("cinemas_infos",filtered_movies.getContent());
         jsonObject.put("pageInfo",PageHelper.getPageInfoWithoutContent(filtered_movies));
         return jsonObject;
@@ -105,7 +106,6 @@ public class SearchService {
         }
         return tag_regex;
     }
-
 
     // 按照员工 职位和姓名来 过滤电影
     public JSONObject filterMovies(String role ,String name){

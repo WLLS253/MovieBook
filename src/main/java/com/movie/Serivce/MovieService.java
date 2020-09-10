@@ -3,6 +3,11 @@ package com.movie.Serivce;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
+import com.movie.Dto.CommentDto;
+import com.movie.Dto.MovieDto;
+import com.movie.Dto.StaffDto;
+import com.movie.Dto.TagDto;
 import com.movie.Entity.*;
 import com.movie.Repository.CommentEsRepo;
 import com.movie.Repository.CommentRepository;
@@ -10,9 +15,14 @@ import com.movie.Repository.MovieRepository;
 import com.movie.Repository.TakePartRepository;
 import com.movie.Util.PageHelper;
 import com.movie.Util.RecommendUtils;
+import com.movie.redis.CacheObject.JsonObjectInfo;
+import com.movie.redis.CacheObject.MovieInfoRe;
 import com.movie.redis.RedisApi;
 import com.movie.redis.RedisKeys;
+import com.movie.redis.RedisParse;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -21,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.data.domain.Pageable;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -46,12 +57,25 @@ public class MovieService {
     @Autowired
     private StatisticsService statisticsService;
 
-    @Resource
-    private RedisApi redisApi;
 
     @Resource
     private CommentEsRepo commentEsRepo;
 
+
+
+
+    @Autowired
+    private MovieInfoRe movieInfoRe;
+
+    @Autowired
+    private JsonObjectInfo jsonObjectInfo;
+
+
+    @Autowired
+    private RedisApi redisApi;
+
+    @Autowired
+    private RedisParse redisParse;
 
 
 
@@ -120,16 +144,52 @@ public class MovieService {
     }
 
     public JSONObject getMovieDetail(Long movie_id,Long user_id){
-        JSONObject jsonObject=new JSONObject();
-        Movie movie=movieRepository.findById(movie_id).get();
-        JSONArray staffs = getTakePartInfos(movie_id);
-        jsonObject.put("movie_info",movie);
-        jsonObject.put("tags_info",movie.getTagList());
-        jsonObject.put("staff_info",staffs);
-        List<Comment> comments = commentRepository.findAllByUser_IdAndMovie_Id(user_id,movie_id);
-        if(comments.size()!=0)
-            jsonObject.put("comment",comments.get(0));
-        return  jsonObject;
+
+        MovieDto movieDto = new MovieDto();
+
+        System.out.println("?????");
+        JSONObject  Object = (JSONObject)redisParse.getObject(movie_id.toString(),RedisKeys.Movie);
+        System.out.println(Object);
+        if(Object ==null){
+            JSONObject jsonObject=new JSONObject();
+            Movie movie=movieRepository.findById(movie_id).get();
+            BeanUtils.copyProperties(movie,movieDto);
+            movieDto.setReleaseTime(movie.getReleaseTime().toString());
+            //JSONArray staffs = getTakePartInfos(movie_id);
+            List<StaffDto>staffDtos =getTakePartStaff(movie_id);
+            List<String>tagDtos = new ArrayList<>();
+            for (Tag tag : movie.getTagList()) {
+                tagDtos.add(tag.getTagName());
+            }
+            jsonObject.put("movie_info",movieDto);
+            jsonObject.put("tags_info",tagDtos);
+            jsonObject.put("staff_info",staffDtos);
+            List<Comment> comments = commentRepository.findAllByUser_IdAndMovie_Id(user_id,movie_id);
+            if(comments.size()!=0){
+                CommentDto commentDto =new CommentDto();
+                BeanUtils.copyProperties(comments.get(0),commentDto);
+                jsonObject.put("comment",commentDto);
+            }
+            //jsonObjectInfo.save(movie_id.toString(),jsonObject);
+            redisParse.saveObject(movie_id.toString(),jsonObject,RedisKeys.Movie);
+            movieInfoRe.save(movie_id.toString(),movieDto);
+            System.out.println(movieInfoRe.get(movie_id.toString()));
+            System.out.println(redisParse.getObject(movie_id.toString(),RedisKeys.Movie).toString());
+            return  jsonObject;
+        }
+        else {
+            if(user_id!=null){
+                List<Comment> comments = commentRepository.findAllByUser_IdAndMovie_Id(user_id,movie_id);
+                if(comments.size()!=0){
+                    CommentDto commentDto =new CommentDto();
+                    BeanUtils.copyProperties(comments.get(0),commentDto);
+                    Object.put("comment",commentDto);
+                }
+            }
+            return Object;
+        }
+
+        //return  jsonObject;
     }
 
 
@@ -171,6 +231,21 @@ public class MovieService {
         return  staffs;
     }
 
+
+    public List<StaffDto>getTakePartStaff(Long movie_id){
+        List<TakePart> takeParts = takePartRepository.findAllByMovie_Id(movie_id);
+        List<StaffDto>staffDtos = new ArrayList<>();
+        for (TakePart t:takeParts) {
+            StaffDto staffDto =new StaffDto();
+            BeanUtils.copyProperties(t.getStaff(),staffDto);
+            staffDto.setRole(t.getRole());
+            staffDtos.add(staffDto);
+
+        }
+        return  staffDtos;
+    }
+
+    @Scheduled(cron = "0 * * * * *")
     //@Scheduled(fixedRate = 10000)
     public void updateMovieStates() {
         List<Movie> preMovies  = movieRepository.getMoviesByState("pre");
@@ -179,6 +254,15 @@ public class MovieService {
                 preMovies) {
             if(Math.abs(m.getReleaseTime().getTime() - cur) <= 10000 || m.getReleaseTime().getTime() < cur){
                 m.setState("on");
+                JSONObject jsonObject = (JSONObject) redisParse.getObject(m.getId().toString(),RedisKeys.Movie);
+                if(jsonObject != null){
+                    MovieDto movieDto = new MovieDto();
+                    System.out.println(m);
+                    BeanUtils.copyProperties(m,movieDto);
+                    jsonObject.put("movie_info",movieDto);
+                    //System.out.println(jsonObject);
+                    redisParse.saveObject(m.getId().toString(),jsonObject,RedisKeys.Movie);
+                }
             }
         }
         movieRepository.saveAll(preMovies);

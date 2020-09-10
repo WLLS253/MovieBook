@@ -1,11 +1,5 @@
 package com.movie.redis;
 
-/**
- * RedisKeys
- *
- * @author pqdong
- * @since 2020/03/04
- */
 public class RedisKeys {
 
     // user_token缓存
@@ -19,5 +13,18 @@ public class RedisKeys {
 
     // 推荐电影
     public static final String RECOMMEND = "recommend";
+
+
+    public static  final String User ="user_";
+    public static  final String Movie ="movie_";
+    public  static  final  String JSON = "json_";
+
+    public  static  final  String User_Movie ="user_movies_";
+
+    public  static  final  String User_Login ="user_login_";
+
+    public  static  final String Cinema ="cinema_";
+
+
 
 }

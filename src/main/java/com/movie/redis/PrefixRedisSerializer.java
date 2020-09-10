@@ -1,4 +1,3 @@
-
 package com.movie.redis;
 
 import lombok.extern.slf4j.Slf4j;
@@ -8,16 +7,10 @@ import org.springframework.util.Assert;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-/**
- * PrefixRedisSerializer
- *
- * @author pqdong
- * @since 2020/03/04
- */
 @Slf4j
 public class PrefixRedisSerializer implements RedisSerializer<String> {
 
-    private static String PREFIX = "movie";
+    private static String PREFIX = "json";
 
     private final Charset charset;
 

@@ -17,7 +17,9 @@ import com.movie.Serivce.CinemaService;
 import com.movie.Serivce.UploadSerivce;
 import com.movie.Util.PageHelper;
 import com.movie.Util.Util;
-import com.sun.org.apache.regexp.internal.RE;
+
+import com.movie.redis.RedisKeys;
+import com.movie.redis.RedisParse;
 import io.swagger.annotations.Api;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,7 @@ import java.util.List;
  * 处理跨域@CrossOrigin现在可以先不用加
  */
 //@CrossOrigin
+@CrossOrigin
 @RestController
 @Api("cinema")
 public class CinemaController {
@@ -57,6 +60,9 @@ public class CinemaController {
 
     @Autowired
     private UploadSerivce uploadSerivce;
+
+    @Autowired
+    private RedisParse redisParse;
 
     @SysLog(value = "添加电影院")
     @PostMapping(value = "/cinema/add")
@@ -101,7 +107,12 @@ public class CinemaController {
                 return  Util.failure(ExceptionEnums.UNFIND_DATA_ERROR);
             }else {
                 Cinema cinema=cinemas.get(0);
-                return Util.success(cinemaService.addJsonCinema(cinema,cinema_infor.cinemaName,cinema_infor.location,cinema_infor.phone,cinema_infor.grade,cinema_infor.cinemaDescription,cinema_infor.figureList));
+                Long id = cinema.getId();
+                cinema=cinemaService.addJsonCinema(cinema,cinema_infor.cinemaName,cinema_infor.location,cinema_infor.phone,cinema_infor.grade,cinema_infor.cinemaDescription,cinema_infor.figureList);
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("cinema_info",cinema);
+                redisParse.saveObject(id.toString(),jsonObject,RedisKeys.Cinema);
+                return Util.success(cinema);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -111,9 +122,16 @@ public class CinemaController {
     @GetMapping(value = "/cinema/get")
     public Result getCinema(Long id) {
         try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("cinema_info",cinemaRepository.findById(id));
-            return Util.success(jsonObject);
+            JSONObject jsonObject;
+            jsonObject = (JSONObject) redisParse.getObject(id.toString(),RedisKeys.Cinema);
+            if(jsonObject != null){
+                return  Util.success(jsonObject);
+            }else {
+                jsonObject = new JSONObject();
+                jsonObject.put("cinema_info",cinemaRepository.findById(id));
+                redisParse.saveObject(id.toString(),jsonObject, RedisKeys.Cinema);
+                return Util.success(jsonObject);
+            }
         }catch (Exception e){
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);
         }
@@ -142,7 +160,12 @@ public class CinemaController {
     public  Result deleteCinema(@RequestParam("cinemaId")Long cinemaId){
         try {
             cinemaRepository.deleteById(cinemaId);
-            return Util.success(ExceptionEnums.DEL_SUCCESS);
+            Boolean bool =redisParse.delObject(cinemaId.toString(),RedisKeys.Cinema);
+            if(bool){
+                return Util.success(ExceptionEnums.DEL_SUCCESS);
+            }else {
+                return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+            }
         }catch (Exception e){
             e.printStackTrace();
             return  Util.failure(ExceptionEnums.UNKNOW_ERROR);

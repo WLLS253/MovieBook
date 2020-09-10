@@ -1,32 +1,27 @@
-/**
- * @(#)RedisService.java, 2019-03-12.
- *
- * Copyright 2019 Youdao, Inc. All rights reserved.
- * YOUDAO PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
 package com.movie.redis;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.*;
-import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-/**
- * RedisService
- *
- * @author pqdong
- * @since 2020/03/04
- */
 @Service
 @Slf4j
 public class RedisApi {
 
     @Resource(name = "stringRedisTemplate")
     private StringRedisTemplate redis;
+
+
+    @Resource
+    RedisTemplate<String, Object> redisTemplate;
 
     public boolean exist(String key) {
         try {
@@ -45,12 +40,15 @@ public class RedisApi {
         }
     }
 
-    public void delKey(String key) {
+    public Boolean  delKey(String key) {
+        Boolean bool;
         try {
-            redis.delete(key);
+            bool = redis.delete(key);
         } catch (Exception e) {
             log.warn("redis delKey error key={}", key, e);
+            bool =false;
         }
+        return  bool;
     }
 
     public void delKeys(List<String> keys) {
@@ -65,6 +63,15 @@ public class RedisApi {
     public String getString(String key) {
         try {
             return redis.opsForValue().get(key);
+        } catch (Exception e) {
+            log.warn("redis getString error key={}", key, e);
+            return null;
+        }
+    }
+
+    public Object getObject(String key) {
+        try {
+            return redisTemplate.opsForValue().get(key);
         } catch (Exception e) {
             log.warn("redis getString error key={}", key, e);
             return null;
@@ -147,6 +154,14 @@ public class RedisApi {
         try {
             redis.opsForValue().set(key, value, time, unit);
         } catch (Exception e) {
+            log.warn("redis setValue error key={}, value={}", key, value, e);
+        }
+    }
+
+    public void setValue(String key,Object value,long time,TimeUnit unit) {
+        try {
+            redisTemplate.opsForValue().set(key,value,time,unit);
+        }catch (Exception e){
             log.warn("redis setValue error key={}, value={}", key, value, e);
         }
     }

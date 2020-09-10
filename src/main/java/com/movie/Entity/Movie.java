@@ -49,7 +49,9 @@ public class Movie extends BaseEntity {
 
     private  String state;
 
-    @OneToMany(targetEntity = Figure.class)
+
+
+    @OneToMany(targetEntity = Figure.class,fetch = FetchType.EAGER)
     private  List<Figure>figureList;
 
 
@@ -59,14 +61,13 @@ public class Movie extends BaseEntity {
         return this.getName();
     }
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "takepart",
             joinColumns = @JoinColumn(name = "movie_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "staff_id",referencedColumnName = "id")
     )
-//    @OneToMany(targetEntity = TakePart.class)
-//    @JoinColumn(name = "movie_id")
     private List<Staff> staffList;
 
 
@@ -111,6 +112,8 @@ public class Movie extends BaseEntity {
         return tagList;
     }
 
+
+
     @JSONField
     public Integer getComments_num(){
         return userList.size();
@@ -122,9 +125,9 @@ public class Movie extends BaseEntity {
                 "score=" + score +
                 ", brief='" + brief + '\'' +
                 ", releaseTime=" + releaseTime +
-                ", staffList=" + staffList+
-                ", userList=" + userList +
-                ", tagList=" + tags +
+                // ", staffList=" + staffList+
+                // ", userList=" + userList +
+                // ", tagList=" + tags +
                 ", comment_num=" + userList.size() +
                 ", id=" + id +
                 ", createdTime=" + createdTime +

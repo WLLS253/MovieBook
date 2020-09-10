@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 import java.util.Date;
 import java.util.List;
-
+@CrossOrigin
 @RestController
 public class SearchController {
 
@@ -104,7 +104,6 @@ public class SearchController {
         }
     }
 
-    // requestBody classes
     @Data
     private static class MovieFilterSetting {
         // 上映年份区间
@@ -127,7 +126,7 @@ public class SearchController {
 
         int pageNumber;
         int pageSize;
-        String sort_by = "createdTime";
+        String sort_by = "created_time";
         Sort.Direction sort_type = Sort.Direction.ASC;
 
         @Override
@@ -135,7 +134,6 @@ public class SearchController {
             return "start_year"+start_year+" end_year"+end_year+" tags"+tags;
         }
     }
-
 
     @Data
     private static class CinemaFilterSetting {
