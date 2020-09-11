@@ -93,8 +93,10 @@ public class SearchService {
         for (Movie filtered_movie : filtered_movies) {
             MovieDto movieDto =new MovieDto();
             BeanUtils.copyProperties(filtered_movie,movieDto);
+            movieDto.setReleaseTime(filtered_movie.getReleaseTime().toString());
             List<StaffDto>staffDtoList = movieService.getTakePartStaff(filtered_movie.getId());
-            movieDto.setStaffDtoList(staffDtoList);
+            movieDto.setStaffList(staffDtoList);
+            movieDto.setComments_num(filtered_movie.getComments_num());
             movieDtoList.add(movieDto);
         }
         jsonObject.put("cinemas_infos",movieDtoList);

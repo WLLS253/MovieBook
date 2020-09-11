@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +47,11 @@ public class MovieDto implements Serializable {
 
     private  String tags;
 
-    private List<StaffDto>staffDtoList;
+    private List<StaffDto>staffList;
+
+    private Integer Comments_num;
+
+
 
     @Override
     public String toString() {

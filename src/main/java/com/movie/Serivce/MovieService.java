@@ -157,6 +157,8 @@ public class MovieService {
             movieDto.setReleaseTime(movie.getReleaseTime().toString());
             //JSONArray staffs = getTakePartInfos(movie_id);
             List<StaffDto>staffDtos =getTakePartStaff(movie_id);
+            movieDto.setStaffList(null);
+
             List<String>tagDtos = new ArrayList<>();
             for (Tag tag : movie.getTagList()) {
                 tagDtos.add(tag.getTagName());
@@ -171,6 +173,7 @@ public class MovieService {
                 jsonObject.put("comment",commentDto);
             }
             //jsonObjectInfo.save(movie_id.toString(),jsonObject);
+            System.out.println(jsonObject);
             redisParse.saveObject(movie_id.toString(),jsonObject,RedisKeys.Movie);
             movieInfoRe.save(movie_id.toString(),movieDto);
             System.out.println(movieInfoRe.get(movie_id.toString()));
@@ -259,6 +262,7 @@ public class MovieService {
                     MovieDto movieDto = new MovieDto();
                     System.out.println(m);
                     BeanUtils.copyProperties(m,movieDto);
+                    movieDto.setStaffList(null);
                     jsonObject.put("movie_info",movieDto);
                     //System.out.println(jsonObject);
                     redisParse.saveObject(m.getId().toString(),jsonObject,RedisKeys.Movie);

@@ -108,6 +108,7 @@ public class UserService {
         for (Movie movie : movieList) {
             MovieDto movieDto =new MovieDto();
             BeanUtils.copyProperties(movie,movieDto);
+            movieDto.setStaffList(null);
             movieDto.setReleaseTime(movie.getReleaseTime().toString());
             movieArray.add(movieDto);
         }

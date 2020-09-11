@@ -34,7 +34,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   redis:
     timeout: 300s # redis超时时间，建议用docker起一个redis容器即可
-    host: 116.62.10.95
+    host: 123.57.22.40
     port: 6379
     jedis:
       pool:
