@@ -78,7 +78,7 @@ public class User extends  BaseEntity {
     }
 
     public void setPassword(String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
-        this.password = UserPasswordEncrypt.encrypt(password, "abcdef" + strTo16(this.username) + "abcdef" + strTo16(this.username), 233);;
+        this.password = UserPasswordEncrypt.encrypt(password, "abcdef" + strTo16("78") + "abcdef" + strTo16("78"), 233);;
     }
 
     public String getUserEmail() {
@@ -127,7 +127,7 @@ public class User extends  BaseEntity {
 
     public boolean checkPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
 
-        return this.password.equals(UserPasswordEncrypt.encrypt(password, "abcdef" + strTo16(this.username) + "abcdef" + strTo16(this.username), 233));
+        return this.password.equals(UserPasswordEncrypt.encrypt(password, "abcdef" + strTo16("78") + "abcdef" + strTo16("78"), 233));
     }
 
     public static String strTo16(String s) {

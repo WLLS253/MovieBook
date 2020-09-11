@@ -61,7 +61,6 @@ public class Movie extends BaseEntity {
         return this.getName();
     }
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "takepart",

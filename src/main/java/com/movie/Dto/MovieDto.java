@@ -46,6 +46,8 @@ public class MovieDto implements Serializable {
 
     private  String tags;
 
+    private List<StaffDto>staffDtoList;
+
     @Override
     public String toString() {
         return "MovieDto{" +
