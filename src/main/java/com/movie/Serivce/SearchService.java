@@ -153,7 +153,13 @@ public class SearchService {
             jsonObject.put("movies",movieRepository.getLimitMoviesByState("on",0,6));
         }else{
             List<Long>  ids = movieRecommender.userBasedRecommender(userId,6);
-            jsonObject.put("movies",movieRepository.findAllById(ids));
+            List<Movie> m =  movieRepository.findAllById(ids);
+            List<Movie> result = new ArrayList<>();
+            result.addAll(m);
+            if(ids.size()<6){
+                result.addAll(movieRepository.getLimitMoviesByState("on",0,6-ids.size()));
+            }
+            jsonObject.put("movies",result);
         }
         return jsonObject;
     }

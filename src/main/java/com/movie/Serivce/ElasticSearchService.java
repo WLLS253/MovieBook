@@ -20,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.map.HashedMap;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -46,8 +48,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
-import static org.elasticsearch.index.query.QueryBuilders.rangeQuery;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * ElasticSearchService
@@ -93,12 +94,9 @@ public class ElasticSearchService {
             }
         });
 
-        //List<Aggregation> aggregations = result.getAggregations().asList();
-        //ParsedLongTerms comment_num = (ParsedLongTerms)aggregations.get(0);
         SearchHits commentEsList = result.getHits();
         List<Map<String,Object>> comments = new ArrayList<>();
         Map<Long,List<Pair<Long,Float>>> comment_info = new HashedMap();
-//        List terms = new JSONArray();
         for (SearchHit hit: commentEsList) {
             comments.add(hit.getSourceAsMap());
         }
@@ -117,10 +115,23 @@ public class ElasticSearchService {
         }
         return comment_info;
     }
+
+
     public List<CommentEs> getAllComment(long userId){
         List<CommentEs> commentEs = commentEsRepo.findByUserId(userId);
         return commentEs;
-   }
+    }
+
+    public List<CommentEs> getAllCommentByMovieId(long userId,long movieId){
+        BoolQueryBuilder bqb =  QueryBuilders.boolQuery();
+        bqb.must(QueryBuilders.matchQuery("userId",userId)).must(QueryBuilders.matchQuery("movieId",movieId));
+        NativeSearchQueryBuilder builder = new NativeSearchQueryBuilder().withQuery(bqb)
+                .withPageable(PageRequest.of(0, 20));
+        SearchQuery query = builder.build();
+        List<CommentEs> index = elasticsearchTemplate.queryForList(query, CommentEs.class);
+        return index;
+    }
+
     // 更新 对应的用户的所有评论，异步处理
     @Async("taskExecutor")
     public void updateAllComment(User userEntity) {

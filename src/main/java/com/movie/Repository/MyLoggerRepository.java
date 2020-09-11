@@ -21,5 +21,10 @@ public interface MyLoggerRepository extends JpaRepository<MyLogger,Long> {
     List<MyLogger>findMyLoggerByCreateDateAfterAndCreateDateBefore(Date date1,Date date2);
 
 //    Page<MyLogger>
-    Page<MyLogger>findMyLoggerByCreateDateAfter(Date createDate, Pageable pageable);
+
+    Page<MyLogger> findByCreateDateAfter(Date createDate, Pageable pageable);
+    Page<MyLogger>findMyLoggerByUserId(String userId, Pageable pageable);
+    Page<MyLogger>findMyLoggerByRole(Role role,Pageable pageable);
+    Page<MyLogger>findMyLoggerByCreateDateAfterAndCreateDateBefore(Date date1,Date date2,Pageable pageable);
+
 }

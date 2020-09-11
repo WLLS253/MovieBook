@@ -71,7 +71,4 @@ public interface    MovieRepository extends JpaRepository<Movie,Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM movie WHERE 1=1 ORDER BY score DESC limit 12")
     List<Movie> findAllByHighScore();
 
-
-
-
 }

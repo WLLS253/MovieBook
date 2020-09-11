@@ -8,11 +8,8 @@ import com.movie.Enums.ExceptionEnums;
 import com.movie.Plugins.SysLog;
 import com.movie.Repository.*;
 import com.movie.Result.Result;
-import com.movie.Serivce.CinemaService;
-import com.movie.Serivce.MovieService;
-import com.movie.Serivce.UploadSerivce;
+import com.movie.Serivce.*;
 import com.movie.Util.RecommendUtils;
-import com.movie.Serivce.UserService;
 import com.movie.Util.Util;
 import com.movie.redis.CacheObject.MovieInfoRe;
 import com.movie.redis.RedisKeys;
@@ -41,7 +38,8 @@ public class MovieController {
 
     @Autowired
     private StaffRepository staffRepository;
-
+    @Autowired
+    ElasticSearchService elasticSearchService;
 
     @Autowired
     private TakePartRepository takePartRepository;
@@ -187,7 +185,9 @@ public class MovieController {
                                 @RequestParam(value = "score",required = false)Float score){
         try{
 
-            List<CommentEs> commentEs = commentEsRepo.findByUserIdAndMovieId(userId,movieId);
+            List<CommentEs> commentEs = elasticSearchService.getAllCommentByMovieId(userId,movieId);
+                    //commentEsRepo.findByUserIdAndMovieId(userId,movieId);
+
             CommentEs comment;
             User user = userRepository.findById(userId).get();
             Movie m = movieRepository.findById(movieId).get();
@@ -249,7 +249,20 @@ public class MovieController {
     public Result getMovieCommentList(@RequestParam("movieId")Long movieId,int pageSize,int pageNumber){
         try {
 
-            Sort s = Sort.by(Sort.Direction.ASC,"createdTime");
+            Sort s = Sort.by(Sort.Direction.ASC,"created_time");
+            Pageable p = PageRequest.of(pageNumber,pageSize,s);
+            return Util.success(movieService.getMovieComments(movieId,p));
+        }catch (Exception e){
+            e.printStackTrace();
+            return Util.failure(ExceptionEnums.UNKNOW_ERROR);
+        }
+    }
+
+    @GetMapping(value = "movie/getCommentEsList")
+    public Result getMovieCommentEsList(@RequestParam("movieId")Long movieId,int pageSize,int pageNumber){
+        try {
+
+            Sort s = Sort.by(Sort.Direction.ASC,"created_time");
             Pageable p = PageRequest.of(pageNumber,pageSize,s);
             return Util.success(movieService.getMovieComments(movieId,p));
         }catch (Exception e){
