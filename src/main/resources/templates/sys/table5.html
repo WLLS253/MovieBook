@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+
+    <!-- Title Page-->
+    <title>评论管理</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="/sys/css/font-face.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="/sys/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="/sys/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/sys/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="/sys/css/theme.css" rel="stylesheet" media="all">
+
+
+    <style>
+        .pagewrap {
+            padding: 25px 0;
+            -webkit-user-select: none;
+            user-select: none;
+            width: 100%;
+            color: #666;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .pagewrap i {
+            height: 34px;
+            padding: 0;
+            border: 1px solid #ccc;
+            line-height: 34px;
+            border-radius: 3px;
+            width: 34px;
+            display: inline-block;
+            cursor: pointer;
+            margin: 0 4px;
+            vertical-align: middle;
+        }
+
+        .pagewrap i.button {
+            width: 68px;
+        }
+
+        .pagewrap i:hover {
+            border-color: #fdb800;
+            color: #fdb800;
+            animation: buttonshake .4s ease-out forwards;
+        }
+
+        .pagewrap i.current:hover,
+        i.current,
+        i.button:hover {
+            border-color: #fdb800;
+            color: #fdb800;
+            animation: none;
+        }
+
+        .pagewrap i.disabled,
+        i.disabled:hover {
+            background: #EFEFEF;
+            border-color: #EFEFEF;
+            color: #AAA;
+            cursor: text;
+            animation: none;
+        }
+
+        .pagewrap i.ellipsis,
+        i.ellipsis:hover {
+            background: none;
+            border-color: #FFF;
+            color: #AAA;
+            cursor: text;
+            animation: none;
+        }
+
+        @-webkit-keyframes buttonshake {
+            25% {
+                -webkit-transform: rotate(45deg);
+            }
+
+            75% {
+                -webkit-transform: rotate(-45deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(0deg);
+            }
+        }
+
+        @keyframes buttonshake {
+            25% {
+                transform: rotate(45deg);
+            }
+
+            75% {
+                transform: rotate(-45deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+    </style>
+
+
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+
+        <!-- MENU SIDEBAR-->
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
+                <!-- <a href="#">
+                <img src="images/icon/logo.png" alt="Cool Admin" />
+            </a> -->
+                <h3 class="title-5 m-b-35" style="margin: 50px,0px,0px,10px;">Admin System</h3>
+            </div>
+            <div class="menu-sidebar__content js-scrollbar1">
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <li>
+                            <a href="index.html">
+                                <i class="fas fa-tachometer-alt"></i>控制台</a>
+                        </li>
+
+                        <li>
+                            <a href="table.html">
+                                <i class="fas fa-table"></i>用户管理</a>
+                        </li>
+
+                        <li>
+                            <a href="table2.html">
+                                <i class="fas fa-table"></i>电影管理</a>
+                        </li>
+
+                        <li>
+                            <a href="table3.html">
+                                <i class="fas fa-table"></i>影院管理</a>
+                        </li>
+
+                        <li>
+                            <a href="table4.html">
+                                <i class="fas fa-table"></i>日志管理</a>
+                        </li>
+
+                        <li class="active has-sub">
+                            <a href="table5.html">
+                                <i class="fas fa-table"></i>电影评论管理</a>
+                        </li>
+
+
+
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <!-- END MENU SIDEBAR-->
+
+
+        <!-- vue app 开始 -->
+        <div id="app">
+
+            <!-- PAGE CONTAINER-->
+            <div class="page-container">
+                <!-- HEADER DESKTOP-->
+                <header class="header-desktop">
+                    <div class="section__content section__content--p30">
+                        <div class="container-fluid">
+                            <div class="header-wrap">
+
+                                <!-- 搜索框 开始 -->
+                                <div class="form-header" action="" method="POST">
+                                    <input class="au-input au-input--xl" type="text" v-model="selected_movie_id"
+                                        name="search" placeholder="搜索电影ID...">
+                                    </input>
+
+                                    <button @click="loadList" class="au-btn--submit">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+
+                                </div>
+                                <!-- 搜索框 结束 -->
+
+                                <div class="header-button">
+                                    <div class="account-wrap">
+                                        <div class="account-item clearfix js-item-menu">
+                                            <div>
+                                                <p id=user_identification></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <!-- END HEADER DESKTOP-->
+
+                <!-- MAIN CONTENT-->
+                <div class="main-content">
+                    <div class="section__content section__content--p30">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <!-- 数据表工具 -->
+                                    <h3 class="title-5 m-b-35">评论管理</h3>
+                                    <!-- {{selected_date}} {{selected_time}} -->
+                                    <div class="table-data__tool">
+                                        <div class="table-data__tool-left">
+
+                                        </div>
+
+                                        <!-- 主要工具 开始 -->
+                                        <div class="table-data__tool-right">
+                                            <button class="btn btn-danger" type="button" @click="deleteComment">
+                                                <i class="zmdi zmdi-minus"></i>删除选定评论
+                                            </button>
+                                        </div>
+                                        <!-- 主要工具 结束 -->
+
+                                    </div>
+                                    <!-- 数据表工具 结束 -->
+
+                                    <div class="table-responsive table-responsive-data2">
+
+                                        <!-- 数据表 -->
+                                        <div class="row m-t-30">
+                                            <div class="col-md-12">
+                                                <!-- DATA TABLE-->
+                                                <div class="table-responsive m-b-40">
+                                                    <table style="table-layout:fixed;"
+                                                        class="table table-borderless table-data3">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+<!--                                                                    <label class="au-checkbox">-->
+<!--                                                                        <input type="checkbox" :checked="isAllSelected"-->
+<!--                                                                            @click="selectAll">-->
+<!--                                                                        <span class="au-checkmark"></span>-->
+<!--                                                                    </label>-->
+                                                                </th>
+                                                                <th style="width: 10%; text-align: left;overflow:hidden;">评论id</th>
+                                                                <th style="text-align: left;overflow:hidden;">用户名</th>
+                                                                <th style="width: 30%; text-align: left;overflow:hidden;">评论内容</th>
+                                                                <th style="text-align: left;overflow:hidden;">评分</th>
+                                                                <th style="text-align: left;overflow:hidden;">日期</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <template v-for="comment in comments">
+                                                                <tr>
+                                                                    <td>
+                                                                        <label class="au-checkbox">
+                                                                            <input type="checkbox"
+                                                                                v-model="selected_comments"
+                                                                                :value="comment.commentid"
+                                                                                @click="select">
+                                                                            <span class="au-checkmark"></span>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td style="width: 10%; overflow:hidden;">
+                                                                        {{comment.commentid}}
+                                                                    </td>
+
+                                                                    <td style="overflow:hidden;">
+                                                                        {{comment.username}}
+                                                                    </td>
+
+                                                                    <td style="width: 30%; overflow:hidden;">
+<!--                                                                        v-bind:title="comment.content">-->
+                                                                        {{comment.content.substring(0,11)}}
+                                                                    </td>
+
+                                                                    <td style="overflow:hidden;">
+                                                                        {{comment.score}}
+                                                                    </td>
+
+                                                                    <td style="overflow:hidden;">
+                                                                        {{comment.date.substring(0,10)}}
+                                                                    </td>
+
+                                                                </tr>
+                                                            </template>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!-- END DATA TABLE-->
+
+                                                <div class="pagewrap">
+                                                    <button @click="lastPage">上一页</button>
+                                                    <input style="width:20px" v-model="current_page"
+                                                        @keyup.enter="loadList"/>
+                                                    <button @click="nextPage">下一页</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- debug: {{selected_comments}} -->
+
+
+
+                                        <!-- debug: logger_records = {{logger_records}} Keyword = {{keyword}} -->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- vue app 结束 -->
+
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="/sys/vendor/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="/sys/vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="/sys/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- Vendor JS       -->
+    <script src="/sys/vendor/slick/slick.min.js">
+    </script>
+    <script src="/sys/vendor/wow/wow.min.js"></script>
+    <script src="/sys/vendor/animsition/animsition.min.js"></script>
+    <script src="/sys/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="/sys/vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="/sys/vendor/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="/sys/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="/sys/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/sys/vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="/sys/vendor/select2/select2.min.js">
+    </script>
+
+    <script src="/sys/js/vue.js"></script>
+    <script src="/sys/js/axios.js"></script>
+
+    <!-- Main JS-->
+    <script src="/sys/js/main.js"></script>
+
+
+    <script>
+        function getCookie(cookie_name) {
+            var allcookies = document.cookie;
+            //索引长度，开始索引的位置
+            var cookie_pos = allcookies.indexOf(cookie_name);
+
+            // 如果找到了索引，就代表cookie存在,否则不存在
+            if (cookie_pos != -1) {
+                // 把cookie_pos放在值的开始，只要给值加1即可
+                //计算取cookie值得开始索引，加的1为“=”
+                cookie_pos = cookie_pos + cookie_name.length + 1;
+                //计算取cookie值得结束索引
+                var cookie_end = allcookies.indexOf(";", cookie_pos);
+
+                if (cookie_end == -1) {
+                    cookie_end = allcookies.length;
+
+                }
+                //得到想要的cookie的值
+                var value = unescape(allcookies.substring(cookie_pos, cookie_end));
+            }
+            return value;
+        }
+        var user_identfication = document.getElementById("user_identification");
+        console.log("User_identification: " + getCookie("sysName"))
+        user_identfication.innerHTML = getCookie("sysName")
+
+        new Vue({
+            el: '#app',
+            data: {
+
+                current_page: 0,
+                page_size: 5,
+                total_pages: null,
+
+                selected_movie_id: null,
+
+                comments: [],
+
+                isAllSelected: false,
+                selected_comments: [],
+
+            },
+
+            mounted: function () {
+
+            },
+
+            methods: {
+
+                loadList() {
+                    http://localhost:8081/movie/getCommentList?movieId=1&pageNumber=0&pageSize=10
+
+                    if (this.selected_movie_id != null) {
+                        axios.get("http://localhost:8081/movie/getCommentList?" + "movieId" + "=" + this.selected_movie_id + "&" + "pageNumber" + "=" + this.current_page + "&" + "pageSize" + "=" + this.page_size)
+                            .then(response => {
+                                console.log(response)
+                                if (response.data.code == 0) {
+
+                                    if (response.data.data.pageInfo.empty == true) {
+                                        alert("该电影无相关评论");
+                                        return;
+                                    }
+
+
+                                    let data = response.data.data;
+                                    this.comments = [];
+
+                                    this.total_pages = data.pageInfo.total_pages;
+
+                                    for (var c of data.comments) {
+                                        this.comments.push({
+                                            commentid: c.id,
+                                            username: c.user_info.userName,
+                                            userid: c.user_info.user_id,
+                                            content: c.cotent, // content
+                                            score: c.score,
+                                            date: c.date,
+                                        })
+                                    }
+                                }
+                            })
+                            .catch(function (error) { // 请求失败处理
+                                console.log(error);
+                            });
+
+                    }
+
+
+                },
+
+                lastPage() {
+                    if (this.current_page >= 1) {
+                        this.current_page = this.current_page - 1;
+                        this.loadList();
+
+                    }
+                },
+
+                nextPage() {
+                    if (this.current_page + 1 < this.total_pages) {
+                        this.current_page = this.current_page + 1;
+                        this.loadList();
+                    }
+                },
+
+                deleteComment() {
+
+                    if (this.selected_comments != null) {
+                        this.selected_comments.forEach(commentid => {
+
+                            axios.delete("http://localhost:8081/comment/delbymng?commentId=" + commentid)
+                                .then(response => {
+                                    console.log(response)
+                                    if (response.data.code == 0) {
+
+
+                                        let ifFind = false;
+                                        let val = commentid;
+                                        let i = 0;
+                                        while (i < this.comments.length) {
+                                            if (this.comments[i].commentid == val) {
+                                                ifFind = true;
+                                                break;
+                                            }
+                                            i++;
+                                        }
+                                        if (ifFind == true) {
+                                            this.comments.splice(i, 1);
+                                        }
+                                        this.selected_comments.shift();
+                                    }
+                                    else {
+                                        alert("删除失败");
+                                        return;
+                                    }
+
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                })
+
+                        });
+
+                        alert("删除成功")
+
+                    }
+                    else {
+                        alert("请选择评论");
+                        return;
+                    }
+
+
+
+                },
+
+                selectAll() {
+                    if (this.isAllSelected) {
+                        this.selected_comments = []
+                        this.isAllSelected = false
+                    } else {
+                        this.selected_comments = []
+                        for (var comment in this.comments) {
+                            this.selected_comments.push(this.comments[comment].commentid)
+                        }
+                        this.isAllSelected = true
+                    }
+                },
+
+                select() {
+                    if (this.selected_comments.length !== this.comments.length) {
+                        this.isAllSelected = false
+                    } else {
+                        this.isAllSelected = true
+                    }
+                },
+
+
+
+            }
+
+        })
+    </script>
+</body>
+
+</html>
+<!-- end document-->

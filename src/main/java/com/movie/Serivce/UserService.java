@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.movie.Dto.MovieDto;
+import com.movie.Dto.UserInfoDto;
 import com.movie.Entity.Buy;
 import com.movie.Entity.Movie;
 import com.movie.Entity.User;
@@ -71,7 +72,9 @@ public class UserService {
         }else {
             User user=userRepository.findById(userId).get();
             JSONObject jsonObject=new JSONObject();
-            jsonObject.put("user_info",user);
+            UserInfoDto userInfoDto =new UserInfoDto();
+            BeanUtils.copyProperties(user,userInfoDto);
+            jsonObject.put("user_info",userInfoDto);
             redisParse.saveObject(userId.toString(),jsonObject,RedisKeys.User);
             return  jsonObject;
         }
@@ -105,6 +108,7 @@ public class UserService {
         for (Movie movie : movieList) {
             MovieDto movieDto =new MovieDto();
             BeanUtils.copyProperties(movie,movieDto);
+            movieDto.setStaffList(null);
             movieDto.setReleaseTime(movie.getReleaseTime().toString());
             movieArray.add(movieDto);
         }

@@ -5,6 +5,8 @@ package com.movie.Serivce;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.movie.Domain.MovieRecommender;
+import com.movie.Dto.MovieDto;
+import com.movie.Dto.StaffDto;
 import com.movie.Entity.*;
 import com.movie.Repository.*;
 import com.movie.Util.PageHelper;
@@ -12,6 +14,7 @@ import com.movie.Util.PageHelper;
 import javafx.collections.transformation.SortedList;
 import javafx.util.Pair;
 import org.apache.mahout.cf.taste.common.TasteException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +44,9 @@ public class SearchService {
 
     @Autowired
     MovieRecommender movieRecommender;
+
+    @Autowired
+    private MovieService movieService;
 
 
     public JSONObject filterMoviesBrief(Integer start_year,
@@ -83,10 +89,22 @@ public class SearchService {
         if(cinema_name!=null)
             cinema_name = cinema_name.join("|",cinema_name.split("[\\s]+"));
         Page<Movie> filtered_movies=movieRepository.filterMovies(start_year,end_year,tag_regex,date,state,cinema_name,key_string,country,pageable);
-        jsonObject.put("cinemas_infos",filtered_movies.getContent());
+        List<MovieDto>movieDtoList =new ArrayList<>();
+        for (Movie filtered_movie : filtered_movies) {
+            MovieDto movieDto =new MovieDto();
+            BeanUtils.copyProperties(filtered_movie,movieDto);
+            movieDto.setReleaseTime(filtered_movie.getReleaseTime().toString());
+            List<StaffDto>staffDtoList = movieService.getTakePartStaff(filtered_movie.getId());
+            movieDto.setStaffList(staffDtoList);
+            movieDto.setComments_num(filtered_movie.getComments_num());
+            movieDtoList.add(movieDto);
+        }
+        jsonObject.put("cinemas_infos",movieDtoList);
         jsonObject.put("pageInfo",PageHelper.getPageInfoWithoutContent(filtered_movies));
         return jsonObject;
     }
+
+
 
     private String getRegex(List<String> tags) {
         String tag_regex = null;

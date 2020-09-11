@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>影院管理</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="author" content="Yodo">
+
+
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>-->
+
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
+
+
+
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+</head>
+
+<body data-theme="default">
+
+<!--日期选择器-->
+<!--<div class="container">-->
+<!--<div class="row">-->
+<!--<div class='col-sm-6'>-->
+<!--<div class="form-group">-->
+<!--<div class='input-group date' id='datetimepicker1'>-->
+<!--<input type='text' class="form-control" />-->
+<!--<span class="input-group-addon">-->
+<!--<span class="glyphicon glyphicon-calendar"></span>-->
+<!--</span>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<div class="lyear-layout-web" >
+    <div class="lyear-layout-container">
+        <!--左侧导航-->
+        <aside class="lyear-layout-sidebar">
+
+            <!-- logo -->
+            <div id="logo" class="sidebar-header">
+
+                <a href="index_xdq_new.html"><img src="images/Cinema_logo_small_new.png" title="LightYear" alt="LightYear" /></a>
+            </div>
+            <div class="lyear-layout-sidebar-scroll">
+
+                <nav class="sidebar-main">
+                    <ul class="nav nav-drawer">
+                        <li class="nav-item active"> <a href="index_xdq_new.html"><i class="mdi mdi-home"></i> 影院管理首页</a> </li>
+                        <li class="nav-item"> <a href="xdq_cinema_arrangements.html"><i class="mdi mdi-table"></i> 影院排片管理</a> </li>
+                        <li class="nav-item"> <a href="xdq_cinema_rooms.html"><i class="mdi mdi-home-circle"></i> 影院影厅管理</a> </li>
+                        <li class="nav-item"> <a href="xdq_cinema_comments.html"><i class="mdi mdi-comment"></i> 影院评论管理</a> </li>
+                    </ul>
+                </nav>
+
+
+
+
+            </div>
+
+        </aside>
+        <!--End 左侧导航-->
+
+        <!--头部信息-->
+        <header class="lyear-layout-header">
+
+            <nav class="navbar navbar-default">
+                <div class="topbar">
+
+                    <div class="topbar-left">
+                        <div class="lyear-aside-toggler">
+                            <span class="lyear-toggler-bar"></span>
+                            <span class="lyear-toggler-bar"></span>
+                            <span class="lyear-toggler-bar"></span>
+                        </div>
+                        <span class="navbar-page-title"> 影院后台首页 </span>
+                    </div>
+
+                    <ul class="topbar-right">
+                        <li class="dropdown dropdown-profile">
+                            <a href="javascript:void(0)" data-toggle="dropdown">
+                                <img class="img-avatar img-avatar-48 m-r-10" src="images/users/xdq.jpg" alt="徐德全" />
+                                <span>徐德全 <span class="caret"></span></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li> <a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 个人信息</a> </li>
+                                <li> <a href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
+                                <li> <a href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a></li>
+                                <li class="divider"></li>
+                                <li> <a href="xdq_cinema_login.html"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
+                            </ul>
+                        </li>
+                        <!--切换主题配色-->
+                        <li class="dropdown dropdown-skin">
+                            <span data-toggle="dropdown" class="icon-palette"><i class="mdi mdi-palette"></i></span>
+                            <ul class="dropdown-menu dropdown-menu-right" data-stopPropagation="true">
+                                <li class="drop-title"><p>主题</p></li>
+                                <li class="drop-skin-li clearfix">
+                  <span>
+                    <input type="radio" name="site_theme" value="default" id="site_theme_1" checked>
+                    <label for="site_theme_1"></label>
+                  </span>
+                                    <span class="inverse">
+                    <input type="radio" name="site_theme" value="dark" id="site_theme_2" checked>
+                    <label for="site_theme_2"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="site_theme" value="translucent" id="site_theme_3">
+                    <label for="site_theme_3"></label>
+                  </span>
+                                </li>
+                                <li class="drop-title"><p>LOGO</p></li>
+                                <li class="drop-skin-li clearfix">
+                  <span class="inverse">
+                    <input type="radio" name="logo_bg" value="default" id="logo_bg_1" checked>
+                    <label for="logo_bg_1"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="logo_bg" value="color_2" id="logo_bg_2">
+                    <label for="logo_bg_2"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="logo_bg" value="color_3" id="logo_bg_3">
+                    <label for="logo_bg_3"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="logo_bg" value="color_4" id="logo_bg_4">
+                    <label for="logo_bg_4"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="logo_bg" value="color_5" id="logo_bg_5">
+                    <label for="logo_bg_5"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="logo_bg" value="color_6" id="logo_bg_6">
+                    <label for="logo_bg_6"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="logo_bg" value="color_7" id="logo_bg_7">
+                    <label for="logo_bg_7"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="logo_bg" value="color_8" id="logo_bg_8">
+                    <label for="logo_bg_8"></label>
+                  </span>
+                                </li>
+                                <li class="drop-title"><p>头部</p></li>
+                                <li class="drop-skin-li clearfix">
+                  <span class="inverse">
+                    <input type="radio" name="header_bg" value="default" id="header_bg_1" checked>
+                    <label for="header_bg_1"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="header_bg" value="color_2" id="header_bg_2">
+                    <label for="header_bg_2"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="header_bg" value="color_3" id="header_bg_3">
+                    <label for="header_bg_3"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="header_bg" value="color_4" id="header_bg_4">
+                    <label for="header_bg_4"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="header_bg" value="color_5" id="header_bg_5">
+                    <label for="header_bg_5"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="header_bg" value="color_6" id="header_bg_6">
+                    <label for="header_bg_6"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="header_bg" value="color_7" id="header_bg_7">
+                    <label for="header_bg_7"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="header_bg" value="color_8" id="header_bg_8">
+                    <label for="header_bg_8"></label>
+                  </span>
+                                </li>
+                                <li class="drop-title"><p>侧边栏</p></li>
+                                <li class="drop-skin-li clearfix">
+                  <span class="inverse">
+                    <input type="radio" name="sidebar_bg" value="default" id="sidebar_bg_1" checked>
+                    <label for="sidebar_bg_1"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="sidebar_bg" value="color_2" id="sidebar_bg_2">
+                    <label for="sidebar_bg_2"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="sidebar_bg" value="color_3" id="sidebar_bg_3">
+                    <label for="sidebar_bg_3"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="sidebar_bg" value="color_4" id="sidebar_bg_4">
+                    <label for="sidebar_bg_4"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="sidebar_bg" value="color_5" id="sidebar_bg_5">
+                    <label for="sidebar_bg_5"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="sidebar_bg" value="color_6" id="sidebar_bg_6">
+                    <label for="sidebar_bg_6"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="sidebar_bg" value="color_7" id="sidebar_bg_7">
+                    <label for="sidebar_bg_7"></label>
+                  </span>
+                                    <span>
+                    <input type="radio" name="sidebar_bg" value="color_8" id="sidebar_bg_8">
+                    <label for="sidebar_bg_8"></label>
+                  </span>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--切换主题配色-->
+                    </ul>
+
+                </div>
+            </nav>
+
+        </header>
+        <!--End 头部信息-->
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content" >
+
+            <div class="container-fluid" >
+
+                <div class="row">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card bg-primary">
+                            <div class="card-body clearfix">
+                                <div class="pull-right" id="app1">
+                                    <p class="h6 text-white m-t-0">今日收入</p>
+                                    <p class="h3 text-white m-b-0" >{{ info['2020-09-11'].total_income }}</p>
+                                </div>
+                                <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-currency-cny fa-1-5x"></i></span> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card bg-danger">
+                            <div class="card-body clearfix">
+                                <div class="pull-right" id="app2">
+                                    <p class="h6 text-white m-t-0">今日人次</p>
+                                    <p class="h3 text-white m-b-0">{{ info['2020-09-11'].total_buys }}</p>
+                                </div>
+                                <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-account fa-1-5x"></i></span> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card bg-success">
+                            <div class="card-body clearfix">
+                                <div class="pull-right" id="app3">
+                                    <p class="h6 text-white m-t-0">历史收入</p>
+                                    <p class="h3 text-white m-b-0">{{ info['2020'].total_income }}</p>
+                                </div>
+                                <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-arrow-down-bold fa-1-5x"></i></span> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card bg-purple">
+                            <div class="card-body clearfix">
+                                <div class="pull-right" id="app4">
+                                    <p class="h6 text-white m-t-0">新增留言</p>
+                                    <p class="h3 text-white m-b-0">{{ info['2020'].total_buys }}</p>
+                                </div>
+                                <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-comment-outline fa-1-5x"></i></span> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" >
+
+                    <div class="col-lg-6" id="app5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>每周观影人次</h4>
+                            </div>
+                            <div class="card-body">
+                                <canvas class="js-chartjs-bars"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6" id="app6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>历史收入记录</h4>
+                            </div>
+                            <div class="card-body">
+                                <canvas class="js-chartjs-lines"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>放映电影信息</h4>
+                            </div>
+                            <div class="card-body" id="app10">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>电影名称</th>
+                                            <th>上映日期</th>
+                                            <th>评论数</th>
+                                            <th>状态</th>
+                                            <th>进度</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr v-for="movie in info.cinemas_infos">
+                                            <td>{{ movie.id }}</td>
+                                            <td>{{ movie.name }}</td>
+                                            <td>{{ getTime(movie.releaseTime) }}</td>
+                                            <td>{{ movie.comments_num }}</td>
+                                            <!--// 要加if判断状态。值高和值低状态要不同-->
+                                            <!--补加state字段{{ movie.state }}-->
+
+                                            <td v-if="movie.state=='pre'"><span class="label label-warning">计划中</span></td>
+                                            <td v-if="movie.state=='on'"><span class="label label-success">进行中</span></td>
+                                            <td>
+                                                <div class="progress progress-striped progress-sm">
+                                                    <div class="progress-bar progress-bar-warning" style="width: 10%;"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+<!--                                        <tr>-->
+<!--                                            <td>2</td>-->
+<!--                                            <td>教父</td>-->
+<!--                                            <td>01/03/2019</td>-->
+<!--                                            <td>12/04/2019</td>-->
+<!--                                            <td><span class="label label-success">进行中</span></td>-->
+<!--                                            <td>-->
+<!--                                                <div class="progress progress-striped progress-sm">-->
+<!--                                                    <div class="progress-bar progress-bar-success" style="width: 30%;"></div>-->
+<!--                                                </div>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>3</td>-->
+<!--                                            <td>肖申克的救赎</td>-->
+<!--                                            <td>10/10/2019</td>-->
+<!--                                            <td>12/11/2019</td>-->
+<!--                                            <td><span class="label label-warning">计划中</span></td>-->
+<!--                                            <td>-->
+<!--                                                <div class="progress progress-striped progress-sm">-->
+<!--                                                    <div class="progress-bar progress-bar-warning" style="width: 0%;"></div>-->
+<!--                                                </div>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>4</td>-->
+<!--                                            <td>泰坦尼克号</td>-->
+<!--                                            <td>25/01/2019</td>-->
+<!--                                            <td>09/05/2019</td>-->
+<!--                                            <td><span class="label label-success">进行中</span></td>-->
+<!--                                            <td>-->
+<!--                                                <div class="progress progress-striped progress-sm">-->
+<!--                                                    <div class="progress-bar progress-bar-success" style="width: 55%;"></div>-->
+<!--                                                </div>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>5</td>-->
+<!--                                            <td>西红柿首富</td>-->
+<!--                                            <td>10/10/2019</td>-->
+<!--                                            <td>12/12/2019</td>-->
+<!--                                            <td><span class="label label-danger">停映中</span></td>-->
+<!--                                            <td>-->
+<!--                                                <div class="progress progress-striped progress-sm">-->
+<!--                                                    <div class="progress-bar progress-bar-danger" style="width: 10%;"></div>-->
+<!--                                                </div>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>6</td>-->
+<!--                                            <td>美国往事</td>-->
+<!--                                            <td>10/01/2019</td>-->
+<!--                                            <td>29/03/2019</td>-->
+<!--                                            <td><span class="label label-success">进行中</span></td>-->
+<!--                                            <td>-->
+<!--                                                <div class="progress progress-striped progress-sm">-->
+<!--                                                    <div class="progress-bar progress-bar-success" style="width: 75%;"></div>-->
+<!--                                                </div>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>7</td>-->
+<!--                                            <td>爱尔兰人</td>-->
+<!--                                            <td>25/02/2019</td>-->
+<!--                                            <td>12/05/2019</td>-->
+<!--                                            <td><span class="label label-danger">停映中</span></td>-->
+<!--                                            <td>-->
+<!--                                                <div class="progress progress-striped progress-sm">-->
+<!--                                                    <div class="progress-bar progress-bar-danger" style="width: 15%;"></div>-->
+<!--                                                </div>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>8</td>-->
+<!--                                            <td>阿凡达</td>-->
+<!--                                            <td>10/02/2019</td>-->
+<!--                                            <td>01/03/2019</td>-->
+<!--                                            <td><span class="label label-warning">已完成</span></td>-->
+<!--                                            <td>-->
+<!--                                                <div class="progress progress-striped progress-sm">-->
+<!--                                                    <div class="progress-bar progress-bar-success" style="width: 100%;"></div>-->
+<!--                                                </div>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.js"></script>
+
+
+<script>
+
+    function getCookie(cookie_name) {
+        var allcookies = document.cookie;
+        //索引长度，开始索引的位置
+        var cookie_pos = allcookies.indexOf(cookie_name);
+
+        // 如果找到了索引，就代表cookie存在,否则不存在
+        if (cookie_pos != -1) {
+            // 把cookie_pos放在值的开始，只要给值加1即可
+            //计算取cookie值得开始索引，加的1为“=”
+            cookie_pos = cookie_pos + cookie_name.length + 1;
+            //计算取cookie值得结束索引
+            var cookie_end = allcookies.indexOf(";", cookie_pos);
+
+            if (cookie_end == -1) {
+                cookie_end = allcookies.length;
+
+            }
+            //得到想要的cookie的值
+            var value = unescape(allcookies.substring(cookie_pos, cookie_end));
+        }
+        return value;
+    }
+</script>
+
+<script type = "text/javascript">
+    new Vue({
+        el: '#app1',
+        data () {
+            return {
+                info: null,
+            }
+        },
+        mounted (){
+
+            console.log("asdasdsad");
+            var cinema_id2 = getCookie("cinema_id");
+
+            var s_date2 = "2020/09/05"
+            var e_date2 = "2020/09/11"
+
+            axios
+                .get('http://localhost:8081/statistics/getBuyStatisByDate?'+'cienma_id' +'='+cinema_id2 +'&' +'start_date' +'='+s_date2+'&'+'end_date' +'='+e_date2)
+                .then(response => {
+                    this.info = response.data.data;
+                    console.log(this.info);
+                })
+
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+        }
+    })
+</script>
+
+<script type = "text/javascript">
+    new Vue({
+        el: '#app2',
+        data () {
+            return {
+                info: null,
+            }
+        },
+        mounted () {
+            console.log("asdasdsad");
+            var cinema_id2 = getCookie("cinema_id");
+
+            var s_date2 = "2020/09/05"
+            var e_date2 = "2020/09/11"
+
+            axios
+                .get('http://localhost:8081/statistics/getBuyStatisByDate?'+'cienma_id' +'='+cinema_id2 +'&' +'start_date' +'='+s_date2+'&'+'end_date' +'='+e_date2)
+                .then(response => {
+                    this.info = response.data.data;
+                    console.log(this.info);
+                })
+
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+        }
+    })
+</script>
+
+<script type = "text/javascript">
+    new Vue({
+        el: '#app3',
+        data () {
+            return {
+                info: null,
+            }
+        },
+        mounted () {
+            axios
+                .get('http://localhost:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
+                .then(response => {
+                    this.info = response.data.data;
+                    console.log(this.info);
+                })
+
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+        }
+    })
+</script>
+
+<script type = "text/javascript">
+    new Vue({
+        el: '#app4',
+        data () {
+            return {
+                info: null,
+            }
+        },
+        mounted () {
+            axios
+                .get('http://localhost:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
+                .then(response => {
+                    this.info = response.data.data;
+                    console.log(this.info);
+                })
+
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+
+
+        }
+    })
+</script>
+
+<script type="text/javascript" src="js/Chart.js"></script>
+
+
+
+
+
+
+<script type = "text/javascript">
+
+    new Vue({
+        el: '#app5',
+        data () {
+            return {
+                info: null,
+                Monday: null,
+                Tuesday: null,
+                Wednesday: null,
+                Thursday: null,
+                Friday: null,
+                Saturday: null,
+                Sunday: null,
+                year_one: null,
+                year_two: null,
+                year_three: null,
+                year_four: null,
+                year_five: null,
+                year_six: null,
+                year_seven: null,
+                year_eight: null,
+                year_nine: null,
+                year_ten: null,
+            }
+        },
+        mounted () {
+
+            var cinema_id = getCookie("cinema_id");
+
+            var s_date = "2020/09/05"
+            var e_date = "2020/09/11"
+
+
+            axios
+                .get('http://localhost:8081/statistics/getBuyStatisByDate?'+'cienma_id' +'='+cinema_id +'&' +'start_date' +'='+s_date+'&'+'end_date' +'='+e_date)
+                .then(response => {
+                    this.info = response.data.data;
+                    console.log(this.info);
+
+                    this.Wednesday = this.info['2020-09-11'].total_buys;
+                    console.log("这是Wednesday人次" + this.Wednesday);
+
+                    var $dashChartBarsCnt  = jQuery( '.js-chartjs-bars' )[0].getContext( '2d' );
+
+                    var $dashChartBarsData = {
+                        labels: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+                        datasets: [
+                            {
+                                label: '观影人次',
+                                borderWidth: 1,
+                                borderColor: 'rgba(0,0,0,0)',
+                                backgroundColor: 'rgba(51,202,185,0.5)',
+                                hoverBackgroundColor: "rgba(51,202,185,0.7)",
+                                hoverBorderColor: "rgba(0,0,0,0)",
+                                // 有数据后启用
+                                // data: [this.Monday, this.Tuesday, this.Wednesday, this.Thursday, this.Friday, this.Saturday, this.Sunday]
+                                data: [this.Monday, this.Tuesday, this.Wednesday, this.Thursday, this.Friday, this.Saturday, this.Sunday]
+                                // 问lqw,用js传过来数据。
+                            }
+                        ]
+                    };
+
+                    new Chart($dashChartBarsCnt, {
+                        type: 'bar',
+                        data: $dashChartBarsData
+                    });
+
+                })
+
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+        }
+    })
+</script>
+
+<script type = "text/javascript">
+    new Vue({
+        el: '#app6',
+        data () {
+            return {
+                info: null,
+                Monday: null,
+                Tuesday: null,
+                Wednesday: null,
+                Thursday: null,
+                Friday: null,
+                Saturday: null,
+                Sunday: null,
+                year_one: null,
+                year_two: null,
+                year_three: null,
+                year_four: null,
+                year_five: null,
+                year_six: null,
+                year_seven: null,
+                year_eight: null,
+                year_nine: null,
+                year_ten: null,
+            }
+        },
+        mounted () {
+            axios
+                .get('http://localhost:8081/statistics/getBuyStatisByYear?cienma_id=1&end_year=2020&start_year=2019')
+                .then(response => {
+                    this.info = response.data.data;
+                    console.log(this.info);
+
+                    this.year_ten = this.info["2020"].total_income;
+                    console.log("这是year_ten" + this.year_ten);
+
+                    $dashChartLinesCnt = jQuery( '.js-chartjs-lines' )[0].getContext( '2d' );
+
+                    var $dashChartLinesData = {
+                        labels: ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020'],
+                        datasets: [
+                            {
+                                label: '年度收入',
+                                // 没有测试数据，所以除了20年全为空，很难看，等有数据时可启用这行。
+                                // data: [ this.year_one, this.year_two, this.year_three, this.year_four, this.year_five, this.year_six, this.year_seven, this.year_eight, this.year_nine, this.year_ten],
+                                data: [ 0, 0, 0, 0, 0, 0, 0, 0, 50, this.year_ten],
+
+                                borderColor: '#358ed7',
+                                backgroundColor: 'rgba(53, 142, 215, 0.175)',
+                                borderWidth: 1,
+                                fill: false,
+                                lineTension: 0.5
+                            }
+                        ]
+                    };
+
+                    var myLineChart = new Chart($dashChartLinesCnt, {
+                        type: 'line',
+                        data: $dashChartLinesData,
+                    });
+                })
+
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                }
+
+                );
+        }
+    })
+</script>
+
+<script type = "text/javascript">
+
+    new Vue({
+        el: '#app10',
+        data () {
+            return {
+                info: null
+            }
+        },
+        methods:{
+            // 时间戳转为中文输出
+            getTime:function(t){
+                var _time=new Date(t);
+                var   year=_time.getFullYear();//2017
+                var   month=_time.getMonth()+1;//7
+                var   date=_time.getDate();//10
+                var   hour=_time.getHours();//10
+                var   minute=_time.getMinutes();//56
+                var   second=_time.getSeconds();//15
+                return   year+"年"+month+"月"+date+"日   "+hour+":"+minute;//这里自己按自己需要的格式拼接
+            },
+
+            getTimeForDB:function(t){
+                var _time=new Date(t);
+                var   year=_time.getFullYear();//2017
+                var   month=_time.getMonth()+1;//7
+                var   date=_time.getDate();//10
+                var   hour=_time.getHours();//10
+                var   minute=_time.getMinutes();//56
+                var   second=_time.getSeconds();//15
+                return   year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second;//这里自己按自己需要的格式拼接
+            },
+
+            updateSchedule: function(cinemaId,describe,end,hallId,movieId,price,schedualId,start){
+
+                // alert(cinemaId);
+                // alert(describe);
+                // alert(end);
+                // alert(hallId);
+                // alert(movieId);
+                // alert(price);
+                // alert(schedualId);
+                // alert(start);
+                window.location.href = "http://localhost:8081/mng/xdq_cinema_arrangements_update.html?cinemaId="+cinemaId+"&describe="+describe+"&end="+end+"&hallId="+hallId+"&movieId="+movieId+"&price="+price+"&schedualId="+schedualId+"&start="+start;
+
+                // const params = new URLSearchParams();
+                // params.append('cinemaId', cinemaId);
+                // params.append('describe', describe);
+                // params.append('end', end);
+                // params.append('hallId', hallId);
+                // params.append('movieId', movieId);
+                // params.append('price', price);
+                // params.append('schedualId', schedualId);
+                // params.append('start', start);
+                //
+                // axios.post("http://localhost:8081/shedule/add",params,
+                //     {
+                //         headers: {
+                //             'Access-Control-Allow-Origin': '*',
+                //         },
+                //         crossdomain: true,
+                //     }
+                // )
+                //     .then(response => {console.log(response)
+                //         console.log(this.schedule)
+                //         // alert("添加成功！")
+                //         // self.location = "xdq_cinema_arrangements.html";
+                //     })
+                //     .catch(function (error) { // 请求失败处理
+                //         console.log(error);
+                //     });
+            },
+
+            deleteSchedule: function(sche_id){
+                alert("删除成功");
+
+                axios.delete("http://localhost:8081/schedual/delEasy?sche_id="+sche_id,
+                    {
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                        },
+                        crossdomain: true,
+                    }
+                )
+                    .then(response => {console.log(response)
+                        console.log(this.schedule)
+                        // alert("添加成功！")
+                        // self.location = "xdq_cinema_arrangements.html";
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+                window.location.href = "http://localhost:8081/mng/xdq_cinema_arrangements.html"
+            },
+
+            say: function (message) {
+                alert(message)
+            }
+        },
+
+        mounted () {
+            const params = {
+                "state":"on",
+                "pageNumber": 0,
+                "pageSize": 10
+            };
+            axios
+                .post('http://localhost:8081/moive/Fliter/details',params,
+                    {
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                        },
+                        crossdomain: true,
+                    })
+                .then(
+                    response => {
+                        this.info = response.data.data;
+                        params.state="pre"
+                        axios
+                            .post('http://localhost:8081/moive/Fliter/details',params,
+                                {
+                                    headers: {
+                                        'Access-Control-Allow-Origin': '*',
+                                    },
+                                    crossdomain: true,
+                                })
+                            .then(
+                                response1=>{
+                                    console.log(response1)
+                                    this.info["cinemas_infos"] = this.info["cinemas_infos"].concat(response1.data.data["cinemas_infos"])
+                                }
+                            )
+                    }
+                )
+
+
+        }
+    })
+</script>
+
+
+
+</body>
+</html>
